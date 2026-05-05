@@ -191,3 +191,12 @@
 @utility shadow-glow {
   box-shadow: var(--shadow-glow);
 }
+
+@utility btn-blessing {
+  background-color: #1d4ed8;
+  color: #f8f6ee;
+  font-family: "Great Vibes", "Snell Roundhand", cursive;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  box-shadow: 0 0 24px 4px rgba(125, 200, 255, 0.75), 0 0 48px 8px rgba(125, 200, 255, 0.4);
+}
