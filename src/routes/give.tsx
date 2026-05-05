@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
-import { listCampaigns } from "@/server/campaigns.functions";
+import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/give")({
 
 function GivePage() {
   const { campaigns } = Route.useLoaderData();
-  const live = useCampaignsRealtime(campaigns);
+  const live = useCampaignsRealtime<Campaign>(campaigns as Campaign[]);
 
   return (
     <div>
