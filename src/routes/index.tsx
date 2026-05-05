@@ -72,8 +72,8 @@ function Hero() {
               size="lg"
               className="hover:opacity-95"
               style={{
-                backgroundColor: "#7dc8ff",
-                color: "#ffd700",
+                backgroundColor: "#1d4ed8",
+                color: "#ffffff",
                 boxShadow: "none",
               }}
             >
