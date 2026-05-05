@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { createBlessingCheckout } from "@/server/checkout.functions";
 import type { Campaign } from "@/server/campaigns.functions";
 
+type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
+
 const PRESETS = [25, 50, 100, 250];
 
 function formatMoney(n: number, currency = "USD") {
@@ -22,7 +24,7 @@ export function DonationPanel({
   campaign,
   donorCount,
 }: {
-  campaign: Campaign;
+  campaign: CampaignLite;
   donorCount: number;
 }) {
   const checkoutFn = useServerFn(createBlessingCheckout);

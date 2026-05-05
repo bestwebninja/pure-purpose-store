@@ -4,11 +4,16 @@ import { Card } from "@/components/ui/card";
 import { Users, MapPin } from "lucide-react";
 import type { Campaign } from "@/server/campaigns.functions";
 
+type CardCampaign = Pick<
+  Campaign,
+  "handle" | "title" | "image_url" | "short_description" | "location" | "donor_count" | "goal_amount" | "raised_amount" | "currency"
+>;
+
 function formatMoney(n: number, currency = "USD") {
   return new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
 }
 
-export function CampaignCard({ campaign }: { campaign: Campaign }) {
+export function CampaignCard({ campaign }: { campaign: CardCampaign }) {
   const pct = Math.min(100, campaign.goal_amount > 0 ? Math.round((campaign.raised_amount / campaign.goal_amount) * 100) : 0);
   return (
     <Link to="/campaign/$handle" params={{ handle: campaign.handle }} className="group">

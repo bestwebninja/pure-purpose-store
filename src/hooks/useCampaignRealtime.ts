@@ -12,6 +12,7 @@ export type RealtimeDonation = {
   id: string;
   campaign_id: string | null;
   amount: number;
+  currency: string;
   donor_name: string | null;
   message: string | null;
   is_anonymous: boolean;
