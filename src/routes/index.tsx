@@ -67,7 +67,17 @@ function Hero() {
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing
               </Link>
             </Button>
-            <Button asChild size="lg" variant="ghost">
+            <Button
+              asChild
+              size="lg"
+              className="hover:opacity-95"
+              style={{
+                backgroundColor: "#ffb6d5",
+                color: "#5a2a3d",
+                boxShadow:
+                  "0 0 20px 4px rgba(255, 182, 213, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
+              }}
+            >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
