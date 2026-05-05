@@ -36,7 +36,7 @@ export function SiteHeader() {
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link to="/login">Login</Link>
           </Button>
-          <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
+          <Button asChild size="lg" className="shadow-soft hover:opacity-95 text-base font-semibold" style={{ backgroundColor: "#bfe3ff", color: "#fafaf2" }}>
             <Link to="/give">Give a Blessing</Link>
           </Button>
         </div>
