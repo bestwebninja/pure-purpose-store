@@ -1,0 +1,97 @@
+import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import {
+  SHOPIFY_STORE_PERMANENT_DOMAIN,
+  SHOPIFY_STOREFRONT_URL,
+  SHOPIFY_STOREFRONT_TOKEN,
+} from "@/lib/shopify";
+
+const CART_CREATE = `
+  mutation cartCreate($input: CartInput!) {
+    cartCreate(input: $input) {
+      cart { id checkoutUrl }
+      userErrors { field message }
+    }
+  }
+`;
+
+function withChannel(url: string) {
+  try {
+    const u = new URL(url);
+    u.searchParams.set("channel", "online_store");
+    return u.toString();
+  } catch {
+    return url;
+  }
+}
+
+export const createBlessingCheckout = createServerFn({ method: "POST" })
+  .inputValidator((input: { campaignId: string; amount: number; donorName?: string; message?: string; isAnonymous?: boolean }) =>
+    z
+      .object({
+        campaignId: z.string().uuid(),
+        amount: z.number().min(1).max(100000),
+        donorName: z.string().max(120).optional(),
+        message: z.string().max(500).optional(),
+        isAnonymous: z.boolean().optional(),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data }) => {
+    const { data: campaign, error } = await supabaseAdmin
+      .from("campaigns")
+      .select("id, handle, title, shopify_variant_id")
+      .eq("id", data.campaignId)
+      .maybeSingle();
+    if (error || !campaign) {
+      throw new Error("Blessing not found");
+    }
+    if (!campaign.shopify_variant_id) {
+      throw new Error(
+        "This blessing isn't linked to a Shopify variant yet. Add a Shopify product and store its variant ID on the campaign.",
+      );
+    }
+
+    // Quantity = donation amount in whole units. Variant price should be 1.00 of the same currency
+    // so totals match. (Standard "donation product" pattern in Shopify.)
+    const quantity = Math.max(1, Math.round(data.amount));
+
+    const res = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({
+        query: CART_CREATE,
+        variables: {
+          input: {
+            lines: [{ quantity, merchandiseId: campaign.shopify_variant_id }],
+            attributes: [
+              { key: "campaign_id", value: campaign.id },
+              { key: "campaign_handle", value: campaign.handle },
+              { key: "donor_name", value: data.donorName ?? "" },
+              { key: "donor_message", value: data.message ?? "" },
+              { key: "is_anonymous", value: data.isAnonymous ? "true" : "false" },
+            ],
+            note: `Blessing for ${campaign.title}`,
+          },
+        },
+      }),
+    });
+
+    if (!res.ok) {
+      console.error("Shopify cartCreate HTTP error", res.status, await res.text());
+      throw new Error(`Checkout creation failed (${res.status})`);
+    }
+    const json = await res.json();
+    const errs = json?.data?.cartCreate?.userErrors ?? [];
+    if (errs.length) {
+      console.error("Shopify cartCreate userErrors", errs);
+      throw new Error(errs.map((e: { message: string }) => e.message).join(", "));
+    }
+    const checkoutUrl = json?.data?.cartCreate?.cart?.checkoutUrl;
+    if (!checkoutUrl) throw new Error("No checkout URL returned");
+    return { checkoutUrl: withChannel(checkoutUrl), domain: SHOPIFY_STORE_PERMANENT_DOMAIN };
+  });
