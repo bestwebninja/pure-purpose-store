@@ -51,7 +51,18 @@ function Hero() {
             real moments — every dollar tracked, every story honored.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Button asChild size="lg" className="btn-blessing text-2xl hover:opacity-95">
+            <Button
+              asChild
+              size="lg"
+              className="text-2xl hover:opacity-95"
+              style={{
+                backgroundColor: "#1d4ed8",
+                color: "#f8f6ee",
+                fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
+                boxShadow:
+                  "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
+              }}
+            >
               <Link to="/give">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing
               </Link>
@@ -144,7 +155,18 @@ function CTA() {
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         Join thousands of givers showing up for one another. It takes less than a minute.
       </p>
-      <Button asChild size="lg" className="mt-8 btn-blessing text-2xl hover:opacity-95">
+      <Button
+        asChild
+        size="lg"
+        className="mt-8 text-2xl hover:opacity-95"
+        style={{
+          backgroundColor: "#1d4ed8",
+          color: "#f8f6ee",
+          fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
+          boxShadow:
+            "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
+        }}
+      >
         <Link to="/give"><Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing</Link>
       </Button>
     </section>
