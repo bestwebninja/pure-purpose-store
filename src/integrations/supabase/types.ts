@@ -14,7 +14,143 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaigns: {
+        Row: {
+          beneficiary_name: string | null
+          created_at: string
+          currency: string
+          donor_count: number
+          featured: boolean
+          goal_amount: number
+          handle: string
+          id: string
+          image_url: string | null
+          location: string | null
+          raised_amount: number
+          shopify_product_id: string | null
+          shopify_variant_id: string | null
+          short_description: string | null
+          status: string
+          story: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          beneficiary_name?: string | null
+          created_at?: string
+          currency?: string
+          donor_count?: number
+          featured?: boolean
+          goal_amount?: number
+          handle: string
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          raised_amount?: number
+          shopify_product_id?: string | null
+          shopify_variant_id?: string | null
+          short_description?: string | null
+          status?: string
+          story?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          beneficiary_name?: string | null
+          created_at?: string
+          currency?: string
+          donor_count?: number
+          featured?: boolean
+          goal_amount?: number
+          handle?: string
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          raised_amount?: number
+          shopify_product_id?: string | null
+          shopify_variant_id?: string | null
+          short_description?: string | null
+          status?: string
+          story?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number
+          campaign_id: string | null
+          created_at: string
+          currency: string
+          donor_email: string | null
+          donor_name: string | null
+          id: string
+          is_anonymous: boolean
+          message: string | null
+          shopify_checkout_id: string | null
+          shopify_order_id: string
+        }
+        Insert: {
+          amount: number
+          campaign_id?: string | null
+          created_at?: string
+          currency?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          is_anonymous?: boolean
+          message?: string | null
+          shopify_checkout_id?: string | null
+          shopify_order_id: string
+        }
+        Update: {
+          amount?: number
+          campaign_id?: string | null
+          created_at?: string
+          currency?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          id?: string
+          is_anonymous?: boolean
+          message?: string | null
+          shopify_checkout_id?: string | null
+          shopify_order_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webhook_events: {
+        Row: {
+          event_id: string
+          id: string
+          processed_at: string
+          source: string
+          topic: string | null
+        }
+        Insert: {
+          event_id: string
+          id?: string
+          processed_at?: string
+          source: string
+          topic?: string | null
+        }
+        Update: {
+          event_id?: string
+          id?: string
+          processed_at?: string
+          source?: string
+          topic?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
