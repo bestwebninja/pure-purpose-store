@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-blessings.jpg";
-import { listCampaigns } from "@/server/campaigns.functions";
+import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { campaigns } = Route.useLoaderData();
-  const live = useCampaignsRealtime<typeof campaigns[number]>(campaigns);
+  const live = useCampaignsRealtime<Campaign>(campaigns as Campaign[]);
 
   return (
     <div>
