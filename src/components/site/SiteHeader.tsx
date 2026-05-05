@@ -14,8 +14,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-soft">
-            <Heart className="h-4 w-4" fill="currentColor" />
+          <span className="grid h-9 w-9 place-items-center rounded-full shadow-soft" style={{ background: "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)" }}>
+            <Heart className="h-4 w-4 text-white" fill="currentColor" />
           </span>
           <span className="text-display text-lg font-semibold tracking-tight">MyBlessings</span>
         </Link>
