@@ -1,0 +1,42 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ShieldCheck, BarChart3, Eye } from "lucide-react";
+
+export const Route = createFileRoute("/transparency")({
+  head: () => ({
+    meta: [
+      { title: "Transparency — MyBlessings" },
+      { name: "description", content: "Every blessing tracked. Every dollar accounted for. See how we keep MyBlessings honest." },
+      { property: "og:title", content: "Transparency — MyBlessings" },
+      { property: "og:description", content: "Every blessing tracked, every dollar accounted for." },
+    ],
+  }),
+  component: Transparency,
+});
+
+function Transparency() {
+  return (
+    <div className="mx-auto max-w-5xl px-6 py-20">
+      <header>
+        <h1 className="text-display text-4xl font-semibold md:text-6xl">Transparency by default.</h1>
+        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+          Trust isn't a marketing claim — it's a workflow. Here's exactly how we account for every
+          blessing on the platform.
+        </p>
+      </header>
+
+      <div className="mt-12 grid gap-6 md:grid-cols-3">
+        {[
+          { icon: BarChart3, title: "Live progress", body: "Every campaign's raised total updates in real time as donations clear." },
+          { icon: Eye, title: "Public donor history", body: "Every blessing — anonymous or not — is publicly listed on the campaign page." },
+          { icon: ShieldCheck, title: "Secure checkout", body: "Payments go through Shopify's hosted checkout. We never touch card data." },
+        ].map((it) => (
+          <div key={it.title} className="rounded-2xl border border-border/60 bg-card p-6 shadow-soft">
+            <it.icon className="h-6 w-6 text-primary" />
+            <h3 className="text-display mt-4 text-lg font-semibold">{it.title}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{it.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
