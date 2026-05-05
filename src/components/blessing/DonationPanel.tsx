@@ -137,7 +137,14 @@ export function DonationPanel({
         onClick={handleGive}
         disabled={loading}
         size="lg"
-        className="w-full btn-blessing text-2xl hover:opacity-95"
+        className="w-full text-2xl hover:opacity-95"
+        style={{
+          backgroundColor: "#1d4ed8",
+          color: "#f8f6ee",
+          fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
+          boxShadow:
+            "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
+        }}
       >
         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Heart className="mr-2 h-4 w-4" fill="currentColor" />}
         Give a Blessing
