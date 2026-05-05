@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { campaigns } = Route.useLoaderData();
-  const live = useCampaignsRealtime(campaigns);
+  const live = useCampaignsRealtime<typeof campaigns[number]>(campaigns);
 
   return (
     <div>
