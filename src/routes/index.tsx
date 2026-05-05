@@ -144,7 +144,7 @@ function CTA() {
       <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
         Join thousands of givers showing up for one another. It takes less than a minute.
       </p>
-      <Button asChild size="lg" className="mt-8 bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
+      <Button asChild size="lg" className="mt-8 hover:opacity-95 text-base font-semibold" style={{ backgroundColor: "#1d4ed8", color: "#f8f6ee", boxShadow: "0 0 24px 4px rgba(125, 200, 255, 0.75), 0 0 48px 8px rgba(125, 200, 255, 0.4)" }}>
         <Link to="/give"><Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing</Link>
       </Button>
     </section>
