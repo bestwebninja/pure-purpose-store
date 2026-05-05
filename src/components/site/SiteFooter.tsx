@@ -7,8 +7,8 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary text-primary-foreground">
-              <Heart className="h-4 w-4" fill="currentColor" />
+            <span className="grid h-9 w-9 place-items-center rounded-full shadow-soft" style={{ background: "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)" }}>
+              <Heart className="h-4 w-4 text-white" fill="currentColor" />
             </span>
             <span className="text-display text-lg font-semibold">MyBlessings</span>
           </div>
