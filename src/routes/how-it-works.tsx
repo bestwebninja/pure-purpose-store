@@ -51,7 +51,7 @@ function HowItWorks() {
           Payments are processed by Shopify. Campaign progress updates live from our backend. You
           can always see where your blessing went.
         </p>
-        <Button asChild className="mt-6 bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
+        <Button asChild size="lg" className="mt-6 btn-blessing text-2xl hover:opacity-95">
           <Link to="/give">Give a Blessing</Link>
         </Button>
       </div>
