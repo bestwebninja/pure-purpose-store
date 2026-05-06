@@ -81,6 +81,9 @@ function Hero() {
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link to="/become-blessing-sponsor">Become a Blessing Sponsor</Link>
+            </Button>
           </div>
           <div className="flex items-center gap-6 pt-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-success" /> 100% transparent</span>
