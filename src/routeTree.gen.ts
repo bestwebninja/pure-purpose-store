@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
+import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveRouteImport } from './routes/give'
@@ -21,6 +22,11 @@ import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
   path: '/transparency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NgoRoute = NgoRouteImport.update({
+  id: '/ngo',
+  path: '/ngo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRoute
   '/transparency': typeof TransparencyRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRoute
   '/transparency': typeof TransparencyRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRoute
   '/transparency': typeof TransparencyRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
     | '/campaign/$handle'
     | '/api/public/shopify-webhook'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
     | '/campaign/$handle'
     | '/api/public/shopify-webhook'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
     | '/campaign/$handle'
     | '/api/public/shopify-webhook'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   GiveRoute: typeof GiveRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
+  NgoRoute: typeof NgoRoute
   TransparencyRoute: typeof TransparencyRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/transparency'
       fullPath: '/transparency'
       preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ngo': {
+      id: '/ngo'
+      path: '/ngo'
+      fullPath: '/ngo'
+      preLoaderRoute: typeof NgoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   GiveRoute: GiveRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
+  NgoRoute: NgoRoute,
   TransparencyRoute: TransparencyRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
@@ -208,3 +229,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
