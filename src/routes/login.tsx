@@ -32,12 +32,12 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const routeAfterAuth = async (userId: string) => {
-    const [{ isAdmin }, { data: sponsorRow }] = await Promise.all([
-      checkAdmin(),
+    const [adminRes, sponsorRes] = await Promise.all([
+      checkAdmin().catch(() => ({ isAdmin: false })),
       supabase.from("sponsors").select("id").eq("user_id", userId).maybeSingle(),
     ]);
-    if (isAdmin) navigate({ to: "/admin/command-center" });
-    else if (sponsorRow) navigate({ to: "/sponsor/dashboard" });
+    if (adminRes?.isAdmin) navigate({ to: "/admin/command-center" });
+    else if (sponsorRes.data) navigate({ to: "/sponsor/dashboard" });
     else navigate({ to: "/" });
   };
 
