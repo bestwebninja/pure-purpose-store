@@ -59,13 +59,22 @@ export function SiteHeader() {
             </Link>
           ))}
           {isAdmin && (
+            <>
             <Link
               to="/admin/ngo-dashboard"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
             >
-              Admin
+              NGOs
             </Link>
+            <Link
+              to="/admin/command-center"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Command Center
+            </Link>
+            </>
           )}
         </nav>
         <div className="flex items-center gap-2">
