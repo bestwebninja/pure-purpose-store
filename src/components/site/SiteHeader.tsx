@@ -124,16 +124,16 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-2">
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+            <Button asChild variant="ghost" size="lg" className="hidden text-base md:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
           {userId ? (
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={handleSignOut}>
+            <Button variant="ghost" size="lg" className="hidden text-base sm:inline-flex hover:bg-yellow-300 hover:text-foreground" onClick={handleSignOut}>
               Sign out
             </Button>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+            <Button asChild variant="ghost" size="lg" className="hidden text-base sm:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/login">Login</Link>
             </Button>
           )}
