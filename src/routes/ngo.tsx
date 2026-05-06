@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, ShieldCheck, Sparkles } from "lucide-react";
@@ -16,6 +16,9 @@ export const Route = createFileRoute("/ngo")({
 });
 
 function NgoLanding() {
+  const matches = useMatches();
+  const hasChild = matches.some((m) => m.routeId !== "/ngo" && m.routeId.startsWith("/ngo"));
+  if (hasChild) return <Outlet />;
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <div className="text-center">
