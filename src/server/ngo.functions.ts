@@ -126,3 +126,89 @@ export const listCategories = createServerFn({ method: "GET" }).handler(async ()
   if (error) throw new Error(error.message);
   return { categories: data ?? [] };
 });
+
+// ─── Admin Command Center: real ops snapshot ─────────────────────────────
+export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { userId } = context;
+    const { data: roleRow } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (!roleRow) throw new Error("Forbidden: admin role required");
+
+    const [
+      donationsAgg,
+      campaignsAgg,
+      ngoAgg,
+      webhookCount,
+      ledgerEntries,
+      recentDonations,
+      recentWebhooks,
+    ] = await Promise.all([
+      supabaseAdmin.from("donations").select("amount, currency"),
+      supabaseAdmin.from("campaigns").select("status"),
+      supabaseAdmin.from("ngo_applications").select("status"),
+      supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }),
+      supabaseAdmin.from("ledger_entries").select("donation_id, side, amount"),
+      supabaseAdmin.from("donations").select("id, amount, currency, donor_name, created_at, campaign_id").order("created_at", { ascending: false }).limit(10),
+      supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10),
+    ]);
+
+    // Donations totals
+    const donations = donationsAgg.data ?? [];
+    const totalRaised = donations.reduce((s, d) => s + Number(d.amount ?? 0), 0);
+
+    // Campaign breakdown
+    const campaignStatus: Record<string, number> = {};
+    for (const c of campaignsAgg.data ?? []) campaignStatus[c.status] = (campaignStatus[c.status] ?? 0) + 1;
+
+    // NGO breakdown
+    const ngoStatus: Record<string, number> = {};
+    for (const n of ngoAgg.data ?? []) ngoStatus[n.status] = (ngoStatus[n.status] ?? 0) + 1;
+
+    // Ledger balance check (per donation: debits == credits)
+    const ledgerTotals = new Map<string, { d: number; c: number }>();
+    for (const e of ledgerEntries.data ?? []) {
+      const key = e.donation_id ?? "_null";
+      const t = ledgerTotals.get(key) ?? { d: 0, c: 0 };
+      if (e.side === "debit") t.d += Number(e.amount);
+      else t.c += Number(e.amount);
+      ledgerTotals.set(key, t);
+    }
+    const unbalanced = [...ledgerTotals.entries()].filter(([, t]) => Math.abs(t.d - t.c) > 0.001).map(([k]) => k);
+
+    return {
+      donations: {
+        count: donations.length,
+        totalRaised,
+      },
+      campaigns: {
+        total: (campaignsAgg.data ?? []).length,
+        byStatus: campaignStatus,
+      },
+      ngo: {
+        total: (ngoAgg.data ?? []).length,
+        byStatus: ngoStatus,
+      },
+      pipeline: {
+        webhookEventsSeen: webhookCount.count ?? 0,
+        donationsRecorded: donations.length,
+        shopifyWebhookSecretConfigured: !!process.env.SHOPIFY_WEBHOOK_SECRET,
+      },
+      ledger: {
+        entries: ledgerEntries.data?.length ?? 0,
+        donationsPosted: ledgerTotals.size,
+        unbalancedCount: unbalanced.length,
+        balanced: unbalanced.length === 0,
+      },
+      recent: {
+        donations: recentDonations.data ?? [],
+        webhooks: recentWebhooks.data ?? [],
+      },
+      generatedAt: new Date().toISOString(),
+    };
+  });
