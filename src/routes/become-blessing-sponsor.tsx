@@ -28,7 +28,9 @@ function BecomeSponsor() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [form, setForm] = useState({
     sponsor_role: "" as (typeof ROLES)[number] | "",
-    display_name: "",
+    first_name: "",
+    last_name: "",
+    email: "",
     phone: "",
     organization_name: "",
     organization_details: "",
@@ -42,8 +44,14 @@ function BecomeSponsor() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setAuthed(!!data.user));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setAuthed(!!s?.user));
+    supabase.auth.getUser().then(({ data }) => {
+      setAuthed(!!data.user);
+      if (data.user?.email) setForm((f) => (f.email ? f : { ...f, email: data.user!.email! }));
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      setAuthed(!!s?.user);
+      if (s?.user?.email) setForm((f) => (f.email ? f : { ...f, email: s.user!.email! }));
+    });
     return () => sub.subscription.unsubscribe();
   }, []);
 
@@ -98,7 +106,11 @@ function BecomeSponsor() {
                   type="button"
                   key={r}
                   onClick={() => setForm({ ...form, sponsor_role: r })}
-                  className={`rounded-md border px-3 py-2 text-sm transition ${form.sponsor_role === r ? "border-primary bg-primary/10 font-medium" : "border-border hover:border-primary/50"}`}
+                  className={`rounded-md border px-3 py-2 text-sm transition ${
+                    form.sponsor_role === r
+                      ? "border-yellow-400 bg-yellow-300 font-semibold text-black shadow-[0_0_18px_rgba(250,204,21,0.85)]"
+                      : "border-border hover:border-yellow-400/60"
+                  }`}
                 >
                   {r}
                 </button>
@@ -106,40 +118,50 @@ function BecomeSponsor() {
             </div>
           </div>
 
+          {form.sponsor_role && (
+          <>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <Label htmlFor="name">Your full name</Label>
-              <Input id="name" value={form.display_name} onChange={(e) => setForm({ ...form, display_name: e.target.value })} required />
+              <Label htmlFor="first_name">First name</Label>
+              <Input id="first_name" className={glow} value={form.first_name} onChange={(e) => setForm({ ...form, first_name: e.target.value })} required />
+            </div>
+            <div>
+              <Label htmlFor="last_name">Surname</Label>
+              <Input id="last_name" className={glow} value={form.last_name} onChange={(e) => setForm({ ...form, last_name: e.target.value })} required />
+            </div>
+            <div>
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" className={glow} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
             </div>
             <div>
               <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              <Input id="phone" type="tel" className={glow} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             </div>
             <div>
               <Label htmlFor="org">Organisation name</Label>
-              <Input id="org" value={form.organization_name} onChange={(e) => setForm({ ...form, organization_name: e.target.value })} />
+              <Input id="org" className={glow} value={form.organization_name} onChange={(e) => setForm({ ...form, organization_name: e.target.value })} />
             </div>
             <div>
               <Label htmlFor="country">Country</Label>
-              <Input id="country" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
+              <Input id="country" className={glow} value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
             </div>
             <div>
               <Label htmlFor="city">City</Label>
-              <Input id="city" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+              <Input id="city" className={glow} value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
             </div>
             <div>
               <Label htmlFor="state">State / Region</Label>
-              <Input id="state" value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
+              <Input id="state" className={glow} value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
             </div>
             <div>
               <Label htmlFor="zip">Zip / Postal</Label>
-              <Input id="zip" value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} />
+              <Input id="zip" className={glow} value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} />
             </div>
           </div>
 
           <div>
             <Label htmlFor="details">Organisation details</Label>
-            <Textarea id="details" rows={3} value={form.organization_details} onChange={(e) => setForm({ ...form, organization_details: e.target.value })} />
+            <Textarea id="details" rows={3} className={glow} value={form.organization_details} onChange={(e) => setForm({ ...form, organization_details: e.target.value })} />
           </div>
 
           <div>
@@ -156,14 +178,19 @@ function BecomeSponsor() {
 
           <div>
             <Label htmlFor="verif">Verification notes</Label>
-            <Textarea id="verif" rows={3} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
+            <Textarea id="verif" rows={3} className={glow} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
           </div>
 
           <Button type="submit" className="w-full" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit for verification"}
           </Button>
+          </>
+          )}
         </form>
       </Card>
     </div>
   );
 }
+
+const glow =
+  "border-yellow-300/70 bg-yellow-50/40 shadow-[0_0_10px_rgba(253,224,71,0.45)] focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
