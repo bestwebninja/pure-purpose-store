@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { checkIsAdmin } from "@/server/ngo.functions";
 
 const NAV = [
   { to: "/", label: "Blessings" },
@@ -15,6 +17,7 @@ const NAV = [
 
 export function SiteHeader() {
   const navigate = useNavigate();
+  const checkAdmin = useServerFn(checkIsAdmin);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isSponsor, setIsSponsor] = useState(false);
@@ -29,13 +32,13 @@ export function SiteHeader() {
         }
         return;
       }
-      const [{ data: roleRow }, { data: sponsorRow }] = await Promise.all([
-        supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin").maybeSingle(),
+      const [adminRes, sponsorRes] = await Promise.all([
+        checkAdmin().catch(() => ({ isAdmin: false })),
         supabase.from("sponsors").select("id").eq("user_id", uid).maybeSingle(),
       ]);
       if (!cancelled) {
-        setIsAdmin(!!roleRow);
-        setIsSponsor(!!sponsorRow);
+        setIsAdmin(!!adminRes?.isAdmin);
+        setIsSponsor(!!sponsorRes.data);
         setUserId(uid);
       }
     };
@@ -45,7 +48,7 @@ export function SiteHeader() {
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-  }, []);
+  }, [checkAdmin]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -100,10 +103,9 @@ export function SiteHeader() {
             </Link>
             <Link
               to="/admin/command-center"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
+              className="rounded-md bg-yellow-300 px-3 py-1 text-sm font-semibold text-foreground shadow-[0_0_14px_rgba(250,204,21,0.7)] hover:bg-yellow-400"
             >
-              Command Center
+              Admin Dashboard
             </Link>
             </>
           )}
