@@ -187,6 +187,47 @@ export type Database = {
           },
         ]
       }
+      ledger_entries: {
+        Row: {
+          account: string
+          amount: number
+          created_at: string
+          currency: string
+          donation_id: string | null
+          id: string
+          memo: string | null
+          side: string
+        }
+        Insert: {
+          account: string
+          amount: number
+          created_at?: string
+          currency?: string
+          donation_id?: string | null
+          id?: string
+          memo?: string | null
+          side: string
+        }
+        Update: {
+          account?: string
+          amount?: number
+          created_at?: string
+          currency?: string
+          donation_id?: string | null
+          id?: string
+          memo?: string | null
+          side?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_donation_id_fkey"
+            columns: ["donation_id"]
+            isOneToOne: false
+            referencedRelation: "donations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ngo_applications: {
         Row: {
           causes: string[]
