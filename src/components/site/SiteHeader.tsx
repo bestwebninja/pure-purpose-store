@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,21 +14,30 @@ const NAV = [
 ] as const;
 
 export function SiteHeader() {
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [isSponsor, setIsSponsor] = useState(false);
   useEffect(() => {
     let cancelled = false;
-    const check = async (userId: string | undefined) => {
-      if (!userId) {
-        if (!cancelled) setIsAdmin(false);
+    const check = async (uid: string | undefined) => {
+      if (!uid) {
+        if (!cancelled) {
+          setIsAdmin(false);
+          setIsSponsor(false);
+          setUserId(null);
+        }
         return;
       }
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .eq("role", "admin")
-        .maybeSingle();
-      if (!cancelled) setIsAdmin(!!data);
+      const [{ data: roleRow }, { data: sponsorRow }] = await Promise.all([
+        supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin").maybeSingle(),
+        supabase.from("sponsors").select("id").eq("user_id", uid).maybeSingle(),
+      ]);
+      if (!cancelled) {
+        setIsAdmin(!!roleRow);
+        setIsSponsor(!!sponsorRow);
+        setUserId(uid);
+      }
     };
     supabase.auth.getUser().then(({ data }) => check(data.user?.id));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => check(session?.user?.id));
@@ -37,6 +46,12 @@ export function SiteHeader() {
       sub.subscription.unsubscribe();
     };
   }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/" });
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
@@ -58,6 +73,15 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {isSponsor && (
+            <Link
+              to="/sponsor/dashboard"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Sponsor
+            </Link>
+          )}
           {isAdmin && (
             <>
             <Link
@@ -78,9 +102,20 @@ export function SiteHeader() {
           )}
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-            <Link to="/login">Login</Link>
-          </Button>
+          {!isSponsor && (
+            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
+              <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
+            </Button>
+          )}
+          {userId ? (
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={handleSignOut}>
+              Sign out
+            </Button>
+          ) : (
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+              <Link to="/login">Login</Link>
+            </Button>
+          )}
           <Button
             asChild
             size="lg"

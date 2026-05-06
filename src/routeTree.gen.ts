@@ -15,8 +15,10 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveRouteImport } from './routes/give'
 import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
@@ -55,6 +57,11 @@ const CategoriesRoute = CategoriesRouteImport.update({
   path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BecomeBlessingSponsorRoute = BecomeBlessingSponsorRouteImport.update({
+  id: '/become-blessing-sponsor',
+  path: '/become-blessing-sponsor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -63,6 +70,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorDashboardRoute = SponsorDashboardRouteImport.update({
+  id: '/sponsor/dashboard',
+  path: '/sponsor/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
@@ -104,6 +116,7 @@ const ApiPublicGoLiveReportRoute = ApiPublicGoLiveReportRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -114,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -121,6 +135,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -131,6 +146,7 @@ export interface FileRoutesByTo {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -139,6 +155,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -149,6 +166,7 @@ export interface FileRoutesById {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -158,6 +176,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/become-blessing-sponsor'
     | '/categories'
     | '/give'
     | '/how-it-works'
@@ -168,6 +187,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/sponsor/dashboard'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -175,6 +195,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/become-blessing-sponsor'
     | '/categories'
     | '/give'
     | '/how-it-works'
@@ -185,6 +206,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/sponsor/dashboard'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -192,6 +214,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/become-blessing-sponsor'
     | '/categories'
     | '/give'
     | '/how-it-works'
@@ -202,6 +225,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/sponsor/dashboard'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -210,6 +234,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRoute
   GiveRoute: typeof GiveRoute
   HowItWorksRoute: typeof HowItWorksRoute
@@ -219,6 +244,7 @@ export interface RootRouteChildren {
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
+  SponsorDashboardRoute: typeof SponsorDashboardRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
@@ -268,6 +294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/become-blessing-sponsor': {
+      id: '/become-blessing-sponsor'
+      path: '/become-blessing-sponsor'
+      fullPath: '/become-blessing-sponsor'
+      preLoaderRoute: typeof BecomeBlessingSponsorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -280,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsor/dashboard': {
+      id: '/sponsor/dashboard'
+      path: '/sponsor/dashboard'
+      fullPath: '/sponsor/dashboard'
+      preLoaderRoute: typeof SponsorDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ngo/onboarding': {
@@ -347,6 +387,7 @@ const NgoRouteWithChildren = NgoRoute._addFileChildren(NgoRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRoute,
   GiveRoute: GiveRoute,
   HowItWorksRoute: HowItWorksRoute,
@@ -356,6 +397,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   CampaignHandleRoute: CampaignHandleRoute,
+  SponsorDashboardRoute: SponsorDashboardRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,

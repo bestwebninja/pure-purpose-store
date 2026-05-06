@@ -308,6 +308,57 @@ export type Database = {
           },
         ]
       }
+      sponsors: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          help_interests: string[]
+          id: string
+          organization_details: string | null
+          organization_name: string | null
+          sponsor_role: string
+          state: string | null
+          updated_at: string
+          user_id: string
+          verification_notes: string | null
+          verification_status: string
+          zip: string | null
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          help_interests?: string[]
+          id?: string
+          organization_details?: string | null
+          organization_name?: string | null
+          sponsor_role: string
+          state?: string | null
+          updated_at?: string
+          user_id: string
+          verification_notes?: string | null
+          verification_status?: string
+          zip?: string | null
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          help_interests?: string[]
+          id?: string
+          organization_details?: string | null
+          organization_name?: string | null
+          sponsor_role?: string
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+          verification_notes?: string | null
+          verification_status?: string
+          zip?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -367,7 +418,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "ngo" | "user"
+      app_role: "admin" | "ngo" | "user" | "sponsor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -495,7 +546,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "ngo", "user"],
+      app_role: ["admin", "ngo", "user", "sponsor"],
     },
   },
 } as const
