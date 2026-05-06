@@ -77,7 +77,10 @@ function Login() {
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24">
-      <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-soft">
+      <span
+        className="grid h-12 w-12 place-items-center rounded-full text-white shadow-soft"
+        style={{ background: "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)" }}
+      >
         <Heart className="h-5 w-5" fill="currentColor" />
       </span>
       <h1 className="text-display mt-6 text-3xl font-semibold">
