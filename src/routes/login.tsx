@@ -28,13 +28,26 @@ function Login() {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const withTimeout = async <T,>(promise: Promise<T>, ms = 7000): Promise<T | null> => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const timeout = new Promise<null>((resolve) => {
+      timeoutId = setTimeout(() => resolve(null), ms);
+    });
+    const result = await Promise.race([promise, timeout]);
+    if (timeoutId) clearTimeout(timeoutId);
+    return result;
+  };
+
   const routeAfterAuth = async (userId: string) => {
-    const [adminRes, sponsorRes] = await Promise.allSettled([
-      supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
-      supabase.from("sponsors").select("id").eq("user_id", userId).maybeSingle(),
-    ]);
-    const isAdmin = adminRes.status === "fulfilled" && !!adminRes.value.data;
-    const isSponsor = sponsorRes.status === "fulfilled" && !!sponsorRes.value.data;
+    const roles = await withTimeout(
+      Promise.allSettled([
+        supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
+        supabase.from("sponsors").select("id").eq("user_id", userId).maybeSingle(),
+      ]),
+    );
+    const [adminRes, sponsorRes] = roles ?? [];
+    const isAdmin = adminRes?.status === "fulfilled" && !!adminRes.value.data;
+    const isSponsor = sponsorRes?.status === "fulfilled" && !!sponsorRes.value.data;
     if (isAdmin) navigate({ to: "/admin/command-center" });
     else if (isSponsor) navigate({ to: "/sponsor/dashboard" });
     else navigate({ to: "/" });

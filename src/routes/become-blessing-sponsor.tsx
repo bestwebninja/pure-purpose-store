@@ -49,8 +49,10 @@ function BecomeSponsor() {
       if (data.user?.email) setForm((f) => (f.email ? f : { ...f, email: data.user!.email! }));
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      setAuthed(!!s?.user);
-      if (s?.user?.email) setForm((f) => (f.email ? f : { ...f, email: s.user!.email! }));
+      window.setTimeout(() => {
+        setAuthed(!!s?.user);
+        if (s?.user?.email) setForm((f) => (f.email ? f : { ...f, email: s.user!.email! }));
+      }, 0);
     });
     return () => sub.subscription.unsubscribe();
   }, []);

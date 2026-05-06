@@ -37,7 +37,9 @@ export function SiteHeader() {
       }
     };
     supabase.auth.getUser().then(({ data }) => check(data.user?.id));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => check(session?.user?.id));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      window.setTimeout(() => check(session?.user?.id), 0);
+    });
     return () => {
       cancelled = true;
       sub.subscription.unsubscribe();
