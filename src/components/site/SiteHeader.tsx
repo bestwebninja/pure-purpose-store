@@ -1,10 +1,8 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { checkIsAdmin } from "@/server/ngo.functions";
 
 const NAV = [
   { to: "/", label: "Blessings" },
@@ -17,7 +15,6 @@ const NAV = [
 
 export function SiteHeader() {
   const navigate = useNavigate();
-  const checkAdmin = useServerFn(checkIsAdmin);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isSponsor, setIsSponsor] = useState(false);
@@ -32,13 +29,13 @@ export function SiteHeader() {
         }
         return;
       }
-      const [adminRes, sponsorRes] = await Promise.all([
-        checkAdmin().catch(() => ({ isAdmin: false })),
+      const [adminRes, sponsorRes] = await Promise.allSettled([
+        supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin").maybeSingle(),
         supabase.from("sponsors").select("id").eq("user_id", uid).maybeSingle(),
       ]);
       if (!cancelled) {
-        setIsAdmin(!!adminRes?.isAdmin);
-        setIsSponsor(!!sponsorRes.data);
+        setIsAdmin(adminRes.status === "fulfilled" && !!adminRes.value.data);
+        setIsSponsor(sponsorRes.status === "fulfilled" && !!sponsorRes.value.data);
         setUserId(uid);
       }
     };
@@ -48,7 +45,7 @@ export function SiteHeader() {
       cancelled = true;
       sub.subscription.unsubscribe();
     };
-  }, [checkAdmin]);
+  }, []);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
