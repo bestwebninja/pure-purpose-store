@@ -81,7 +81,12 @@ function Hero() {
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline">
+            <Button
+              asChild
+              size="lg"
+              className="hover:bg-yellow-400"
+              style={{ backgroundColor: "#fde047", color: "#1f2937", boxShadow: "none" }}
+            >
               <Link to="/become-blessing-sponsor">Become a Blessing Sponsor</Link>
             </Button>
           </div>
