@@ -8,8 +8,6 @@ const NAV = [
   { to: "/", label: "Blessings" },
   { to: "/categories", label: "Categories" },
   { to: "/ngo", label: "NGO" },
-  { to: "/transparency", label: "Transparency" },
-  { to: "/about", label: "About" },
 ] as const;
 
 export function SiteHeader() {
