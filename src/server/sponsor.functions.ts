@@ -13,7 +13,9 @@ const SponsorSchema = z.object({
   country: z.string().trim().max(80).optional().default(""),
   help_interests: z.array(z.string().min(1).max(60)).max(20).default([]),
   verification_notes: z.string().trim().max(2000).optional().default(""),
-  display_name: z.string().trim().max(120).optional().default(""),
+  first_name: z.string().trim().max(80).optional().default(""),
+  last_name: z.string().trim().max(80).optional().default(""),
+  email: z.string().trim().email().max(255).optional().or(z.literal("")).default(""),
   phone: z.string().trim().max(40).optional().default(""),
 });
 
@@ -22,12 +24,14 @@ export const createSponsorProfile = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SponsorSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { userId } = context;
+    const display_name = [data.first_name, data.last_name].filter(Boolean).join(" ").trim();
     // Ensure profile exists / is updated with name+phone
-    if (data.display_name || data.phone) {
+    if (display_name || data.phone || data.email) {
       await supabaseAdmin.from("profiles").upsert(
         {
           user_id: userId,
-          display_name: data.display_name || null,
+          display_name: display_name || null,
+          email: data.email || null,
           phone: data.phone || null,
         },
         { onConflict: "user_id" }
