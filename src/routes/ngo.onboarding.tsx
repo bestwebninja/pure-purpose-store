@@ -60,25 +60,26 @@ function Onboarding() {
     }
   };
 
+  const inputCls = "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-display text-3xl font-semibold">NGO Onboarding</h1>
-      <p className="mt-2 text-muted-foreground">Step {step} of 3</p>
+    <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
+      <h1 className="text-display text-3xl font-semibold text-white">NGO Onboarding</h1>
+      <p className="mt-2 text-white/80">Step {step} of 3</p>
 
-      <Card className="mt-8 space-y-5 p-6">
+      <Card className="mt-8 space-y-5 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>
         {step === 1 && (
           <>
             <div className="space-y-2">
               <Label>Organization name</Label>
-              <Input value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={120} />
+              <Input className={inputCls} value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={120} />
             </div>
             <div className="space-y-2">
               <Label>Contact email</Label>
-              <Input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} maxLength={200} />
+              <Input className={inputCls} type="email" value={form.email} onChange={(e) => update("email", e.target.value)} maxLength={200} />
             </div>
             <div className="space-y-2">
               <Label>Country</Label>
-              <Input value={form.country} onChange={(e) => update("country", e.target.value)} maxLength={80} />
+              <Input className={inputCls} value={form.country} onChange={(e) => update("country", e.target.value)} maxLength={80} />
             </div>
             <div className="flex justify-end">
               <Button onClick={() => setStep(2)} disabled={!form.name || !form.email || !form.country}>Next</Button>
@@ -100,7 +101,7 @@ function Onboarding() {
             </div>
             <div className="space-y-2">
               <Label>Geography served</Label>
-              <Input value={form.geography} onChange={(e) => update("geography", e.target.value)} placeholder="e.g. East Africa" maxLength={120} />
+              <Input className={inputCls} value={form.geography} onChange={(e) => update("geography", e.target.value)} placeholder="e.g. East Africa" maxLength={120} />
             </div>
             <div className="flex justify-between">
               <Button variant="ghost" onClick={() => setStep(1)}>Back</Button>
@@ -112,11 +113,11 @@ function Onboarding() {
           <>
             <h3 className="font-semibold">Review your application</h3>
             <dl className="space-y-2 text-sm">
-              <div><dt className="text-muted-foreground">Organization</dt><dd>{form.name}</dd></div>
-              <div><dt className="text-muted-foreground">Email</dt><dd>{form.email}</dd></div>
-              <div><dt className="text-muted-foreground">Country</dt><dd>{form.country}</dd></div>
-              <div><dt className="text-muted-foreground">Geography</dt><dd>{form.geography}</dd></div>
-              <div><dt className="text-muted-foreground">Causes</dt><dd>{form.causes.join(", ")}</dd></div>
+              <div><dt className="text-white/70">Organization</dt><dd>{form.name}</dd></div>
+              <div><dt className="text-white/70">Email</dt><dd>{form.email}</dd></div>
+              <div><dt className="text-white/70">Country</dt><dd>{form.country}</dd></div>
+              <div><dt className="text-white/70">Geography</dt><dd>{form.geography}</dd></div>
+              <div><dt className="text-white/70">Causes</dt><dd>{form.causes.join(", ")}</dd></div>
             </dl>
             <div className="flex justify-between">
               <Button variant="ghost" onClick={() => setStep(2)}>Back</Button>
