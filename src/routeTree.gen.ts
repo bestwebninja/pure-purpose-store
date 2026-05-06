@@ -20,6 +20,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
+import { Route as MeGivingRouteImport } from './routes/me.giving'
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
@@ -83,6 +84,11 @@ const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => NgoRoute,
 } as any)
+const MeGivingRoute = MeGivingRouteImport.update({
+  id: '/me/giving',
+  path: '/me/giving',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesSlugRoute = CategoriesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
+  '/me/giving': typeof MeGivingRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
+  '/me/giving': typeof MeGivingRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
+  '/me/giving': typeof MeGivingRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/categories/$slug'
+    | '/me/giving'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/categories/$slug'
+    | '/me/giving'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/categories/$slug'
+    | '/me/giving'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -256,6 +268,7 @@ export interface RootRouteChildren {
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
+  MeGivingRoute: typeof MeGivingRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/ngo/onboarding'
       preLoaderRoute: typeof NgoOnboardingRouteImport
       parentRoute: typeof NgoRoute
+    }
+    '/me/giving': {
+      id: '/me/giving'
+      path: '/me/giving'
+      fullPath: '/me/giving'
+      preLoaderRoute: typeof MeGivingRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/categories/$slug': {
       id: '/categories/$slug'
@@ -428,6 +448,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   CampaignHandleRoute: CampaignHandleRoute,
+  MeGivingRoute: MeGivingRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
@@ -436,3 +457,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
