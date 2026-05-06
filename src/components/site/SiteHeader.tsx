@@ -1,7 +1,15 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
+import { Heart, ChevronDown, UserCircle2, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
@@ -53,14 +61,14 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
+        <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-full shadow-soft" style={{ background: "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)" }}>
             <Heart className="h-4 w-4 text-white" fill="currentColor" />
           </span>
           <span className="text-display text-lg font-semibold tracking-tight">MyBlessings</span>
         </Link>
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-6 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -82,67 +90,66 @@ export function SiteHeader() {
             </Link>
           )}
           {isAdmin && (
-            <>
-            <Link
-              to="/admin/ngo-dashboard"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              NGOs
-            </Link>
-            <Link
-              to="/admin/sponsors"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              Sponsors
-            </Link>
-            <Link
-              to="/admin/command-center"
-              className="rounded-md bg-yellow-300 px-3 py-1 text-sm font-semibold text-foreground shadow-[0_0_14px_rgba(250,204,21,0.7)] hover:bg-yellow-400"
-            >
-              Admin Dashboard
-            </Link>
-            </>
-          )}
-          {userId && (
-            <>
-            <Link
-              to="/me/giving"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              My Giving
-            </Link>
-            <Link
-              to="/me/profile"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground" }}
-            >
-              Profile
-            </Link>
-            </>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md bg-yellow-300 px-3 py-1.5 text-sm font-semibold text-foreground shadow-[0_0_14px_rgba(250,204,21,0.7)] outline-none transition hover:bg-yellow-400">
+                <ShieldCheck className="h-4 w-4" />
+                Admin
+                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52">
+                <DropdownMenuLabel>Admin tools</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/command-center">Command Center</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/ngo-dashboard">NGOs</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/sponsors">Sponsors</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {!isSponsor && (
-            <Button asChild variant="ghost" size="lg" className="hidden text-base md:inline-flex hover:bg-yellow-300 hover:text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
           {userId ? (
-            <Button variant="ghost" size="lg" className="hidden text-base sm:inline-flex hover:bg-yellow-300 hover:text-foreground" onClick={handleSignOut}>
-              Sign out
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-muted hover:text-foreground sm:inline-flex">
+                <UserCircle2 className="h-5 w-5" />
+                Account
+                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/me/giving">My Giving</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/me/profile">Profile</Link>
+                </DropdownMenuItem>
+                {isSponsor && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/sponsor/dashboard">Sponsor Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onSelect={handleSignOut}>Sign out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Button asChild variant="ghost" size="lg" className="hidden text-base sm:inline-flex hover:bg-yellow-300 hover:text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/login">Login</Link>
             </Button>
           )}
           <Button
             asChild
-            size="lg"
-            className="text-2xl hover:opacity-95"
+            size="default"
+            className="text-xl hover:opacity-95"
             style={{
               backgroundColor: "#1d4ed8",
               color: "#f8f6ee",
