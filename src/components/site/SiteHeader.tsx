@@ -103,7 +103,7 @@ export function SiteHeader() {
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/admin/ngo-dashboard">NGOs</Link>
+                  <Link to="/admin/ngo-dashboard">NGO Applications</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/admin/sponsors">Sponsors</Link>
