@@ -20,6 +20,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
+import { Route as MeProfileRouteImport } from './routes/me.profile'
 import { Route as MeGivingRouteImport } from './routes/me.giving'
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
@@ -85,6 +86,11 @@ const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => NgoRoute,
 } as any)
+const MeProfileRoute = MeProfileRouteImport.update({
+  id: '/me/profile',
+  path: '/me/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MeGivingRoute = MeGivingRouteImport.update({
   id: '/me/giving',
   path: '/me/giving',
@@ -147,6 +153,7 @@ export interface FileRoutesByFullPath {
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
+  '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
+  '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -192,6 +200,7 @@ export interface FileRoutesById {
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
+  '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
+    | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
+    | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
+    | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -282,6 +294,7 @@ export interface RootRouteChildren {
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
+  MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
@@ -366,6 +379,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/ngo/onboarding'
       preLoaderRoute: typeof NgoOnboardingRouteImport
       parentRoute: typeof NgoRoute
+    }
+    '/me/profile': {
+      id: '/me/profile'
+      path: '/me/profile'
+      fullPath: '/me/profile'
+      preLoaderRoute: typeof MeProfileRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/me/giving': {
       id: '/me/giving'
@@ -470,6 +490,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,
+  MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,

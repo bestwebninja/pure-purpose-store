@@ -28,6 +28,8 @@ function BecomeSponsor() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [form, setForm] = useState({
     sponsor_role: "" as (typeof ROLES)[number] | "",
+    display_name: "",
+    phone: "",
     organization_name: "",
     organization_details: "",
     city: "",
@@ -105,6 +107,14 @@ function BecomeSponsor() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <Label htmlFor="name">Your full name</Label>
+              <Input id="name" value={form.display_name} onChange={(e) => setForm({ ...form, display_name: e.target.value })} required />
+            </div>
+            <div>
+              <Label htmlFor="phone">Phone</Label>
+              <Input id="phone" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            </div>
             <div>
               <Label htmlFor="org">Organisation name</Label>
               <Input id="org" value={form.organization_name} onChange={(e) => setForm({ ...form, organization_name: e.target.value })} />

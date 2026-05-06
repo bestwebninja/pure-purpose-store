@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ShieldCheck, BarChart3, Eye } from "lucide-react";
+import { getPublicStats } from "@/server/stats.functions";
 
 export const Route = createFileRoute("/transparency")({
   head: () => ({
@@ -10,10 +11,12 @@ export const Route = createFileRoute("/transparency")({
       { property: "og:description", content: "Every blessing tracked, every dollar accounted for." },
     ],
   }),
+  loader: () => getPublicStats(),
   component: Transparency,
 });
 
 function Transparency() {
+  const stats = Route.useLoaderData();
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <header>
@@ -23,6 +26,25 @@ function Transparency() {
           blessing on the platform.
         </p>
       </header>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="rounded-2xl border border-border/60 bg-card p-6">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">Total raised</div>
+          <div className="mt-1 text-3xl font-semibold">${stats.totalRaised.toFixed(2)}</div>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-card p-6">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">Donations</div>
+          <div className="mt-1 text-3xl font-semibold">{stats.donationsCount}</div>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-card p-6">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">Unique donors</div>
+          <div className="mt-1 text-3xl font-semibold">{stats.uniqueDonors}</div>
+        </div>
+        <div className="rounded-2xl border border-border/60 bg-card p-6">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">Active blessings</div>
+          <div className="mt-1 text-3xl font-semibold">{stats.campaignsActive}</div>
+        </div>
+      </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-3">
         {[
