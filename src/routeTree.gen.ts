@@ -20,6 +20,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
+import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-center'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
@@ -79,6 +80,11 @@ const AdminNgoDashboardRoute = AdminNgoDashboardRouteImport.update({
   path: '/admin/ngo-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCommandCenterRoute = AdminCommandCenterRouteImport.update({
+  id: '/admin/command-center',
+  path: '/admin/command-center',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicShopifyWebhookRoute = ApiPublicShopifyWebhookRouteImport.update({
   id: '/api/public/shopify-webhook',
   path: '/api/public/shopify-webhook',
@@ -104,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/ngo'
     | '/transparency'
+    | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/ngo'
     | '/transparency'
+    | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/ngo'
     | '/transparency'
+    | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
@@ -204,6 +216,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   NgoRoute: typeof NgoRouteWithChildren
   TransparencyRoute: typeof TransparencyRoute
+  AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
@@ -290,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminNgoDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/command-center': {
+      id: '/admin/command-center'
+      path: '/admin/command-center'
+      fullPath: '/admin/command-center'
+      preLoaderRoute: typeof AdminCommandCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/shopify-webhook': {
       id: '/api/public/shopify-webhook'
       path: '/api/public/shopify-webhook'
@@ -333,6 +353,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   NgoRoute: NgoRouteWithChildren,
   TransparencyRoute: TransparencyRoute,
+  AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
