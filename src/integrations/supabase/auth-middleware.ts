@@ -13,7 +13,9 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
     try {
       const { data } = await browserSupabase.auth.getSession()
       const token = data.session?.access_token
-      if (token) headers = { authorization: `Bearer ${token}` }
+      if (token) {
+        headers = { Authorization: `Bearer ${token}` }
+      }
     } catch {
       // no session — server middleware will 401
     }

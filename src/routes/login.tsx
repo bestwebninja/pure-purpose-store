@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { checkIsAdmin } from "@/server/ngo.functions";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -23,7 +21,6 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const navigate = useNavigate();
-  const checkAdmin = useServerFn(checkIsAdmin);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,12 +29,14 @@ function Login() {
   const [loading, setLoading] = useState(false);
 
   const routeAfterAuth = async (userId: string) => {
-    const [adminRes, sponsorRes] = await Promise.all([
-      checkAdmin().catch(() => ({ isAdmin: false })),
+    const [adminRes, sponsorRes] = await Promise.allSettled([
+      supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle(),
       supabase.from("sponsors").select("id").eq("user_id", userId).maybeSingle(),
     ]);
-    if (adminRes?.isAdmin) navigate({ to: "/admin/command-center" });
-    else if (sponsorRes.data) navigate({ to: "/sponsor/dashboard" });
+    const isAdmin = adminRes.status === "fulfilled" && !!adminRes.value.data;
+    const isSponsor = sponsorRes.status === "fulfilled" && !!sponsorRes.value.data;
+    if (isAdmin) navigate({ to: "/admin/command-center" });
+    else if (isSponsor) navigate({ to: "/sponsor/dashboard" });
     else navigate({ to: "/" });
   };
 
