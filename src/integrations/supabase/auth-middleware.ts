@@ -10,21 +10,19 @@ import { supabase as browserSupabase } from './client'
 export const requireSupabaseAuth = createMiddleware({ type: 'function' })
   .client(async ({ next }) => {
     let headers: Record<string, string> = {}
-    let sendContext: { supabaseAccessToken?: string } = {}
     try {
       const { data } = await browserSupabase.auth.getSession()
       const token = data.session?.access_token
       if (token) {
         headers = { Authorization: `Bearer ${token}` }
-        sendContext = { supabaseAccessToken: token }
       }
     } catch {
       // no session — server middleware will 401
     }
-    return next({ headers, sendContext })
+    return next({ headers })
   })
   .server(
-  async ({ next, context }) => {
+  async ({ next }) => {
     
     const SUPABASE_URL = process.env.SUPABASE_URL;
     const SUPABASE_PUBLISHABLE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY;
@@ -46,17 +44,16 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
     }
 
     const authHeader = request.headers.get('authorization');
-    const contextToken = typeof context?.supabaseAccessToken === 'string' ? context.supabaseAccessToken : undefined;
 
-    if (!authHeader && !contextToken) {
+    if (!authHeader) {
       throw new Response('Unauthorized: No authorization header provided', { status: 401 });
     }
 
-    if (authHeader && !authHeader.startsWith('Bearer ')) {
+    if (!authHeader.startsWith('Bearer ')) {
       throw new Response('Unauthorized: Only Bearer tokens are supported', { status: 401 });
     }
 
-    const token = authHeader ? authHeader.replace('Bearer ', '') : contextToken;
+    const token = authHeader.replace('Bearer ', '');
     if (!token) {
       throw new Response('Unauthorized: No token provided', { status: 401 });
     }
