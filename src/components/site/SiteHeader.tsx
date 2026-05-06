@@ -99,13 +99,13 @@ export function SiteHeader() {
               <DropdownMenuContent align="end" className="w-52">
                 <DropdownMenuLabel>Admin tools</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/admin/ngo-dashboard">NGO Applications</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/admin/sponsors">Sponsors</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -126,19 +126,19 @@ export function SiteHeader() {
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/me/giving">My Giving</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/me/profile">Profile</Link>
                 </DropdownMenuItem>
                 {isSponsor && (
-                  <DropdownMenuItem asChild>
+                  <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                     <Link to="/sponsor/dashboard">Sponsor Dashboard</Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={handleSignOut}>Sign out</DropdownMenuItem>
+                <DropdownMenuItem onSelect={handleSignOut} className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">Sign out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
