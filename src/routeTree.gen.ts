@@ -20,6 +20,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
+import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-center'
@@ -82,6 +83,11 @@ const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => NgoRoute,
 } as any)
+const CategoriesSlugRoute = CategoriesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CategoriesRoute,
+} as any)
 const CampaignHandleRoute = CampaignHandleRouteImport.update({
   id: '/campaign/$handle',
   path: '/campaign/$handle',
@@ -117,7 +123,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
-  '/categories': typeof CategoriesRoute
+  '/categories': typeof CategoriesRouteWithChildren
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -136,7 +143,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
-  '/categories': typeof CategoriesRoute
+  '/categories': typeof CategoriesRouteWithChildren
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -156,7 +164,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
-  '/categories': typeof CategoriesRoute
+  '/categories': typeof CategoriesRouteWithChildren
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/categories/$slug'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/categories/$slug'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/categories/$slug'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/public/go-live-report'
@@ -235,7 +247,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
-  CategoriesRoute: typeof CategoriesRoute
+  CategoriesRoute: typeof CategoriesRouteWithChildren
   GiveRoute: typeof GiveRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
@@ -329,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgoOnboardingRouteImport
       parentRoute: typeof NgoRoute
     }
+    '/categories/$slug': {
+      id: '/categories/$slug'
+      path: '/$slug'
+      fullPath: '/categories/$slug'
+      preLoaderRoute: typeof CategoriesSlugRouteImport
+      parentRoute: typeof CategoriesRoute
+    }
     '/campaign/$handle': {
       id: '/campaign/$handle'
       path: '/campaign/$handle'
@@ -374,6 +393,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CategoriesRouteChildren {
+  CategoriesSlugRoute: typeof CategoriesSlugRoute
+}
+
+const CategoriesRouteChildren: CategoriesRouteChildren = {
+  CategoriesSlugRoute: CategoriesSlugRoute,
+}
+
+const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
+  CategoriesRouteChildren,
+)
+
 interface NgoRouteChildren {
   NgoOnboardingRoute: typeof NgoOnboardingRoute
 }
@@ -388,7 +419,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
-  CategoriesRoute: CategoriesRoute,
+  CategoriesRoute: CategoriesRouteWithChildren,
   GiveRoute: GiveRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
@@ -405,3 +436,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
