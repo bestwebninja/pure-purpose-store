@@ -108,6 +108,7 @@ export function SiteHeader() {
             </>
           )}
           {userId && (
+            <>
             <Link
               to="/me/giving"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
@@ -115,6 +116,14 @@ export function SiteHeader() {
             >
               My Giving
             </Link>
+            <Link
+              to="/me/profile"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Profile
+            </Link>
+            </>
           )}
         </nav>
         <div className="flex items-center gap-2">
