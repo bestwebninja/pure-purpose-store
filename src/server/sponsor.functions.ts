@@ -69,3 +69,50 @@ export const getMySponsorProfile = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return { sponsor: data };
   });
+
+async function assertAdmin(userId: string) {
+  const { data } = await supabaseAdmin
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (!data) throw new Error("Forbidden: admin role required");
+}
+
+export const listSponsors = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.userId);
+    const { data, error } = await supabaseAdmin
+      .from("sponsors")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return { sponsors: data ?? [] };
+  });
+
+const UpdateSponsorStatusSchema = z.object({
+  id: z.string().uuid(),
+  status: z.enum(["VERIFIED", "REJECTED", "PENDING"]),
+});
+
+export const updateSponsorStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => UpdateSponsorStatusSchema.parse(input))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const { error } = await supabaseAdmin
+      .from("sponsors")
+      .update({ verification_status: data.status })
+      .eq("id", data.id);
+    if (error) throw new Error(error.message);
+    await supabaseAdmin.from("audit_logs").insert({
+      actor_id: context.userId,
+      action: data.status === "VERIFIED" ? "SPONSOR_VERIFIED" : data.status === "REJECTED" ? "SPONSOR_REJECTED" : "SPONSOR_STATUS_CHANGED",
+      entity_type: "sponsor",
+      entity_id: data.id,
+      metadata: { status: data.status },
+    });
+    return { ok: true };
+  });
