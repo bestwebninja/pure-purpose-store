@@ -21,6 +21,8 @@ import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
+import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
+import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
 
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
@@ -82,6 +84,16 @@ const ApiPublicShopifyWebhookRoute = ApiPublicShopifyWebhookRouteImport.update({
   path: '/api/public/shopify-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
+  id: '/api/public/health',
+  path: '/api/public/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicGoLiveReportRoute = ApiPublicGoLiveReportRouteImport.update({
+  id: '/api/public/go-live-report',
+  path: '/api/public/go-live-report',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -95,6 +107,8 @@ export interface FileRoutesByFullPath {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -109,6 +123,8 @@ export interface FileRoutesByTo {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesById {
@@ -124,6 +140,8 @@ export interface FileRoutesById {
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
+  '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRouteTypes {
@@ -140,6 +158,8 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/api/public/go-live-report'
+    | '/api/public/health'
     | '/api/public/shopify-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -154,6 +174,8 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/api/public/go-live-report'
+    | '/api/public/health'
     | '/api/public/shopify-webhook'
   id:
     | '__root__'
@@ -168,6 +190,8 @@ export interface FileRouteTypes {
     | '/admin/ngo-dashboard'
     | '/campaign/$handle'
     | '/ngo/onboarding'
+    | '/api/public/go-live-report'
+    | '/api/public/health'
     | '/api/public/shopify-webhook'
   fileRoutesById: FileRoutesById
 }
@@ -182,6 +206,8 @@ export interface RootRouteChildren {
   TransparencyRoute: typeof TransparencyRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
+  ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
+  ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
 }
 
@@ -271,6 +297,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicShopifyWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/health': {
+      id: '/api/public/health'
+      path: '/api/public/health'
+      fullPath: '/api/public/health'
+      preLoaderRoute: typeof ApiPublicHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/go-live-report': {
+      id: '/api/public/go-live-report'
+      path: '/api/public/go-live-report'
+      fullPath: '/api/public/go-live-report'
+      preLoaderRoute: typeof ApiPublicGoLiveReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -295,17 +335,10 @@ const rootRouteChildren: RootRouteChildren = {
   TransparencyRoute: TransparencyRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   CampaignHandleRoute: CampaignHandleRoute,
+  ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
+  ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

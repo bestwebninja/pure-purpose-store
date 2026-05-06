@@ -114,6 +114,37 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           return new Response("DB error", { status: 500 });
         }
 
+        // Look up the inserted donation id for ledger linkage
+        const { data: donationRow } = await supabaseAdmin
+          .from("donations")
+          .select("id")
+          .eq("shopify_order_id", orderId)
+          .maybeSingle();
+
+        // Double-entry posting: debit cash (asset), credit donations_revenue (income).
+        if (donationRow) {
+          const currency = payload.currency ?? "USD";
+          const { error: ledgerErr } = await supabaseAdmin.from("ledger_entries").insert([
+            {
+              donation_id: donationRow.id,
+              account: "cash",
+              side: "debit",
+              amount,
+              currency,
+              memo: `Shopify order ${orderId}`,
+            },
+            {
+              donation_id: donationRow.id,
+              account: "donations_revenue",
+              side: "credit",
+              amount,
+              currency,
+              memo: `Shopify order ${orderId}`,
+            },
+          ]);
+          if (ledgerErr) console.error("ledger insert error", ledgerErr);
+        }
+
         // Bump campaign totals via SQL increment
         const { data: current } = await supabaseAdmin
           .from("campaigns")
