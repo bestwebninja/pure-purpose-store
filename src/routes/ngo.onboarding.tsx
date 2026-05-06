@@ -35,7 +35,11 @@ function Onboarding() {
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
+    firstName: "",
+    surname: "",
     email: "",
+    contactNumber: "",
+    whatsapp: false,
     country: "",
     geography: "",
     causes: [] as string[],
@@ -73,9 +77,38 @@ function Onboarding() {
               <Label>Organization name</Label>
               <Input className={inputCls} value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={120} />
             </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>First name</Label>
+                <Input className={inputCls} value={form.firstName} onChange={(e) => update("firstName", e.target.value)} maxLength={80} />
+              </div>
+              <div className="space-y-2">
+                <Label>Surname</Label>
+                <Input className={inputCls} value={form.surname} onChange={(e) => update("surname", e.target.value)} maxLength={80} />
+              </div>
+            </div>
             <div className="space-y-2">
               <Label>Contact email</Label>
               <Input className={inputCls} type="email" value={form.email} onChange={(e) => update("email", e.target.value)} maxLength={200} />
+            </div>
+            <div className="space-y-2">
+              <Label>Contact number</Label>
+              <div className="flex items-center gap-3">
+                <Input
+                  className={inputCls}
+                  type="tel"
+                  value={form.contactNumber}
+                  onChange={(e) => update("contactNumber", e.target.value)}
+                  maxLength={40}
+                />
+                <label className="flex shrink-0 items-center gap-2 text-sm text-white">
+                  <Checkbox
+                    checked={form.whatsapp}
+                    onCheckedChange={(v) => update("whatsapp", v === true)}
+                  />
+                  <span>WhatsApp</span>
+                </label>
+              </div>
             </div>
             <div className="space-y-2">
               <Label>Country</Label>
