@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { createSponsorProfile } from "@/server/sponsor.functions";
 
-const ROLES = ["Rabbi", "Pastor", "Minister", "Faith Giver", "Counsellor", "Good Human"] as const;
+const ROLES = ["Rabbi", "Pastor", "Minister", "Faith Giver", "Family Member", "Good Human"] as const;
 const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "Counselling", "Disaster Relief", "Elder Care"];
 
 export const Route = createFileRoute("/become-blessing-sponsor")({
