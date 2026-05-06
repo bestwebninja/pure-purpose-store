@@ -95,10 +95,10 @@ function BecomeSponsor() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-display text-3xl font-semibold">Become a Blessing Sponsor</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 p-6">
+    <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
+      <h1 className="text-display text-3xl font-semibold text-white">Become a Blessing Sponsor</h1>
+      <p className="mt-2 text-sm text-white/80">Tell us about yourself and how you serve your community.</p>
+      <Card className="mt-8 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label>Your role</Label>
@@ -191,4 +191,4 @@ function BecomeSponsor() {
 }
 
 const glow =
-  "border-yellow-300/70 bg-yellow-50/40 shadow-[0_0_10px_rgba(253,224,71,0.45)] focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
+  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
