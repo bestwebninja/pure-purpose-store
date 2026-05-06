@@ -72,6 +72,11 @@ function BecomeSponsor() {
       toast.error("Select your role");
       return;
     }
+    if (!authed) {
+      toast.error("Please sign in to submit your sponsor application");
+      navigate({ to: "/login" });
+      return;
+    }
     setSubmitting(true);
     try {
       await createSponsorProfile({ data: { ...form, sponsor_role: form.sponsor_role } });
@@ -83,16 +88,6 @@ function BecomeSponsor() {
       setSubmitting(false);
     }
   };
-
-  if (authed === false) {
-    return (
-      <div className="mx-auto max-w-md px-6 py-24 text-center">
-        <h1 className="text-display text-2xl font-semibold">Sign in to continue</h1>
-        <p className="mt-2 text-sm text-muted-foreground">You need an account to become a Blessing Sponsor.</p>
-        <Button className="mt-6" onClick={() => navigate({ to: "/login" })}>Sign in or create account</Button>
-      </div>
-    );
-  }
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
