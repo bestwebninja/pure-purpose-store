@@ -118,8 +118,6 @@ function BecomeSponsor() {
             </div>
           </div>
 
-          {form.sponsor_role && (
-          <>
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label htmlFor="first_name">First name</Label>
@@ -184,8 +182,6 @@ function BecomeSponsor() {
           <Button type="submit" className="w-full" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit for verification"}
           </Button>
-          </>
-          )}
         </form>
       </Card>
     </div>
