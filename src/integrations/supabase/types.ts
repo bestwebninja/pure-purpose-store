@@ -47,6 +47,7 @@ export type Database = {
       campaigns: {
         Row: {
           beneficiary_name: string | null
+          category_slug: string | null
           created_at: string
           currency: string
           donor_count: number
@@ -67,6 +68,7 @@ export type Database = {
         }
         Insert: {
           beneficiary_name?: string | null
+          category_slug?: string | null
           created_at?: string
           currency?: string
           donor_count?: number
@@ -87,6 +89,7 @@ export type Database = {
         }
         Update: {
           beneficiary_name?: string | null
+          category_slug?: string | null
           created_at?: string
           currency?: string
           donor_count?: number
@@ -105,7 +108,15 @@ export type Database = {
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "campaigns_category_slug_fkey"
+            columns: ["category_slug"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["slug"]
+          },
+        ]
       }
       categories: {
         Row: {

@@ -19,6 +19,7 @@ export type Campaign = {
   featured: boolean;
   shopify_product_id: string | null;
   shopify_variant_id: string | null;
+  category_slug?: string | null;
 };
 
 export const listCampaigns = createServerFn({ method: "GET" }).handler(async () => {
@@ -35,6 +36,23 @@ export const listCampaigns = createServerFn({ method: "GET" }).handler(async () 
   }
   return { campaigns: (data ?? []) as Campaign[] };
 });
+
+export const listCampaignsByCategory = createServerFn({ method: "GET" })
+  .inputValidator((data: { slug: string }) =>
+    z.object({ slug: z.string().min(1).max(80) }).parse(data),
+  )
+  .handler(async ({ data }) => {
+    const [{ data: category }, { data: campaigns }] = await Promise.all([
+      supabaseAdmin.from("categories").select("slug, name, description").eq("slug", data.slug).maybeSingle(),
+      supabaseAdmin
+        .from("campaigns")
+        .select("*")
+        .eq("status", "active")
+        .eq("category_slug", data.slug)
+        .order("created_at", { ascending: false }),
+    ]);
+    return { category, campaigns: (campaigns ?? []) as Campaign[] };
+  });
 
 export const getCampaignByHandle = createServerFn({ method: "GET" })
   .inputValidator((data: { handle: string }) =>
