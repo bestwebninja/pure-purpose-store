@@ -92,6 +92,13 @@ export function SiteHeader() {
               NGOs
             </Link>
             <Link
+              to="/admin/sponsors"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Sponsors
+            </Link>
+            <Link
               to="/admin/command-center"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
@@ -99,6 +106,15 @@ export function SiteHeader() {
               Command Center
             </Link>
             </>
+          )}
+          {userId && (
+            <Link
+              to="/me/giving"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              My Giving
+            </Link>
           )}
         </nav>
         <div className="flex items-center gap-2">

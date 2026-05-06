@@ -23,6 +23,7 @@ import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as MeGivingRouteImport } from './routes/me.giving'
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
+import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-center'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
@@ -99,6 +100,11 @@ const CampaignHandleRoute = CampaignHandleRouteImport.update({
   path: '/campaign/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
+  id: '/admin/sponsors',
+  path: '/admin/sponsors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminNgoDashboardRoute = AdminNgoDashboardRouteImport.update({
   id: '/admin/ngo-dashboard',
   path: '/admin/ngo-dashboard',
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
   '/me/giving': typeof MeGivingRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
+    | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
+    | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
+    | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
     | '/me/giving'
@@ -267,6 +279,7 @@ export interface RootRouteChildren {
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
+  AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
@@ -375,6 +388,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CampaignHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/sponsors': {
+      id: '/admin/sponsors'
+      path: '/admin/sponsors'
+      fullPath: '/admin/sponsors'
+      preLoaderRoute: typeof AdminSponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/ngo-dashboard': {
       id: '/admin/ngo-dashboard'
       path: '/admin/ngo-dashboard'
@@ -447,6 +467,7 @@ const rootRouteChildren: RootRouteChildren = {
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
+  AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,

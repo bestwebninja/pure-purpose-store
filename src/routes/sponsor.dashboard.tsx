@@ -103,14 +103,6 @@ function SponsorDashboard() {
         </Card>
       </div>
 
-      <Card className="p-6">
-        <h2 className="text-sm font-semibold text-muted-foreground">Receivers & Cases</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Receiver intake and case management aren't available yet. Once approved, you'll be able to create
-          Blessing Receivers and track active cases here.
-        </p>
-        <Button className="mt-4" disabled>Create Blessing Receiver (coming soon)</Button>
-      </Card>
     </div>
   );
 }
