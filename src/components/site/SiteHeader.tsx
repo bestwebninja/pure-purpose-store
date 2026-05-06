@@ -1,15 +1,42 @@
 import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
   { to: "/", label: "Blessings" },
+  { to: "/categories", label: "Categories" },
   { to: "/how-it-works", label: "How It Works" },
+  { to: "/ngo", label: "For NGOs" },
   { to: "/transparency", label: "Transparency" },
   { to: "/about", label: "About" },
 ] as const;
 
 export function SiteHeader() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    const check = async (userId: string | undefined) => {
+      if (!userId) {
+        if (!cancelled) setIsAdmin(false);
+        return;
+      }
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (!cancelled) setIsAdmin(!!data);
+    };
+    supabase.auth.getUser().then(({ data }) => check(data.user?.id));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => check(session?.user?.id));
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+    };
+  }, []);
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
@@ -31,6 +58,15 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {isAdmin && (
+            <Link
+              to="/admin/ngo-dashboard"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Admin
+            </Link>
+          )}
         </nav>
         <div className="flex items-center gap-2">
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">

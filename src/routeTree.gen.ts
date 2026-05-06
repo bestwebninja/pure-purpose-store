@@ -10,17 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
+import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveRouteImport } from './routes/give'
+import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
+import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
 
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
   path: '/transparency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NgoRoute = NgoRouteImport.update({
+  id: '/ngo',
+  path: '/ngo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -38,6 +47,11 @@ const GiveRoute = GiveRouteImport.update({
   path: '/give',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -48,9 +62,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => NgoRoute,
+} as any)
 const CampaignHandleRoute = CampaignHandleRouteImport.update({
   id: '/campaign/$handle',
   path: '/campaign/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminNgoDashboardRoute = AdminNgoDashboardRouteImport.update({
+  id: '/admin/ngo-dashboard',
+  path: '/admin/ngo-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicShopifyWebhookRoute = ApiPublicShopifyWebhookRouteImport.update({
@@ -62,32 +86,44 @@ const ApiPublicShopifyWebhookRoute = ApiPublicShopifyWebhookRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/ngo/onboarding': typeof NgoOnboardingRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/ngo/onboarding': typeof NgoOnboardingRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/categories': typeof CategoriesRoute
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/ngo': typeof NgoRouteWithChildren
   '/transparency': typeof TransparencyRoute
+  '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/campaign/$handle': typeof CampaignHandleRoute
+  '/ngo/onboarding': typeof NgoOnboardingRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRouteTypes {
@@ -95,41 +131,56 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/categories'
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
+    | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/ngo/onboarding'
     | '/api/public/shopify-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/categories'
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
+    | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/ngo/onboarding'
     | '/api/public/shopify-webhook'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/categories'
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/ngo'
     | '/transparency'
+    | '/admin/ngo-dashboard'
     | '/campaign/$handle'
+    | '/ngo/onboarding'
     | '/api/public/shopify-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CategoriesRoute: typeof CategoriesRoute
   GiveRoute: typeof GiveRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
+  NgoRoute: typeof NgoRouteWithChildren
   TransparencyRoute: typeof TransparencyRoute
+  AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
 }
@@ -141,6 +192,13 @@ declare module '@tanstack/react-router' {
       path: '/transparency'
       fullPath: '/transparency'
       preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ngo': {
+      id: '/ngo'
+      path: '/ngo'
+      fullPath: '/ngo'
+      preLoaderRoute: typeof NgoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -164,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GiveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -178,11 +243,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ngo/onboarding': {
+      id: '/ngo/onboarding'
+      path: '/onboarding'
+      fullPath: '/ngo/onboarding'
+      preLoaderRoute: typeof NgoOnboardingRouteImport
+      parentRoute: typeof NgoRoute
+    }
     '/campaign/$handle': {
       id: '/campaign/$handle'
       path: '/campaign/$handle'
       fullPath: '/campaign/$handle'
       preLoaderRoute: typeof CampaignHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/ngo-dashboard': {
+      id: '/admin/ngo-dashboard'
+      path: '/admin/ngo-dashboard'
+      fullPath: '/admin/ngo-dashboard'
+      preLoaderRoute: typeof AdminNgoDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/shopify-webhook': {
@@ -195,25 +274,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface NgoRouteChildren {
+  NgoOnboardingRoute: typeof NgoOnboardingRoute
+}
+
+const NgoRouteChildren: NgoRouteChildren = {
+  NgoOnboardingRoute: NgoOnboardingRoute,
+}
+
+const NgoRouteWithChildren = NgoRoute._addFileChildren(NgoRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CategoriesRoute: CategoriesRoute,
   GiveRoute: GiveRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
+  NgoRoute: NgoRouteWithChildren,
   TransparencyRoute: TransparencyRoute,
+  AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
