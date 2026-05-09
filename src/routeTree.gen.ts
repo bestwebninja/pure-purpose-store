@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
+import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -36,6 +37,11 @@ import { Route as ApiPublicCategoriesTreeRouteImport } from './routes/api/public
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
   path: '/transparency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestHelpRoute = RequestHelpRouteImport.update({
+  id: '/request-help',
+  path: '/request-help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NgoRoute = NgoRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
+  '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
+  '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/ngo': typeof NgoRouteWithChildren
+  '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
@@ -237,6 +246,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/login'
     | '/ngo'
+    | '/request-help'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/login'
     | '/ngo'
+    | '/request-help'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
@@ -287,6 +298,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/login'
     | '/ngo'
+    | '/request-help'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/ngo-dashboard'
@@ -313,6 +325,7 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
   NgoRoute: typeof NgoRouteWithChildren
+  RequestHelpRoute: typeof RequestHelpRoute
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
@@ -334,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/transparency'
       fullPath: '/transparency'
       preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-help': {
+      id: '/request-help'
+      path: '/request-help'
+      fullPath: '/request-help'
+      preLoaderRoute: typeof RequestHelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ngo': {
@@ -525,6 +545,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
   NgoRoute: NgoRouteWithChildren,
+  RequestHelpRoute: RequestHelpRoute,
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
