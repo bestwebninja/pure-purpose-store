@@ -6,7 +6,6 @@ const QUOTES: { text: string; author: string }[] = [
   { text: "The meaning of life is to find your gift. The purpose of life is to give it away.", author: "Pablo Picasso" },
   { text: "Charity sees the need, not the cause.", author: "German Proverb" },
   { text: "Kindness is the language which the deaf can hear and the blind can see.", author: "Mark Twain" },
-  { text: "Service to others is the rent you pay for your room here on earth.", author: "Muhammad Ali" },
   { text: "Do small things with great love.", author: "Mother Teresa" },
   { text: "The best way to find yourself is to lose yourself in the service of others.", author: "Mahatma Gandhi" },
   { text: "Tzedakah and acts of kindness are the equivalent of all the mitzvot of the Torah.", author: "Talmud" },
