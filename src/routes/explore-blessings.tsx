@@ -51,7 +51,7 @@ function ExploreBlessings() {
     (async () => {
       try {
         const [treeRes, blessingsRes] = await Promise.all([
-          fetch("/api/public/categories-tree", { credentials: "include" }).then((r) => r.json()),
+          fetch("/api/categories/tree", { credentials: "include" }).then((r) => r.json()),
           supabase
             .from("blessings")
             .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
