@@ -78,7 +78,7 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
           await supabaseAdmin.from("petri_tokens").insert({
             type: "intent",
             source_id: payload.source_id ?? null,
-            payload: payload as unknown as Record<string, unknown>,
+            payload: JSON.parse(JSON.stringify(payload)),
             score,
             status,
           });
