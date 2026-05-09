@@ -82,8 +82,8 @@ function AboutMyBlessings() {
           <p>MyBlessings is designed to grow into a worldwide network where:</p>
           <ul className="list-disc space-y-1 pl-5">
             <li className="text-lg">Geography becomes irrelevant</li>
-            <li>anyone can give support</li>
-            <li>geography becomes irrelevant</li>
+            <li className="text-lg">anyone can give support</li>
+            <li className="text-lg">geography becomes irrelevant</li>
             <li className="text-lg font-sans">Kindness becomes structured, not random</li>
           </ul>
         </Section>
