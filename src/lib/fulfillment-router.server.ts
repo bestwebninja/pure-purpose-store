@@ -107,7 +107,7 @@ export async function routeMatchToFulfillment(match: MatchInput): Promise<Router
       cost,
       currency,
       idempotency_key,
-      response,
+      response: JSON.parse(JSON.stringify(response)),
       notes: reason,
     })
     .select("id")
