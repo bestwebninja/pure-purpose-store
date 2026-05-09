@@ -17,6 +17,7 @@ const NAV = [
   { to: "/explore-blessings", label: "Explore Blessings" },
   { to: "/request-help", label: "Request Help" },
   { to: "/my-blessings", label: "My Blessings" },
+  { to: "/about-myblessings", label: "About MyBlessings" },
 ] as const;
 
 export function SiteHeader() {
