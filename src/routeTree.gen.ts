@@ -33,7 +33,6 @@ import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-c
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
-import { Route as ApiPublicCategoriesTreeRouteImport } from './routes/api/public/categories-tree'
 import { Route as ApiCategoriesTreeRouteImport } from './routes/api/categories/tree'
 
 const TransparencyRoute = TransparencyRouteImport.update({
@@ -156,11 +155,6 @@ const ApiPublicGoLiveReportRoute = ApiPublicGoLiveReportRouteImport.update({
   path: '/api/public/go-live-report',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicCategoriesTreeRoute = ApiPublicCategoriesTreeRouteImport.update({
-  id: '/api/public/categories-tree',
-  path: '/api/public/categories-tree',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiCategoriesTreeRoute = ApiCategoriesTreeRouteImport.update({
   id: '/api/categories/tree',
   path: '/api/categories/tree',
@@ -190,7 +184,6 @@ export interface FileRoutesByFullPath {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
-  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -218,7 +211,6 @@ export interface FileRoutesByTo {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
-  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -247,7 +239,6 @@ export interface FileRoutesById {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
-  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -277,7 +268,6 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/categories/tree'
-    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -305,7 +295,6 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/categories/tree'
-    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -333,7 +322,6 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/api/categories/tree'
-    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -360,7 +348,6 @@ export interface RootRouteChildren {
   MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
   ApiCategoriesTreeRoute: typeof ApiCategoriesTreeRoute
-  ApiPublicCategoriesTreeRoute: typeof ApiPublicCategoriesTreeRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
@@ -536,13 +523,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGoLiveReportRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/categories-tree': {
-      id: '/api/public/categories-tree'
-      path: '/api/public/categories-tree'
-      fullPath: '/api/public/categories-tree'
-      preLoaderRoute: typeof ApiPublicCategoriesTreeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/categories/tree': {
       id: '/api/categories/tree'
       path: '/api/categories/tree'
@@ -596,7 +576,6 @@ const rootRouteChildren: RootRouteChildren = {
   MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
   ApiCategoriesTreeRoute: ApiCategoriesTreeRoute,
-  ApiPublicCategoriesTreeRoute: ApiPublicCategoriesTreeRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
@@ -604,3 +583,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
