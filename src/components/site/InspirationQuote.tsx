@@ -15,16 +15,14 @@ const QUOTES: { text: string; author: string }[] = [
 
 const ROTATE_MS = 30 * 60 * 1000; // 30 minutes
 
-function pickInitial() {
-  // Stable index across SSR to avoid hydration mismatch
-  return Math.floor((Date.now() / ROTATE_MS) % QUOTES.length);
-}
-
 export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | "banner" }) {
-  const [idx, setIdx] = useState(() => pickInitial());
+  // Start at 0 on both SSR and client to avoid hydration mismatch, then rotate after mount.
+  const [idx, setIdx] = useState(0);
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    // Pick a fresh starting quote post-hydration
+    setIdx(Math.floor((Date.now() / ROTATE_MS) % QUOTES.length));
     const timer = window.setInterval(() => {
       setShow(false);
       window.setTimeout(() => {
