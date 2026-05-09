@@ -13,9 +13,9 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
-  { to: "/", label: "Blessings" },
-  { to: "/categories", label: "Categories" },
-  { to: "/ngo", label: "NGO" },
+  { to: "/explore-blessings", label: "Explore Blessings" },
+  { to: "/request-help", label: "Request Help" },
+  { to: "/my-blessings", label: "My Blessings" },
 ] as const;
 
 export function SiteHeader() {
@@ -75,7 +75,6 @@ export function SiteHeader() {
               to={item.to}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
-              activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
             </Link>
