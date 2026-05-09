@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Heart, Sparkles, Users, ShieldCheck, BrainCircuit, BarChart3 } from "lucide-react";
+import { Heart, Sparkles, HandHeart, Globe, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
@@ -8,22 +8,19 @@ export const Route = createFileRoute("/about-myblessings")({
   head: () => ({
     meta: [
       { title: "About MyBlessings" },
-      { name: "description", content: "Building a world where kindness becomes infrastructure." },
+      { name: "description", content: "A world where kindness finds its way to the right person — instantly." },
       { property: "og:title", content: "About MyBlessings" },
-      { property: "og:description", content: "A compassion economy connecting sponsors, providers, and people in need." },
+      { property: "og:description", content: "Real people helping real people. No noise. Just connection." },
     ],
   }),
   component: AboutMyBlessings,
 });
 
-function Block({ icon: Icon, title, body }: { icon: React.ElementType; title: string; body: string }) {
+function Section({ tone, title, children }: { tone: string; title: string; children: React.ReactNode }) {
   return (
     <Card className="p-6">
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Icon className="h-5 w-5" />
-      </div>
-      <h3 className="mt-4 text-display text-lg font-semibold">{title}</h3>
-      <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+      <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: tone }}>{title}</div>
+      <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">{children}</div>
     </Card>
   );
 }
@@ -37,67 +34,82 @@ function AboutMyBlessings() {
             <Heart className="h-3 w-3" fill="currentColor" /> About MyBlessings
           </span>
           <h1 className="text-display mt-6 text-4xl font-semibold md:text-6xl">
-            Building a World Where Kindness Becomes Infrastructure
+            A world where kindness finds its way to the right person — instantly.
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
-            MyBlessings is a compassion economy — a transparent marketplace where sponsors,
-            providers and people in need meet, supported by AI-powered matching.
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/85">
+            MyBlessings connects people who want to help with people who need support —
+            in a way that feels human, simple, and immediate.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg" className="bg-yellow-300 text-[#0a1f6b] hover:bg-yellow-400">
-              <Link to="/give-a-blessing">Give a Blessing 🙏</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20">
-              <Link to="/ngo">Become a Partner</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <Block icon={Sparkles} title="Compassion Economy"
-            body="Every blessing is a real transaction with a real outcome — kindness with proof of impact." />
-          <Block icon={Users} title="Sponsorship Network"
-            body="Discover blessings across every assistance category and sponsor specific items that meet a real need." />
-          <Block icon={ShieldCheck} title="NGO System"
-            body="Vetted partners and providers fulfill blessings on the ground, with full audit trails." />
-          <Block icon={BrainCircuit} title="AI Matching"
-            body="Smart matching connects sponsors to nearby recipients and providers based on category, location and urgency." />
-        </div>
-      </section>
-
-      <section className="bg-secondary/40">
-        <div className="mx-auto max-w-4xl px-6 py-16 text-center">
-          <h2 className="text-display text-3xl font-semibold">Many Faiths. One Kindness.</h2>
-          <p className="mt-4 text-muted-foreground">
-            MyBlessings is a home for everyone who believes in showing up for each other —
-            whatever your tradition or path.
+          <p className="mx-auto mt-3 max-w-2xl text-base text-white/70">
+            No complexity. No barriers. Just real people helping real people.
           </p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-            {["Christian", "Jewish", "Spiritual", "Open Hearted"].map((f) => (
-              <Card key={f} className="p-5 text-center">
-                <ShieldCheck className="mx-auto h-6 w-6 text-primary" />
-                <p className="mt-3 font-semibold">{f}</p>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 text-center">
-        <h2 className="text-display text-3xl font-semibold">Join the movement</h2>
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
+      <section className="mx-auto max-w-5xl px-6 py-16 space-y-6">
+        <Section tone="#16a34a" title="What We Do">
+          <p>We help kindness travel faster.</p>
+          <p>When someone asks for help, and someone else wants to give — we quietly bring them together.</p>
+          <p>We look at where people are, what they need, and what support is available. Then we make meaningful connections happen.</p>
+        </Section>
+
+        <Section tone="#2563eb" title="How It Works">
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>Someone shares a need</li>
+            <li>Someone else offers support</li>
+            <li>We gently match them</li>
+            <li>Support becomes real impact</li>
+          </ol>
+          <p>That's it. No noise. No friction. Just connection.</p>
+        </Section>
+
+        <Section tone="#7c3aed" title="Our Belief">
+          <ul className="list-disc space-y-1 pl-5">
+            <li>Kindness is everywhere</li>
+            <li>Most people want to help</li>
+            <li>Distance should not block generosity</li>
+            <li>Technology should serve humanity, not replace it</li>
+          </ul>
+        </Section>
+
+        <Section tone="#ea580c" title="Why This Is Different">
+          <p>We are not a donation platform. We are not a charity directory.</p>
+          <p>We are a connection system for human support — meaning faster help, more personal impact, less waste, more dignity.</p>
+        </Section>
+
+        <Section tone="#dc2626" title="Global Vision">
+          <p>MyBlessings is designed to grow into a worldwide network where:</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>anyone can ask for help</li>
+            <li>anyone can give support</li>
+            <li>geography becomes irrelevant</li>
+            <li>kindness becomes structured, not random</li>
+          </ul>
+        </Section>
+
+        <Card className="p-8 text-center">
+          <Sparkles className="mx-auto h-8 w-8 text-primary" />
+          <p className="mt-4 text-lg font-medium">
+            If you've ever wanted to help someone but didn't know how — you already belong here.
+          </p>
+        </Card>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-16 text-center">
+        <div className="flex flex-wrap justify-center gap-3">
           <Button asChild size="lg" className="bg-yellow-300 text-[#0a1f6b] hover:bg-yellow-400">
-            <Link to="/give-a-blessing">Give a Blessing 🙏</Link>
+            <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing 🙏</Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/ngo">Become a Partner</Link>
+            <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> Request Help 🤝</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner 🌍</Link>
           </Button>
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 py-16">
+      <section className="mx-auto max-w-4xl px-6 pb-20">
         <InspirationQuote variant="banner" />
       </section>
     </div>

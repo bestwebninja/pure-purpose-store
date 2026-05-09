@@ -113,6 +113,19 @@ function RequestHelp() {
       toast.error(error.message);
       return;
     }
+    // Non-blocking Petri Bloom signal.
+    try {
+      void fetch("/api/public/petri-bloom", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source_type: "request",
+          location: { city: form.region, country: form.country },
+          category_ids: form.category_id ? [form.category_id] : [],
+          budget: form.target_amount ? Number(form.target_amount) : null,
+        }),
+      }).catch(() => {});
+    } catch { /* noop */ }
     toast.success("Application submitted.");
     navigate({ to: "/my-blessings" });
   };

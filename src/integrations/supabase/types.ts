@@ -523,6 +523,63 @@ export type Database = {
           },
         ]
       }
+      petri_matches: {
+        Row: {
+          created_at: string
+          help_request_id: string | null
+          id: string
+          score: number
+          sponsor_id: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          help_request_id?: string | null
+          id?: string
+          score?: number
+          sponsor_id?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          help_request_id?: string | null
+          id?: string
+          score?: number
+          sponsor_id?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      petri_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          payload: Json
+          score: number
+          source_id: string | null
+          status: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          payload?: Json
+          score?: number
+          source_id?: string | null
+          status?: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          payload?: Json
+          score?: number
+          source_id?: string | null
+          status?: string
+          type?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

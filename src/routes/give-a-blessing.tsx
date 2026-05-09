@@ -170,6 +170,19 @@ function GiveABlessing() {
         createdAt: new Date().toISOString(),
       };
       window.sessionStorage.setItem("myblessings.blessingIntent", JSON.stringify(intent));
+      // Non-blocking Petri Bloom signal — never blocks Shopify checkout.
+      try {
+        void fetch("/api/public/petri-bloom", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            source_type: "intent",
+            location: { zip: form.zip, city: form.city, country: form.countries },
+            category_ids: form.selectedCategoryIds,
+            budget: form.totalBudget,
+          }),
+        }).catch(() => {});
+      } catch { /* noop */ }
       toast.success("Blessing saved. Continue to checkout to complete it.");
       navigate({ to: "/give" });
     } finally {
