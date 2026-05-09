@@ -33,7 +33,7 @@ function buildTree(rows: CategoryRow[]): CategoryNode[] {
   return roots;
 }
 
-export const Route = createFileRoute("/api/categories/tree")({
+export const Route = createFileRoute("/api/public/categories-tree")({
   server: {
     handlers: {
       GET: async () => {
