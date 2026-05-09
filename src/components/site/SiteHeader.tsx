@@ -75,7 +75,6 @@ export function SiteHeader() {
               to={item.to}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               activeProps={{ className: "text-foreground" }}
-              activeOptions={{ exact: item.to === "/" }}
             >
               {item.label}
             </Link>
