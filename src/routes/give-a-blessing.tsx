@@ -160,16 +160,16 @@ function GiveABlessing() {
 
     setSubmitting(true);
     try {
-      // Save the blessing intent locally so the existing /give Shopify flow can pick it up
-      // (no schema changes per stabilization rules).
-      window.localStorage.setItem(
-        "myblessings.giveIntent",
-        JSON.stringify({
-          ...form,
-          allocation,
-          createdAt: new Date().toISOString(),
-        }),
-      );
+      // Single source of truth for the in-flight blessing intent.
+      // Stored in sessionStorage (temporary session only) so the existing
+      // Shopify checkout flow at /give can read one canonical object.
+      // No DB writes here — Shopify confirmation is what creates persistent records.
+      const intent = {
+        ...form,
+        allocation,
+        createdAt: new Date().toISOString(),
+      };
+      window.sessionStorage.setItem("myblessings.blessingIntent", JSON.stringify(intent));
       toast.success("Blessing saved. Continue to checkout to complete it.");
       navigate({ to: "/give" });
     } finally {
