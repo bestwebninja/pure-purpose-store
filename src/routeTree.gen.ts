@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
+import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveRouteImport } from './routes/give'
@@ -47,6 +48,11 @@ const RequestHelpRoute = RequestHelpRouteImport.update({
 const NgoRoute = NgoRouteImport.update({
   id: '/ngo',
   path: '/ngo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyBlessingsRoute = MyBlessingsRouteImport.update({
+  id: '/my-blessings',
+  path: '/my-blessings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
@@ -217,6 +225,7 @@ export interface FileRoutesById {
   '/give': typeof GiveRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
+  '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
   '/transparency': typeof TransparencyRoute
@@ -245,6 +254,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/my-blessings'
     | '/ngo'
     | '/request-help'
     | '/transparency'
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/my-blessings'
     | '/ngo'
     | '/request-help'
     | '/transparency'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/how-it-works'
     | '/login'
+    | '/my-blessings'
     | '/ngo'
     | '/request-help'
     | '/transparency'
@@ -324,6 +336,7 @@ export interface RootRouteChildren {
   GiveRoute: typeof GiveRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
+  MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
   RequestHelpRoute: typeof RequestHelpRoute
   TransparencyRoute: typeof TransparencyRoute
@@ -361,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/ngo'
       fullPath: '/ngo'
       preLoaderRoute: typeof NgoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-blessings': {
+      id: '/my-blessings'
+      path: '/my-blessings'
+      fullPath: '/my-blessings'
+      preLoaderRoute: typeof MyBlessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -544,6 +564,7 @@ const rootRouteChildren: RootRouteChildren = {
   GiveRoute: GiveRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
+  MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
   RequestHelpRoute: RequestHelpRoute,
   TransparencyRoute: TransparencyRoute,
