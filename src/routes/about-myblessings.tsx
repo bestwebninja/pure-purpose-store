@@ -84,7 +84,7 @@ function AboutMyBlessings() {
             <li>anyone can ask for help</li>
             <li>anyone can give support</li>
             <li>geography becomes irrelevant</li>
-            <li>kindness becomes structured, not random</li>
+            <li className="text-lg font-sans">Kindness becomes structured, not random</li>
           </ul>
         </Section>
 
