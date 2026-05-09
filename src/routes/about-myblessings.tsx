@@ -41,7 +41,7 @@ function AboutMyBlessings() {
             MyBlessings connects people who want to help with people who need support,
             in a way that feels human, simple, and immediate.
           </p>
-          <p className="mx-auto mt-3 max-w-2xl text-base text-white/70" style={garamond}>
+          <p className="mx-auto mt-3 max-w-2xl text-xl text-white/70" style={garamond}>
             No complexity. No barriers. Just real people helping real people.
           </p>
         </div>
