@@ -2,10 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
- * Petri Bloom V2 is a real-time matching intelligence system that:
- * - converts human intent into structured graphs
- * - continuously improves match quality via feedback signals
- * - visualizes global kindness flow as an interactive network
+ * PETRI BLOOM ARCHITECTURE (v3)
+ *
+ * Layer 1 — Data Ingestion (Raw Signals)
+ *   requests, intents, location, budget, category_ids
+ *
+ * Layer 2 — Matching Intelligence (Petri Bloom Core)
+ *   weighted similarity scoring, feedback-decayed multipliers,
+ *   confidence_score, status: auto_match | pending_review | none
+ *
+ * Layer 3 — Real-world Execution (Impact Layer)
+ *   confirmed matches, human review outcomes, real-world activation
+ *
+ * This system converts human intent into structured impact flows.
  */
 
 type Loc = { zip?: string | null; city?: string | null; country?: string | null };
@@ -54,24 +63,29 @@ function statusFor(score: number): "auto_match" | "pending_review" | "none" {
 }
 
 /**
- * Soft feedback weighting derived from prior petri_feedback entries.
- * Negative ratings dampen the category contribution; positive ratings
- * lightly amplify location + budget. Multipliers are bounded to avoid
- * runaway drift.
+ * Time-decayed feedback weighting.
+ * Recent ratings count more (3-day exponential decay). Output is
+ * tightly bounded to prevent runaway drift in either direction.
  */
 async function getFeedbackMultipliers(): Promise<{ loc: number; cat: number; bud: number }> {
   try {
     const { data } = await supabaseAdmin
       .from("petri_feedback")
-      .select("rating")
+      .select("rating, created_at")
       .order("created_at", { ascending: false })
-      .limit(100);
-    const sum = (data ?? []).reduce((s, r: { rating: number }) => s + (r.rating ?? 0), 0);
-    const norm = Math.max(-25, Math.min(25, sum)) / 100; // -0.25 .. +0.25
+      .limit(200);
+    const now = Date.now();
+    const weighted = (data ?? []).map((r: { rating: number; created_at: string }) => {
+      const ageHours = (now - new Date(r.created_at).getTime()) / 36e5;
+      const decay = Math.exp(-ageHours / 72); // 3-day decay
+      return (r.rating ?? 0) * decay;
+    });
+    const sum = weighted.reduce((a, b) => a + b, 0);
+    const norm = Math.max(-20, Math.min(20, sum)) / 100;
     return {
-      loc: 1 + Math.max(0, norm) * 0.4, // up to +10%
-      cat: 1 + Math.min(0, norm) * 0.6, // down to -15%
-      bud: 1 + Math.max(0, norm) * 0.4, // up to +10%
+      loc: Math.max(0.9, Math.min(1.1, 1 + Math.max(0, norm) * 0.4)),
+      cat: Math.max(0.85, Math.min(1.1, 1 + Math.min(0, norm) * 0.6)),
+      bud: Math.max(0.9, Math.min(1.1, 1 + Math.max(0, norm) * 0.4)),
     };
   } catch {
     return { loc: 1, cat: 1, bud: 1 };
@@ -96,14 +110,26 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
 
         const cand = payload.candidate ?? null;
         const w = await getFeedbackMultipliers();
-        const rawScore = cand
-          ? scoreLocation(payload.location, cand.location) * w.loc +
-            scoreCategory(payload.category_ids, cand.category_ids) * w.cat +
-            scoreBudget(payload.budget, cand.budget) * w.bud
-          : 0;
+        const locS = cand ? scoreLocation(payload.location, cand.location) * w.loc : 0;
+        const catS = cand ? scoreCategory(payload.category_ids, cand.category_ids) * w.cat : 0;
+        const budS = cand ? scoreBudget(payload.budget, cand.budget) * w.bud : 0;
+        const rawScore = locS + catS + budS;
         const score = Math.round(rawScore);
         const status = statusFor(score);
         const confidence_score = Math.min(1, Math.max(0, score / 300));
+        const breakdown = {
+          location_score: Math.round(locS),
+          category_score: Math.round(catS),
+          budget_score: Math.round(budS),
+          feedback_multipliers: w,
+          confidence_score,
+          final_decision_reason:
+            status === "auto_match"
+              ? "Strong overall similarity across location, category, and budget."
+              : status === "pending_review"
+                ? "Partial match — flagged for human review."
+                : "Insufficient signal overlap to qualify as a match.",
+        };
         const message =
           status === "auto_match"
             ? "Strong match found."
@@ -116,11 +142,11 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
           await supabaseAdmin.from("petri_tokens").insert({
             type: "intent",
             source_id: payload.source_id ?? null,
-            payload: JSON.parse(JSON.stringify(payload)),
+            payload: JSON.parse(JSON.stringify({ ...payload, breakdown })),
             score,
             status,
             confidence_score,
-            match_generation: "v2",
+            match_generation: "v3",
           });
           if (
             cand &&
@@ -133,14 +159,21 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
               score,
               status: status === "auto_match" ? "confirmed" : "pending",
               confidence_score,
-              match_generation: "v2",
+              match_generation: "v3",
             });
           }
         } catch (e) {
           console.error("[petri-bloom] persist failed", e);
         }
 
-        return Response.json({ score, status, message, confidence_score, match_generation: "v2" });
+        return Response.json({
+          score,
+          status,
+          message,
+          confidence_score,
+          match_generation: "v3",
+          breakdown,
+        });
       },
     },
   },
