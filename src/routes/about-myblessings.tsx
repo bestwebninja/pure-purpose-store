@@ -19,7 +19,7 @@ const garamond = { fontFamily: '"EB Garamond", Garamond, "Times New Roman", seri
 
 function Section({ tone, title, children }: { tone: string; title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-white/15 bg-white/5 p-6">
+    <div className="text-2xl">
       <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: tone, ...garamond }}>{title}</div>
       <div className="mt-3 space-y-3 text-base leading-relaxed text-white/90" style={garamond}>{children}</div>
     </div>
