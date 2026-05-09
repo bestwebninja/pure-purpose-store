@@ -66,10 +66,10 @@ function AboutMyBlessings() {
 
         <Section tone="#c4b5fd" title="Our Belief">
           <ul className="list-disc space-y-1 pl-5">
-            <li>Kindness is everywhere</li>
-            <li>Most people want to help</li>
-            <li>Distance should not block generosity</li>
-            <li>Technology should serve humanity, not replace it</li>
+            <li className="text-lg">Kindness is everywhere</li>
+            <li className="text-lg">Most people want to help</li>
+            <li className="text-lg">Distance should not block generosity</li>
+            <li className="text-lg">Technology should serve humanity, not replace it</li>
           </ul>
         </Section>
 
