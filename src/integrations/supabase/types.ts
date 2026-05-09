@@ -523,27 +523,65 @@ export type Database = {
           },
         ]
       }
+      petri_feedback: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          match_id: string | null
+          rating: number
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          match_id?: string | null
+          rating: number
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          match_id?: string | null
+          rating?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "petri_feedback_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "petri_matches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       petri_matches: {
         Row: {
+          confidence_score: number
           created_at: string
           help_request_id: string | null
           id: string
+          match_generation: string
           score: number
           sponsor_id: string | null
           status: string
         }
         Insert: {
+          confidence_score?: number
           created_at?: string
           help_request_id?: string | null
           id?: string
+          match_generation?: string
           score?: number
           sponsor_id?: string | null
           status?: string
         }
         Update: {
+          confidence_score?: number
           created_at?: string
           help_request_id?: string | null
           id?: string
+          match_generation?: string
           score?: number
           sponsor_id?: string | null
           status?: string
@@ -552,8 +590,11 @@ export type Database = {
       }
       petri_tokens: {
         Row: {
+          confidence_score: number
           created_at: string
+          feedback_score: number
           id: string
+          match_generation: string
           payload: Json
           score: number
           source_id: string | null
@@ -561,8 +602,11 @@ export type Database = {
           type: string
         }
         Insert: {
+          confidence_score?: number
           created_at?: string
+          feedback_score?: number
           id?: string
+          match_generation?: string
           payload?: Json
           score?: number
           source_id?: string | null
@@ -570,8 +614,11 @@ export type Database = {
           type: string
         }
         Update: {
+          confidence_score?: number
           created_at?: string
+          feedback_score?: number
           id?: string
+          match_generation?: string
           payload?: Json
           score?: number
           source_id?: string | null
