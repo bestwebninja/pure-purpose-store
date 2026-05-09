@@ -61,7 +61,7 @@ function AboutMyBlessings() {
             <li className="text-2xl">We gently match them</li>
             <li className="text-2xl">Support becomes real impact</li>
           </ol>
-          <p>That is it. No noise. No friction. Just connection.</p>
+          <p className="text-lg">That is it. No noise. No friction. Just connection.</p>
         </Section>
 
         <Section tone="#c4b5fd" title="Our Belief">
@@ -79,7 +79,7 @@ function AboutMyBlessings() {
         </Section>
 
         <Section tone="#fca5a5" title="Global Vision">
-          <p>MyBlessings is designed to grow into a worldwide network where:</p>
+          <p className="text-lg">MyBlessings is designed to grow into a worldwide network where:</p>
           <ul className="list-disc space-y-1 pl-5">
             <li className="text-lg">Geography becomes irrelevant</li>
             <li className="text-lg">anyone can give support</li>
