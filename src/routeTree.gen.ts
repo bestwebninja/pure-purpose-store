@@ -34,6 +34,7 @@ import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
 import { Route as ApiPublicCategoriesTreeRouteImport } from './routes/api/public/categories-tree'
+import { Route as ApiCategoriesTreeRouteImport } from './routes/api/categories/tree'
 
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
@@ -160,6 +161,11 @@ const ApiPublicCategoriesTreeRoute = ApiPublicCategoriesTreeRouteImport.update({
   path: '/api/public/categories-tree',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCategoriesTreeRoute = ApiCategoriesTreeRouteImport.update({
+  id: '/api/categories/tree',
+  path: '/api/categories/tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -183,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -210,6 +217,7 @@ export interface FileRoutesByTo {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -238,6 +246,7 @@ export interface FileRoutesById {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -267,6 +276,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/categories/tree'
     | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/categories/tree'
     | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -321,6 +332,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/categories/tree'
     | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -347,6 +359,7 @@ export interface RootRouteChildren {
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
+  ApiCategoriesTreeRoute: typeof ApiCategoriesTreeRoute
   ApiPublicCategoriesTreeRoute: typeof ApiPublicCategoriesTreeRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
@@ -530,6 +543,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCategoriesTreeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/categories/tree': {
+      id: '/api/categories/tree'
+      path: '/api/categories/tree'
+      fullPath: '/api/categories/tree'
+      preLoaderRoute: typeof ApiCategoriesTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -575,6 +595,7 @@ const rootRouteChildren: RootRouteChildren = {
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
+  ApiCategoriesTreeRoute: ApiCategoriesTreeRoute,
   ApiPublicCategoriesTreeRoute: ApiPublicCategoriesTreeRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
