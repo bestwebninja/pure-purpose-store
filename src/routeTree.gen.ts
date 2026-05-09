@@ -15,10 +15,12 @@ import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as GiveRouteImport } from './routes/give'
 import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
+import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
@@ -65,6 +67,11 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
   path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GiveABlessingRoute = GiveABlessingRouteImport.update({
+  id: '/give-a-blessing',
+  path: '/give-a-blessing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GiveRoute = GiveRouteImport.update({
   id: '/give',
   path: '/give',
@@ -83,6 +90,11 @@ const CategoriesRoute = CategoriesRouteImport.update({
 const BecomeBlessingSponsorRoute = BecomeBlessingSponsorRouteImport.update({
   id: '/become-blessing-sponsor',
   path: '/become-blessing-sponsor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutUsRoute = AboutUsRouteImport.update({
+  id: '/about-us',
+  path: '/about-us',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -164,10 +176,12 @@ const ApiCategoriesTreeRoute = ApiCategoriesTreeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
+  '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
@@ -191,10 +205,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
+  '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
@@ -219,10 +235,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
+  '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
@@ -248,10 +266,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
     | '/explore-blessings'
     | '/give'
+    | '/give-a-blessing'
     | '/how-it-works'
     | '/login'
     | '/my-blessings'
@@ -275,10 +295,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
     | '/explore-blessings'
     | '/give'
+    | '/give-a-blessing'
     | '/how-it-works'
     | '/login'
     | '/my-blessings'
@@ -302,10 +324,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
     | '/explore-blessings'
     | '/give'
+    | '/give-a-blessing'
     | '/how-it-works'
     | '/login'
     | '/my-blessings'
@@ -330,10 +354,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AboutUsRoute: typeof AboutUsRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
   ExploreBlessingsRoute: typeof ExploreBlessingsRoute
   GiveRoute: typeof GiveRoute
+  GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
   MyBlessingsRoute: typeof MyBlessingsRoute
@@ -397,6 +423,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/give-a-blessing': {
+      id: '/give-a-blessing'
+      path: '/give-a-blessing'
+      fullPath: '/give-a-blessing'
+      preLoaderRoute: typeof GiveABlessingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/give': {
       id: '/give'
       path: '/give'
@@ -423,6 +456,13 @@ declare module '@tanstack/react-router' {
       path: '/become-blessing-sponsor'
       fullPath: '/become-blessing-sponsor'
       preLoaderRoute: typeof BecomeBlessingSponsorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -558,10 +598,12 @@ const NgoRouteWithChildren = NgoRoute._addFileChildren(NgoRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AboutUsRoute: AboutUsRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
   ExploreBlessingsRoute: ExploreBlessingsRoute,
   GiveRoute: GiveRoute,
+  GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
   MyBlessingsRoute: MyBlessingsRoute,
@@ -583,12 +625,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
