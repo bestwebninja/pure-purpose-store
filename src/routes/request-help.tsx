@@ -52,7 +52,7 @@ function RequestHelp() {
       setUserId(data.user.id);
       setAuthChecked(true);
       try {
-        const res = await fetch("/api/public/categories-tree", { credentials: "include" });
+        const res = await fetch("/api/categories/tree", { credentials: "include" });
         const json = await res.json();
         if (!cancelled) setTree(json?.tree ?? []);
       } catch {
