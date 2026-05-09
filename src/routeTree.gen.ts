@@ -21,6 +21,7 @@ import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
 import { Route as AboutUsRouteImport } from './routes/about-us'
+import { Route as AboutMyblessingsRouteImport } from './routes/about-myblessings'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
@@ -97,6 +98,11 @@ const BecomeBlessingSponsorRoute = BecomeBlessingSponsorRouteImport.update({
 const AboutUsRoute = AboutUsRouteImport.update({
   id: '/about-us',
   path: '/about-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutMyblessingsRoute = AboutMyblessingsRouteImport.update({
+  id: '/about-myblessings',
+  path: '/about-myblessings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -188,6 +194,7 @@ const ApiCategoriesTreeRoute = ApiCategoriesTreeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-myblessings': typeof AboutMyblessingsRoute
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
@@ -219,6 +226,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-myblessings': typeof AboutMyblessingsRoute
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
@@ -251,6 +259,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-myblessings': typeof AboutMyblessingsRoute
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
@@ -284,6 +293,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/about-myblessings'
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
@@ -315,6 +325,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/about-myblessings'
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/about-myblessings'
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
@@ -378,6 +390,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AboutMyblessingsRoute: typeof AboutMyblessingsRoute
   AboutUsRoute: typeof AboutUsRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
@@ -489,6 +502,13 @@ declare module '@tanstack/react-router' {
       path: '/about-us'
       fullPath: '/about-us'
       preLoaderRoute: typeof AboutUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-myblessings': {
+      id: '/about-myblessings'
+      path: '/about-myblessings'
+      fullPath: '/about-myblessings'
+      preLoaderRoute: typeof AboutMyblessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -638,6 +658,7 @@ const NgoRouteWithChildren = NgoRoute._addFileChildren(NgoRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AboutMyblessingsRoute: AboutMyblessingsRoute,
   AboutUsRoute: AboutUsRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
