@@ -37,17 +37,27 @@ export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | 
   const base =
     "transition-opacity duration-700 ease-in-out " + (show ? "opacity-100" : "opacity-0");
 
+  // Golden ivory color used for all quoted text across the app.
+  const goldenIvory = "#F5E6A8";
+
   if (variant === "banner") {
     return (
       <div className={`${base} mx-auto max-w-3xl text-center`}>
-        <p className="text-display text-xl italic text-foreground/80 md:text-2xl">"{q.text}"</p>
-        <p className="mt-2 text-sm text-muted-foreground">— {q.author}</p>
+        <p
+          className="text-display text-xl italic md:text-2xl"
+          style={{ color: goldenIvory, textShadow: "0 1px 2px rgba(0,0,0,0.25)" }}
+        >
+          "{q.text}"
+        </p>
+        <p className="mt-2 text-sm" style={{ color: goldenIvory, opacity: 0.85 }}>
+          — {q.author}
+        </p>
       </div>
     );
   }
   return (
-    <p className={`${base} text-xs italic text-muted-foreground`}>
-      "{q.text}" <span className="opacity-70">— {q.author}</span>
+    <p className={`${base} text-xs italic`} style={{ color: goldenIvory }}>
+      "{q.text}" <span style={{ opacity: 0.8 }}>— {q.author}</span>
     </p>
   );
 }
