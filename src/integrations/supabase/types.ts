@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      assistance_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          is_active: boolean
+          name: string
+          parent_id: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          parent_id?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          parent_id?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assistance_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "assistance_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -43,6 +90,72 @@ export type Database = {
           metadata?: Json
         }
         Relationships: []
+      }
+      blessings: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          image_url: string | null
+          price: number
+          provider_id: string | null
+          shopify_product_id: string | null
+          shopify_variant_id: string | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          price?: number
+          provider_id?: string | null
+          shopify_product_id?: string | null
+          shopify_variant_id?: string | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          price?: number
+          provider_id?: string | null
+          shopify_product_id?: string | null
+          shopify_variant_id?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blessings_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "assistance_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blessings_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       campaigns: {
         Row: {
@@ -115,6 +228,62 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "categories"
             referencedColumns: ["slug"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          category_id: string | null
+          country: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          priority: string
+          recipient_user_id: string
+          region: string | null
+          status: string
+          target_amount: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          country?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          priority?: string
+          recipient_user_id: string
+          region?: string | null
+          status?: string
+          target_amount?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          country?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          priority?: string
+          recipient_user_id?: string
+          region?: string | null
+          status?: string
+          target_amount?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "assistance_categories"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -194,6 +363,41 @@ export type Database = {
             columns: ["campaign_id"]
             isOneToOne: false
             referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fulfillment_events: {
+        Row: {
+          actor_user_id: string | null
+          created_at: string
+          event_type: string
+          id: string
+          notes: string | null
+          sponsorship_id: string
+        }
+        Insert: {
+          actor_user_id?: string | null
+          created_at?: string
+          event_type: string
+          id?: string
+          notes?: string | null
+          sponsorship_id: string
+        }
+        Update: {
+          actor_user_id?: string | null
+          created_at?: string
+          event_type?: string
+          id?: string
+          notes?: string | null
+          sponsorship_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fulfillment_events_sponsorship_id_fkey"
+            columns: ["sponsorship_id"]
+            isOneToOne: false
+            referencedRelation: "sponsorships"
             referencedColumns: ["id"]
           },
         ]
@@ -349,6 +553,51 @@ export type Database = {
         }
         Relationships: []
       }
+      providers: {
+        Row: {
+          country: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          name: string
+          owner_user_id: string | null
+          slug: string
+          updated_at: string
+          verification_status: string
+          website: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name: string
+          owner_user_id?: string | null
+          slug: string
+          updated_at?: string
+          verification_status?: string
+          website?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name?: string
+          owner_user_id?: string | null
+          slug?: string
+          updated_at?: string
+          verification_status?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       sponsors: {
         Row: {
           city: string | null
@@ -399,6 +648,60 @@ export type Database = {
           zip?: string | null
         }
         Relationships: []
+      }
+      sponsorships: {
+        Row: {
+          amount: number
+          blessing_id: string | null
+          case_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          shopify_order_id: string | null
+          sponsor_user_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          blessing_id?: string | null
+          case_id?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          shopify_order_id?: string | null
+          sponsor_user_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          blessing_id?: string | null
+          case_id?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          shopify_order_id?: string | null
+          sponsor_user_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sponsorships_blessing_id_fkey"
+            columns: ["blessing_id"]
+            isOneToOne: false
+            referencedRelation: "blessings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sponsorships_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
@@ -459,7 +762,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "ngo" | "user" | "sponsor"
+      app_role: "admin" | "ngo" | "user" | "sponsor" | "recipient"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -587,7 +890,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "ngo", "user", "sponsor"],
+      app_role: ["admin", "ngo", "user", "sponsor", "recipient"],
     },
   },
 } as const

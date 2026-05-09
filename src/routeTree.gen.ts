@@ -30,6 +30,7 @@ import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-c
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
+import { Route as ApiPublicCategoriesTreeRouteImport } from './routes/api/public/categories-tree'
 
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
@@ -136,6 +137,11 @@ const ApiPublicGoLiveReportRoute = ApiPublicGoLiveReportRouteImport.update({
   path: '/api/public/go-live-report',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCategoriesTreeRoute = ApiPublicCategoriesTreeRouteImport.update({
+  id: '/api/public/categories-tree',
+  path: '/api/public/categories-tree',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/api/public/categories-tree': typeof ApiPublicCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/api/public/categories-tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/shopify-webhook'
@@ -296,6 +308,7 @@ export interface RootRouteChildren {
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
+  ApiPublicCategoriesTreeRoute: typeof ApiPublicCategoriesTreeRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
@@ -450,6 +463,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGoLiveReportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/categories-tree': {
+      id: '/api/public/categories-tree'
+      path: '/api/public/categories-tree'
+      fullPath: '/api/public/categories-tree'
+      preLoaderRoute: typeof ApiPublicCategoriesTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -492,6 +512,7 @@ const rootRouteChildren: RootRouteChildren = {
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
+  ApiPublicCategoriesTreeRoute: ApiPublicCategoriesTreeRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
