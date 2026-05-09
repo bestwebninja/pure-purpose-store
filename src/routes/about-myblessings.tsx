@@ -49,9 +49,9 @@ function AboutMyBlessings() {
 
       <section className="mx-auto max-w-5xl px-6 py-12 space-y-6">
         <Section tone="#86efac" title="What We Do">
-          <p>We help kindness travel faster.</p>
-          <p>When someone asks for help, and someone else wants to give, we quietly bring them together.</p>
-          <p>We look at where people are, what they need, and what support is available. Then we make meaningful connections happen.</p>
+          <p className="text-lg">We help kindness travel faster.</p>
+          <p className="text-lg">When someone asks for help, and someone else wants to give, we quietly bring them together.</p>
+          <p className="text-lg">We look at where people are, what they need, and what support is available. Then we make meaningful connections happen.</p>
         </Section>
 
         <Section tone="#93c5fd" title="How It Works">
@@ -74,8 +74,8 @@ function AboutMyBlessings() {
         </Section>
 
         <Section tone="#fdba74" title="Why This Is Different">
-          <p>We are not a donation platform. We are not a charity directory.</p>
-          <p>We are a connection system for human support, meaning faster help, more personal impact, less waste, more dignity.</p>
+          <p className="text-lg">We are not a donation platform. We are not a charity directory.</p>
+          <p className="text-lg">We are a connection system for human support, meaning faster help, more personal impact, less waste, more dignity.</p>
         </Section>
 
         <Section tone="#fca5a5" title="Global Vision">
