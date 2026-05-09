@@ -50,6 +50,9 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        // Petri Bloom operates as a lightweight matching intelligence layer.
+        // Only high-confidence matches are persisted to avoid dataset pollution.
+        // This system prioritizes meaningful human connections over volume.
         let payload: Payload;
         try {
           payload = (await request.json()) as Payload;
@@ -82,12 +85,15 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
             score,
             status,
           });
-          if (cand && status !== "none") {
+          if (
+            cand &&
+            (status === "auto_match" || (status === "pending_review" && score >= 150))
+          ) {
             await supabaseAdmin.from("petri_matches").insert({
               help_request_id: payload.source_type === "request" ? payload.source_id ?? null : null,
               sponsor_id: payload.source_type === "intent" ? payload.source_id ?? null : null,
               score,
-              status: "pending",
+              status: status === "auto_match" ? "confirmed" : "pending",
             });
           }
         } catch (e) {
