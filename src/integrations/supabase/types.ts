@@ -370,27 +370,48 @@ export type Database = {
       fulfillment_events: {
         Row: {
           actor_user_id: string | null
+          cost: number | null
           created_at: string
+          currency: string | null
           event_type: string
           id: string
+          idempotency_key: string | null
+          match_id: string | null
           notes: string | null
-          sponsorship_id: string
+          provider: string | null
+          response: Json | null
+          sponsorship_id: string | null
+          status: string | null
         }
         Insert: {
           actor_user_id?: string | null
+          cost?: number | null
           created_at?: string
+          currency?: string | null
           event_type: string
           id?: string
+          idempotency_key?: string | null
+          match_id?: string | null
           notes?: string | null
-          sponsorship_id: string
+          provider?: string | null
+          response?: Json | null
+          sponsorship_id?: string | null
+          status?: string | null
         }
         Update: {
           actor_user_id?: string | null
+          cost?: number | null
           created_at?: string
+          currency?: string | null
           event_type?: string
           id?: string
+          idempotency_key?: string | null
+          match_id?: string | null
           notes?: string | null
-          sponsorship_id?: string
+          provider?: string | null
+          response?: Json | null
+          sponsorship_id?: string | null
+          status?: string | null
         }
         Relationships: [
           {
@@ -557,31 +578,49 @@ export type Database = {
       }
       petri_matches: {
         Row: {
+          category: string | null
           confidence_score: number
+          cost: number
           created_at: string
+          currency: string
+          execution_status: string
           help_request_id: string | null
           id: string
+          last_executed_at: string | null
           match_generation: string
+          provider: string | null
           score: number
           sponsor_id: string | null
           status: string
         }
         Insert: {
+          category?: string | null
           confidence_score?: number
+          cost?: number
           created_at?: string
+          currency?: string
+          execution_status?: string
           help_request_id?: string | null
           id?: string
+          last_executed_at?: string | null
           match_generation?: string
+          provider?: string | null
           score?: number
           sponsor_id?: string | null
           status?: string
         }
         Update: {
+          category?: string | null
           confidence_score?: number
+          cost?: number
           created_at?: string
+          currency?: string
+          execution_status?: string
           help_request_id?: string | null
           id?: string
+          last_executed_at?: string | null
           match_generation?: string
+          provider?: string | null
           score?: number
           sponsor_id?: string | null
           status?: string
