@@ -56,10 +56,10 @@ function AboutMyBlessings() {
 
         <Section tone="#93c5fd" title="How It Works">
           <ol className="list-decimal space-y-1 pl-5">
-            <li>Someone shares a need</li>
-            <li>Someone else offers support</li>
-            <li>We gently match them</li>
-            <li>Support becomes real impact</li>
+            <li className="text-2xl">Someone shares a need</li>
+            <li className="text-2xl">Someone else offers support</li>
+            <li className="text-2xl">We gently match them</li>
+            <li className="text-2xl">Support becomes real impact</li>
           </ol>
           <p>That is it. No noise. No friction. Just connection.</p>
         </Section>
