@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -75,6 +75,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const { pathname } = useLocation();
+  // Intent surface: PETRI Living Intake owns the full viewport — no shell, no enterprise theme.
+  const isIntentSurface = pathname === "/" || pathname === "/living-intake";
+
+  if (isIntentSurface) {
+    return (
+      <>
+        <Outlet />
+        <Toaster position="top-center" richColors />
+      </>
+    );
+  }
+
   return (
     <div
       className="flex min-h-screen flex-col"
