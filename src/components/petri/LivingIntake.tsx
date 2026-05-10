@@ -21,7 +21,7 @@ export function LivingIntake() {
 
   return (
     <div className="petri-art">
-      <div className="petri-canvas">
+      <div className="petri-canvas text-[#122fed] bg-[#edd70c]">
         <Progress step={step} total={totalEstimate} />
 
         {phase === "complete" && (
