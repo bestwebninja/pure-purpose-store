@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
 import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
@@ -13,6 +13,7 @@ export const Route = createFileRoute("/give")({
       { property: "og:description", content: "Choose a blessing to support today." },
     ],
   }),
+  beforeLoad: () => { throw redirect({ to: "/" }); },
   loader: () => listCampaigns(),
   component: GivePage,
 });
