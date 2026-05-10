@@ -14,6 +14,7 @@ import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LivingIntakeRouteImport } from './routes/living-intake'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as GiveRouteImport } from './routes/give'
@@ -64,6 +65,11 @@ const MyBlessingsRoute = MyBlessingsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LivingIntakeRoute = LivingIntakeRouteImport.update({
+  id: '/living-intake',
+  path: '/living-intake',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -208,6 +214,7 @@ export interface FileRoutesByFullPath {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/living-intake': typeof LivingIntakeRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
@@ -241,6 +248,7 @@ export interface FileRoutesByTo {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/living-intake': typeof LivingIntakeRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
@@ -275,6 +283,7 @@ export interface FileRoutesById {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/living-intake': typeof LivingIntakeRoute
   '/login': typeof LoginRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
@@ -310,6 +319,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/living-intake'
     | '/login'
     | '/my-blessings'
     | '/ngo'
@@ -343,6 +353,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/living-intake'
     | '/login'
     | '/my-blessings'
     | '/ngo'
@@ -376,6 +387,7 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/living-intake'
     | '/login'
     | '/my-blessings'
     | '/ngo'
@@ -410,6 +422,7 @@ export interface RootRouteChildren {
   GiveRoute: typeof GiveRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  LivingIntakeRoute: typeof LivingIntakeRoute
   LoginRoute: typeof LoginRoute
   MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
@@ -466,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/living-intake': {
+      id: '/living-intake'
+      path: '/living-intake'
+      fullPath: '/living-intake'
+      preLoaderRoute: typeof LivingIntakeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -686,6 +706,7 @@ const rootRouteChildren: RootRouteChildren = {
   GiveRoute: GiveRoute,
   GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
+  LivingIntakeRoute: LivingIntakeRoute,
   LoginRoute: LoginRoute,
   MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
@@ -709,12 +730,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
