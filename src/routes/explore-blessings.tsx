@@ -147,7 +147,7 @@ function ExploreBlessings() {
                       {b.currency} {Number(b.price).toFixed(0)}
                     </Badge>
                     <Button asChild size="sm">
-                      <Link to="/">Sponsor</Link>
+                      <Link to="/give">Sponsor</Link>
                     </Button>
                   </div>
                 </div>

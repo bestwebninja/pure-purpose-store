@@ -57,7 +57,7 @@ function MyBlessings() {
           <p className="text-sm text-muted-foreground">Your help requests and their status.</p>
         </div>
         <Button asChild>
-          <Link to="/">New Request</Link>
+          <Link to="/request-help">New Request</Link>
         </Button>
       </div>
 
@@ -67,7 +67,7 @@ function MyBlessings() {
         <Card className="mt-10 p-8 text-center">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>
           <Button asChild className="mt-4">
-            <Link to="/">Start your application</Link>
+            <Link to="/request-help">Start your application</Link>
           </Button>
         </Card>
       ) : (

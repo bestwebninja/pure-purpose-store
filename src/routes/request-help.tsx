@@ -1,4 +1,4 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,6 @@ export const Route = createFileRoute("/request-help")({
       { name: "description", content: "Tell us what you need. We'll connect you with sponsors and providers." },
     ],
   }),
-  beforeLoad: () => {
-    throw redirect({ to: "/living-intake" });
-  },
   component: RequestHelp,
 });
 

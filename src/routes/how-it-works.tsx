@@ -1,4 +1,4 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Search, Sparkles, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -11,7 +11,6 @@ export const Route = createFileRoute("/how-it-works")({
       { property: "og:description", content: "Three simple steps to give a blessing." },
     ],
   }),
-  beforeLoad: () => { throw redirect({ to: "/" }); },
   component: HowItWorks,
 });
 
