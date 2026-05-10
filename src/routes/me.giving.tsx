@@ -74,7 +74,7 @@ function MyGiving() {
         <Card className="p-10 text-center">
           <Heart className="mx-auto h-8 w-8 text-primary" />
           <p className="mt-3 text-muted-foreground">You haven't given a blessing yet.</p>
-          <Button asChild className="mt-4"><Link to="/give">Give your first blessing</Link></Button>
+          <Button asChild className="mt-4"><Link to="/">Give your first blessing</Link></Button>
         </Card>
       ) : (
         <Card className="divide-y divide-border/60">

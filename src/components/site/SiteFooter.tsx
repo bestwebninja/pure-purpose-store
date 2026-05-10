@@ -47,9 +47,8 @@ export function SiteFooter() {
         <div>
           <h4 className="text-display text-sm font-semibold">Platform</h4>
           <ul className="mt-4 space-y-2 text-sm text-white/75">
-            <li><Link to="/how-it-works" className="hover:text-white">How It Works</Link></li>
             <li><Link to="/transparency" className="hover:text-white">Transparency</Link></li>
-            <li><Link to="/give" className="hover:text-white">Give a Blessing</Link></li>
+            <li><Link to="/" className="hover:text-white">Get Help</Link></li>
           </ul>
         </div>
         <div>

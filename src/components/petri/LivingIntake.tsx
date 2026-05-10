@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { useEmotionalUnderstanding } from "@/hooks/useEmotionalUnderstanding";
 
 export function LivingIntake() {
@@ -41,11 +40,6 @@ export function LivingIntake() {
                 <p style={{ marginTop: ".5rem", fontStyle: "italic" }}>{summary}</p>
               </details>
             )}
-            <div style={{ marginTop: "2rem" }}>
-              <Link to="/give" className="petri-cta" style={{ textDecoration: "none" }}>
-                Explore active blessings →
-              </Link>
-            </div>
           </div>
         )}
 

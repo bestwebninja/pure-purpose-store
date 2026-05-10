@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,7 @@ export const Route = createFileRoute("/give-a-blessing")({
       { name: "description", content: "Sponsor someone in need. Configure your blessing in a minute." },
     ],
   }),
+  beforeLoad: () => { throw redirect({ to: "/" }); },
   component: GiveABlessing,
 });
 
