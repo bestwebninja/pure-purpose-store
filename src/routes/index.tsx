@@ -1,37 +1,17 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { Heart, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-blessings.jpg";
-import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
-import { CampaignCard } from "@/components/blessing/CampaignCard";
-import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
+import { createFileRoute } from "@tanstack/react-router";
+import { LivingIntake } from "@/components/petri/LivingIntake";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MyBlessings — Give With Purpose" },
-      { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes — transparently." },
-      { property: "og:title", content: "MyBlessings — Give With Purpose" },
-      { property: "og:description", content: "Support real people and real causes — transparently." },
+      { title: "MyBlessings — Tell us what's happening" },
+      { name: "description", content: "A gentle, one-question-at-a-time intake. Share what you need and we'll connect you with real-world help." },
+      { property: "og:title", content: "MyBlessings — Living Intake" },
+      { property: "og:description", content: "One question at a time. We listen first." },
     ],
   }),
-  loader: () => listCampaigns(),
-  component: Index,
+  component: LivingIntake,
 });
-
-function Index() {
-  const { campaigns } = Route.useLoaderData();
-  const live = useCampaignsRealtime<Campaign>(campaigns as Campaign[]);
-
-  return (
-    <div>
-      <Hero />
-      <CampaignGrid campaigns={live} />
-      <Trust />
-      <CTA />
-    </div>
-  );
-}
 
 function Hero() {
   return (
