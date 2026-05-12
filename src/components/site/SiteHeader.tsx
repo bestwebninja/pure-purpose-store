@@ -14,9 +14,9 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
-  { to: "/explore-blessings", label: "Explore Blessings" },
-  { to: "/request-help", label: "Request Help" },
-  { to: "/my-blessings", label: "My Blessings" },
+   { to: "/explore-blessings", label: "Explore Blessings" },
+   { to: "/request-help", label: "Request a Blessing" },
+   { to: "/my-blessings", label: "My Blessings" },
   { to: "/about-myblessings", label: "About MyBlessings" },
 ] as const;
 
