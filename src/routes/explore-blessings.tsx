@@ -32,7 +32,7 @@ type Blessing = {
 export const Route = createFileRoute("/explore-blessings")({
   head: () => ({
     meta: [
-      { title: "Explore Blessings — MyBlessings" },
+       { title: "Our Blessings — MyBlessings" },
       { name: "description", content: "Browse blessings available for sponsorship across every assistance category." },
     ],
   }),
@@ -81,7 +81,7 @@ function ExploreBlessings() {
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
       <header className="mb-8">
-        <h1 className="text-display text-4xl font-semibold">Explore Blessings</h1>
+         <h1 className="text-display text-4xl font-semibold">Our Blessings</h1>
         <p className="mt-2 text-muted-foreground">Sponsor specific items that meet a real need.</p>
       </header>
 
