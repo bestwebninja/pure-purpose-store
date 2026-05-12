@@ -49,14 +49,14 @@ export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | 
           "{q.text}"
         </p>
         <p className="mt-2 text-sm" style={{ color: goldenIvory, opacity: 0.85 }}>
-          — {q.author}
+          {q.author}
         </p>
       </div>
     );
   }
   return (
     <p className={`${base} text-xs italic`} style={{ color: goldenIvory }}>
-      "{q.text}" <span style={{ opacity: 0.8 }}>— {q.author}</span>
+      "{q.text}" <span style={{ opacity: 0.8 }}>{q.author}</span>
     </p>
   );
 }
