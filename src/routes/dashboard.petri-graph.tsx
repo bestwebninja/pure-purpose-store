@@ -263,9 +263,9 @@ function PetriGraphPage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
         <Card className="p-4">
           {nodes.length === 0 ? (
-            <p className="p-8 text-center text-sm text-muted-foreground">
-              No data yet. Submit a Give a Blessing or Request Help to populate the graph.
-            </p>
+             <p className="p-8 text-center text-sm text-muted-foreground">
+               No data yet. Submit a Give a Blessing or Request a Blessing to populate the graph.
+             </p>
           ) : (
             <PetriGraphView
               nodes={nodes}
