@@ -102,7 +102,7 @@ function AboutMyBlessings() {
             <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing 🙏</Link>
           </Button>
            <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20" style={garamond}>
-             <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> Request a Blessing 🤝</Link>
+             <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> Bless Me 🤝</Link>
            </Button>
           <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20" style={garamond}>
             <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner 🌍</Link>
