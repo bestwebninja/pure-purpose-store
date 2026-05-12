@@ -61,7 +61,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/15 py-6 text-center text-xs text-white/70">
-        © {new Date().getFullYear()} MyBlessings.US — every blessing matters.
+        © {new Date().getFullYear()} www.MyBlessings.US (Yes! Every blessing matters).
       </div>
     </footer>
   );
