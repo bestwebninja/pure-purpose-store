@@ -264,7 +264,7 @@ function PetriGraphPage() {
         <Card className="p-4">
            {nodes.length === 0 ? (
              <p className="p-8 text-center text-sm text-muted-foreground">
-               No data yet. Submit a Give a Blessing or Bless Me to populate the graph.
+               No data yet. Submit a Give a Blessing or BlessME to populate the graph.
              </p>
            ) : (
             <PetriGraphView
