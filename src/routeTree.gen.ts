@@ -18,6 +18,7 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as GiveRouteImport } from './routes/give'
 import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
 import { Route as AboutUsRouteImport } from './routes/about-us'
@@ -86,6 +87,11 @@ const ExploreBlessingsRoute = ExploreBlessingsRouteImport.update({
   path: '/explore-blessings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesRoute = CategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
@@ -137,9 +143,9 @@ const MeGivingRoute = MeGivingRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardPetriGraphRoute = DashboardPetriGraphRouteImport.update({
-  id: '/dashboard/petri-graph',
-  path: '/dashboard/petri-graph',
-  getParentRoute: () => rootRouteImport,
+  id: '/petri-graph',
+  path: '/petri-graph',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const CategoriesSlugRoute = CategoriesSlugRouteImport.update({
   id: '/$slug',
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -271,6 +279,7 @@ export interface FileRoutesById {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
@@ -339,6 +349,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
@@ -372,6 +383,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
@@ -406,6 +418,7 @@ export interface RootRouteChildren {
   AboutUsRoute: typeof AboutUsRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
+  DashboardRoute: typeof DashboardRouteWithChildren
   ExploreBlessingsRoute: typeof ExploreBlessingsRoute
   GiveRoute: typeof GiveRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
@@ -420,7 +433,6 @@ export interface RootRouteChildren {
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
-  DashboardPetriGraphRoute: typeof DashboardPetriGraphRoute
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
@@ -496,6 +508,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreBlessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories': {
       id: '/categories'
       path: '/categories'
@@ -568,10 +587,10 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/petri-graph': {
       id: '/dashboard/petri-graph'
-      path: '/dashboard/petri-graph'
+      path: '/petri-graph'
       fullPath: '/dashboard/petri-graph'
       preLoaderRoute: typeof DashboardPetriGraphRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/categories/$slug': {
       id: '/categories/$slug'
@@ -665,6 +684,18 @@ const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
   CategoriesRouteChildren,
 )
 
+interface DashboardRouteChildren {
+  DashboardPetriGraphRoute: typeof DashboardPetriGraphRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardPetriGraphRoute: DashboardPetriGraphRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 interface NgoRouteChildren {
   NgoOnboardingRoute: typeof NgoOnboardingRoute
 }
@@ -682,6 +713,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
+  DashboardRoute: DashboardRouteWithChildren,
   ExploreBlessingsRoute: ExploreBlessingsRoute,
   GiveRoute: GiveRoute,
   GiveABlessingRoute: GiveABlessingRoute,
@@ -696,7 +728,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
-  DashboardPetriGraphRoute: DashboardPetriGraphRoute,
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
