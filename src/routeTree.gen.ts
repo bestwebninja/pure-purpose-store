@@ -13,7 +13,9 @@ import { Route as TransparencyRouteImport } from './routes/transparency'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ImpactMapRouteImport } from './routes/impact-map'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as GiveRouteImport } from './routes/give'
@@ -62,9 +64,19 @@ const MyBlessingsRoute = MyBlessingsRouteImport.update({
   path: '/my-blessings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactMapRoute = ImpactMapRouteImport.update({
+  id: '/impact-map',
+  path: '/impact-map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -215,7 +227,9 @@ export interface FileRoutesByFullPath {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -249,7 +263,9 @@ export interface FileRoutesByTo {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -284,7 +300,9 @@ export interface FileRoutesById {
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -320,7 +338,9 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -354,7 +374,9 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -388,7 +410,9 @@ export interface FileRouteTypes {
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -423,7 +447,9 @@ export interface RootRouteChildren {
   GiveRoute: typeof GiveRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  ImpactMapRoute: typeof ImpactMapRoute
   LoginRoute: typeof LoginRoute
+  MarketplaceRoute: typeof MarketplaceRoute
   MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
   RequestHelpRoute: typeof RequestHelpRoute
@@ -473,11 +499,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyBlessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact-map': {
+      id: '/impact-map'
+      path: '/impact-map'
+      fullPath: '/impact-map'
+      preLoaderRoute: typeof ImpactMapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -718,7 +758,9 @@ const rootRouteChildren: RootRouteChildren = {
   GiveRoute: GiveRoute,
   GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
+  ImpactMapRoute: ImpactMapRoute,
   LoginRoute: LoginRoute,
+  MarketplaceRoute: MarketplaceRoute,
   MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
   RequestHelpRoute: RequestHelpRoute,
@@ -740,3 +782,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
