@@ -5,6 +5,9 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCommandCenterSnapshot } from "@/server/ngo.functions";
+import { getLifecycleCounts, type LifecycleCounts } from "@/lib/dashboard.functions";
+import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
+import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
 export const Route = createFileRoute("/admin/command-center")({
   head: () => ({
@@ -30,22 +33,27 @@ function Stat({ label, value, tone }: { label: string; value: string | number; t
 
 function CommandCenter() {
   const fetchSnapshot = useServerFn(getCommandCenterSnapshot);
+  const fetchCounts = useServerFn(getLifecycleCounts);
   const [snap, setSnap] = useState<Snapshot | null>(null);
+  const [counts, setCounts] = useState<LifecycleCounts | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await fetchSnapshot();
+      const [data, c] = await Promise.all([fetchSnapshot(), fetchCounts()]);
       setSnap(data);
+      setCounts(c);
       setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
     } finally {
       setLoading(false);
     }
-  }, [fetchSnapshot]);
+  }, [fetchSnapshot, fetchCounts]);
+
+  useLifecycleRealtime(refresh);
 
   useEffect(() => {
     refresh();
@@ -82,7 +90,9 @@ function CommandCenter() {
       {!snap ? (
         <p className="mt-8 text-sm text-muted-foreground">Loading…</p>
       ) : (
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <>
+        {counts && <div className="mt-8"><BlessingLifecycle counts={counts} /></div>}
+        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card className="p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Donations</h2>
             <div className="mt-4 grid grid-cols-2 gap-4">
@@ -191,6 +201,7 @@ function CommandCenter() {
             )}
           </Card>
         </div>
+        </>
       )}
     </div>
   );

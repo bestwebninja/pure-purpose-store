@@ -13,11 +13,14 @@ import { Route as TransparencyRouteImport } from './routes/transparency'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ImpactMapRouteImport } from './routes/impact-map'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as GiveRouteImport } from './routes/give'
 import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
 import { Route as AboutUsRouteImport } from './routes/about-us'
@@ -61,9 +64,19 @@ const MyBlessingsRoute = MyBlessingsRouteImport.update({
   path: '/my-blessings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactMapRoute = ImpactMapRouteImport.update({
+  id: '/impact-map',
+  path: '/impact-map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -84,6 +97,11 @@ const GiveRoute = GiveRouteImport.update({
 const ExploreBlessingsRoute = ExploreBlessingsRouteImport.update({
   id: '/explore-blessings',
   path: '/explore-blessings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesRoute = CategoriesRouteImport.update({
@@ -137,9 +155,9 @@ const MeGivingRoute = MeGivingRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardPetriGraphRoute = DashboardPetriGraphRouteImport.update({
-  id: '/dashboard/petri-graph',
-  path: '/dashboard/petri-graph',
-  getParentRoute: () => rootRouteImport,
+  id: '/petri-graph',
+  path: '/petri-graph',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const CategoriesSlugRoute = CategoriesSlugRouteImport.update({
   id: '/$slug',
@@ -204,11 +222,14 @@ export interface FileRoutesByFullPath {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -237,11 +258,14 @@ export interface FileRoutesByTo {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -271,11 +295,14 @@ export interface FileRoutesById {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/impact-map': typeof ImpactMapRoute
   '/login': typeof LoginRoute
+  '/marketplace': typeof MarketplaceRoute
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
@@ -306,11 +333,14 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -339,11 +369,14 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -372,11 +405,14 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/dashboard'
     | '/explore-blessings'
     | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
+    | '/impact-map'
     | '/login'
+    | '/marketplace'
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
@@ -406,11 +442,14 @@ export interface RootRouteChildren {
   AboutUsRoute: typeof AboutUsRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
+  DashboardRoute: typeof DashboardRouteWithChildren
   ExploreBlessingsRoute: typeof ExploreBlessingsRoute
   GiveRoute: typeof GiveRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  ImpactMapRoute: typeof ImpactMapRoute
   LoginRoute: typeof LoginRoute
+  MarketplaceRoute: typeof MarketplaceRoute
   MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
   RequestHelpRoute: typeof RequestHelpRoute
@@ -420,7 +459,6 @@ export interface RootRouteChildren {
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
-  DashboardPetriGraphRoute: typeof DashboardPetriGraphRoute
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
   SponsorDashboardRoute: typeof SponsorDashboardRoute
@@ -461,11 +499,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MyBlessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact-map': {
+      id: '/impact-map'
+      path: '/impact-map'
+      fullPath: '/impact-map'
+      preLoaderRoute: typeof ImpactMapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -494,6 +546,13 @@ declare module '@tanstack/react-router' {
       path: '/explore-blessings'
       fullPath: '/explore-blessings'
       preLoaderRoute: typeof ExploreBlessingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories': {
@@ -568,10 +627,10 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/petri-graph': {
       id: '/dashboard/petri-graph'
-      path: '/dashboard/petri-graph'
+      path: '/petri-graph'
       fullPath: '/dashboard/petri-graph'
       preLoaderRoute: typeof DashboardPetriGraphRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/categories/$slug': {
       id: '/categories/$slug'
@@ -665,6 +724,18 @@ const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
   CategoriesRouteChildren,
 )
 
+interface DashboardRouteChildren {
+  DashboardPetriGraphRoute: typeof DashboardPetriGraphRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardPetriGraphRoute: DashboardPetriGraphRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 interface NgoRouteChildren {
   NgoOnboardingRoute: typeof NgoOnboardingRoute
 }
@@ -682,11 +753,14 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
+  DashboardRoute: DashboardRouteWithChildren,
   ExploreBlessingsRoute: ExploreBlessingsRoute,
   GiveRoute: GiveRoute,
   GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
+  ImpactMapRoute: ImpactMapRoute,
   LoginRoute: LoginRoute,
+  MarketplaceRoute: MarketplaceRoute,
   MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
   RequestHelpRoute: RequestHelpRoute,
@@ -696,7 +770,6 @@ const rootRouteChildren: RootRouteChildren = {
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
-  DashboardPetriGraphRoute: DashboardPetriGraphRoute,
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
   SponsorDashboardRoute: SponsorDashboardRoute,
@@ -709,12 +782,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
