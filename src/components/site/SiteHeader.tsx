@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Heart, ChevronDown, UserCircle2, ShieldCheck } from "lucide-react";
+import { Heart, ChevronDown, UserCircle2, ShieldCheck, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GiveBlessingButton } from "@/components/site/GiveBlessingButton";
@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
@@ -114,6 +115,75 @@ export function SiteHeader() {
           )}
         </nav>
         <div className="flex shrink-0 items-center gap-2">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 flex flex-col gap-1">
+                {NAV.map((item) => (
+                  <SheetClose asChild key={item.to}>
+                    <Link
+                      to={item.to}
+                      className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
+                    >
+                      {item.label}
+                    </Link>
+                  </SheetClose>
+                ))}
+                {isSponsor && (
+                  <SheetClose asChild>
+                    <Link to="/sponsor/dashboard" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
+                      Sponsor Dashboard
+                    </Link>
+                  </SheetClose>
+                )}
+                {!isSponsor && (
+                  <SheetClose asChild>
+                    <Link to="/become-blessing-sponsor" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
+                      Become a Sponsor
+                    </Link>
+                  </SheetClose>
+                )}
+                {isAdmin && (
+                  <>
+                    <div className="mt-3 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Admin</div>
+                    <SheetClose asChild>
+                      <Link to="/admin/command-center" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Command Center</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/ngo-dashboard" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">NGO Applications</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/sponsors" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Sponsors</Link>
+                    </SheetClose>
+                  </>
+                )}
+                <div className="mt-3 border-t pt-3">
+                  {userId ? (
+                    <>
+                      <SheetClose asChild>
+                        <Link to="/me/giving" className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">My Giving</Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link to="/me/profile" className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Profile</Link>
+                      </SheetClose>
+                      <button onClick={handleSignOut} className="w-full rounded-md px-3 py-2 text-left text-sm font-medium text-foreground hover:bg-muted">Sign out</button>
+                    </>
+                  ) : (
+                    <SheetClose asChild>
+                      <Link to="/login" className="block rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Login</Link>
+                    </SheetClose>
+                  )}
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
           {!isSponsor && (
             <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
