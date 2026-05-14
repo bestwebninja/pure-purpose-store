@@ -441,6 +441,57 @@ export type Database = {
           },
         ]
       }
+      image_moderation_log: {
+        Row: {
+          actor_user_id: string | null
+          bucket: string | null
+          confidence: number | null
+          created_at: string
+          id: string
+          kind: string
+          model: string | null
+          path: string | null
+          raw_response: Json
+          reason: string | null
+          smiling_human: boolean | null
+          subject_id: string | null
+          subject_kind: string | null
+          verdict: string
+        }
+        Insert: {
+          actor_user_id?: string | null
+          bucket?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          kind: string
+          model?: string | null
+          path?: string | null
+          raw_response?: Json
+          reason?: string | null
+          smiling_human?: boolean | null
+          subject_id?: string | null
+          subject_kind?: string | null
+          verdict: string
+        }
+        Update: {
+          actor_user_id?: string | null
+          bucket?: string | null
+          confidence?: number | null
+          created_at?: string
+          id?: string
+          kind?: string
+          model?: string | null
+          path?: string | null
+          raw_response?: Json
+          reason?: string | null
+          smiling_human?: boolean | null
+          subject_id?: string | null
+          subject_kind?: string | null
+          verdict?: string
+        }
+        Relationships: []
+      }
       invoices: {
         Row: {
           created_at: string
