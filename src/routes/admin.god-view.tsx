@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { recomputePetriScores } from "@/server/petri-recompute.functions";
+import { approveFlywheelReport, listImpactReports } from "@/lib/flywheel.functions";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
@@ -80,6 +81,22 @@ type RecomputeRunSummary = {
   trigger: string;
 };
 
+type ImpactReport = {
+  id: string;
+  sponsor_user_id: string;
+  sponsor_id: string | null;
+  package_signature: string;
+  package_total: number;
+  currency: string;
+  status: "draft" | "pending_review" | "approved" | "sent" | "failed" | string;
+  summary: string;
+  autonomy_level: number;
+  sent_at: string | null;
+  created_at: string;
+  updated_at: string;
+  next_package: { total?: number; items?: unknown[] } | null;
+};
+
 type FeedRow =
   | ({ kind: "match" } & PetriMatch)
   | ({ kind: "event" } & FulfillmentEvent);
@@ -132,6 +149,11 @@ function GodView() {
   const [recomputing, setRecomputing] = useState(false);
   const [lastRecompute, setLastRecompute] = useState<RecomputeRunSummary | null>(null);
   const recompute = useServerFn(recomputePetriScores);
+  const fetchReports = useServerFn(listImpactReports);
+  const approveReport = useServerFn(approveFlywheelReport);
+  const [reports, setReports] = useState<ImpactReport[]>([]);
+  const [reportsLoading, setReportsLoading] = useState(false);
+  const [approvingId, setApprovingId] = useState<string | null>(null);
   const [counts, setCounts] = useState({
     sponsors: 0,
     sponsorsPending: 0,
@@ -206,6 +228,36 @@ function GodView() {
       setLoading(false);
     }
   }, []);
+
+  const loadReports = useCallback(async () => {
+    setReportsLoading(true);
+    try {
+      const res = (await fetchReports()) as { reports: ImpactReport[] };
+      setReports(res.reports ?? []);
+    } catch (e) {
+      toast.error("Failed to load reports", { description: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setReportsLoading(false);
+    }
+  }, [fetchReports]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    loadReports();
+  }, [isAdmin, loadReports]);
+
+  const handleApproveReport = async (id: string) => {
+    setApprovingId(id);
+    try {
+      await approveReport({ data: { reportId: id } });
+      toast.success("Report approved & sent");
+      await loadReports();
+    } catch (e) {
+      toast.error("Approval failed", { description: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setApprovingId(null);
+    }
+  };
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -331,6 +383,7 @@ function GodView() {
           <TabsTrigger value="ngo">NGO Trust</TabsTrigger>
           <TabsTrigger value="ai">AI Decisions Feed</TabsTrigger>
           <TabsTrigger value="treasury">Treasury</TabsTrigger>
+          <TabsTrigger value="reports">Sponsor Reports</TabsTrigger>
           <TabsTrigger value="autonomy">Autonomy</TabsTrigger>
         </TabsList>
 
@@ -565,6 +618,75 @@ function GodView() {
               <StatTile label="Lifetime donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
               <StatTile label="Sponsorships" value={counts.sponsorships} tone="info" />
               <StatTile label="Cases funded" value={counts.cases - counts.casesOpen} tone="ok" />
+            </div>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="reports" className="mt-4">
+          <Card className="p-0">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports — Funding Flywheel</h2>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Drafts await Operator approval at L0–L2. Reports auto-send at L3 (Autonomous).
+                </p>
+              </div>
+              <Button size="sm" variant="outline" onClick={loadReports} disabled={reportsLoading}>
+                {reportsLoading ? "Refreshing…" : "Refresh"}
+              </Button>
+            </div>
+            <div className="max-h-[640px] overflow-auto">
+              <Table>
+                <TableHeader className="sticky top-0 bg-card">
+                  <TableRow>
+                    <TableHead>Sponsor</TableHead>
+                    <TableHead className="text-right">Cycle Total</TableHead>
+                    <TableHead className="text-right">Next Pkg</TableHead>
+                    <TableHead>Autonomy</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>When</TableHead>
+                    <TableHead className="text-right">Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {reports.length === 0 ? (
+                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground">No flywheel reports yet.</TableCell></TableRow>
+                  ) : reports.map((r) => {
+                    const tone =
+                      r.status === "sent" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                      : r.status === "pending_review" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      : r.status === "failed" ? "bg-destructive/15 text-destructive"
+                      : "bg-muted text-muted-foreground";
+                    const canApprove = r.status === "draft" || r.status === "pending_review" || r.status === "approved";
+                    return (
+                      <TableRow key={r.id}>
+                        <TableCell>
+                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}…</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}…</div>
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{fmtMoney(r.package_total, r.currency)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{fmtMoney(Number(r.next_package?.total ?? 0), r.currency)}</TableCell>
+                        <TableCell className="text-xs">L{r.autonomy_level} · {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
+                        <TableCell><Badge className={tone}>{r.status}</Badge></TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
+                          {r.sent_at ? `sent ${timeAgo(r.sent_at)}` : `drafted ${timeAgo(r.created_at)}`}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {r.status === "sent" ? (
+                            <span className="text-xs text-emerald-600 dark:text-emerald-400">Auto-sent</span>
+                          ) : canApprove ? (
+                            <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
+                              {approvingId === r.id ? "Sending…" : "Approve & send"}
+                            </Button>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
             </div>
           </Card>
         </TabsContent>
