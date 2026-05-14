@@ -188,7 +188,7 @@ function ExploreBlessings() {
   const filtered = activeSub ? [] : blessings;
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
+    <div className="mx-auto max-w-7xl px-6 py-12 text-white">
       <header className="mb-8">
          <h1 className="text-display text-4xl font-semibold">Our Blessings</h1>
         <p className="mt-2 text-muted-foreground">Sponsor specific items that meet a real need.</p>
