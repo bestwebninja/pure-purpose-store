@@ -762,6 +762,65 @@ export type Database = {
         }
         Relationships: []
       }
+      petri_scorecards: {
+        Row: {
+          autonomy_decision: string
+          case_id: string | null
+          composite_score: number
+          created_at: string
+          delivery_confidence: number
+          economic_impact: number
+          id: string
+          inputs: Json
+          last_computed_at: string
+          sponsor_alignment: number
+          stability: number
+          token_id: string
+          updated_at: string
+          urgency: number
+        }
+        Insert: {
+          autonomy_decision?: string
+          case_id?: string | null
+          composite_score?: number
+          created_at?: string
+          delivery_confidence?: number
+          economic_impact?: number
+          id?: string
+          inputs?: Json
+          last_computed_at?: string
+          sponsor_alignment?: number
+          stability?: number
+          token_id: string
+          updated_at?: string
+          urgency?: number
+        }
+        Update: {
+          autonomy_decision?: string
+          case_id?: string | null
+          composite_score?: number
+          created_at?: string
+          delivery_confidence?: number
+          economic_impact?: number
+          id?: string
+          inputs?: Json
+          last_computed_at?: string
+          sponsor_alignment?: number
+          stability?: number
+          token_id?: string
+          updated_at?: string
+          urgency?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "petri_scorecards_token_id_fkey"
+            columns: ["token_id"]
+            isOneToOne: true
+            referencedRelation: "petri_tokens"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       petri_tokens: {
         Row: {
           confidence_score: number
