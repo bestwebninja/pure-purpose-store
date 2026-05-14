@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { getMySponsorProfile } from "@/server/sponsor.functions";
+import { SponsorUploadWidget } from "@/components/sponsor/SponsorUploadWidget";
+import { SponsorRecommendations } from "@/components/sponsor/SponsorRecommendations";
 
 type Sponsor = {
   id: string;
@@ -17,6 +19,8 @@ type Sponsor = {
   help_interests: string[];
   verification_status: string;
   created_at: string;
+  logo_url: string | null;
+  doc_url: string | null;
 };
 
 export const Route = createFileRoute("/sponsor/dashboard")({
@@ -102,6 +106,16 @@ function SponsorDashboard() {
           </div>
         </Card>
       </div>
+
+      <SponsorUploadWidget
+        initialLogoUrl={sponsor.logo_url}
+        initialDocUrl={sponsor.doc_url}
+        onSaved={({ logoUrl, docUrl }) =>
+          setSponsor((s) => (s ? { ...s, logo_url: logoUrl, doc_url: docUrl } : s))
+        }
+      />
+
+      <SponsorRecommendations />
 
     </div>
   );

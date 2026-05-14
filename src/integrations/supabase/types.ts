@@ -749,8 +749,10 @@ export type Database = {
           city: string | null
           country: string | null
           created_at: string
+          doc_url: string | null
           help_interests: string[]
           id: string
+          logo_url: string | null
           organization_details: string | null
           organization_name: string | null
           sponsor_role: string
@@ -765,8 +767,10 @@ export type Database = {
           city?: string | null
           country?: string | null
           created_at?: string
+          doc_url?: string | null
           help_interests?: string[]
           id?: string
+          logo_url?: string | null
           organization_details?: string | null
           organization_name?: string | null
           sponsor_role: string
@@ -781,8 +785,10 @@ export type Database = {
           city?: string | null
           country?: string | null
           created_at?: string
+          doc_url?: string | null
           help_interests?: string[]
           id?: string
+          logo_url?: string | null
           organization_details?: string | null
           organization_name?: string | null
           sponsor_role?: string
