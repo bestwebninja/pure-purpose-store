@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { createHmac, timingSafeEqual } from "crypto";
+import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
@@ -32,6 +34,52 @@ type Payload = {
     budget?: number | null;
   } | null;
 };
+
+const MAX_BODY_BYTES = 8 * 1024;        // 8KB cap — defends against payload spam
+const MAX_CATEGORY_IDS = 16;            // bounds engine + storage cost per call
+
+/**
+ * Authorize a petri-bloom request. Accepts either:
+ *   - A valid Supabase session (bearer token in Authorization header), OR
+ *   - A valid HMAC-SHA256 signature in `x-petri-signature` over the raw body
+ *     using PETRI_WEBHOOK_SECRET.
+ * Returns null on success, or a Response on rejection.
+ */
+async function authorizePetriRequest(request: Request, raw: string): Promise<Response | null> {
+  // 1. HMAC signature path (server-to-server, cron, trusted callers)
+  const sig = request.headers.get("x-petri-signature");
+  const secret = process.env.PETRI_WEBHOOK_SECRET;
+  if (sig && secret) {
+    const expected = createHmac("sha256", secret).update(raw, "utf8").digest("hex");
+    const a = Buffer.from(sig);
+    const b = Buffer.from(expected);
+    if (a.length === b.length && timingSafeEqual(a, b)) return null;
+    return new Response(JSON.stringify({ error: "invalid_signature" }), {
+      status: 401, headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // 2. Authenticated user path (app calls)
+  const auth = request.headers.get("authorization") ?? "";
+  if (auth.toLowerCase().startsWith("bearer ")) {
+    const token = auth.slice(7);
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_PUBLISHABLE_KEY;
+    if (url && key) {
+      try {
+        const c = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+        const { data, error } = await c.auth.getUser(token);
+        if (!error && data.user) return null;
+      } catch (e) {
+        console.error("[petri-bloom] auth verify failed", e);
+      }
+    }
+  }
+
+  return new Response(JSON.stringify({ error: "unauthorized" }), {
+    status: 401, headers: { "Content-Type": "application/json" },
+  });
+}
 
 function scoreLocation(a?: Loc, b?: Loc): number {
   if (!a || !b) return 0;
@@ -99,13 +147,28 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
         // Petri Bloom operates as a lightweight matching intelligence layer.
         // Only high-confidence matches are persisted to avoid dataset pollution.
         // This system prioritizes meaningful human connections over volume.
+        const raw = await request.text();
+        if (raw.length > MAX_BODY_BYTES) {
+          return new Response(JSON.stringify({ error: "payload_too_large" }), {
+            status: 413, headers: { "Content-Type": "application/json" },
+          });
+        }
+        const denied = await authorizePetriRequest(request, raw);
+        if (denied) return denied;
+
         let payload: Payload;
         try {
-          payload = (await request.json()) as Payload;
+          payload = JSON.parse(raw) as Payload;
         } catch {
           return new Response(JSON.stringify({ error: "invalid_json" }), {
             status: 400, headers: { "Content-Type": "application/json" },
           });
+        }
+        if (Array.isArray(payload.category_ids) && payload.category_ids.length > MAX_CATEGORY_IDS) {
+          payload.category_ids = payload.category_ids.slice(0, MAX_CATEGORY_IDS);
+        }
+        if (payload.candidate?.category_ids && payload.candidate.category_ids.length > MAX_CATEGORY_IDS) {
+          payload.candidate.category_ids = payload.candidate.category_ids.slice(0, MAX_CATEGORY_IDS);
         }
 
         const cand = payload.candidate ?? null;
