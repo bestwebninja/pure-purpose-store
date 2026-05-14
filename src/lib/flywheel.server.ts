@@ -144,10 +144,10 @@ export async function generateSponsorFlywheelReport(args: {
     currency,
     status: finalStatus,
     summary,
-    artifacts: artifacts as unknown as Record<string, unknown>,
+    artifacts: JSON.parse(JSON.stringify(artifacts)),
     next_package: nextPackage
-      ? ({ ...nextPackage, _generation_error: null } as unknown as Record<string, unknown>)
-      : ({ _generation_error: nextPackageError } as unknown as Record<string, unknown>),
+      ? JSON.parse(JSON.stringify({ ...nextPackage, _generation_error: null }))
+      : { _generation_error: nextPackageError },
     autonomy_level: autonomyLevel,
     sent_at: finalSentAt,
   };
