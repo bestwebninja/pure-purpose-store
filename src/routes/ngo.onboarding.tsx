@@ -67,7 +67,7 @@ function Onboarding() {
   const inputCls = "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
   return (
     <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
-      <h1 className="text-display text-3xl font-semibold text-white text-white">NGO Onboarding</h1>
+      <h1 className="text-display text-3xl font-semibold text-white">NGO Onboarding</h1>
       <p className="mt-2 text-white/80">Step {step} of 3</p>
 
       <Card className="mt-8 space-y-5 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>

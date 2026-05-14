@@ -225,7 +225,7 @@ function RequestHelp() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
       <div className="mx-auto max-w-2xl px-6 py-16">
-         <h1 className="text-display text-3xl font-semibold text-white text-white">BlessME 🙏</h1>
+         <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
           Sign up as a recipient and tell us what you need. Sponsors will be matched to your request.
         </p>
