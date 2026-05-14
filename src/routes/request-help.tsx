@@ -129,6 +129,7 @@ function RequestHelp() {
         `Requested by: ${form.firstName.trim()} ${form.surname.trim()}`,
         `Email: ${form.email.trim()}`,
         form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
+        form.postal_code.trim() ? `Zip/Postal: ${form.postal_code.trim()}` : null,
         "",
         form.description.trim(),
       ].filter(Boolean).join("\n") || null,
@@ -150,7 +151,7 @@ function RequestHelp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source_type: "request",
-          location: { city: form.region, country: form.country },
+          location: { city: form.region, country: form.country, postal_code: form.postal_code },
           category_ids: form.category_id ? [form.category_id] : [],
           budget: form.target_amount ? Number(form.target_amount) : null,
         }),
