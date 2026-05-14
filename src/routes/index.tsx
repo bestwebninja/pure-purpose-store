@@ -86,7 +86,7 @@ function Hero() {
           <p className="max-w-xl text-lg leading-relaxed text-white/80">
             MyBlessings is a transparent giving platform where every dollar is tracked,
             every story is verified, and every recipient is honored. Built on accountability,
-            not algorithms.
+            and Ai algorithms.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button
