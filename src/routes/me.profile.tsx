@@ -10,6 +10,7 @@ import { Camera, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyProfile, updateMyProfile } from "@/server/profile.functions";
+import { moderateImage } from "@/server/moderation.functions";
 
 export const Route = createFileRoute("/me/profile")({
   head: () => ({ meta: [{ title: "My Profile — MyBlessings" }, { name: "robots", content: "noindex" }] }),
@@ -20,6 +21,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const get = useServerFn(getMyProfile);
   const update = useServerFn(updateMyProfile);
+  const moderate = useServerFn(moderateImage);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -80,6 +82,25 @@ function ProfilePage() {
     }
     setUploading(true);
     try {
+      // Phase 2 — Image Trust Layer: profile photos must show a smiling human.
+      const b64 = await fileToBase64(file);
+      const verdict = await moderate({
+        data: {
+          imageBase64: b64,
+          mimeType: file.type,
+          kind: "avatar",
+          requireSmilingHuman: true,
+        },
+      });
+      if (!verdict.allow) {
+        toast.error("Photo not accepted", {
+          description:
+            verdict.reason ||
+            "Smiling is a must — please upload a photo where you are clearly smiling.",
+        });
+        setUploading(false);
+        return;
+      }
       const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
       const path = `${userId}/avatar-${Date.now()}.${ext}`;
       const { error: upErr } = await supabase.storage
