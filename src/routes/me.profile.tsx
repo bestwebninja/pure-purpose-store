@@ -172,6 +172,9 @@ function ProfilePage() {
               )}
             </Button>
             <p className="text-xs text-muted-foreground">JPG or PNG, up to 5 MB.</p>
+            <p className="text-xs font-medium text-amber-600">
+              Smiling is a must — please upload a photo where you are clearly smiling.
+            </p>
           </div>
         </div>
         <form onSubmit={onSubmit} className="space-y-4">
