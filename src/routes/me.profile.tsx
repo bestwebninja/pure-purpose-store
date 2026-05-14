@@ -12,6 +12,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { getMyProfile, updateMyProfile } from "@/server/profile.functions";
 import { moderateImage } from "@/server/moderation.functions";
 
+async function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => {
+      const result = typeof r.result === "string" ? r.result : "";
+      resolve(result);
+    };
+    r.onerror = () => reject(r.error ?? new Error("Could not read file"));
+    r.readAsDataURL(file);
+  });
+}
+
 export const Route = createFileRoute("/me/profile")({
   head: () => ({ meta: [{ title: "My Profile — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: ProfilePage,
