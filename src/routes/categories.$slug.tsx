@@ -37,7 +37,7 @@ function CategoryPage() {
   const { category, campaigns } = Route.useLoaderData();
   const live = useCampaignsRealtime<Campaign>(campaigns as Campaign[]);
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
+    <div className="mx-auto max-w-7xl px-6 py-12 text-white">
       <Link to="/categories" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="mr-1 h-4 w-4" /> All categories
       </Link>
