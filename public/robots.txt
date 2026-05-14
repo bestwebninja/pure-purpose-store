@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /me/
+Disallow: /dashboard
+Disallow: /sponsor/
+
+Sitemap: https://pure-purpose-store.lovable.app/sitemap.xml
