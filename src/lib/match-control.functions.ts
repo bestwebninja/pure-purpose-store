@@ -66,10 +66,19 @@ export const executeMatch = createServerFn({ method: "POST" })
     await assertAdmin(context.userId);
     const { data: match, error } = await supabaseAdmin
       .from("petri_matches")
-      .select("id, category, score, confidence_score, help_request_id, sponsor_id")
+      .select("id, category, score, confidence_score, help_request_id, sponsor_id, status, execution_status")
       .eq("id", data.id)
       .single();
     if (error) throw new Error(error.message);
+    // Status gate: only confirmed/approved matches may execute. Rejected, pending,
+    // or already-executed matches must not re-trigger fulfillment.
+    const allowedStatuses = new Set(["confirmed", "approved"]);
+    if (!allowedStatuses.has(String(match.status ?? ""))) {
+      throw new Error(`match_status_not_executable: ${match.status}`);
+    }
+    if (match.execution_status === "executed") {
+      throw new Error("match_already_executed");
+    }
     const result = await routeMatchToFulfillment(match);
     return { ok: true, result };
   });
