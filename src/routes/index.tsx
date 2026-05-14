@@ -151,7 +151,7 @@ function ImpactStrip({ campaigns }: { campaigns: Campaign[] }) {
     { label: "Raised across all blessings", value: formatUSD(totalRaised) },
     { label: "Donors who showed up", value: totalDonors.toLocaleString() },
     { label: "Active blessings", value: liveCampaigns.toLocaleString() },
-    { label: "Of every dollar reaches recipients", value: "100%" },
+    { label: "Every Blessing sent reaches the Blessed, given with your kindness", value: "100%" },
   ];
 
   return (
