@@ -906,6 +906,14 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_campaign_totals: {
+        Args: { _amount: number; _campaign_id: string; _donor_delta?: number }
+        Returns: undefined
+      }
+      reverse_donation_ledger: {
+        Args: { _donation_id: string; _reason?: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "ngo" | "user" | "sponsor" | "recipient"
