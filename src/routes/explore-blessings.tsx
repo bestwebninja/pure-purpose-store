@@ -200,7 +200,7 @@ function ExploreBlessings() {
 
       <section className="mb-10">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Categories</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">Categories</h2>
           {activeSub && (
             <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)}>
               Clear filter
@@ -241,7 +241,7 @@ function ExploreBlessings() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">
           {activeSub
             ? activeSub.split("::")[1]
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}
