@@ -990,6 +990,36 @@ export type Database = {
           },
         ]
       }
+      system_modules: {
+        Row: {
+          autonomy_level: number
+          country_code: string | null
+          created_at: string
+          enabled: boolean
+          id: string
+          module_key: string
+          updated_at: string
+        }
+        Insert: {
+          autonomy_level?: number
+          country_code?: string | null
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          module_key: string
+          updated_at?: string
+        }
+        Update: {
+          autonomy_level?: number
+          country_code?: string | null
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          module_key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
