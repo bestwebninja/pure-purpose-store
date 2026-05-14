@@ -233,45 +233,63 @@ export type Database = {
       }
       cases: {
         Row: {
+          address_line1: string | null
+          allocation_needs: Json
           category_id: string | null
+          city: string | null
           country: string | null
           created_at: string
           currency: string
           description: string | null
           id: string
+          postal_code: string | null
           priority: string
           recipient_user_id: string
           region: string | null
+          salutation: string | null
+          state: string | null
           status: string
           target_amount: number
           title: string
           updated_at: string
         }
         Insert: {
+          address_line1?: string | null
+          allocation_needs?: Json
           category_id?: string | null
+          city?: string | null
           country?: string | null
           created_at?: string
           currency?: string
           description?: string | null
           id?: string
+          postal_code?: string | null
           priority?: string
           recipient_user_id: string
           region?: string | null
+          salutation?: string | null
+          state?: string | null
           status?: string
           target_amount?: number
           title: string
           updated_at?: string
         }
         Update: {
+          address_line1?: string | null
+          allocation_needs?: Json
           category_id?: string | null
+          city?: string | null
           country?: string | null
           created_at?: string
           currency?: string
           description?: string | null
           id?: string
+          postal_code?: string | null
           priority?: string
           recipient_user_id?: string
           region?: string | null
+          salutation?: string | null
+          state?: string | null
           status?: string
           target_amount?: number
           title?: string
