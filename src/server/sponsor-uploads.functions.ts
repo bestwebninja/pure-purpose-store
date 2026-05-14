@@ -39,7 +39,7 @@ export const updateSponsorAssets = createServerFn({ method: "POST" })
       }
     }
 
-    const update: Record<string, string | null> = {};
+    const update: { logo_url?: string | null; doc_url?: string | null } = {};
     let logoUrl: string | null = null;
     let docUrl: string | null = null;
 
