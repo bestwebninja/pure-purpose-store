@@ -6,11 +6,21 @@ import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { updateSponsorAssets, getMySponsorDocUrl } from "@/server/sponsor-uploads.functions";
+import { moderateImage } from "@/server/moderation.functions";
 import { CheckCircle2, FileText, Image as ImageIcon, Loader2, Upload } from "lucide-react";
 
 const MAX_LOGO_BYTES = 4 * 1024 * 1024; // 4 MB
 const MAX_DOC_BYTES = 10 * 1024 * 1024; // 10 MB
 const ALLOWED_LOGO_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
+
+async function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(typeof r.result === "string" ? r.result : "");
+    r.onerror = () => reject(r.error ?? new Error("Could not read file"));
+    r.readAsDataURL(file);
+  });
+}
 
 type Props = {
   /** Initial values from the sponsor row, if any. */
@@ -23,6 +33,7 @@ type Props = {
 export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: Props) {
   const updateAssetsFn = useServerFn(updateSponsorAssets);
   const getDocUrlFn = useServerFn(getMySponsorDocUrl);
+  const moderate = useServerFn(moderateImage);
 
   const [logoUrl, setLogoUrl] = useState<string | null>(initialLogoUrl ?? null);
   const [docPath, setDocPath] = useState<string | null>(initialDocUrl ?? null);
@@ -60,6 +71,22 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
       if (kind === "logo") {
         if (!ALLOWED_LOGO_TYPES.includes(file.type)) throw new Error("Logo must be PNG, JPG, WebP, or SVG");
         if (file.size > MAX_LOGO_BYTES) throw new Error("Logo must be under 4 MB");
+        // Image Trust Layer — gate raster logos through the AI safety check.
+        // SVGs are skipped (Gemini vision can't ingest vector content directly).
+        if (file.type !== "image/svg+xml") {
+          const b64 = await fileToBase64(file);
+          const verdict = await moderate({
+            data: {
+              imageBase64: b64,
+              mimeType: file.type,
+              kind: "sponsor_logo",
+              requireSmilingHuman: false,
+            },
+          });
+          if (!verdict.allow) {
+            throw new Error(verdict.reason || "Logo did not pass the image trust check.");
+          }
+        }
       } else {
         if (file.type !== "application/pdf") throw new Error("Verification doc must be a PDF");
         if (file.size > MAX_DOC_BYTES) throw new Error("PDF must be under 10 MB");
