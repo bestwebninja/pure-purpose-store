@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { recommendForSponsor } from "./sponsor-decision.server";
+import { buildFundingPackage, recommendForSponsor } from "./sponsor-decision.server";
 
 /**
  * Client-callable wrapper around SponsorDecisionAI.
@@ -12,4 +13,17 @@ export const getSponsorRecommendations = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const recommendations = await recommendForSponsor(context.userId);
     return { recommendations };
+  });
+
+/**
+ * Generate a curated Funding Package for the authenticated sponsor.
+ * Items sum exactly to monthly_budget; amounts in cents are signed so
+ * the checkout layer can verify the client did not tamper with totals.
+ */
+export const getFundingPackage = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => z.object({}).optional().parse(input))
+  .handler(async ({ context }) => {
+    const pkg = await buildFundingPackage(context.userId);
+    return { package: pkg };
   });
