@@ -53,25 +53,44 @@ function ExploreBlessings() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      try {
-        const [treeRes, blessingsRes] = await Promise.all([
-          fetch("/api/categories/tree", { credentials: "include" }).then((r) => r.json()),
-          supabase
-            .from("blessings")
-            .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
-            .eq("status", "ACTIVE")
-            .order("created_at", { ascending: false })
-            .limit(60),
-        ]);
-        if (cancelled) return;
-        setTree(treeRes?.tree ?? []);
-        if (blessingsRes.error) throw blessingsRes.error;
-        setBlessings((blessingsRes.data ?? []) as Blessing[]);
-      } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load");
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+      // Load blessings and categories independently so a failure on one
+      // (e.g. preview-environment auth gating on /api/*) doesn't block the other.
+      const blessingsPromise = supabase
+        .from("blessings")
+        .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
+        .eq("status", "ACTIVE")
+        .order("created_at", { ascending: false })
+        .limit(60)
+        .then((res) => {
+          if (cancelled) return;
+          if (res.error) {
+            setError(res.error.message);
+            return;
+          }
+          setBlessings((res.data ?? []) as Blessing[]);
+        })
+        .catch((e) => {
+          if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load blessings");
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+
+      // Categories are best-effort; fail silently with a 5s timeout so a
+      // stalled fetch never hides the blessings grid.
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      fetch("/api/categories/tree", { credentials: "include", signal: controller.signal })
+        .then((r) => r.json())
+        .then((treeRes) => {
+          if (!cancelled) setTree(treeRes?.tree ?? []);
+        })
+        .catch(() => {
+          /* categories optional */
+        })
+        .finally(() => clearTimeout(timeout));
+
+      await blessingsPromise;
     })();
     return () => {
       cancelled = true;
