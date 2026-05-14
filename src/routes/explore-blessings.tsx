@@ -80,7 +80,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "food-essentials",
-    icon: "🍔",
+    icon: "🍴",
     name: "Food & Essentials Vouchers",
     subs: [
       "Grocery gift cards",
