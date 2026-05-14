@@ -28,10 +28,10 @@ function DashboardPage() {
   useLifecycleRealtime(refresh);
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-display text-3xl font-semibold">Your Dashboard</h1>
+          <h1 className="text-display text-2xl font-semibold sm:text-3xl">Your Dashboard</h1>
           <p className="mt-1 text-sm text-muted-foreground">Live blessing activity, updated in real time.</p>
         </div>
         <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Marketplace</Link></Button>
