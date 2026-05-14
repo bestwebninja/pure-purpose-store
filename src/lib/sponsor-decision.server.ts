@@ -17,6 +17,9 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 const AI_GATEWAY = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const DEFAULT_MODEL = "google/gemini-3-flash-preview";
 const CANDIDATE_POOL_SIZE = 12;
+const PACKAGE_POOL_SIZE = 25;
+const PACKAGE_MAX_ITEMS = 8;
+const PACKAGE_MIN_ITEMS = 2;
 
 export type RecommendationSource = "petri_match" | "campaign";
 
