@@ -9,16 +9,17 @@ export const getMyProfile = createServerFn({ method: "GET" })
     const { userId, claims } = context;
     const { data } = await supabaseAdmin
       .from("profiles")
-      .select("user_id, email, display_name, phone, created_at")
+      .select("user_id, email, display_name, phone, avatar_url, created_at")
       .eq("user_id", userId)
       .maybeSingle();
     const email = (claims as { email?: string } | null)?.email ?? null;
-    return { profile: data ?? { user_id: userId, email, display_name: null, phone: null, created_at: null } };
+    return { profile: data ?? { user_id: userId, email, display_name: null, phone: null, avatar_url: null, created_at: null } };
   });
 
 const UpdateSchema = z.object({
   display_name: z.string().trim().max(120).optional().default(""),
   phone: z.string().trim().max(40).optional().default(""),
+  avatar_url: z.string().trim().url().max(1000).optional().or(z.literal("")).default(""),
 });
 
 export const updateMyProfile = createServerFn({ method: "POST" })
@@ -33,6 +34,7 @@ export const updateMyProfile = createServerFn({ method: "POST" })
         email,
         display_name: data.display_name || null,
         phone: data.phone || null,
+        avatar_url: data.avatar_url || null,
       },
       { onConflict: "user_id" }
     );

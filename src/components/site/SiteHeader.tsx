@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
@@ -26,6 +27,8 @@ export function SiteHeader() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isSponsor, setIsSponsor] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState<string | null>(null);
   useEffect(() => {
     let cancelled = false;
     const check = async (uid: string | undefined) => {
@@ -34,17 +37,23 @@ export function SiteHeader() {
           setIsAdmin(false);
           setIsSponsor(false);
           setUserId(null);
+          setAvatarUrl(null);
+          setDisplayName(null);
         }
         return;
       }
-      const [adminRes, sponsorRes] = await Promise.allSettled([
+      const [adminRes, sponsorRes, profileRes] = await Promise.allSettled([
         supabase.from("user_roles").select("role").eq("user_id", uid).eq("role", "admin").maybeSingle(),
         supabase.from("sponsors").select("id").eq("user_id", uid).maybeSingle(),
+        supabase.from("profiles").select("avatar_url, display_name").eq("user_id", uid).maybeSingle(),
       ]);
       if (!cancelled) {
         setIsAdmin(adminRes.status === "fulfilled" && !!adminRes.value.data);
         setIsSponsor(sponsorRes.status === "fulfilled" && !!sponsorRes.value.data);
         setUserId(uid);
+        const p = profileRes.status === "fulfilled" ? profileRes.value.data : null;
+        setAvatarUrl(p?.avatar_url ?? null);
+        setDisplayName(p?.display_name ?? null);
       }
     };
     supabase.auth.getUser().then(({ data }) => check(data.user?.id));
@@ -61,6 +70,14 @@ export function SiteHeader() {
     await supabase.auth.signOut();
     navigate({ to: "/" });
   };
+
+  const initials = (displayName || "?")
+    .split(/\s+/)
+    .map((s) => s[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
@@ -192,8 +209,11 @@ export function SiteHeader() {
           {userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-muted hover:text-foreground sm:inline-flex">
-                <UserCircle2 className="h-5 w-5" />
-                Account
+                <Avatar className="h-7 w-7">
+                  {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
+                  <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
+                </Avatar>
+                <span className="hidden md:inline">Account</span>
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
