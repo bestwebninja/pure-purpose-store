@@ -9,6 +9,34 @@ export const Route = createFileRoute("/how-it-works")({
       { name: "description", content: "Discover, give, and witness. Three steps to turning generosity into impact." },
       { property: "og:title", content: "How It Works — MyBlessings" },
       { property: "og:description", content: "Three simple steps to give a blessing." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/how-it-works" },
+    ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/how-it-works" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "How do I discover a blessing?",
+              acceptedAnswer: { "@type": "Answer", text: "Browse real, verified stories from people in moments that matter." },
+            },
+            {
+              "@type": "Question",
+              name: "How do I give securely?",
+              acceptedAnswer: { "@type": "Answer", text: "Choose your amount and check out securely with Shopify. Every dollar tracked in real time." },
+            },
+            {
+              "@type": "Question",
+              name: "How do I witness the impact?",
+              acceptedAnswer: { "@type": "Answer", text: "Watch the campaign grow live. Read updates from the people you helped." },
+            },
+          ],
+        }),
+      },
     ],
   }),
   component: HowItWorks,
