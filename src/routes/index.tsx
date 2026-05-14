@@ -101,8 +101,8 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="h-12 rounded-md border-white/40 bg-transparent px-8 text-base font-medium text-white hover:bg-white/10 hover:text-white"
+              variant="ghost"
+              className="h-12 rounded-md px-4 text-base font-medium text-white/80 hover:bg-transparent hover:text-white"
             >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
