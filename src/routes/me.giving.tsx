@@ -55,18 +55,18 @@ function MyGiving() {
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-6 py-12">
       <header>
-        <h1 className="text-display text-3xl font-semibold">My Giving</h1>
+        <h1 className="text-display text-3xl font-semibold text-white">My Giving</h1>
         <p className="text-sm text-muted-foreground">Every blessing you've sent through MyBlessings.</p>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card className="p-6">
           <p className="text-sm text-muted-foreground">Total given</p>
-          <p className="mt-1 text-display text-3xl font-semibold">{formatMoney(data.totalAmount)}</p>
+          <p className="mt-1 text-display text-3xl font-semibold text-white">{formatMoney(data.totalAmount)}</p>
         </Card>
         <Card className="p-6">
           <p className="text-sm text-muted-foreground">Blessings</p>
-          <p className="mt-1 text-display text-3xl font-semibold">{data.count}</p>
+          <p className="mt-1 text-display text-3xl font-semibold text-white">{data.count}</p>
         </Card>
       </div>
 

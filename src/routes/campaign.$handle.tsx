@@ -90,7 +90,7 @@ function CampaignPage() {
               )}
               {campaign.beneficiary_name && <span>For {campaign.beneficiary_name}</span>}
             </div>
-            <h1 className="text-display text-3xl font-semibold leading-tight md:text-5xl">{campaign.title}</h1>
+            <h1 className="text-display text-3xl font-semibold text-white leading-tight md:text-5xl">{campaign.title}</h1>
             {campaign.short_description && (
               <p className="text-lg text-muted-foreground">{campaign.short_description}</p>
             )}

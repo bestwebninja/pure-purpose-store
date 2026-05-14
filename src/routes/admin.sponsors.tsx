@@ -55,7 +55,7 @@ function AdminSponsors() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold">Sponsor Verification</h1>
+        <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
         <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
       </div>
     );
@@ -63,7 +63,7 @@ function AdminSponsors() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="text-display text-3xl font-semibold">Sponsor Verification</h1>
+      <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
       <p className="mt-2 text-muted-foreground">Review and verify Blessing Sponsor applications.</p>
       <div className="mt-8 space-y-3">
         {sponsors === null && <p className="text-sm text-muted-foreground">Loading…</p>}
