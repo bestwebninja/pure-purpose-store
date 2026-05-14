@@ -57,6 +57,29 @@ type FulfillmentEvent = {
   created_at: string;
 };
 
+type Scorecard = {
+  id: string;
+  token_id: string;
+  case_id: string | null;
+  urgency: number;
+  stability: number;
+  delivery_confidence: number;
+  sponsor_alignment: number;
+  economic_impact: number;
+  composite_score: number;
+  autonomy_decision: "auto" | "queue" | "manual" | string;
+  inputs: Record<string, unknown>;
+  last_computed_at: string;
+};
+
+type RecomputeRunSummary = {
+  scanned: number;
+  written: number;
+  duration_ms: number;
+  matching_autonomy: number;
+  trigger: string;
+};
+
 type FeedRow =
   | ({ kind: "match" } & PetriMatch)
   | ({ kind: "event" } & FulfillmentEvent);
