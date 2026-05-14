@@ -23,6 +23,12 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           return new Response("Webhook not configured", { status: 500 });
         }
 
+        // Fee splits as decimal fractions (0.029 = 2.9%). Default to 0 so prior
+        // "100% to beneficiary" behavior is preserved unless operators opt in.
+        const PROCESSOR_FEE_PCT = Number(process.env.PROCESSOR_FEE_PCT ?? "0");
+        const PLATFORM_FEE_PCT = Number(process.env.PLATFORM_FEE_PCT ?? "0");
+        const round2 = (n: number) => Math.round(n * 100) / 100;
+
         const hmacHeader = request.headers.get("x-shopify-hmac-sha256");
         const eventId = request.headers.get("x-shopify-webhook-id") ?? "";
         const topic = request.headers.get("x-shopify-topic") ?? "";
@@ -68,6 +74,34 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           return new Response("Invalid JSON", { status: 400 });
         }
 
+        const orderId = String(payload.id);
+
+        // Refund / cancellation: post mirror ledger entries and decrement totals.
+        const isReversal =
+          topic === "orders/refunded" ||
+          topic === "orders/cancelled" ||
+          payload.financial_status === "refunded" ||
+          payload.financial_status === "voided";
+        if (isReversal) {
+          const { data: existing } = await supabaseAdmin
+            .from("donations")
+            .select("id, amount, campaign_id")
+            .eq("shopify_order_id", orderId)
+            .maybeSingle();
+          if (existing && existing.campaign_id) {
+            await supabaseAdmin.rpc("reverse_donation_ledger", {
+              _donation_id: existing.id,
+              _reason: topic || "reversal",
+            });
+            await supabaseAdmin.rpc("increment_campaign_totals", {
+              _campaign_id: existing.campaign_id,
+              _amount: -Number(existing.amount ?? 0),
+              _donor_delta: -1,
+            });
+          }
+          return new Response("ok", { status: 200 });
+        }
+
         // Only process paid orders
         const isPaid =
           topic === "orders/paid" ||
@@ -85,7 +119,6 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
         }
 
         const amount = Number(payload.total_price ?? 0);
-        const orderId = String(payload.id);
 
         const donorName =
           attrs.is_anonymous === "true"
@@ -121,46 +154,44 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           .eq("shopify_order_id", orderId)
           .maybeSingle();
 
-        // Double-entry posting: debit cash (asset), credit donations_revenue (income).
+        // Double-entry posting (split):
+        //   DR cash                       (net received from Shopify)
+        //   DR payment_processor_fees     (Shopify/Stripe processing cost)
+        //   CR platform_fee_revenue       (MyBlessings platform cut)
+        //   CR beneficiary_payable        (liability owed to the cause)
+        // Defaults to 0% / 0% which collapses to: DR cash / CR beneficiary_payable
+        // (still correct double-entry, just with no fee split).
         if (donationRow) {
           const currency = payload.currency ?? "USD";
-          const { error: ledgerErr } = await supabaseAdmin.from("ledger_entries").insert([
-            {
-              donation_id: donationRow.id,
-              account: "cash",
-              side: "debit",
-              amount,
-              currency,
-              memo: `Shopify order ${orderId}`,
-            },
-            {
-              donation_id: donationRow.id,
-              account: "donations_revenue",
-              side: "credit",
-              amount,
-              currency,
-              memo: `Shopify order ${orderId}`,
-            },
-          ]);
+          const processorFee = round2(amount * PROCESSOR_FEE_PCT);
+          const platformFee = round2(amount * PLATFORM_FEE_PCT);
+          const cashNet = round2(amount - processorFee);
+          const beneficiaryPayable = round2(amount - processorFee - platformFee);
+          const memo = `Shopify order ${orderId}`;
+          const entries: Array<{
+            donation_id: string; account: string; side: "debit" | "credit";
+            amount: number; currency: string; memo: string;
+          }> = [
+            { donation_id: donationRow.id, account: "cash", side: "debit", amount: cashNet, currency, memo },
+          ];
+          if (processorFee > 0) {
+            entries.push({ donation_id: donationRow.id, account: "payment_processor_fees", side: "debit", amount: processorFee, currency, memo });
+          }
+          if (platformFee > 0) {
+            entries.push({ donation_id: donationRow.id, account: "platform_fee_revenue", side: "credit", amount: platformFee, currency, memo });
+          }
+          entries.push({ donation_id: donationRow.id, account: "beneficiary_payable", side: "credit", amount: beneficiaryPayable, currency, memo });
+          const { error: ledgerErr } = await supabaseAdmin.from("ledger_entries").insert(entries);
           if (ledgerErr) console.error("ledger insert error", ledgerErr);
         }
 
-        // Bump campaign totals via SQL increment
-        const { data: current } = await supabaseAdmin
-          .from("campaigns")
-          .select("raised_amount, donor_count")
-          .eq("id", campaignId)
-          .maybeSingle();
-
-        if (current) {
-          await supabaseAdmin
-            .from("campaigns")
-            .update({
-              raised_amount: Number(current.raised_amount) + amount,
-              donor_count: Number(current.donor_count) + 1,
-            })
-            .eq("id", campaignId);
-        }
+        // Atomic campaign totals (no read-modify-write race between concurrent webhooks)
+        const { error: incErr } = await supabaseAdmin.rpc("increment_campaign_totals", {
+          _campaign_id: campaignId,
+          _amount: amount,
+          _donor_delta: 1,
+        });
+        if (incErr) console.error("campaign increment error", incErr);
 
         return new Response("ok", { status: 200 });
       },

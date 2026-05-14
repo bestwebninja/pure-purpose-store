@@ -35,10 +35,31 @@ export type RouterResult = {
 };
 
 function pickProvider(category?: string | null): Provider {
-  const c = (category ?? "").toLowerCase();
-  if (/(food|meal|grocery|restaurant)/.test(c)) return "wolt";
-  if (/(travel|flight|stay|hotel|trip)/.test(c)) return "uber_travel";
-  if (/(transport|ride|taxi|mobility|car)/.test(c)) return "uber";
+  // Normalize slugs ("elderly-care", "food_delivery") and free text alike
+  // by collapsing to a single lowercase token stream.
+  const c = (category ?? "").toLowerCase().replace(/[_-]+/g, " ").trim();
+  if (!c) return "none";
+  // Explicit slug map first — keeps the routing predictable for known categories.
+  const SLUG_MAP: Record<string, Provider> = {
+    "food": "wolt",
+    "food delivery": "wolt",
+    "groceries": "wolt",
+    "meals": "wolt",
+    "elderly care": "wolt",        // delivered meals to elders
+    "medical supplies": "wolt",
+    "transport": "uber",
+    "transportation": "uber",
+    "mobility": "uber",
+    "rides": "uber",
+    "medical transport": "uber",
+    "travel": "uber_travel",
+    "lodging": "uber_travel",
+    "housing": "uber_travel",
+  };
+  if (c in SLUG_MAP) return SLUG_MAP[c];
+  if (/(food|meal|grocery|restaurant|elder|hunger|nutrition)/.test(c)) return "wolt";
+  if (/(travel|flight|stay|hotel|trip|lodg|housing)/.test(c)) return "uber_travel";
+  if (/(transport|ride|taxi|mobility|car|commute)/.test(c)) return "uber";
   return "none";
 }
 
