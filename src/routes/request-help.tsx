@@ -21,7 +21,11 @@ export const Route = createFileRoute("/request-help")({
     meta: [
        { title: "BlessME — MyBlessings" },
       { name: "description", content: "Tell us what you need. We'll connect you with sponsors and providers." },
+      { property: "og:title", content: "BlessME — Request a Blessing" },
+      { property: "og:description", content: "Share your story and connect with sponsors who want to help." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/request-help" },
     ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/request-help" }],
   }),
   component: RequestHelp,
 });
