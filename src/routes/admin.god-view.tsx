@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { recomputePetriScores } from "@/server/petri-recompute.functions";
+import { approveFlywheelReport, listImpactReports } from "@/lib/flywheel.functions";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
@@ -80,6 +81,22 @@ type RecomputeRunSummary = {
   trigger: string;
 };
 
+type ImpactReport = {
+  id: string;
+  sponsor_user_id: string;
+  sponsor_id: string | null;
+  package_signature: string;
+  package_total: number;
+  currency: string;
+  status: "draft" | "pending_review" | "approved" | "sent" | "failed" | string;
+  summary: string;
+  autonomy_level: number;
+  sent_at: string | null;
+  created_at: string;
+  updated_at: string;
+  next_package: { total?: number; items?: unknown[] } | null;
+};
+
 type FeedRow =
   | ({ kind: "match" } & PetriMatch)
   | ({ kind: "event" } & FulfillmentEvent);
@@ -132,6 +149,11 @@ function GodView() {
   const [recomputing, setRecomputing] = useState(false);
   const [lastRecompute, setLastRecompute] = useState<RecomputeRunSummary | null>(null);
   const recompute = useServerFn(recomputePetriScores);
+  const fetchReports = useServerFn(listImpactReports);
+  const approveReport = useServerFn(approveFlywheelReport);
+  const [reports, setReports] = useState<ImpactReport[]>([]);
+  const [reportsLoading, setReportsLoading] = useState(false);
+  const [approvingId, setApprovingId] = useState<string | null>(null);
   const [counts, setCounts] = useState({
     sponsors: 0,
     sponsorsPending: 0,
@@ -206,6 +228,36 @@ function GodView() {
       setLoading(false);
     }
   }, []);
+
+  const loadReports = useCallback(async () => {
+    setReportsLoading(true);
+    try {
+      const res = (await fetchReports()) as { reports: ImpactReport[] };
+      setReports(res.reports ?? []);
+    } catch (e) {
+      toast.error("Failed to load reports", { description: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setReportsLoading(false);
+    }
+  }, [fetchReports]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    loadReports();
+  }, [isAdmin, loadReports]);
+
+  const handleApproveReport = async (id: string) => {
+    setApprovingId(id);
+    try {
+      await approveReport({ data: { reportId: id } });
+      toast.success("Report approved & sent");
+      await loadReports();
+    } catch (e) {
+      toast.error("Approval failed", { description: e instanceof Error ? e.message : String(e) });
+    } finally {
+      setApprovingId(null);
+    }
+  };
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -331,6 +383,7 @@ function GodView() {
           <TabsTrigger value="ngo">NGO Trust</TabsTrigger>
           <TabsTrigger value="ai">AI Decisions Feed</TabsTrigger>
           <TabsTrigger value="treasury">Treasury</TabsTrigger>
+          <TabsTrigger value="reports">Sponsor Reports</TabsTrigger>
           <TabsTrigger value="autonomy">Autonomy</TabsTrigger>
         </TabsList>
 
