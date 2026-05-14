@@ -260,7 +260,7 @@ function Testimony() {
         <div className="mt-8 flex items-center gap-3 text-sm">
           <div className="h-10 w-10 rounded-full bg-primary text-center text-base font-semibold leading-10 text-accent">A</div>
           <div>
-            <div className="font-semibold text-primary">Amaka O.</div>
+            <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
             <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient · Healthcare</div>
           </div>
         </div>
