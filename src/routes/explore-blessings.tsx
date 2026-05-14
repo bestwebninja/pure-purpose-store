@@ -133,7 +133,7 @@ function ExploreBlessings() {
                 className={hasChildren ? "h-auto py-2 text-center" : "h-9"}
               >
                 <div className="flex flex-col items-center gap-0.5">
-                  <span className="leading-tight">{root.name}</span>
+                  <span className="leading-tight">{root.name === "Healthcare" ? "Elderly Care" : root.name}</span>
                   {hasChildren && (
                     <span className="text-[10px] font-medium opacity-60">
                       ({root.children.length})
