@@ -109,7 +109,7 @@ function Hero() {
               </Link>
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-white/60">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-green-500">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-accent" /> 100% transparent ledger</span>
             <span className="text-white/30">·</span>
             <span>Secure Shopify checkout</span>
