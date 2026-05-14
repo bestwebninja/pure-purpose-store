@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
 import heroImage from "@/assets/hero-blessings.jpg";
 import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
+import { getPublicStats } from "@/server/stats.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
@@ -51,7 +53,7 @@ function Index() {
   return (
     <div className="bg-background">
       <Hero />
-      <ImpactStrip campaigns={live} />
+      <ImpactStrip />
       <CampaignGrid campaigns={live} />
       <Trust />
       <Testimony />
@@ -142,15 +144,22 @@ function Hero() {
   );
 }
 
-function ImpactStrip({ campaigns }: { campaigns: Campaign[] }) {
-  const totalRaised = campaigns.reduce((sum, c) => sum + Number(c.raised_amount ?? 0), 0);
-  const totalDonors = campaigns.reduce((sum, c) => sum + (c.donor_count ?? 0), 0);
-  const liveCampaigns = campaigns.length;
+function ImpactStrip() {
+  const [data, setData] = useState<Awaited<ReturnType<typeof getPublicStats>> | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    getPublicStats()
+      .then((d) => { if (active) { setData(d); setLoading(false); } })
+      .catch(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
 
   const stats = [
-    { label: "Raised across all blessings", value: formatUSD(totalRaised) },
-    { label: "Donors who showed up", value: totalDonors.toLocaleString() },
-    { label: "Active blessings", value: liveCampaigns.toLocaleString() },
+    { label: "Raised across all blessings", value: data ? formatCompactUSD(data.totalRaised) : null },
+    { label: "Donors who showed up", value: data ? formatCompact(data.uniqueDonors) : null },
+    { label: "Active blessings", value: data ? formatCompact(data.campaignsActive) : null },
     { label: "Every Blessing sent reaches the Blessed, given with your kindness", value: "100%" },
   ];
 
@@ -159,7 +168,9 @@ function ImpactStrip({ campaigns }: { campaigns: Campaign[] }) {
       <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-border sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="bg-secondary px-6 py-8">
-            <div className="text-display text-3xl text-primary md:text-4xl">{s.value}</div>
+            <div className="text-display text-3xl text-primary md:text-4xl">
+              {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
+            </div>
             <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
           </div>
         ))}
