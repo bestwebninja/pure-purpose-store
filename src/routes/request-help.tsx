@@ -33,19 +33,29 @@ export const Route = createFileRoute("/request-help")({
 const inputCls =
   "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
 
-const HELP_TYPES = [
-  "Accommodation",
-  "Travel",
-  "Food",
-  "Medical",
-  "Clothing",
-  "Education",
-  "Childcare",
-  "Employment",
-  "Other",
-] as const;
+const HELP_TYPES: { value: string; label: string }[] = [
+  { value: "accommodation", label: "Accommodation" },
+  { value: "travel",        label: "Travel" },
+  { value: "food",          label: "Food" },
+  { value: "medical",       label: "Medical" },
+  { value: "clothing",      label: "Clothing" },
+  { value: "education",     label: "Education" },
+  { value: "childcare",     label: "Childcare" },
+  { value: "employment",    label: "Employment" },
+  { value: "utilities",     label: "Utilities" },
+  { value: "other",         label: "Other" },
+];
 
-type HelpNeed = { type: string; details: string };
+const FOOD_KINDS: { value: string; label: string }[] = [
+  { value: "vegan",                  label: "Vegan" },
+  { value: "pure-veg",               label: "Pure-veg" },
+  { value: "raw-organic",            label: "Raw organic" },
+  { value: "fruit-and-veg-basket",   label: "Fruit & veg basket" },
+];
+
+const SALUTATIONS = ["Mr", "Mrs", "Ms", "Mx", "Dr", "Other"];
+
+type HelpNeed = { type: string; details: string; food_kind?: string };
 
 function RequestHelp() {
   const navigate = useNavigate();
@@ -53,6 +63,7 @@ function RequestHelp() {
   const [tree, setTree] = useState<CategoryNode[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
+    salutation: "",
     firstName: "",
     surname: "",
     email: "",
@@ -62,6 +73,7 @@ function RequestHelp() {
     description: "",
     category_id: "",
     country: "",
+    address_line1: "",
     city: "",
     state: "",
     zip: "",
@@ -148,31 +160,40 @@ function RequestHelp() {
       }
     }
     const filledNeeds = needs.filter((n) => n.type.trim() || n.details.trim());
+    // Build allocation_needs payload that matches the DB validation trigger.
+    const allocationNeeds = filledNeeds
+      .filter((n) => n.type)
+      .map((n) => {
+        const base: Record<string, string> = { type: n.type };
+        if (n.details.trim()) base.details = n.details.trim();
+        if (n.type === "food" && n.food_kind) base.food_kind = n.food_kind;
+        return base;
+      });
+    // Block submit if a food row is missing its food_kind (trigger would reject).
+    const foodMissingKind = filledNeeds.some(
+      (n) => n.type === "food" && !n.food_kind,
+    );
+    if (foodMissingKind) {
+      setSubmitting(false);
+      toast.error("For food needs, please pick vegan, pure-veg, raw-organic, or fruit & veg basket.");
+      return;
+    }
     const { error } = await supabase.from("cases").insert({
       recipient_user_id: recipientId,
       title: form.title.trim(),
-      description: [
-        `Requested by: ${form.firstName.trim()} ${form.surname.trim()}`,
-        `Email: ${form.email.trim()}`,
-        form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
-        form.city.trim() ? `City: ${form.city.trim()}` : null,
-        form.state.trim() ? `State: ${form.state.trim()}` : null,
-        form.zip.trim() ? `Zip: ${form.zip.trim()}` : null,
-        form.postal_code.trim() ? `Postal code: ${form.postal_code.trim()}` : null,
-        "",
-        filledNeeds.length ? "Help needed:" : null,
-        ...filledNeeds.map(
-          (n) => `- ${n.type || "Unspecified"}${n.details.trim() ? `: ${n.details.trim()}` : ""}`,
-        ),
-        filledNeeds.length ? "" : null,
-        form.description.trim(),
-      ].filter(Boolean).join("\n") || null,
+      description: form.description.trim() || null,
       category_id: form.category_id,
       target_amount: 0,
       country: form.country.trim() || null,
-      region: form.state.trim() || null,
+      region: form.state.trim() || null, // back-compat
+      salutation: form.salutation || null,
+      address_line1: form.address_line1.trim() || null,
+      city: form.city.trim() || null,
+      state: form.state.trim() || null,
+      postal_code: (form.postal_code.trim() || form.zip.trim()) || null,
+      allocation_needs: allocationNeeds,
       status: "PENDING",
-    });
+    } as never);
     setSubmitting(false);
     if (error) {
       toast.error(error.message);
@@ -193,7 +214,7 @@ function RequestHelp() {
             postal_code: form.postal_code,
           },
           category_ids: form.category_id ? [form.category_id] : [],
-          help_needs: filledNeeds,
+          help_needs: allocationNeeds,
         }),
       }).catch(() => {});
     } catch { /* noop */ }
@@ -214,7 +235,21 @@ function RequestHelp() {
           style={{ backgroundColor: "#0a1f6b" }}
         >
           <form onSubmit={onSubmit} className="space-y-5">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-[120px_1fr_1fr] gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="salutation">Title</Label>
+                <select
+                  id="salutation"
+                  value={form.salutation}
+                  onChange={(e) => setForm({ ...form, salutation: e.target.value })}
+                  className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                >
+                  <option value="" className="text-black">—</option>
+                  {SALUTATIONS.map((s) => (
+                    <option key={s} value={s} className="text-black">{s}</option>
+                  ))}
+                </select>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="firstName">First name *</Label>
                 <Input id="firstName" className={inputCls} maxLength={80} required
@@ -289,30 +324,53 @@ function RequestHelp() {
                 <Label>What kind of help do you need?</Label>
                 <p className="text-xs text-white/60">
                   Add up to 5 specific needs. Pick a type and briefly describe it.
+                  Food must be vegan, pure-veg, raw-organic, or a fruit &amp; veg basket.
                 </p>
               </div>
               {needs.map((n, i) => (
-                <div key={i} className="grid grid-cols-[160px_1fr] gap-3">
-                  <select
-                    aria-label={`Help need ${i + 1} type`}
-                    value={n.type}
-                    onChange={(e) => updateNeed(i, { type: e.target.value })}
-                    className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
-                  >
-                    <option value="" className="text-black">Type…</option>
-                    {HELP_TYPES.map((t) => (
-                      <option key={t} value={t} className="text-black">{t}</option>
-                    ))}
-                  </select>
-                  <Input
-                    className={inputCls}
-                    maxLength={200}
-                    placeholder="Briefly describe this need"
-                    value={n.details}
-                    onChange={(e) => updateNeed(i, { details: e.target.value })}
-                  />
+                <div key={i} className="space-y-2">
+                  <div className="grid grid-cols-[160px_1fr] gap-3">
+                    <select
+                      aria-label={`Help need ${i + 1} type`}
+                      value={n.type}
+                      onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                    >
+                      <option value="" className="text-black">Type…</option>
+                      {HELP_TYPES.map((t) => (
+                        <option key={t.value} value={t.value} className="text-black">{t.label}</option>
+                      ))}
+                    </select>
+                    <Input
+                      className={inputCls}
+                      maxLength={200}
+                      placeholder="Briefly describe this need"
+                      value={n.details}
+                      onChange={(e) => updateNeed(i, { details: e.target.value })}
+                    />
+                  </div>
+                  {n.type === "food" && (
+                    <select
+                      aria-label={`Food kind for need ${i + 1}`}
+                      value={n.food_kind ?? ""}
+                      onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                    >
+                      <option value="" className="text-black">Choose food kind…</option>
+                      {FOOD_KINDS.map((f) => (
+                        <option key={f.value} value={f.value} className="text-black">{f.label}</option>
+                      ))}
+                    </select>
+                  )}
                 </div>
               ))}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="address_line1">Street address</Label>
+              <Input id="address_line1" className={inputCls} maxLength={200}
+                value={form.address_line1}
+                onChange={(e) => setForm({ ...form, address_line1: e.target.value })}
+                placeholder="e.g. 123 Main St, Apt 4B" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="country">Country</Label>
