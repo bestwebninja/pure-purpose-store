@@ -492,6 +492,60 @@ export type Database = {
         }
         Relationships: []
       }
+      impact_reports: {
+        Row: {
+          approved_by: string | null
+          artifacts: Json
+          autonomy_level: number
+          created_at: string
+          currency: string
+          id: string
+          next_package: Json | null
+          package_signature: string
+          package_total: number
+          sent_at: string | null
+          sponsor_id: string | null
+          sponsor_user_id: string
+          status: string
+          summary: string
+          updated_at: string
+        }
+        Insert: {
+          approved_by?: string | null
+          artifacts?: Json
+          autonomy_level?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          next_package?: Json | null
+          package_signature: string
+          package_total?: number
+          sent_at?: string | null
+          sponsor_id?: string | null
+          sponsor_user_id: string
+          status?: string
+          summary?: string
+          updated_at?: string
+        }
+        Update: {
+          approved_by?: string | null
+          artifacts?: Json
+          autonomy_level?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          next_package?: Json | null
+          package_signature?: string
+          package_total?: number
+          sent_at?: string | null
+          sponsor_id?: string | null
+          sponsor_user_id?: string
+          status?: string
+          summary?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       invoices: {
         Row: {
           created_at: string
