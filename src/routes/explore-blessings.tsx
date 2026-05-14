@@ -259,9 +259,8 @@ function ExploreBlessings() {
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : filtered.length === 0 ? (
           <Card className="p-8 text-center">
-            <p className="text-muted-foreground">No active blessings in this category.</p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              Providers can add blessings from their dashboard once approved.
+            <p className="text-muted-foreground">
+              No active blessings currently available in this category.
             </p>
           </Card>
         ) : (
