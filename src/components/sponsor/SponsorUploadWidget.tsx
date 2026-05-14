@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { updateSponsorAssets, getMySponsorDocUrl } from "@/server/sponsor-uploads.functions";
@@ -21,7 +21,6 @@ type Props = {
 };
 
 export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: Props) {
-  const { toast } = useToast();
   const updateAssetsFn = useServerFn(updateSponsorAssets);
   const getDocUrlFn = useServerFn(getMySponsorDocUrl);
 
@@ -88,11 +87,11 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
         setDocSignedUrl(result.docUrl);
       }
 
-      toast({ title: kind === "logo" ? "Logo uploaded" : "Verification document uploaded" });
+      toast.success(kind === "logo" ? "Logo uploaded" : "Verification document uploaded");
       onSaved?.({ logoUrl: result.logoUrl ?? logoUrl, docUrl: kind === "doc" ? path : docPath });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Upload failed";
-      toast({ title: "Upload failed", description: message, variant: "destructive" });
+      toast.error("Upload failed", { description: message });
     } finally {
       setBusy(null);
       if (kind === "logo" && logoInput.current) logoInput.current.value = "";
