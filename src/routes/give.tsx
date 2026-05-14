@@ -27,7 +27,7 @@ function GivePage() {
     <div>
       <section className="bg-gradient-hero">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center text-slate-200">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-blue-300 px-3 py-1 text-xs font-medium text-white">
             <Heart className="h-3 w-3 text-accent" fill="currentColor" /> Give in under a minute
           </span>
           <h1 className="text-display mt-6 text-4xl font-semibold md:text-6xl text-yellow-400">Choose your blessing.</h1>
