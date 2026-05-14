@@ -9,6 +9,8 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { recomputePetriScores } from "@/server/petri-recompute.functions";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
