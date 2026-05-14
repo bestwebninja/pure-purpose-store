@@ -38,6 +38,7 @@ import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as AdminMatchControlRouteImport } from './routes/admin.match-control'
+import { Route as AdminGodViewRouteImport } from './routes/admin.god-view'
 import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-center'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
 import { Route as ApiPublicPetriBloomRouteImport } from './routes/api/public/petri-bloom'
@@ -190,6 +191,11 @@ const AdminMatchControlRoute = AdminMatchControlRouteImport.update({
   path: '/admin/match-control',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminGodViewRoute = AdminGodViewRouteImport.update({
+  id: '/admin/god-view',
+  path: '/admin/god-view',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCommandCenterRoute = AdminCommandCenterRouteImport.update({
   id: '/admin/command-center',
   path: '/admin/command-center',
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
@@ -279,6 +286,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
@@ -317,6 +325,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
@@ -356,6 +365,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
+    | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
     | '/admin/sponsors'
@@ -393,6 +403,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
+    | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
     | '/admin/sponsors'
@@ -430,6 +441,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
+    | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
     | '/admin/sponsors'
@@ -468,6 +480,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
+  AdminGodViewRoute: typeof AdminGodViewRoute
   AdminMatchControlRoute: typeof AdminMatchControlRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
@@ -687,6 +700,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminMatchControlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/god-view': {
+      id: '/admin/god-view'
+      path: '/admin/god-view'
+      fullPath: '/admin/god-view'
+      preLoaderRoute: typeof AdminGodViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/command-center': {
       id: '/admin/command-center'
       path: '/admin/command-center'
@@ -787,6 +807,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
+  AdminGodViewRoute: AdminGodViewRoute,
   AdminMatchControlRoute: AdminMatchControlRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
