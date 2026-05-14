@@ -39,8 +39,8 @@ function ImpactMapPage() {
   const max = Math.max(1, ...(data?.regions.map((r) => r.raised) ?? [1]));
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="text-display text-3xl font-semibold">Impact Map</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <h1 className="text-display text-2xl font-semibold sm:text-3xl">Impact Map</h1>
       <p className="mt-1 text-sm text-muted-foreground">Where blessings are landing, by region.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       <Card className="mt-8 p-6">
