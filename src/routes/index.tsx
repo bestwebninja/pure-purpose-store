@@ -157,7 +157,7 @@ function ImpactStrip() {
   }, []);
 
   const stats = [
-    { label: "Raised across all blessings", value: data ? formatCompactUSD(data.totalRaised) : null },
+    { label: "Raised across all blessings", value: data ? formatUSD(data.totalRaised) : null },
     { label: "Donors who showed up", value: data ? formatCompact(data.uniqueDonors) : null },
     { label: "Active blessings", value: data ? formatCompact(data.campaignsActive) : null },
     { label: "Every Blessing sent reaches the Blessed, given with your kindness", value: "100%" },
@@ -321,4 +321,10 @@ function formatUSD(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000) return `$${(n / 1_000).toFixed(1)}K`;
   return `$${Math.round(n).toLocaleString()}`;
+}
+
+function formatCompact(n: number) {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return Math.round(n).toLocaleString();
 }
