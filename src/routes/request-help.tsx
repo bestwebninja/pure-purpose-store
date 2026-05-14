@@ -50,6 +50,7 @@ function RequestHelp() {
     target_amount: "",
     country: "",
     region: "",
+    postal_code: "",
   });
 
   useEffect(() => {
@@ -261,6 +262,13 @@ function RequestHelp() {
               <Input id="region" className={inputCls}
                 value={form.region}
                 onChange={(e) => setForm({ ...form, region: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="postal_code">Zip / Postal code</Label>
+              <Input id="postal_code" className={inputCls} maxLength={20}
+                value={form.postal_code}
+                onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
+                placeholder="e.g. 90210" />
             </div>
             <Button type="submit" disabled={submitting} className="w-full">
               {submitting ? "Submitting…" : "Submit Application"}
