@@ -122,19 +122,27 @@ function ExploreBlessings() {
           >
             All
           </Button>
-          {tree.map((root) => (
-            <Button
-              key={root.id}
-              size="sm"
-              variant={activeCategory === root.id ? "default" : "outline"}
-              onClick={() => setActiveCategory(root.id)}
-            >
-              {root.name}
-              {root.children.length > 0 && (
-                <span className="ml-1 text-xs opacity-60">({root.children.length})</span>
-              )}
-            </Button>
-          ))}
+          {tree.map((root) => {
+            const hasChildren = root.children.length > 0;
+            return (
+              <Button
+                key={root.id}
+                size="sm"
+                variant={activeCategory === root.id ? "default" : "outline"}
+                onClick={() => setActiveCategory(root.id)}
+                className={hasChildren ? "h-auto py-2 text-center" : "h-9"}
+              >
+                <div className="flex flex-col items-center gap-0.5">
+                  <span className="leading-tight">{root.name}</span>
+                  {hasChildren && (
+                    <span className="text-[10px] font-medium opacity-60">
+                      ({root.children.length})
+                    </span>
+                  )}
+                </div>
+              </Button>
+            );
+          })}
         </div>
       </section>
 
