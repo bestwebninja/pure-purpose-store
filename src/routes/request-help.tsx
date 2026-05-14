@@ -33,6 +33,20 @@ export const Route = createFileRoute("/request-help")({
 const inputCls =
   "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
 
+const HELP_TYPES = [
+  "Accommodation",
+  "Travel",
+  "Food",
+  "Medical",
+  "Clothing",
+  "Education",
+  "Childcare",
+  "Employment",
+  "Other",
+] as const;
+
+type HelpNeed = { type: string; details: string };
+
 function RequestHelp() {
   const navigate = useNavigate();
   const [userId, setUserId] = useState<string | null>(null);
@@ -47,13 +61,22 @@ function RequestHelp() {
     title: "",
     description: "",
     category_id: "",
-    target_amount: "",
     country: "",
     city: "",
     state: "",
     zip: "",
     postal_code: "",
   });
+  const [needs, setNeeds] = useState<HelpNeed[]>([
+    { type: "", details: "" },
+    { type: "", details: "" },
+    { type: "", details: "" },
+    { type: "", details: "" },
+    { type: "", details: "" },
+  ]);
+
+  const updateNeed = (i: number, patch: Partial<HelpNeed>) =>
+    setNeeds((prev) => prev.map((n, idx) => (idx === i ? { ...n, ...patch } : n)));
 
   useEffect(() => {
     let cancelled = false;
@@ -124,6 +147,7 @@ function RequestHelp() {
         return;
       }
     }
+    const filledNeeds = needs.filter((n) => n.type.trim() || n.details.trim());
     const { error } = await supabase.from("cases").insert({
       recipient_user_id: recipientId,
       title: form.title.trim(),
@@ -136,10 +160,15 @@ function RequestHelp() {
         form.zip.trim() ? `Zip: ${form.zip.trim()}` : null,
         form.postal_code.trim() ? `Postal code: ${form.postal_code.trim()}` : null,
         "",
+        filledNeeds.length ? "Help needed:" : null,
+        ...filledNeeds.map(
+          (n) => `- ${n.type || "Unspecified"}${n.details.trim() ? `: ${n.details.trim()}` : ""}`,
+        ),
+        filledNeeds.length ? "" : null,
         form.description.trim(),
       ].filter(Boolean).join("\n") || null,
       category_id: form.category_id,
-      target_amount: form.target_amount ? Number(form.target_amount) : 0,
+      target_amount: 0,
       country: form.country.trim() || null,
       region: form.state.trim() || null,
       status: "PENDING",
@@ -164,7 +193,7 @@ function RequestHelp() {
             postal_code: form.postal_code,
           },
           category_ids: form.category_id ? [form.category_id] : [],
-          budget: form.target_amount ? Number(form.target_amount) : null,
+          help_needs: filledNeeds,
         }),
       }).catch(() => {});
     } catch { /* noop */ }
@@ -255,19 +284,41 @@ function RequestHelp() {
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="amount">Target amount (USD)</Label>
-                <Input id="amount" className={inputCls} type="number" min="0"
-                  value={form.target_amount}
-                  onChange={(e) => setForm({ ...form, target_amount: e.target.value })} />
+            <div className="space-y-3">
+              <div>
+                <Label>What kind of help do you need?</Label>
+                <p className="text-xs text-white/60">
+                  Add up to 5 specific needs. Pick a type and briefly describe it.
+                </p>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="country">Country</Label>
-                <Input id="country" className={inputCls}
-                  value={form.country}
-                  onChange={(e) => setForm({ ...form, country: e.target.value })} />
-              </div>
+              {needs.map((n, i) => (
+                <div key={i} className="grid grid-cols-[160px_1fr] gap-3">
+                  <select
+                    aria-label={`Help need ${i + 1} type`}
+                    value={n.type}
+                    onChange={(e) => updateNeed(i, { type: e.target.value })}
+                    className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                  >
+                    <option value="" className="text-black">Type…</option>
+                    {HELP_TYPES.map((t) => (
+                      <option key={t} value={t} className="text-black">{t}</option>
+                    ))}
+                  </select>
+                  <Input
+                    className={inputCls}
+                    maxLength={200}
+                    placeholder="Briefly describe this need"
+                    value={n.details}
+                    onChange={(e) => updateNeed(i, { details: e.target.value })}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="country">Country</Label>
+              <Input id="country" className={inputCls}
+                value={form.country}
+                onChange={(e) => setForm({ ...form, country: e.target.value })} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
