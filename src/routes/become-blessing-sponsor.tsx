@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { createSponsorProfile } from "@/server/sponsor.functions";
 
  const ROLES = ["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"] as const;
-const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "Counselling", "Disaster Relief", "Elder Care"];
+const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "Counselling", "Disaster Relief", "Elderly Care"];
 
 export const Route = createFileRoute("/become-blessing-sponsor")({
   head: () => ({

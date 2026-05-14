@@ -100,7 +100,7 @@ function AboutMyBlessings() {
 
       <section className="mx-auto max-w-7xl px-6 pb-16 text-center">
         <div className="flex flex-wrap justify-center gap-3">
-          <Button asChild size="lg" className="bg-yellow-300 text-[#0a1f6b] hover:bg-yellow-400" style={garamond}>
+          <Button asChild size="lg" className="bg-yellow-300 text-[#0a1f6b] hover:bg-yellow-400 text-lg" style={garamond}>
             <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing 🙏</Link>
           </Button>
            <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20" style={garamond}>
