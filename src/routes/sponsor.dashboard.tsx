@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getMySponsorProfile } from "@/server/sponsor.functions";
 import { SponsorUploadWidget } from "@/components/sponsor/SponsorUploadWidget";
 import { SponsorRecommendations } from "@/components/sponsor/SponsorRecommendations";
+import { SponsorInvoicesList } from "@/components/sponsor/SponsorInvoicesList";
 
 type Sponsor = {
   id: string;
@@ -116,6 +117,8 @@ function SponsorDashboard() {
       />
 
       <SponsorRecommendations />
+
+      <SponsorInvoicesList />
 
     </div>
   );

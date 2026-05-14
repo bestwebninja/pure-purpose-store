@@ -423,6 +423,72 @@ export type Database = {
           },
         ]
       }
+      invoices: {
+        Row: {
+          created_at: string
+          currency: string
+          donation_amount: number
+          donation_id: string | null
+          gross_amount: number
+          id: string
+          invoice_number: string
+          issued_at: string
+          metadata: Json
+          platform_fee_amount: number
+          sponsor_user_id: string
+          sponsorship_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          donation_amount?: number
+          donation_id?: string | null
+          gross_amount?: number
+          id?: string
+          invoice_number: string
+          issued_at?: string
+          metadata?: Json
+          platform_fee_amount?: number
+          sponsor_user_id: string
+          sponsorship_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          donation_amount?: number
+          donation_id?: string | null
+          gross_amount?: number
+          id?: string
+          invoice_number?: string
+          issued_at?: string
+          metadata?: Json
+          platform_fee_amount?: number
+          sponsor_user_id?: string
+          sponsorship_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_donation_id_fkey"
+            columns: ["donation_id"]
+            isOneToOne: false
+            referencedRelation: "donations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_sponsorship_id_fkey"
+            columns: ["sponsorship_id"]
+            isOneToOne: false
+            referencedRelation: "sponsorships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ledger_entries: {
         Row: {
           account: string
@@ -916,6 +982,7 @@ export type Database = {
         Args: { _amount: number; _campaign_id: string; _donor_delta?: number }
         Returns: undefined
       }
+      next_invoice_number: { Args: never; Returns: string }
       reverse_donation_ledger: {
         Args: { _donation_id: string; _reason?: string }
         Returns: undefined
