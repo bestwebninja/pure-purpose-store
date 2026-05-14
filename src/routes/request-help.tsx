@@ -50,6 +50,7 @@ function RequestHelp() {
     target_amount: "",
     country: "",
     region: "",
+    postal_code: "",
   });
 
   useEffect(() => {
@@ -128,6 +129,7 @@ function RequestHelp() {
         `Requested by: ${form.firstName.trim()} ${form.surname.trim()}`,
         `Email: ${form.email.trim()}`,
         form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
+        form.postal_code.trim() ? `Zip/Postal: ${form.postal_code.trim()}` : null,
         "",
         form.description.trim(),
       ].filter(Boolean).join("\n") || null,
@@ -149,7 +151,7 @@ function RequestHelp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source_type: "request",
-          location: { city: form.region, country: form.country },
+          location: { city: form.region, country: form.country, postal_code: form.postal_code },
           category_ids: form.category_id ? [form.category_id] : [],
           budget: form.target_amount ? Number(form.target_amount) : null,
         }),
@@ -261,6 +263,13 @@ function RequestHelp() {
               <Input id="region" className={inputCls}
                 value={form.region}
                 onChange={(e) => setForm({ ...form, region: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="postal_code">Zip / Postal code</Label>
+              <Input id="postal_code" className={inputCls} maxLength={20}
+                value={form.postal_code}
+                onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
+                placeholder="e.g. 90210" />
             </div>
             <Button type="submit" disabled={submitting} className="w-full">
               {submitting ? "Submitting…" : "Submit Application"}
