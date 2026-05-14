@@ -1,0 +1,25 @@
+# MyBlessings
+
+> A giving platform where every donation becomes a blessing for someone in need.
+
+MyBlessings connects people who want to help with people who need support — transparently, with every dollar tracked and every story honored.
+
+## Pages
+
+- [Home](/): Give With Purpose. Receive Blessings.
+- [How It Works](/how-it-works): Three steps from generosity to impact.
+- [About MyBlessings](/about-myblessings): Our mission and how kindness travels through the platform.
+- [Give a Blessing](/give): Browse active campaigns and donate securely.
+- [Configure a Blessing](/give-a-blessing): Sponsor someone with a custom blessing.
+- [Request a Blessing (BlessME)](/request-help): Share what you need and connect with sponsors.
+- [Explore Blessings](/explore-blessings): Browse blessings across every assistance category.
+- [Marketplace](/marketplace): Live feed of active blessings.
+- [Impact Map](/impact-map): See where blessings are landing across the world.
+- [Categories](/categories): Discover causes by category.
+- [Transparency](/transparency): Every blessing tracked, every dollar accounted for.
+- [For NGOs](/ngo): Apply to receive blessings for your cause.
+- [Become a Sponsor](/become-blessing-sponsor): Sign up to help connect those in need with support.
+
+## Optional
+
+- [Login](/login): Sign in to your dashboard.

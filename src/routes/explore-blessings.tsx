@@ -34,7 +34,11 @@ export const Route = createFileRoute("/explore-blessings")({
     meta: [
        { title: "Our Blessings — MyBlessings" },
       { name: "description", content: "Browse blessings available for sponsorship across every assistance category." },
+      { property: "og:title", content: "Our Blessings — MyBlessings" },
+      { property: "og:description", content: "Browse blessings available for sponsorship across every assistance category." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/explore-blessings" },
     ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/explore-blessings" }],
   }),
   component: ExploreBlessings,
 });

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
@@ -47,6 +48,11 @@ import { Route as ApiCategoriesTreeRouteImport } from './routes/api/categories/t
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
   path: '/transparency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestHelpRoute = RequestHelpRouteImport.update({
@@ -233,6 +239,7 @@ export interface FileRoutesByFullPath {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/match-control': typeof AdminMatchControlRoute
@@ -269,6 +276,7 @@ export interface FileRoutesByTo {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/match-control': typeof AdminMatchControlRoute
@@ -306,6 +314,7 @@ export interface FileRoutesById {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/match-control': typeof AdminMatchControlRoute
@@ -344,6 +353,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/match-control'
@@ -380,6 +390,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/match-control'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/match-control'
@@ -453,6 +465,7 @@ export interface RootRouteChildren {
   MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
   RequestHelpRoute: typeof RequestHelpRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminMatchControlRoute: typeof AdminMatchControlRoute
@@ -476,6 +489,13 @@ declare module '@tanstack/react-router' {
       path: '/transparency'
       fullPath: '/transparency'
       preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-help': {
@@ -764,6 +784,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
   RequestHelpRoute: RequestHelpRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminMatchControlRoute: AdminMatchControlRoute,

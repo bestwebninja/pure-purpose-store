@@ -22,9 +22,13 @@ type CategoryNode = {
 export const Route = createFileRoute("/give-a-blessing")({
   head: () => ({
     meta: [
-      { title: "Give a Blessing — MyBlessings" },
+      { title: "Configure a Blessing — MyBlessings" },
       { name: "description", content: "Sponsor someone in need. Configure your blessing in a minute." },
+      { property: "og:title", content: "Configure a Blessing — MyBlessings" },
+      { property: "og:description", content: "Sponsor someone in need. Configure your blessing in a minute." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/give-a-blessing" },
     ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/give-a-blessing" }],
   }),
   component: GiveABlessing,
 });

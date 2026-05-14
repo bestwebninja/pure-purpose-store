@@ -11,7 +11,11 @@ export const Route = createFileRoute("/marketplace")({
     meta: [
       { title: "Marketplace — MyBlessings" },
       { name: "description", content: "Browse active blessings and choose who to support." },
+      { property: "og:title", content: "Marketplace — MyBlessings" },
+      { property: "og:description", content: "Browse active blessings and choose who to support." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/marketplace" },
     ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/marketplace" }],
   }),
   component: MarketplacePage,
 });

@@ -9,10 +9,25 @@ import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MyBlessings — Give With Purpose" },
+      { title: "Home — MyBlessings · Give With Purpose" },
       { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes — transparently." },
       { property: "og:title", content: "MyBlessings — Give With Purpose" },
       { property: "og:description", content: "Support real people and real causes — transparently." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://pure-purpose-store.lovable.app/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "MyBlessings",
+          url: "https://pure-purpose-store.lovable.app",
+        }),
+      },
     ],
   }),
   loader: () => listCampaigns(),
@@ -103,6 +118,9 @@ function Hero() {
             alt="Hands joined in support"
             className="relative w-full rounded-[1.75rem] object-cover shadow-card"
             loading="eager"
+            fetchPriority="high"
+            width={1200}
+            height={900}
           />
         </div>
       </div>

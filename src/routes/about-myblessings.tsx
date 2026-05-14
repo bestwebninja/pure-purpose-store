@@ -10,7 +10,9 @@ export const Route = createFileRoute("/about-myblessings")({
       { name: "description", content: "A world where kindness finds its way to the right person, instantly." },
       { property: "og:title", content: "About MyBlessings" },
       { property: "og:description", content: "Real people helping real people. No noise. Just connection." },
+      { property: "og:url", content: "https://pure-purpose-store.lovable.app/about-myblessings" },
     ],
+    links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/about-myblessings" }],
   }),
   component: AboutMyBlessings,
 });
