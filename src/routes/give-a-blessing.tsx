@@ -197,7 +197,7 @@ function GiveABlessing() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
       <div className="mx-auto max-w-2xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing 🙏</h1>
+        <h1 className="text-display text-3xl font-semibold text-white text-white">Give a Blessing 🙏</h1>
         <p className="mt-2 text-white/80">
           Step {step + 1} of {STEPS.length} — {STEPS[step]}
         </p>

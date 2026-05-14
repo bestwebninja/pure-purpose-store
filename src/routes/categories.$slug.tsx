@@ -26,7 +26,7 @@ export const Route = createFileRoute("/categories/$slug")({
   }),
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-      <h1 className="text-display text-3xl font-semibold">Category not found</h1>
+      <h1 className="text-display text-3xl font-semibold text-white">Category not found</h1>
       <Link to="/categories" className="mt-4 inline-block text-primary hover:underline">← All categories</Link>
     </div>
   ),

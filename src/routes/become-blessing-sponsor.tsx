@@ -91,7 +91,7 @@ function BecomeSponsor() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
-      <h1 className="text-display text-3xl font-semibold text-white">Become a Blessing Sponsor</h1>
+      <h1 className="text-display text-3xl font-semibold text-white text-white">Become a Blessing Sponsor</h1>
       <p className="mt-2 text-sm text-white/80">Tell us about yourself and how you serve your community.</p>
       <Card className="mt-8 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>
         <form onSubmit={handleSubmit} className="space-y-6">
