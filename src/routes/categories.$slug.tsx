@@ -15,8 +15,14 @@ export const Route = createFileRoute("/categories/$slug")({
       ? [
           { title: `${loaderData.category.name} Blessings — MyBlessings` },
           { name: "description", content: loaderData.category.description ?? `Support ${loaderData.category.name} causes.` },
+          { property: "og:title", content: `${loaderData.category.name} Blessings — MyBlessings` },
+          { property: "og:description", content: loaderData.category.description ?? `Support ${loaderData.category.name} causes.` },
+          { property: "og:url", content: `https://pure-purpose-store.lovable.app/categories/${loaderData.category.slug}` },
         ]
       : [{ title: "Category — MyBlessings" }],
+    links: loaderData?.category
+      ? [{ rel: "canonical", href: `https://pure-purpose-store.lovable.app/categories/${loaderData.category.slug}` }]
+      : [],
   }),
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
