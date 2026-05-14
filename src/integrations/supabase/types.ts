@@ -938,6 +938,45 @@ export type Database = {
         }
         Relationships: []
       }
+      sponsor_funding_profiles: {
+        Row: {
+          brand_values: string[]
+          created_at: string
+          currency: string
+          esg_goals: string[]
+          geographies: string[]
+          id: string
+          industries: string[]
+          monthly_budget: number
+          sponsor_id: string
+          updated_at: string
+        }
+        Insert: {
+          brand_values?: string[]
+          created_at?: string
+          currency?: string
+          esg_goals?: string[]
+          geographies?: string[]
+          id?: string
+          industries?: string[]
+          monthly_budget?: number
+          sponsor_id: string
+          updated_at?: string
+        }
+        Update: {
+          brand_values?: string[]
+          created_at?: string
+          currency?: string
+          esg_goals?: string[]
+          geographies?: string[]
+          id?: string
+          industries?: string[]
+          monthly_budget?: number
+          sponsor_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sponsors: {
         Row: {
           city: string | null
