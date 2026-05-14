@@ -10,17 +10,39 @@ export const Route = createFileRoute("/campaign/$handle")({
     if (!result.campaign) throw notFound();
     return result;
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData?.campaign
-      ? [
-          { title: `${loaderData.campaign.title} — MyBlessings` },
-          { name: "description", content: loaderData.campaign.short_description ?? loaderData.campaign.title },
-          { property: "og:title", content: loaderData.campaign.title },
-          { property: "og:description", content: loaderData.campaign.short_description ?? "Give a blessing on MyBlessings." },
-          ...(loaderData.campaign.image_url ? [{ property: "og:image", content: loaderData.campaign.image_url }] : []),
-        ]
-      : [{ title: "Blessing — MyBlessings" }],
-  }),
+  head: ({ loaderData, params }) => {
+    const c = loaderData?.campaign;
+    const url = `https://pure-purpose-store.lovable.app/campaign/${params.handle}`;
+    return {
+      meta: c
+        ? [
+            { title: `${c.title} — MyBlessings` },
+            { name: "description", content: c.short_description ?? c.title },
+            { property: "og:title", content: c.title },
+            { property: "og:description", content: c.short_description ?? "Give a blessing on MyBlessings." },
+            { property: "og:type", content: "article" },
+            { property: "og:url", content: url },
+            ...(c.image_url ? [{ property: "og:image", content: c.image_url }] : []),
+          ]
+        : [{ title: "Blessing — MyBlessings" }],
+      links: c ? [{ rel: "canonical", href: url }] : [],
+      scripts: c
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Article",
+                headline: c.title,
+                description: c.short_description ?? c.title,
+                ...(c.image_url ? { image: c.image_url } : {}),
+                url,
+              }),
+            },
+          ]
+        : [],
+    };
+  },
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="text-display text-4xl font-semibold">Blessing not found</h1>
