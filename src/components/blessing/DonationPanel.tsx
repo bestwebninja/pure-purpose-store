@@ -14,8 +14,6 @@ import type { Campaign } from "@/server/campaigns.functions";
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 
-const PRESETS = [25, 50, 100, 250];
-
 function formatMoney(n: number, currency = "USD") {
   return new Intl.NumberFormat("en-US", { style: "currency", currency, maximumFractionDigits: 0 }).format(n);
 }
@@ -28,11 +26,13 @@ export function DonationPanel({
   donorCount: number;
 }) {
   const checkoutFn = useServerFn(createBlessingCheckout);
-  const [amount, setAmount] = useState<number>(50);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [anon, setAnon] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Exact-amount funding only — sponsors fund the full blessing package.
+  const exactAmount = Number(campaign.goal_amount);
 
   const pct = Math.min(
     100,
@@ -40,8 +40,8 @@ export function DonationPanel({
   );
 
   const handleGive = async () => {
-    if (!amount || amount < 1) {
-      toast.error("Choose a blessing amount");
+    if (!exactAmount || exactAmount < 1) {
+      toast.error("This blessing has no target amount set");
       return;
     }
     setLoading(true);
@@ -49,7 +49,7 @@ export function DonationPanel({
       const { checkoutUrl } = await checkoutFn({
         data: {
           campaignId: campaign.id,
-          amount,
+          amount: exactAmount,
           donorName: anon ? undefined : name || undefined,
           message: message || undefined,
           isAnonymous: anon,
@@ -81,31 +81,16 @@ export function DonationPanel({
         </div>
       </div>
 
-      <div className="space-y-3">
-        <Label className="text-sm">Choose your blessing</Label>
-        <div className="grid grid-cols-4 gap-2">
-          {PRESETS.map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => setAmount(p)}
-              className={`rounded-lg border px-2 py-3 text-sm font-semibold transition-colors ${
-                amount === p
-                  ? "border-primary bg-primary/5 text-primary"
-                  : "border-border bg-background hover:border-primary/40"
-              }`}
-            >
-              ${p}
-            </button>
-          ))}
-        </div>
-        <Input
-          type="number"
-          min={1}
-          value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
-          aria-label="Custom amount"
-        />
+      <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-center">
+        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          Exact funding amount
+        </p>
+        <p className="mt-1 text-display text-3xl font-semibold text-primary">
+          {formatMoney(exactAmount, campaign.currency)}
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Partial donations are not accepted — sponsor the full blessing.
+        </p>
       </div>
 
       <div className="space-y-3">
@@ -135,19 +120,18 @@ export function DonationPanel({
 
       <Button
         onClick={handleGive}
-        disabled={loading}
+        disabled={loading || exactAmount < 1}
         size="lg"
-        className="w-full text-2xl hover:opacity-95"
+        className="w-full text-lg hover:opacity-95"
         style={{
           backgroundColor: "#1d4ed8",
           color: "#f8f6ee",
-          fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
           boxShadow:
             "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
         }}
       >
         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Heart className="mr-2 h-4 w-4" fill="currentColor" />}
-        Give a Blessing
+        Fund this Blessing for {formatMoney(exactAmount, campaign.currency)}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
         Secure checkout powered by Shopify · 100% transparent
