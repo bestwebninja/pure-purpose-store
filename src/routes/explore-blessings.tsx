@@ -3,19 +3,13 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { supabase } from "@/integrations/supabase/client";
-
-type CategoryNode = {
-  id: string;
-  parent_id: string | null;
-  slug: string;
-  name: string;
-  description: string | null;
-  icon: string | null;
-  sort_order: number;
-  is_active: boolean;
-  children: CategoryNode[];
-};
 
 type Blessing = {
   id: string;
@@ -28,6 +22,122 @@ type Blessing = {
   category_id: string | null;
   provider_id: string | null;
 };
+
+const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: string[] }[] = [
+  {
+    slug: "temporary-accommodation",
+    icon: "🏨",
+    name: "Temporary Accommodation",
+    subs: [
+      "Emergency shelter",
+      "Family relocation",
+      "Stranded traveler",
+      "Domestic violence relocation",
+      "Disaster displacement",
+      "Hospital nearby stays",
+      "Military & Veterans Housing",
+    ],
+  },
+  {
+    slug: "emergency-travel",
+    icon: "✈️",
+    name: "Emergency Travel",
+    subs: [
+      "Bus / Train / Airline tickets",
+      "Rideshare credits",
+      "Airport transfers",
+      "Military & Veterans Travel",
+    ],
+  },
+  {
+    slug: "mobility-support",
+    icon: "🚗",
+    name: "Mobility Support",
+    subs: [
+      "Uber rides",
+      "Taxi vouchers",
+      "Scooters",
+      "Bicycles",
+      "Fuel cards",
+      "Mobility passes",
+      "Military & Veterans Mobility",
+    ],
+  },
+  {
+    slug: "accessibility-support",
+    icon: "♿",
+    name: "Accessibility Support",
+    subs: [
+      "Wheelchair hire",
+      "Crutches",
+      "Walkers",
+      "Medical transport coordination",
+      "Mobility scooter rental",
+      "Military & Veterans Accessibility Support",
+    ],
+  },
+  {
+    slug: "food-essentials",
+    icon: "🍔",
+    name: "Food & Essentials Vouchers",
+    subs: [
+      "Grocery gift cards",
+      "Meal vouchers",
+      "Pharmacy gift cards",
+      "Prepaid essentials",
+      "Military & Veterans Rations / Essentials",
+    ],
+  },
+  {
+    slug: "connectivity-support",
+    icon: "📱",
+    name: "Connectivity Support",
+    subs: [
+      "Mobile airtime",
+      "eSIMs",
+      "Data bundles",
+      "Internet vouchers",
+      "Prepaid phones",
+      "Military & Veterans Connectivity",
+    ],
+  },
+  {
+    slug: "family-support",
+    icon: "👶",
+    name: "Family Support",
+    subs: [
+      "Diapers",
+      "Baby supplies",
+      "School transport",
+      "Emergency childcare rides",
+      "School meal sponsorship",
+      "Military & Veterans Families Support",
+    ],
+  },
+  {
+    slug: "stranded-traveler",
+    icon: "🧳",
+    name: "Stranded Traveler Assistance",
+    subs: [
+      "Missed flights",
+      "Emergency overnight stays",
+      "Passport-loss assistance",
+      "Border / airport transport",
+      "Military & Veterans Stranded Assistance",
+    ],
+  },
+  {
+    slug: "non-medical-recovery",
+    icon: "🏥",
+    name: "Non-Medical Recovery Support",
+    subs: [
+      "Accommodation near hospitals",
+      "Transport to treatment",
+      "Meal support during recovery",
+      "Military & Veterans Recovery Logistics",
+    ],
+  },
+];
 
 export const Route = createFileRoute("/explore-blessings")({
   head: () => ({
@@ -44,62 +154,38 @@ export const Route = createFileRoute("/explore-blessings")({
 });
 
 function ExploreBlessings() {
-  const [tree, setTree] = useState<CategoryNode[]>([]);
   const [blessings, setBlessings] = useState<Blessing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeSub, setActiveSub] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      // Load blessings and categories independently so a failure on one
-      // (e.g. preview-environment auth gating on /api/*) doesn't block the other.
-      const blessingsPromise = (async () => {
-        try {
-          const res = await supabase
-            .from("blessings")
-            .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
-            .eq("status", "ACTIVE")
-            .order("created_at", { ascending: false })
-            .limit(60);
-          if (cancelled) return;
-          if (res.error) {
-            setError(res.error.message);
-            return;
-          }
-          setBlessings((res.data ?? []) as Blessing[]);
-        } catch (e) {
-          if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load blessings");
-        } finally {
-          if (!cancelled) setLoading(false);
-        }
-      })();
-
-      // Categories are best-effort; fail silently with a 5s timeout so a
-      // stalled fetch never hides the blessings grid.
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 5000);
-      fetch("/api/categories/tree", { credentials: "include", signal: controller.signal })
-        .then((r) => r.json())
-        .then((treeRes) => {
-          if (!cancelled) setTree(treeRes?.tree ?? []);
-        })
-        .catch(() => {
-          /* categories optional */
-        })
-        .finally(() => clearTimeout(timeout));
-
-      await blessingsPromise;
+      try {
+        const res = await supabase
+          .from("blessings")
+          .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
+          .eq("status", "ACTIVE")
+          .order("created_at", { ascending: false })
+          .limit(60);
+        if (cancelled) return;
+        if (res.error) setError(res.error.message);
+        else setBlessings((res.data ?? []) as Blessing[]);
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load blessings");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
     })();
     return () => {
       cancelled = true;
     };
   }, []);
 
-  const filtered = activeCategory
-    ? blessings.filter((b) => b.category_id === activeCategory)
-    : blessings;
+  // Sub-category filtering is taxonomy-driven; until DB blessings carry the
+  // new category mapping, a sub-category selection narrows to an empty state.
+  const filtered = activeSub ? [] : blessings;
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-12">
@@ -113,48 +199,58 @@ function ExploreBlessings() {
       )}
 
       <section className="mb-10">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">Categories</h2>
-        <div className="flex flex-wrap gap-2">
-          <Button
-            size="sm"
-            variant={activeCategory === null ? "default" : "outline"}
-            onClick={() => setActiveCategory(null)}
-          >
-            All
-          </Button>
-          {tree.map((root) => {
-            const hasChildren = root.children.length > 0;
-            return (
-              <Button
-                key={root.id}
-                size="sm"
-                variant={activeCategory === root.id ? "default" : "outline"}
-                onClick={() => setActiveCategory(root.id)}
-                className={`${hasChildren ? "h-auto py-2 text-center" : "h-9"} bg-blue-600 text-white border-blue-600 hover:bg-blue-300 hover:text-blue-900`}
-              >
-                <div className="flex flex-col items-center gap-0.5">
-                  <span className="leading-tight whitespace-pre-line">{root.name === "Healthcare" ? "Elderly\u00a0Care" : root.name.replace("Elderly Care", "Elderly\u00a0Care")}</span>
-                  {hasChildren && (
-                    <span className="text-[10px] font-medium opacity-60">
-                      ({root.children.length})
-                    </span>
-                  )}
-                </div>
-              </Button>
-            );
-          })}
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Categories</h2>
+          {activeSub && (
+            <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)}>
+              Clear filter
+            </Button>
+          )}
         </div>
+        <Accordion type="single" collapsible className="rounded-xl border bg-card">
+          {CATEGORY_TAXONOMY.map((cat) => (
+            <AccordionItem key={cat.slug} value={cat.slug} className="border-b last:border-b-0">
+              <AccordionTrigger className="px-4 hover:no-underline">
+                <span className="flex items-center gap-3 text-left">
+                  <span className="text-xl" aria-hidden>{cat.icon}</span>
+                  <span className="font-semibold">{cat.name}</span>
+                  <span className="text-xs text-muted-foreground">({cat.subs.length})</span>
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4">
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {cat.subs.map((sub) => {
+                    const key = `${cat.slug}::${sub}`;
+                    const isActive = activeSub === key;
+                    return (
+                      <Button
+                        key={key}
+                        size="sm"
+                        variant={isActive ? "default" : "outline"}
+                        onClick={() => setActiveSub(isActive ? null : key)}
+                      >
+                        {sub}
+                      </Button>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
 
       <section>
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-          Blessings ({loading ? "…" : filtered.length})
+          {activeSub
+            ? activeSub.split("::")[1]
+            : `Blessings${loading ? "" : ` (${filtered.length})`}`}
         </h2>
         {loading ? (
           <p className="text-sm text-muted-foreground">Loading…</p>
         ) : filtered.length === 0 ? (
           <Card className="p-8 text-center">
-            <p className="text-muted-foreground">No blessings available yet in this category.</p>
+            <p className="text-muted-foreground">No active blessings in this category.</p>
             <p className="mt-2 text-xs text-muted-foreground">
               Providers can add blessings from their dashboard once approved.
             </p>
