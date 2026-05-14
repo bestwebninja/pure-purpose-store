@@ -4,11 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 
 type Blessing = {
@@ -188,10 +190,12 @@ function ExploreBlessings() {
   const filtered = activeSub ? [] : blessings;
 
   return (
-    <div className="bg-gradient-hero text-white"><div className="mx-auto max-w-7xl px-6 py-12">
+    <div className="mx-auto max-w-7xl px-6 py-12">
       <header className="mb-8">
-         <h1 className="text-display text-5xl font-normal tracking-tight md:text-6xl">Our Blessings</h1>
-        <p className="mt-2 text-white/75">Sponsor specific items that meet a real need.</p>
+        <h1 className="text-display text-5xl font-normal tracking-tight text-foreground md:text-6xl">
+          Our Blessings
+        </h1>
+        <p className="mt-2 text-muted-foreground">Sponsor specific items that meet a real need.</p>
       </header>
 
       {error && (
@@ -200,48 +204,53 @@ function ExploreBlessings() {
 
       <section className="mb-10">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-white">Categories</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            Categories
+          </h2>
           {activeSub && (
             <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)}>
               Clear filter
             </Button>
           )}
         </div>
-        <Accordion type="single" collapsible className="rounded-xl border bg-card">
-          {CATEGORY_TAXONOMY.map((cat) => (
-            <AccordionItem key={cat.slug} value={cat.slug} className="border-b last:border-b-0">
-              <AccordionTrigger className="px-4 hover:no-underline">
-                <span className="flex items-center gap-3 text-left">
-                  <span className="text-xl" aria-hidden>{cat.icon}</span>
-                  <span className="font-semibold">{cat.name}</span>
-                  <span className="text-xs text-muted-foreground">({cat.subs.length})</span>
-                </span>
-              </AccordionTrigger>
-              <AccordionContent className="px-4 pb-4">
-                <div className="flex flex-wrap gap-2 pt-1">
+        <div className="flex flex-wrap gap-2">
+          {CATEGORY_TAXONOMY.map((cat) => {
+            const isActiveCat = activeSub?.startsWith(`${cat.slug}::`);
+            return (
+              <DropdownMenu key={cat.slug}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    size="sm"
+                    variant={isActiveCat ? "default" : "secondary"}
+                    className="rounded-full"
+                  >
+                    <span className="mr-1.5" aria-hidden>{cat.icon}</span>
+                    {cat.name}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-64">
+                  <DropdownMenuLabel>{cat.name}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
                   {cat.subs.map((sub) => {
                     const key = `${cat.slug}::${sub}`;
-                    const isActive = activeSub === key;
                     return (
-                      <Button
+                      <DropdownMenuItem
                         key={key}
-                        size="sm"
-                        variant={isActive ? "default" : "outline"}
-                        onClick={() => setActiveSub(isActive ? null : key)}
+                        onSelect={() => setActiveSub(activeSub === key ? null : key)}
                       >
                         {sub}
-                      </Button>
+                      </DropdownMenuItem>
                     );
                   })}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            );
+          })}
+        </div>
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-white">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
           {activeSub
             ? activeSub.split("::")[1]
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}
@@ -283,7 +292,6 @@ function ExploreBlessings() {
           </div>
         )}
       </section>
-    </div>
     </div>
   );
 }

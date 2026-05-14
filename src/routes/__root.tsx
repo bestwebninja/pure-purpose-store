@@ -97,7 +97,7 @@ function RootComponent() {
       }}
     >
       <SiteHeader />
-      <main className="flex-1 bg-blue-700">
+      <main className="flex-1">
         <Outlet />
       </main>
       <SiteFooter />
