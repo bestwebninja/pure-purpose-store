@@ -622,6 +622,75 @@ function GodView() {
           </Card>
         </TabsContent>
 
+        <TabsContent value="reports" className="mt-4">
+          <Card className="p-0">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports — Funding Flywheel</h2>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Drafts await Operator approval at L0–L2. Reports auto-send at L3 (Autonomous).
+                </p>
+              </div>
+              <Button size="sm" variant="outline" onClick={loadReports} disabled={reportsLoading}>
+                {reportsLoading ? "Refreshing…" : "Refresh"}
+              </Button>
+            </div>
+            <div className="max-h-[640px] overflow-auto">
+              <Table>
+                <TableHeader className="sticky top-0 bg-card">
+                  <TableRow>
+                    <TableHead>Sponsor</TableHead>
+                    <TableHead className="text-right">Cycle Total</TableHead>
+                    <TableHead className="text-right">Next Pkg</TableHead>
+                    <TableHead>Autonomy</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>When</TableHead>
+                    <TableHead className="text-right">Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {reports.length === 0 ? (
+                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground">No flywheel reports yet.</TableCell></TableRow>
+                  ) : reports.map((r) => {
+                    const tone =
+                      r.status === "sent" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                      : r.status === "pending_review" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      : r.status === "failed" ? "bg-destructive/15 text-destructive"
+                      : "bg-muted text-muted-foreground";
+                    const canApprove = r.status === "draft" || r.status === "pending_review" || r.status === "approved";
+                    return (
+                      <TableRow key={r.id}>
+                        <TableCell>
+                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}…</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}…</div>
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{fmtMoney(r.package_total, r.currency)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{fmtMoney(Number(r.next_package?.total ?? 0), r.currency)}</TableCell>
+                        <TableCell className="text-xs">L{r.autonomy_level} · {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
+                        <TableCell><Badge className={tone}>{r.status}</Badge></TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
+                          {r.sent_at ? `sent ${timeAgo(r.sent_at)}` : `drafted ${timeAgo(r.created_at)}`}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {r.status === "sent" ? (
+                            <span className="text-xs text-emerald-600 dark:text-emerald-400">Auto-sent</span>
+                          ) : canApprove ? (
+                            <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
+                              {approvingId === r.id ? "Sending…" : "Approve & send"}
+                            </Button>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="autonomy" className="mt-4">
           <Card className="p-0">
             <div className="flex items-center justify-between border-b p-4">
