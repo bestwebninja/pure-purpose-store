@@ -41,6 +41,7 @@ import { Route as AdminMatchControlRouteImport } from './routes/admin.match-cont
 import { Route as AdminGodViewRouteImport } from './routes/admin.god-view'
 import { Route as AdminCommandCenterRouteImport } from './routes/admin.command-center'
 import { Route as ApiPublicShopifyWebhookRouteImport } from './routes/api/public/shopify-webhook'
+import { Route as ApiPublicPetriRecomputeRouteImport } from './routes/api/public/petri-recompute'
 import { Route as ApiPublicPetriBloomRouteImport } from './routes/api/public/petri-bloom'
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
@@ -206,6 +207,11 @@ const ApiPublicShopifyWebhookRoute = ApiPublicShopifyWebhookRouteImport.update({
   path: '/api/public/shopify-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPetriRecomputeRoute = ApiPublicPetriRecomputeRouteImport.update({
+  id: '/api/public/petri-recompute',
+  path: '/api/public/petri-recompute',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicPetriBloomRoute = ApiPublicPetriBloomRouteImport.update({
   id: '/api/public/petri-bloom',
   path: '/api/public/petri-bloom',
@@ -263,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/petri-bloom': typeof ApiPublicPetriBloomRoute
+  '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesByTo {
@@ -301,6 +308,7 @@ export interface FileRoutesByTo {
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/petri-bloom': typeof ApiPublicPetriBloomRoute
+  '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRoutesById {
@@ -340,6 +348,7 @@ export interface FileRoutesById {
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
   '/api/public/petri-bloom': typeof ApiPublicPetriBloomRoute
+  '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
 export interface FileRouteTypes {
@@ -380,6 +389,7 @@ export interface FileRouteTypes {
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/petri-bloom'
+    | '/api/public/petri-recompute'
     | '/api/public/shopify-webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -418,6 +428,7 @@ export interface FileRouteTypes {
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/petri-bloom'
+    | '/api/public/petri-recompute'
     | '/api/public/shopify-webhook'
   id:
     | '__root__'
@@ -456,6 +467,7 @@ export interface FileRouteTypes {
     | '/api/public/go-live-report'
     | '/api/public/health'
     | '/api/public/petri-bloom'
+    | '/api/public/petri-recompute'
     | '/api/public/shopify-webhook'
   fileRoutesById: FileRoutesById
 }
@@ -492,6 +504,7 @@ export interface RootRouteChildren {
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
   ApiPublicPetriBloomRoute: typeof ApiPublicPetriBloomRoute
+  ApiPublicPetriRecomputeRoute: typeof ApiPublicPetriRecomputeRoute
   ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
 }
 
@@ -721,6 +734,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicShopifyWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/petri-recompute': {
+      id: '/api/public/petri-recompute'
+      path: '/api/public/petri-recompute'
+      fullPath: '/api/public/petri-recompute'
+      preLoaderRoute: typeof ApiPublicPetriRecomputeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/petri-bloom': {
       id: '/api/public/petri-bloom'
       path: '/api/public/petri-bloom'
@@ -819,6 +839,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicPetriBloomRoute: ApiPublicPetriBloomRoute,
+  ApiPublicPetriRecomputeRoute: ApiPublicPetriRecomputeRoute,
   ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
 }
 export const routeTree = rootRouteImport

@@ -9,6 +9,8 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
+import { recomputePetriScores } from "@/server/petri-recompute.functions";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
@@ -53,6 +55,29 @@ type FulfillmentEvent = {
   currency: string | null;
   notes: string | null;
   created_at: string;
+};
+
+type Scorecard = {
+  id: string;
+  token_id: string;
+  case_id: string | null;
+  urgency: number;
+  stability: number;
+  delivery_confidence: number;
+  sponsor_alignment: number;
+  economic_impact: number;
+  composite_score: number;
+  autonomy_decision: "auto" | "queue" | "manual" | string;
+  inputs: Record<string, unknown>;
+  last_computed_at: string;
+};
+
+type RecomputeRunSummary = {
+  scanned: number;
+  written: number;
+  duration_ms: number;
+  matching_autonomy: number;
+  trigger: string;
 };
 
 type FeedRow =
@@ -103,6 +128,10 @@ function GodView() {
   const [modules, setModules] = useState<SystemModule[]>([]);
   const [matches, setMatches] = useState<PetriMatch[]>([]);
   const [events, setEvents] = useState<FulfillmentEvent[]>([]);
+  const [scorecards, setScorecards] = useState<Scorecard[]>([]);
+  const [recomputing, setRecomputing] = useState(false);
+  const [lastRecompute, setLastRecompute] = useState<RecomputeRunSummary | null>(null);
+  const recompute = useServerFn(recomputePetriScores);
   const [counts, setCounts] = useState({
     sponsors: 0,
     sponsorsPending: 0,
@@ -142,10 +171,11 @@ function GodView() {
   const loadAll = useCallback(async () => {
     setLoading(true);
     try {
-      const [mods, m, e, sponsors, sponsorsPending, cases, casesOpen, ngos, ngosPending, providers, sponsorships, donations] = await Promise.all([
+      const [mods, m, e, sc, sponsors, sponsorsPending, cases, casesOpen, ngos, ngosPending, providers, sponsorships, donations] = await Promise.all([
         supabase.from("system_modules").select("*").order("module_key"),
         supabase.from("petri_matches").select("*").order("created_at", { ascending: false }).limit(50),
         supabase.from("fulfillment_events").select("*").order("created_at", { ascending: false }).limit(50),
+        supabase.from("petri_scorecards").select("*").order("composite_score", { ascending: false }).limit(100),
         supabase.from("sponsors").select("id", { count: "exact", head: true }),
         supabase.from("sponsors").select("id", { count: "exact", head: true }).eq("verification_status", "PENDING"),
         supabase.from("cases").select("id", { count: "exact", head: true }),
@@ -159,6 +189,7 @@ function GodView() {
       setModules((mods.data ?? []) as SystemModule[]);
       setMatches((m.data ?? []) as PetriMatch[]);
       setEvents((e.data ?? []) as FulfillmentEvent[]);
+      setScorecards((sc.data ?? []) as Scorecard[]);
       const donationsTotal = (donations.data ?? []).reduce((s: number, r: { amount: number | string }) => s + Number(r.amount ?? 0), 0);
       setCounts({
         sponsors: sponsors.count ?? 0,
@@ -238,6 +269,30 @@ function GodView() {
   const matchesPending = matches.filter((m) => m.status === "pending").length;
   const matchesUnfulfilled = matches.filter((m) => m.execution_status === "unfulfilled").length;
 
+  const matchingAutonomy = (() => {
+    const m = modules.find((x) => x.module_key === "matching" && !x.country_code);
+    if (!m) return 1;
+    return m.enabled ? m.autonomy_level : 0;
+  })();
+  const queueAutoCount = scorecards.filter((s) => s.autonomy_decision === "auto").length;
+  const queueAwaiting = scorecards.filter((s) => s.autonomy_decision === "queue").length;
+
+  const handleForceRecompute = async () => {
+    setRecomputing(true);
+    try {
+      const res = (await recompute({ data: {} })) as RecomputeRunSummary & { ok: boolean };
+      setLastRecompute(res);
+      toast.success("Recompute complete", {
+        description: `${res.scanned} scanned · ${res.written} written · ${res.duration_ms}ms`,
+      });
+      await loadAll();
+    } catch (e) {
+      toast.error("Recompute failed", { description: e instanceof Error ? e.message : "Unknown error" });
+    } finally {
+      setRecomputing(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
@@ -250,6 +305,9 @@ function GodView() {
         </div>
         <Button size="sm" variant="outline" onClick={loadAll} disabled={loading}>
           {loading ? "Refreshing…" : "Refresh"}
+        </Button>
+        <Button size="sm" onClick={handleForceRecompute} disabled={recomputing}>
+          {recomputing ? "Recomputing…" : "Force Recompute"}
         </Button>
       </header>
 
@@ -267,6 +325,7 @@ function GodView() {
           <TabsTrigger value="map">Global Map</TabsTrigger>
           <TabsTrigger value="sponsors">Sponsors</TabsTrigger>
           <TabsTrigger value="funding">Funding Flow</TabsTrigger>
+          <TabsTrigger value="priority">Priority Queue</TabsTrigger>
           <TabsTrigger value="fulfillment">Fulfillment</TabsTrigger>
           <TabsTrigger value="suppliers">Suppliers</TabsTrigger>
           <TabsTrigger value="ngo">NGO Trust</TabsTrigger>
@@ -274,6 +333,83 @@ function GodView() {
           <TabsTrigger value="treasury">Treasury</TabsTrigger>
           <TabsTrigger value="autonomy">Autonomy</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="priority" className="mt-4">
+          <Card className="p-0">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding Priority Queue</h2>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Heuristic composite from urgency, stability, delivery confidence, sponsor alignment, and economic impact.
+                  {lastRecompute ? (
+                    <> Last run: {lastRecompute.scanned} scanned, {lastRecompute.written} written, {lastRecompute.duration_ms}ms ({lastRecompute.trigger}).</>
+                  ) : null}
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                <Badge className="bg-emerald-500/15 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300">
+                  Matching autonomy L{matchingAutonomy} · {AUTONOMY_LABELS[matchingAutonomy]}
+                </Badge>
+                <Badge variant="outline">{queueAutoCount} auto-fund</Badge>
+                <Badge variant="outline">{queueAwaiting} awaiting approval</Badge>
+              </div>
+            </div>
+            <div className="max-h-[640px] overflow-auto">
+              <Table>
+                <TableHeader className="sticky top-0 bg-card">
+                  <TableRow>
+                    <TableHead className="w-12">#</TableHead>
+                    <TableHead>Token / Case</TableHead>
+                    <TableHead className="text-right">Urg</TableHead>
+                    <TableHead className="text-right">Stab</TableHead>
+                    <TableHead className="text-right">Deliv</TableHead>
+                    <TableHead className="text-right">Align</TableHead>
+                    <TableHead className="text-right">Impact</TableHead>
+                    <TableHead className="text-right">Composite</TableHead>
+                    <TableHead>Decision</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {scorecards.length === 0 ? (
+                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
+                  ) : scorecards.map((s, i) => {
+                    const decisionTone =
+                      s.autonomy_decision === "auto" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                      : s.autonomy_decision === "queue" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      : "bg-muted text-muted-foreground";
+                    const decisionLabel =
+                      s.autonomy_decision === "auto" ? `Auto-fund (L${matchingAutonomy})`
+                      : s.autonomy_decision === "queue" ? "Awaits approval"
+                      : "Manual review";
+                    return (
+                      <TableRow key={s.id}>
+                        <TableCell className="text-xs tabular-nums text-muted-foreground">{i + 1}</TableCell>
+                        <TableCell>
+                          <div className="font-mono text-xs">{s.case_id ? `case:${s.case_id.slice(0, 8)}` : `tok:${s.token_id.slice(0, 8)}`}</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">computed {timeAgo(s.last_computed_at)}</div>
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{Math.round(s.urgency)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{Math.round(s.stability)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{Math.round(s.delivery_confidence)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{Math.round(s.sponsor_alignment)}</TableCell>
+                        <TableCell className="text-right tabular-nums text-xs">{Math.round(s.economic_impact)}</TableCell>
+                        <TableCell className="text-right">
+                          <span className="inline-flex items-center gap-2">
+                            <span className="h-1.5 w-16 overflow-hidden rounded bg-muted">
+                              <span className="block h-full bg-primary" style={{ width: `${Math.min(100, s.composite_score)}%` }} />
+                            </span>
+                            <span className="tabular-nums text-sm font-semibold">{Math.round(s.composite_score)}</span>
+                          </span>
+                        </TableCell>
+                        <TableCell><Badge className={decisionTone}>{decisionLabel}</Badge></TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+        </TabsContent>
 
         <TabsContent value="map" className="mt-4">
           <Card className="p-6">
