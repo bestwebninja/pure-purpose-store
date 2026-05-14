@@ -32,7 +32,7 @@ function AboutMyBlessings() {
   return (
     <div style={{ backgroundColor: "#0a1f6b", color: "#ffffff", ...garamond }}>
       <section>
-        <div className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <div className="mx-auto max-w-4xl px-6 py-20 text-center text-slate-200">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium" style={garamond}>
             <Heart className="h-3 w-3" fill="currentColor" /> About MyBlessings
           </span>
