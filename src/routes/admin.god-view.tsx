@@ -105,6 +105,10 @@ function GodView() {
   const [modules, setModules] = useState<SystemModule[]>([]);
   const [matches, setMatches] = useState<PetriMatch[]>([]);
   const [events, setEvents] = useState<FulfillmentEvent[]>([]);
+  const [scorecards, setScorecards] = useState<Scorecard[]>([]);
+  const [recomputing, setRecomputing] = useState(false);
+  const [lastRecompute, setLastRecompute] = useState<RecomputeRunSummary | null>(null);
+  const recompute = useServerFn(recomputePetriScores);
   const [counts, setCounts] = useState({
     sponsors: 0,
     sponsorsPending: 0,
@@ -144,10 +148,11 @@ function GodView() {
   const loadAll = useCallback(async () => {
     setLoading(true);
     try {
-      const [mods, m, e, sponsors, sponsorsPending, cases, casesOpen, ngos, ngosPending, providers, sponsorships, donations] = await Promise.all([
+      const [mods, m, e, sc, sponsors, sponsorsPending, cases, casesOpen, ngos, ngosPending, providers, sponsorships, donations] = await Promise.all([
         supabase.from("system_modules").select("*").order("module_key"),
         supabase.from("petri_matches").select("*").order("created_at", { ascending: false }).limit(50),
         supabase.from("fulfillment_events").select("*").order("created_at", { ascending: false }).limit(50),
+        supabase.from("petri_scorecards").select("*").order("composite_score", { ascending: false }).limit(100),
         supabase.from("sponsors").select("id", { count: "exact", head: true }),
         supabase.from("sponsors").select("id", { count: "exact", head: true }).eq("verification_status", "PENDING"),
         supabase.from("cases").select("id", { count: "exact", head: true }),
@@ -161,6 +166,7 @@ function GodView() {
       setModules((mods.data ?? []) as SystemModule[]);
       setMatches((m.data ?? []) as PetriMatch[]);
       setEvents((e.data ?? []) as FulfillmentEvent[]);
+      setScorecards((sc.data ?? []) as Scorecard[]);
       const donationsTotal = (donations.data ?? []).reduce((s: number, r: { amount: number | string }) => s + Number(r.amount ?? 0), 0);
       setCounts({
         sponsors: sponsors.count ?? 0,
