@@ -35,7 +35,6 @@ const inputCls =
 
 function RequestHelp() {
   const navigate = useNavigate();
-  const [authChecked, setAuthChecked] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [tree, setTree] = useState<CategoryNode[]>([]);
   const [submitting, setSubmitting] = useState(false);
@@ -44,6 +43,7 @@ function RequestHelp() {
     surname: "",
     email: "",
     phone: "",
+    password: "",
     title: "",
     description: "",
     category_id: "",
@@ -57,14 +57,11 @@ function RequestHelp() {
     (async () => {
       const { data } = await supabase.auth.getUser();
       if (cancelled) return;
-      if (!data.user) {
-        navigate({ to: "/login" });
-        return;
-      }
-      setUserId(data.user.id);
-      setAuthChecked(true);
-      if (data.user.email) {
-        setForm((f) => (f.email ? f : { ...f, email: data.user!.email! }));
+      if (data.user) {
+        setUserId(data.user.id);
+        if (data.user.email) {
+          setForm((f) => (f.email ? f : { ...f, email: data.user!.email! }));
+        }
       }
       try {
         const res = await fetch("/api/categories/tree", { credentials: "include" });
@@ -86,7 +83,6 @@ function RequestHelp() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userId) return;
     if (!form.firstName.trim() || !form.surname.trim() || !form.email.trim()) {
       toast.error("Please provide your first name, surname and email.");
       return;
@@ -95,9 +91,38 @@ function RequestHelp() {
       toast.error("Please fill in a title and select a category.");
       return;
     }
+    if (!userId && form.password.length < 6) {
+      toast.error("Please choose a password (at least 6 characters) to create your account.");
+      return;
+    }
     setSubmitting(true);
+    let recipientId = userId;
+    if (!recipientId) {
+      const redirectTo = `${window.location.origin}/my-blessings`;
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: form.email.trim(),
+        password: form.password,
+        options: {
+          emailRedirectTo: redirectTo,
+          data: {
+            display_name: `${form.firstName.trim()} ${form.surname.trim()}`.trim(),
+          },
+        },
+      });
+      if (signUpError) {
+        setSubmitting(false);
+        toast.error(signUpError.message);
+        return;
+      }
+      recipientId = signUpData.user?.id ?? null;
+      if (!recipientId) {
+        setSubmitting(false);
+        toast.success("Check your email to confirm your account, then submit your request.");
+        return;
+      }
+    }
     const { error } = await supabase.from("cases").insert({
-      recipient_user_id: userId,
+      recipient_user_id: recipientId,
       title: form.title.trim(),
       description: [
         `Requested by: ${form.firstName.trim()} ${form.surname.trim()}`,
@@ -134,20 +159,12 @@ function RequestHelp() {
     navigate({ to: "/my-blessings" });
   };
 
-  if (!authChecked) {
-    return (
-      <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
-        <div className="mx-auto max-w-2xl px-6 py-16 text-white/80">Loading…</div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
       <div className="mx-auto max-w-2xl px-6 py-16">
          <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
-          Tell us about yourself and what you need. Sponsors will be matched to your request.
+          Sign up as a recipient and tell us what you need. Sponsors will be matched to your request.
         </p>
 
         <Card
@@ -184,6 +201,19 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, phone: e.target.value })} />
               </div>
             </div>
+            {!userId && (
+              <div className="space-y-2">
+                <Label htmlFor="password">Create a password *</Label>
+                <Input id="password" className={inputCls} type="password" minLength={6} required
+                  autoComplete="new-password"
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  placeholder="At least 6 characters" />
+                <p className="text-xs text-white/60">
+                  We'll create a recipient account so you can track your blessing.
+                </p>
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="title">Title *</Label>
               <Input id="title" className={inputCls} required
