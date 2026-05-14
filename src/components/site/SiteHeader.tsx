@@ -209,8 +209,11 @@ export function SiteHeader() {
           {userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-muted hover:text-foreground sm:inline-flex">
-                <UserCircle2 className="h-5 w-5" />
-                Account
+                <Avatar className="h-7 w-7">
+                  {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
+                  <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
+                </Avatar>
+                <span className="hidden md:inline">Account</span>
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
