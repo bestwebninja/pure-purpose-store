@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 const SponsorSchema = z.object({
-  sponsor_role: z.enum(["Rabbi", "Company PR", "Minister", "A Friend", "Family Member", "Good Human"]),
+   sponsor_role: z.enum(["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"]),
   organization_name: z.string().trim().max(200).optional().default(""),
   organization_details: z.string().trim().max(1000).optional().default(""),
   city: z.string().trim().max(120).optional().default(""),
