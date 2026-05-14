@@ -97,6 +97,16 @@
   --shadow-soft: 0 4px 24px -8px oklch(0.488 0.243 264.376 / 0.18);
   --shadow-card: 0 1px 2px oklch(0 0 0 / 0.04), 0 8px 24px -12px oklch(0.488 0.243 264.376 / 0.12);
   --shadow-glow: 0 10px 40px -10px oklch(0.78 0.15 65 / 0.45);
+  /* CTA tokens for the marquee "Give a Blessing" buttons (preserves original look) */
+  --cta-blessing: oklch(0.488 0.243 264.376);
+  --cta-blessing-foreground: oklch(0.965 0.025 85);
+  --cta-sponsor: oklch(0.92 0.17 95);
+  --cta-sponsor-foreground: oklch(0.28 0.02 60);
+  --cta-sponsor-hover: oklch(0.86 0.18 92);
+  --shadow-blessing-glow:
+    0 0 20px 4px oklch(0.85 0.12 240 / 0.85),
+    0 0 44px 10px oklch(0.93 0.16 95 / 0.6),
+    0 0 72px 14px oklch(0.88 0.17 90 / 0.35);
   --font-display: "Fraunces", "Georgia", serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --chart-1: oklch(0.646 0.222 41.116);
@@ -147,6 +157,15 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --cta-blessing: oklch(0.55 0.22 264);
+  --cta-blessing-foreground: oklch(0.965 0.025 85);
+  --cta-sponsor: oklch(0.85 0.17 90);
+  --cta-sponsor-foreground: oklch(0.18 0.02 60);
+  --cta-sponsor-hover: oklch(0.78 0.18 88);
+  --shadow-blessing-glow:
+    0 0 20px 4px oklch(0.78 0.14 240 / 0.7),
+    0 0 44px 10px oklch(0.86 0.18 95 / 0.5),
+    0 0 72px 14px oklch(0.82 0.17 90 / 0.3);
 }
 
 @layer base {
