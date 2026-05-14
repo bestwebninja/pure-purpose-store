@@ -30,7 +30,7 @@ function GivePage() {
           <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
             <Heart className="h-3 w-3 text-accent" fill="currentColor" /> Give in under a minute
           </span>
-          <h1 className="text-display mt-6 text-4xl font-semibold md:text-6xl">Choose your blessing.</h1>
+          <h1 className="text-display mt-6 text-4xl font-semibold md:text-6xl text-yellow-400">Choose your blessing.</h1>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
             Pick a story that moves you. Choose your amount. Checkout securely with Shopify. Watch
             the progress update live as the community shows up.
