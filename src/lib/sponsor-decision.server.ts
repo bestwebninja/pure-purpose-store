@@ -320,3 +320,307 @@ function rankWithHeuristic(ctx: SponsorContext, candidates: Candidate[]): Sponso
   });
   return scored.sort((a, b) => b.score - a.score).slice(0, 3);
 }
+
+// ==========================================================================
+// FUNDING PACKAGE (Sponsor Decision AI v2)
+// ==========================================================================
+
+export type FundingProfile = {
+  sponsor_id: string;
+  esg_goals: string[];
+  industries: string[];
+  geographies: string[];
+  brand_values: string[];
+  monthly_budget: number;
+  currency: string;
+};
+
+export type FundingPackageItem = {
+  scorecard_id: string;
+  token_id: string;
+  case_id: string | null;
+  title: string;
+  category: string | null;
+  country: string | null;
+  composite_score: number;
+  autonomy_decision: string;
+  /** Cents — exact integer allocation. */
+  amount_cents: number;
+  /** Decimal display amount (= amount_cents / 100). */
+  amount: number;
+  reasoning: string;
+};
+
+export type FundingPackage = {
+  sponsor_user_id: string;
+  currency: string;
+  monthly_budget: number;
+  /** Sum of items, equals monthly_budget exactly (zero rounding slop). */
+  total: number;
+  total_cents: number;
+  items: FundingPackageItem[];
+  generated_at: string;
+  signature: string;
+};
+
+/**
+ * Build the curated Funding Package for the given sponsor user id.
+ * Items sum EXACTLY to the sponsor's monthly_budget (cents-precise).
+ */
+export async function buildFundingPackage(userId: string): Promise<FundingPackage> {
+  const profile = await loadFundingProfile(userId);
+  if (!profile) {
+    throw new Error("No funding profile configured for this sponsor.");
+  }
+  if (!(profile.monthly_budget > 0)) {
+    throw new Error("Sponsor monthly_budget must be greater than zero.");
+  }
+
+  const candidates = await loadScorecardCandidates();
+  if (candidates.length === 0) {
+    throw new Error("No active scorecards available — run Recompute first.");
+  }
+
+  // Score each candidate against the funding profile.
+  const scored = candidates
+    .map((c) => ({ candidate: c, fit: profileFit(profile, c) }))
+    .sort((a, b) => b.fit - a.fit)
+    .slice(0, PACKAGE_MAX_ITEMS)
+    .filter((s) => s.fit > 0);
+
+  const picks = scored.length >= PACKAGE_MIN_ITEMS
+    ? scored
+    : candidates
+        .map((c) => ({ candidate: c, fit: Math.max(1, c.composite_score) }))
+        .sort((a, b) => b.fit - a.fit)
+        .slice(0, Math.max(PACKAGE_MIN_ITEMS, Math.min(PACKAGE_MAX_ITEMS, candidates.length)));
+
+  // Allocate budget proportionally to fit, in cents, distributing remainder.
+  const totalCents = Math.round(profile.monthly_budget * 100);
+  const fitSum = picks.reduce((s, p) => s + p.fit, 0) || picks.length;
+  const rawCents = picks.map((p) => (p.fit / fitSum) * totalCents);
+  const floored = rawCents.map((v) => Math.floor(v));
+  let allocated = floored.reduce((s, v) => s + v, 0);
+  const remainders = rawCents
+    .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+    .sort((a, b) => b.frac - a.frac);
+  let cursor = 0;
+  while (allocated < totalCents) {
+    floored[remainders[cursor % remainders.length].i] += 1;
+    allocated += 1;
+    cursor += 1;
+  }
+
+  const items: FundingPackageItem[] = picks.map((p, idx) => {
+    const cents = floored[idx];
+    return {
+      scorecard_id: p.candidate.scorecard_id,
+      token_id: p.candidate.token_id,
+      case_id: p.candidate.case_id,
+      title: p.candidate.title,
+      category: p.candidate.category,
+      country: p.candidate.country,
+      composite_score: p.candidate.composite_score,
+      autonomy_decision: p.candidate.autonomy_decision,
+      amount_cents: cents,
+      amount: cents / 100,
+      reasoning: reasoningFor(profile, p.candidate),
+    };
+  });
+
+  // Final invariant check.
+  const sumCents = items.reduce((s, it) => s + it.amount_cents, 0);
+  if (sumCents !== totalCents) {
+    throw new Error(`Funding package allocation drift: ${sumCents} != ${totalCents}`);
+  }
+
+  const generated_at = new Date().toISOString();
+  const signature = await signPackage(userId, totalCents, items, generated_at);
+
+  return {
+    sponsor_user_id: userId,
+    currency: profile.currency,
+    monthly_budget: profile.monthly_budget,
+    total: totalCents / 100,
+    total_cents: totalCents,
+    items,
+    generated_at,
+    signature,
+  };
+}
+
+async function loadFundingProfile(userId: string): Promise<FundingProfile | null> {
+  const { data: sponsor } = await supabaseAdmin
+    .from("sponsors")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!sponsor) return null;
+
+  const { data: profile } = await supabaseAdmin
+    .from("sponsor_funding_profiles")
+    .select("sponsor_id, esg_goals, industries, geographies, brand_values, monthly_budget, currency")
+    .eq("sponsor_id", sponsor.id)
+    .maybeSingle();
+  if (!profile) return null;
+
+  return {
+    sponsor_id: profile.sponsor_id,
+    esg_goals: (profile.esg_goals ?? []) as string[],
+    industries: (profile.industries ?? []) as string[],
+    geographies: (profile.geographies ?? []) as string[],
+    brand_values: (profile.brand_values ?? []) as string[],
+    monthly_budget: Number(profile.monthly_budget ?? 0),
+    currency: profile.currency ?? "USD",
+  };
+}
+
+type ScorecardCandidate = {
+  scorecard_id: string;
+  token_id: string;
+  case_id: string | null;
+  composite_score: number;
+  autonomy_decision: string;
+  title: string;
+  category: string | null;
+  country: string | null;
+};
+
+async function loadScorecardCandidates(): Promise<ScorecardCandidate[]> {
+  const { data: scorecards } = await supabaseAdmin
+    .from("petri_scorecards")
+    .select("id, token_id, case_id, composite_score, autonomy_decision")
+    .order("composite_score", { ascending: false })
+    .limit(PACKAGE_POOL_SIZE);
+
+  const cards = scorecards ?? [];
+  const caseIds = cards.map((c) => c.case_id).filter((v): v is string => typeof v === "string");
+  let caseMap = new Map<string, { title: string; category_id: string | null; country: string | null }>();
+  if (caseIds.length > 0) {
+    const { data: cases } = await supabaseAdmin
+      .from("cases")
+      .select("id, title, category_id, country")
+      .in("id", caseIds);
+    caseMap = new Map(
+      (cases ?? []).map((c) => [
+        c.id,
+        { title: c.title, category_id: c.category_id ?? null, country: c.country ?? null },
+      ]),
+    );
+  }
+
+  const categoryIds = Array.from(
+    new Set(
+      Array.from(caseMap.values())
+        .map((c) => c.category_id)
+        .filter((v): v is string => typeof v === "string"),
+    ),
+  );
+  let categoryMap = new Map<string, string>();
+  if (categoryIds.length > 0) {
+    const { data: cats } = await supabaseAdmin
+      .from("assistance_categories")
+      .select("id, name")
+      .in("id", categoryIds);
+    categoryMap = new Map((cats ?? []).map((c) => [c.id, c.name]));
+  }
+
+  return cards.map((sc) => {
+    const caseRow = sc.case_id ? caseMap.get(sc.case_id) : undefined;
+    const category = caseRow?.category_id ? categoryMap.get(caseRow.category_id) ?? null : null;
+    return {
+      scorecard_id: sc.id,
+      token_id: sc.token_id,
+      case_id: sc.case_id ?? null,
+      composite_score: Number(sc.composite_score ?? 0),
+      autonomy_decision: sc.autonomy_decision ?? "manual",
+      title: caseRow?.title ?? `Case ${sc.case_id?.slice(0, 8) ?? sc.token_id.slice(0, 8)}`,
+      category,
+      country: caseRow?.country ?? null,
+    };
+  });
+}
+
+function profileFit(profile: FundingProfile, c: ScorecardCandidate): number {
+  let score = c.composite_score;
+  const lower = (xs: string[]) => xs.map((s) => s.toLowerCase());
+  const geos = lower(profile.geographies);
+  const inds = lower(profile.industries);
+  const esg = lower(profile.esg_goals);
+  const brand = lower(profile.brand_values);
+
+  if (c.country && geos.includes(c.country.toLowerCase())) score += 25;
+  if (c.category) {
+    const cat = c.category.toLowerCase();
+    if (inds.includes(cat)) score += 20;
+    if (esg.some((g) => cat.includes(g) || g.includes(cat))) score += 15;
+    if (brand.some((b) => cat.includes(b) || b.includes(cat))) score += 10;
+  }
+  return Math.max(0, score);
+}
+
+function reasoningFor(profile: FundingProfile, c: ScorecardCandidate): string {
+  const reasons: string[] = [];
+  if (c.country && profile.geographies.map((g) => g.toLowerCase()).includes(c.country.toLowerCase())) {
+    reasons.push(`matches your ${c.country} geography focus`);
+  }
+  if (c.category && profile.industries.map((i) => i.toLowerCase()).includes(c.category.toLowerCase())) {
+    reasons.push(`aligns with your "${c.category}" industry priority`);
+  }
+  reasons.push(`PETRI composite score ${Math.round(c.composite_score)}`);
+  return `Selected because it ${reasons.join(", ")}.`;
+}
+
+/**
+ * Deterministic signature so the checkout layer can verify the package
+ * the client submits is exactly the one we generated.
+ */
+async function signPackage(
+  userId: string,
+  totalCents: number,
+  items: FundingPackageItem[],
+  generatedAt: string,
+): Promise<string> {
+  const secret = process.env.PETRI_RECOMPUTE_SECRET ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? "fallback";
+  const payload = JSON.stringify({
+    u: userId,
+    t: totalCents,
+    g: generatedAt,
+    i: items.map((it) => [it.scorecard_id, it.amount_cents]),
+  });
+  const { createHmac } = await import("crypto");
+  return createHmac("sha256", secret).update(payload).digest("hex");
+}
+
+/**
+ * Re-derive the signature for a submitted package and assert it matches.
+ * Used by checkout to enforce amount === package.total with zero slop.
+ */
+export async function verifyFundingPackage(
+  userId: string,
+  submitted: {
+    total_cents: number;
+    generated_at: string;
+    items: Array<{ scorecard_id: string; amount_cents: number }>;
+    signature: string;
+  },
+): Promise<void> {
+  const sumCents = submitted.items.reduce((s, it) => s + it.amount_cents, 0);
+  if (sumCents !== submitted.total_cents) {
+    throw new Error("Package items do not sum to declared total.");
+  }
+  const secret = process.env.PETRI_RECOMPUTE_SECRET ?? process.env.SUPABASE_SERVICE_ROLE_KEY ?? "fallback";
+  const payload = JSON.stringify({
+    u: userId,
+    t: submitted.total_cents,
+    g: submitted.generated_at,
+    i: submitted.items.map((it) => [it.scorecard_id, it.amount_cents]),
+  });
+  const { createHmac, timingSafeEqual } = await import("crypto");
+  const expected = createHmac("sha256", secret).update(payload).digest("hex");
+  const a = Buffer.from(expected, "hex");
+  const b = Buffer.from(submitted.signature, "hex");
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
+    throw new Error("Funding package signature invalid — package was tampered with.");
+  }
+}
