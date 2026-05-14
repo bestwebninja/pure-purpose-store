@@ -212,6 +212,9 @@
 @utility shadow-glow {
   box-shadow: var(--shadow-glow);
 }
+@utility bg-gradient-gold {
+  background: var(--gradient-gold);
+}
 
 @utility btn-blessing {
   background-color: var(--cta-blessing) !important;
