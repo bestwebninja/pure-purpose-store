@@ -217,13 +217,13 @@ function PetriGraphPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
+    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-display text-2xl font-semibold">Petri Graph Inspector</h1>
+          <h1 className="text-display text-xl font-semibold sm:text-2xl">Petri Graph Inspector</h1>
           <p className="text-sm text-muted-foreground">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{nodes.length} nodes</Badge>
           <Badge variant="outline">{edges.length} edges</Badge>
           <Badge variant="outline">v3</Badge>
@@ -233,20 +233,21 @@ function PetriGraphPage() {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        <div className="flex gap-1 rounded-md border p-1">
+      <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="-mx-4 flex gap-1 overflow-x-auto rounded-md border p-1 sm:mx-0 sm:overflow-visible">
           {(["all", "layer1", "layer2", "layer3"] as LayerMode[]).map((m) => (
             <Button
               key={m}
               size="sm"
               variant={layer === m ? "default" : "ghost"}
+              className="shrink-0"
               onClick={() => setLayer(m)}
             >
               {m === "all" ? "All Layers" : m === "layer1" ? "L1 · Signals" : m === "layer2" ? "L2 · Matching" : "L3 · Confirmed"}
             </Button>
           ))}
         </div>
-        <div className="flex flex-1 items-center gap-2 min-w-[200px]">
+        <div className="flex flex-1 items-center gap-2 sm:min-w-[200px]">
           <span className="text-xs text-muted-foreground">Timeline</span>
           <input
             type="range"
@@ -260,8 +261,8 @@ function PetriGraphPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_320px]">
-        <Card className="p-4">
+      <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
+        <Card className="p-3 sm:p-4">
            {nodes.length === 0 ? (
              <p className="p-8 text-center text-sm text-muted-foreground">
                No data yet. Submit a Give a Blessing or BlessME to populate the graph.

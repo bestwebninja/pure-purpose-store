@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   forceCenter,
   forceLink,
@@ -31,7 +31,27 @@ type Props = {
   height?: number;
 };
 
-export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width = 900, height = 600 }: Props) {
+export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width, height }: Props) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [size, setSize] = useState<{ w: number; h: number }>({ w: width ?? 900, h: height ?? 600 });
+  useLayoutEffect(() => {
+    if (width && height) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const w = Math.max(280, Math.floor(rect.width));
+      // Responsive aspect: taller on narrow viewports, wider on desktop.
+      const h = w < 640 ? Math.round(w * 1.1) : w < 1024 ? Math.round(w * 0.75) : Math.round(w * 0.6);
+      setSize({ w, h: Math.min(720, Math.max(360, h)) });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [width, height]);
+  const W = width ?? size.w;
+  const H = height ?? size.h;
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [, force] = useState(0);
   const [view, setView] = useState({ k: 1, x: 0, y: 0 });
@@ -61,10 +81,10 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
           .strength(0.4),
       )
       .force("charge", forceManyBody().strength(-180))
-      .force("center", forceCenter(width / 2, height / 2))
+      .force("center", forceCenter(W / 2, H / 2))
       .on("tick", () => force((x) => x + 1));
     return () => { sim.stop(); };
-  }, [simNodes, simEdges, width, height]);
+  }, [simNodes, simEdges, W, H]);
 
   // Pan + zoom (very light)
   const dragRef = useRef<{ x: number; y: number; vx: number; vy: number } | null>(null);
@@ -84,17 +104,17 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
   const onMouseUp = () => { dragRef.current = null; };
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative w-full">
       <svg
         ref={svgRef}
-        width={width}
-        height={height}
+        width={W}
+        height={H}
         onWheel={onWheel}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseUp}
-        className="rounded-lg border border-border bg-background"
+        className="block w-full max-w-full rounded-lg border border-border bg-background touch-none"
         style={{ cursor: dragRef.current ? "grabbing" : "grab" }}
       >
         <g transform={`translate(${view.x},${view.y}) scale(${view.k})`}>
