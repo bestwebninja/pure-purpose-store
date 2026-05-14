@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
@@ -26,6 +26,9 @@ function DashboardPage() {
   }, [fetchCounts]);
   useEffect(() => { refresh(); }, [refresh]);
   useLifecycleRealtime(refresh);
+
+  // When a nested route (e.g. /dashboard/petri-graph) is active, render only the child.
+  if (useChildMatches().length > 0) return <Outlet />;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
