@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
 import heroImage from "@/assets/hero-blessings.jpg";
-import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
 import { getPublicStats } from "@/server/stats.functions";
-import { CampaignCard } from "@/components/blessing/CampaignCard";
-import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,19 +39,14 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  loader: () => listCampaigns(),
   component: Index,
 });
 
 function Index() {
-  const { campaigns } = Route.useLoaderData();
-  const live = useCampaignsRealtime<Campaign>(campaigns as Campaign[]);
-
   return (
     <div className="bg-background">
       <Hero />
       <ImpactStrip />
-      <CampaignGrid campaigns={live} />
       <Trust />
       <Testimony />
       <CTA />
@@ -175,42 +167,6 @@ function ImpactStrip() {
           </div>
         ))}
       </div>
-    </section>
-  );
-}
-
-function CampaignGrid({ campaigns }: { campaigns: Awaited<ReturnType<typeof listCampaigns>>["campaigns"] }) {
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-24">
-      <div className="mb-12 flex flex-col gap-6 border-l-4 border-accent pl-6 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Live now</p>
-          <h2 className="text-display mt-2 text-4xl text-primary md:text-5xl">Active blessings</h2>
-          <p className="mt-3 max-w-xl text-muted-foreground">
-            Each story is reviewed, each ledger is public, each recipient is named with their consent.
-          </p>
-        </div>
-        <Link
-          to="/explore-blessings"
-          className="group inline-flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-[0.15em] text-primary hover:text-primary-glow"
-        >
-          Explore all
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Link>
-      </div>
-
-      {campaigns.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border bg-secondary/40 p-16 text-center">
-          <h3 className="text-display text-2xl text-primary">No blessings live just yet</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Check back soon — new campaigns are added regularly.</p>
-        </div>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {campaigns.map((c) => (
-            <CampaignCard key={c.id} campaign={c} />
-          ))}
-        </div>
-      )}
     </section>
   );
 }
