@@ -14,6 +14,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "MyBlessings — Give With Purpose" },
       { property: "og:description", content: "Support real people and real causes — transparently." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/" },
+      { property: "og:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
+      { property: "og:image:alt", content: "MyBlessings — give with purpose" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
     ],
     links: [
       { rel: "canonical", href: "https://pure-purpose-store.lovable.app/" },
@@ -26,6 +31,11 @@ export const Route = createFileRoute("/")({
           "@type": "WebSite",
           name: "MyBlessings",
           url: "https://pure-purpose-store.lovable.app",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://pure-purpose-store.lovable.app/explore-blessings?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
         }),
       },
     ],
@@ -69,14 +79,7 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="text-2xl hover:opacity-95"
-              style={{
-                backgroundColor: "#1d4ed8",
-                color: "#f8f6ee",
-                fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
-                boxShadow:
-                  "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
-              }}
+              className="btn-blessing text-2xl hover:opacity-95"
             >
               <Link to="/give">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing
@@ -85,12 +88,8 @@ function Hero() {
             <Button
               asChild
               size="lg"
+              variant="outline"
               className="hover:opacity-95"
-              style={{
-                backgroundColor: "#1d4ed8",
-                color: "#ffffff",
-                boxShadow: "none",
-              }}
             >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
@@ -99,8 +98,8 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="hover:bg-yellow-400"
-              style={{ backgroundColor: "#fde047", color: "#1f2937", boxShadow: "none" }}
+              variant="ghost"
+              className="btn-sponsor"
             >
               <Link to="/become-blessing-sponsor">Become a Blessing Sponsor</Link>
             </Button>
@@ -193,14 +192,7 @@ function CTA() {
       <Button
         asChild
         size="lg"
-        className="mt-8 text-2xl hover:opacity-95"
-        style={{
-          backgroundColor: "#1d4ed8",
-          color: "#f8f6ee",
-          fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
-          boxShadow:
-            "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
-        }}
+        className="btn-blessing mt-8 text-2xl hover:opacity-95"
       >
         <Link to="/give"><Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a Blessing</Link>
       </Button>
