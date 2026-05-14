@@ -37,7 +37,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         try {
           const [{ data: campaigns }, { data: categories }] = await Promise.all([
             supabaseAdmin.from("campaigns").select("handle, updated_at").eq("status", "active"),
-            supabaseAdmin.from("categories").select("slug, updated_at"),
+            supabaseAdmin.from("categories").select("slug"),
           ]);
           for (const c of campaigns ?? []) {
             if (!c?.handle) continue;
@@ -52,7 +52,6 @@ export const Route = createFileRoute("/sitemap.xml")({
             if (!cat?.slug) continue;
             entries.push({
               path: `/categories/${cat.slug}`,
-              lastmod: cat.updated_at ? new Date(cat.updated_at).toISOString() : undefined,
               changefreq: "weekly",
               priority: "0.6",
             });
