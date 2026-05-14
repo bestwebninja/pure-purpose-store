@@ -231,7 +231,5 @@
   background-color: var(--cta-sponsor) !important;
   color: var(--cta-sponsor-foreground) !important;
   box-shadow: none !important;
-}
-@utility btn-sponsor {
   &:hover { background-color: var(--cta-sponsor-hover) !important; }
 }
