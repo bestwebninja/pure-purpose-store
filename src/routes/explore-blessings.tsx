@@ -130,9 +130,9 @@ function ExploreBlessings() {
                 size="sm"
                 variant={activeCategory === root.id ? "default" : "outline"}
                 onClick={() => setActiveCategory(root.id)}
-                className={hasChildren ? "h-auto py-2 text-center" : "h-9"}
+                className={`${hasChildren ? "h-auto py-2 text-center" : "h-9"} bg-blue-600 text-white border-blue-600 hover:bg-blue-300 hover:text-blue-900`}
               >
-                <div className="flex flex-col items-center gap-0.5 bg-slate-500">
+                <div className="flex flex-col items-center gap-0.5">
                   <span className="leading-tight whitespace-pre-line">{root.name === "Healthcare" ? "Elderly\u00a0Care" : root.name.replace("Elderly Care", "Elderly\u00a0Care")}</span>
                   {hasChildren && (
                     <span className="text-[10px] font-medium opacity-60">
