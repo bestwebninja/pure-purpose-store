@@ -13,14 +13,15 @@ export function BlessingPaymentForm({
   currency = "USD",
 }: {
   campaignHandle?: string;
-  exactAmount: number;
+  exactAmount?: number;
   currency?: string;
 }) {
+  const amount = exactAmount ?? 0;
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
     maximumFractionDigits: 0,
-  }).format(exactAmount);
+  }).format(amount);
   return (
     <Card className="p-6">
       <h3 className="text-display text-lg font-semibold">Give a Blessing</h3>
@@ -36,10 +37,10 @@ export function BlessingPaymentForm({
       <Button
         type="button"
         className="mt-4 w-full"
-        disabled={!exactAmount || exactAmount < 1}
+        disabled={amount < 1}
         onClick={() => toast?.success?.("Stub: would redirect to Shopify checkout")}
       >
-        Fund this Blessing for {formatted}
+        {amount < 1 ? "Select a blessing to fund" : `Fund this Blessing for ${formatted}`}
       </Button>
     </Card>
   );
