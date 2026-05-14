@@ -49,7 +49,9 @@ function RequestHelp() {
     category_id: "",
     target_amount: "",
     country: "",
-    region: "",
+    city: "",
+    state: "",
+    zip: "",
     postal_code: "",
   });
 
@@ -129,14 +131,17 @@ function RequestHelp() {
         `Requested by: ${form.firstName.trim()} ${form.surname.trim()}`,
         `Email: ${form.email.trim()}`,
         form.phone.trim() ? `Phone: ${form.phone.trim()}` : null,
-        form.postal_code.trim() ? `Zip/Postal: ${form.postal_code.trim()}` : null,
+        form.city.trim() ? `City: ${form.city.trim()}` : null,
+        form.state.trim() ? `State: ${form.state.trim()}` : null,
+        form.zip.trim() ? `Zip: ${form.zip.trim()}` : null,
+        form.postal_code.trim() ? `Postal code: ${form.postal_code.trim()}` : null,
         "",
         form.description.trim(),
       ].filter(Boolean).join("\n") || null,
       category_id: form.category_id,
       target_amount: form.target_amount ? Number(form.target_amount) : 0,
       country: form.country.trim() || null,
-      region: form.region.trim() || null,
+      region: form.state.trim() || null,
       status: "PENDING",
     });
     setSubmitting(false);
@@ -151,7 +156,13 @@ function RequestHelp() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           source_type: "request",
-          location: { city: form.region, country: form.country, postal_code: form.postal_code },
+          location: {
+            city: form.city,
+            state: form.state,
+            country: form.country,
+            zip: form.zip,
+            postal_code: form.postal_code,
+          },
           category_ids: form.category_id ? [form.category_id] : [],
           budget: form.target_amount ? Number(form.target_amount) : null,
         }),
@@ -258,18 +269,35 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, country: e.target.value })} />
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="region">City / Region</Label>
-              <Input id="region" className={inputCls}
-                value={form.region}
-                onChange={(e) => setForm({ ...form, region: e.target.value })} />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="city">City</Label>
+                <Input id="city" className={inputCls} maxLength={120}
+                  value={form.city}
+                  onChange={(e) => setForm({ ...form, city: e.target.value })} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="state">State</Label>
+                <Input id="state" className={inputCls} maxLength={120}
+                  value={form.state}
+                  onChange={(e) => setForm({ ...form, state: e.target.value })} />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="postal_code">Zip / Postal code</Label>
-              <Input id="postal_code" className={inputCls} maxLength={20}
-                value={form.postal_code}
-                onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
-                placeholder="e.g. 90210" />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="zip">Zip</Label>
+                <Input id="zip" className={inputCls} maxLength={20}
+                  value={form.zip}
+                  onChange={(e) => setForm({ ...form, zip: e.target.value })}
+                  placeholder="e.g. 90210" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="postal_code">Postal code</Label>
+                <Input id="postal_code" className={inputCls} maxLength={20}
+                  value={form.postal_code}
+                  onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
+                  placeholder="e.g. SW1A 1AA" />
+              </div>
             </div>
             <Button type="submit" disabled={submitting} className="w-full">
               {submitting ? "Submitting…" : "Submit Application"}
