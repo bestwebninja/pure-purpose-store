@@ -55,26 +55,26 @@ function ExploreBlessings() {
     (async () => {
       // Load blessings and categories independently so a failure on one
       // (e.g. preview-environment auth gating on /api/*) doesn't block the other.
-      const blessingsPromise = supabase
-        .from("blessings")
-        .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
-        .eq("status", "ACTIVE")
-        .order("created_at", { ascending: false })
-        .limit(60)
-        .then((res) => {
+      const blessingsPromise = (async () => {
+        try {
+          const res = await supabase
+            .from("blessings")
+            .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
+            .eq("status", "ACTIVE")
+            .order("created_at", { ascending: false })
+            .limit(60);
           if (cancelled) return;
           if (res.error) {
             setError(res.error.message);
             return;
           }
           setBlessings((res.data ?? []) as Blessing[]);
-        })
-        .catch((e) => {
+        } catch (e) {
           if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load blessings");
-        })
-        .finally(() => {
+        } finally {
           if (!cancelled) setLoading(false);
-        });
+        }
+      })();
 
       // Categories are best-effort; fail silently with a 5s timeout so a
       // stalled fetch never hides the blessings grid.
