@@ -7,7 +7,7 @@ import { useCampaignRealtime } from "../hooks/useCampaignRealtime";
 export const Route = createFileRoute("/campaign/$handle")({
   loader: async ({ params }) => {
     const result = await getCampaignByHandle({ data: params.handle });
-    if (!result.campaign) throw notFound();
+    if (!result || !result.campaign) throw notFound();
     return result;
   },
   head: ({ loaderData, params }) => {
@@ -69,8 +69,14 @@ function formatMoney(n: number, currency = "USD") {
 }
 
 function CampaignPage() {
-  const { campaign: initial, donations: initialDonations } = Route.useLoaderData();
-  const { campaign, donations } = useCampaignRealtime(initial, initialDonations);
+  // Safe extraction matching the server function return properties
+  const loaderData = Route.useLoaderData();
+  const initialCampaign = loaderData?.campaign;
+  const initialDonations = loaderData?.donations ?? [];
+  
+  const { campaign, donations } = useCampaignRealtime(initialCampaign, initialDonations);
+
+  if (!campaign) return null;
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
@@ -104,7 +110,7 @@ function CampaignPage() {
               <Heart className="h-4 w-4 text-primary" fill="currentColor" />
               <h2 className="text-display text-xl font-semibold">Recent blessings</h2>
               <span className="ml-auto inline-flex items-center gap-1 text-sm text-muted-foreground">
-                <Users className="h-3 w-3" /> {campaign.donor_count} givers
+                <Users className="h-3 w-3" /> {campaign.donor_count ?? 0} givers
               </span>
             </div>
             {donations.length === 0 ? (
@@ -129,7 +135,7 @@ function CampaignPage() {
         </article>
 
         <aside>
-          <DonationPanel campaign={campaign} donorCount={campaign.donor_count} />
+          <DonationPanel campaign={campaign} donorCount={campaign.donor_count ?? 0} />
         </aside>
       </div>
     </div>
