@@ -8,8 +8,13 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
+<<<<<<< HEAD
 import { createBlessingCheckout } from "../../server/checkout.functions";
 import type { Campaign } from "../../server/campaigns.functions.server";
+=======
+import { createBlessingCheckout } from "@/server/checkout.functions";
+import type { Campaign } from "@/lib/campaigns.functions";
+>>>>>>> d647b2162555806caace8d1b6de8b58c5a1539e6
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 

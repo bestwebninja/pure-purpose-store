@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
-import { listCampaigns } from "../server/campaigns.functions.server";
-import type { Campaign } from "../server/campaigns.functions.server";
+import { listCampaigns } from "@/lib/campaigns.functions";
+import type { Campaign } from "@/lib/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 

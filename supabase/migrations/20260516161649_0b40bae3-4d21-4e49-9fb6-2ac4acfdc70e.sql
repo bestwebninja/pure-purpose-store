@@ -1,0 +1,1 @@
+ALTER TABLE public.ngo_applications ADD COLUMN IF NOT EXISTS ein text, ADD COLUMN IF NOT EXISTS organization_type text;

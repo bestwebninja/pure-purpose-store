@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
+=======
+  "version": "1.0.1",
+>>>>>>> d647b2162555806caace8d1b6de8b58c5a1539e6
   "name": "tanstack_start_ts",
   "version": "0.0.2",
   "private": true,

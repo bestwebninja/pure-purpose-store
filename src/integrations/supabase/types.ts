@@ -658,11 +658,13 @@ export type Database = {
           causes: string[]
           country: string | null
           created_at: string
+          ein: string | null
           email: string
           geography: string | null
           id: string
           intelligence_status: string
           name: string
+          organization_type: string | null
           status: string
           submitted_by: string | null
           trust_score: number
@@ -672,11 +674,13 @@ export type Database = {
           causes?: string[]
           country?: string | null
           created_at?: string
+          ein?: string | null
           email: string
           geography?: string | null
           id?: string
           intelligence_status?: string
           name: string
+          organization_type?: string | null
           status?: string
           submitted_by?: string | null
           trust_score?: number
@@ -686,11 +690,13 @@ export type Database = {
           causes?: string[]
           country?: string | null
           created_at?: string
+          ein?: string | null
           email?: string
           geography?: string | null
           id?: string
           intelligence_status?: string
           name?: string
+          organization_type?: string | null
           status?: string
           submitted_by?: string | null
           trust_score?: number

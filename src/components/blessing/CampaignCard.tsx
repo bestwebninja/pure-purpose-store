@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Users, MapPin } from "lucide-react";
-import type { Campaign } from "@/server/campaigns.functions";
+import type { Campaign } from "@/lib/campaigns.functions";
 
 type CardCampaign = Pick<
   Campaign,
