@@ -7,3 +7,5 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig();
+
+// Cache Bust Timestamp: 20260516184732
