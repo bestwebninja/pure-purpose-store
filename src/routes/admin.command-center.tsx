@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getCommandCenterSnapshot } from "../server/ngo.functions.server";
+import { getCommandCenterSnapshot } from "@/lib/ngo.functions";
 import { getLifecycleCounts, type LifecycleCounts } from "@/lib/dashboard.functions";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
