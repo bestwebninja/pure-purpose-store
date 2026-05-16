@@ -6,7 +6,7 @@ import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
 export const Route = createFileRoute("/categories/$slug")({
   loader: async ({ params }) => {
-    const res = await listCampaignsByCategory({ data: { slug: params.slug } });
+    const res = await listCampaignsByCategory({ data: params.slug });
     if (!res.category) throw notFound();
     return res;
   },

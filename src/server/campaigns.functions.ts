@@ -38,17 +38,15 @@ export const listCampaigns = createServerFn({ method: "GET" }).handler(async () 
 });
 
 export const listCampaignsByCategory = createServerFn({ method: "GET" })
-  .inputValidator((data: { slug: string }) =>
-    z.object({ slug: z.string().min(1).max(80) }).parse(data),
-  )
-  .handler(async ({ data }) => {
+  .inputValidator((slug: string) => z.string().min(1).max(80).parse(slug))
+  .handler(async ({ data: slug }) => {
     const [{ data: category }, { data: campaigns }] = await Promise.all([
-      supabaseAdmin.from("categories").select("slug, name, description").eq("slug", data.slug).maybeSingle(),
+      supabaseAdmin.from("categories").select("slug, name, description").eq("slug", slug).maybeSingle(),
       supabaseAdmin
         .from("campaigns")
         .select("*")
         .eq("status", "active")
-        .eq("category_slug", data.slug)
+        .eq("category_slug", slug)
         .order("created_at", { ascending: false }),
     ]);
     return { category, campaigns: (campaigns ?? []) as Campaign[] };
