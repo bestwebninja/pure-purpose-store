@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card } from "@/components/ui/card";
-import { listCategories } from "@/server/ngo.functions";
+import { listCategories } from "../server/ngo.functions.server";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/categories")({
     ],
     links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/categories" }],
   }),
-  loader: () => listCategories(),
+  loader: async () => await listCategories(),
   component: CategoriesPage,
 });
 
