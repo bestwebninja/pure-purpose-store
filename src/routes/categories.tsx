@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Card } from "@/components/ui/card";
+import { Card } from "../components/ui/card";
 import { listCategories } from "../server/ngo.functions.server";
 
 export const Route = createFileRoute("/categories")({
