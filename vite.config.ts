@@ -6,12 +6,6 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig({
-  vite: {
-    server: {
-      force: true,
-    },
-  },
-});
+export default defineConfig({});
 
 // Cache-Bust Key: 20260516
