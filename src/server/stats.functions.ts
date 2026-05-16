@@ -23,3 +23,4 @@ export const getPublicStats = createServerFn({ method: "GET" }).handler(async ()
     currency: "USD",
   };
 });
+

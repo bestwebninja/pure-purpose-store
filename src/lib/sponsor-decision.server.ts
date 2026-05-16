@@ -624,3 +624,4 @@ export async function verifyFundingPackage(
     throw new Error("Funding package signature invalid — package was tampered with.");
   }
 }
+

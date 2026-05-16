@@ -21,3 +21,4 @@ export function useLifecycleRealtime(onChange: () => void) {
     };
   }, [onChange]);
 }
+

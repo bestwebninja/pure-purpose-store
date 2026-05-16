@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card } from "../components/ui/card";
-import { listCategories } from "@/lib/ngo.functions";
+import { listCategories } from "@/server/ngo.functions";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
@@ -43,3 +43,4 @@ function CategoriesPage() {
     </div>
   );
 }
+

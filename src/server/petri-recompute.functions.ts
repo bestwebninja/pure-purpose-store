@@ -24,3 +24,4 @@ export const recomputePetriScores = createServerFn({ method: "POST" })
     }
     return recomputePetriScoresCore({ limit: data.limit ?? 500, trigger: "admin" });
   });
+

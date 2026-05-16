@@ -108,3 +108,4 @@ export function deriveCampaign(product: ShopifyProduct["node"]) {
   const donors = Math.max(8, Math.round(raised / Math.max(price, 15)));
   return { goal, raised, donors, percent: Math.min(100, Math.round((raised / goal) * 100)) };
 }
+

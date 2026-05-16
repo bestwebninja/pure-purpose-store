@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { listCampaignsByCategory } from "@/lib/campaigns.functions";
-import type { Campaign } from "@/lib/campaigns.functions";
+import { listCampaignsByCategory } from "@/server/campaigns.functions";
+import type { Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "../components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "../hooks/useCampaignRealtime";
 
@@ -58,3 +58,4 @@ function CategoryPage() {
     </div>
   );
 }
+

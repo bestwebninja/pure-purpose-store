@@ -6,3 +6,4 @@ export const Route = createFileRoute("/about-us")({
   },
   component: () => null,
 });
+

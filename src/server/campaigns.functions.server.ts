@@ -61,3 +61,4 @@ export const getCampaignByHandle = createServerFn({ method: "GET" })
     const { data: donations } = await supabaseAdmin.from("donations").select("id, amount, currency, donor_name, message, is_anonymous, created_at").eq("campaign_id", campaign.id).order("created_at", { ascending: false }).limit(20);
     return { campaign: campaign as Campaign, donations: donations ?? [] };
   });
+

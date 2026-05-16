@@ -11,7 +11,7 @@ import {
   rejectMatch,
   executeMatch,
   listFulfillmentForMatch,
-} from "@/lib/match-control.functions";
+} from "@/server/match-control.functions";
 
 type Match = {
   id: string;
@@ -179,3 +179,4 @@ function AdminMatchControl() {
     </div>
   );
 }
+

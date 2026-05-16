@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Inbox, Link2, HandCoins, Truck, BookOpen, Repeat } from "lucide-react";
-import type { LifecycleCounts } from "@/lib/dashboard.functions";
+import type { LifecycleCounts } from "@/server/lifecycle.server";
 
 const STAGES: Array<{ key: keyof LifecycleCounts; label: string; Icon: typeof Inbox }> = [
   { key: "requested", label: "Requested", Icon: Inbox },
@@ -35,3 +35,4 @@ export function BlessingLifecycle({ counts, compact = false }: { counts: Lifecyc
     </Card>
   );
 }
+

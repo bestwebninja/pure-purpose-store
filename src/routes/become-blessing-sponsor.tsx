@@ -187,3 +187,4 @@ function BecomeSponsor() {
 
 const glow =
   "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
+

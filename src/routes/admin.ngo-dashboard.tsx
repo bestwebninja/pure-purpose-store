@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
-import { listNgoApplications, updateNgoStatus } from "@/lib/ngo.functions";
+import { listNgoApplications, updateNgoStatus } from "@/server/ngo.functions";
 
 export const Route = createFileRoute("/admin/ngo-dashboard")({
   head: () => ({
@@ -180,3 +180,4 @@ function AdminDashboard() {
     </div>
   );
 }
+

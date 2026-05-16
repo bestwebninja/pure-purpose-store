@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { BlessingPaymentForm } from "@/components/blessing/BlessingPaymentForm";
-import { getLifecycleCounts, type LifecycleCounts } from "@/lib/dashboard.functions";
+import { getLifecycleCounts, type LifecycleCounts } from "@/server/lifecycle.server";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
 export const Route = createFileRoute("/dashboard")({
@@ -57,3 +57,4 @@ function DashboardPage() {
     </div>
   );
 }
+

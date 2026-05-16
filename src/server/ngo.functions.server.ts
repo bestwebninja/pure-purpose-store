@@ -364,3 +364,4 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       generatedAt: new Date().toISOString(),
     };
   });
+

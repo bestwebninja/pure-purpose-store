@@ -181,3 +181,4 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
     </div>
   );
 }
+

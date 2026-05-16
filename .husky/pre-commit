@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔒 Running Architecture Guard..."
+
+powershell -ExecutionPolicy Bypass -File scripts/arch-guard.ps1
+
+if [ $? -ne 0 ]; then
+  echo "❌ Commit blocked: Architecture violations detected"
+  exit 1
+fi
+
+echo "✅ Architecture clean - commit allowed"

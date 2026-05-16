@@ -60,3 +60,4 @@ export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | 
     </p>
   );
 }
+

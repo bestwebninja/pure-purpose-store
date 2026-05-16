@@ -154,3 +154,4 @@ export const listSponsorInvoices = createServerFn({ method: "POST" })
 
     return { invoices: (invoices ?? []) as InvoiceRow[] };
   });
+

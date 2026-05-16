@@ -2,12 +2,12 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { verifyFundingPackage } from "@/lib/sponsor-decision.server";
+import { verifyFundingPackage } from "@/server/sponsor-decision.server";
 import {
   SHOPIFY_STORE_PERMANENT_DOMAIN,
   SHOPIFY_STOREFRONT_URL,
   SHOPIFY_STOREFRONT_TOKEN,
-} from "@/lib/shopify";
+} from "@/server/shopify";
 
 const CART_CREATE = `
   mutation cartCreate($input: CartInput!) {
@@ -154,3 +154,4 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
       // created.
     };
   });
+

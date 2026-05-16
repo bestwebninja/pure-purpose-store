@@ -11,7 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { recomputePetriScores } from "@/server/petri-recompute.functions";
-import { approveFlywheelReport, listImpactReports } from "@/lib/flywheel.functions";
+import { approveFlywheelReport, listImpactReports } from "@/server/flywheel.functions";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
@@ -744,3 +744,4 @@ function GodView() {
     </div>
   );
 }
+

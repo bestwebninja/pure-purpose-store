@@ -61,3 +61,4 @@ export const getImpactMapData = createServerFn({ method: "GET" }).handler(async 
   }
   return { regions: Array.from(byLocation.values()).sort((a, b) => b.raised - a.raised) };
 });
+
