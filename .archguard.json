@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "noLibServerFunctions": true,
+    "serverFnMustLiveIn": "/src/server",
+    "blockMergeMarkers": true,
+    "blockDuplicateImports": true
+  }
+}
