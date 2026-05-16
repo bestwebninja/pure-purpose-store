@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { submitNgoApplication } from "../server/ngo.functions.server";
+import { submitNgoApplication } from "@/lib/ngo.functions";
 import { toast } from "sonner";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";

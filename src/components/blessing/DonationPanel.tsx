@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
 import { createBlessingCheckout } from "@/server/checkout.functions";
-import type { Campaign } from "@/server/campaigns.functions";
+import type { Campaign } from "@/lib/campaigns.functions";
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 
