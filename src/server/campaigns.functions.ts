@@ -53,14 +53,12 @@ export const listCampaignsByCategory = createServerFn({ method: "GET" })
   });
 
 export const getCampaignByHandle = createServerFn({ method: "GET" })
-  .inputValidator((data: { handle: string }) =>
-    z.object({ handle: z.string().min(1).max(255) }).parse(data),
-  )
-  .handler(async ({ data }) => {
+  .inputValidator((handle: string) => z.string().min(1).max(255).parse(handle))
+  .handler(async ({ data: handle }) => {
     const { data: campaign, error } = await supabaseAdmin
       .from("campaigns")
       .select("*")
-      .eq("handle", data.handle)
+      .eq("handle", handle)
       .maybeSingle();
     if (error) {
       console.error("getCampaignByHandle error", error);

@@ -1,12 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, MapPin, Users, Heart } from "lucide-react";
-import { getCampaignByHandle } from "@/server/campaigns.functions";
-import { DonationPanel } from "@/components/blessing/DonationPanel";
-import { useCampaignRealtime } from "@/hooks/useCampaignRealtime";
+import { getCampaignByHandle } from "../server/campaigns.functions";
+import { DonationPanel } from "../components/blessing/DonationPanel";
+import { useCampaignRealtime } from "../hooks/useCampaignRealtime";
 
 export const Route = createFileRoute("/campaign/$handle")({
   loader: async ({ params }) => {
-    const result = await getCampaignByHandle({ data: { handle: params.handle } });
+    const result = await getCampaignByHandle({ data: params.handle });
     if (!result.campaign) throw notFound();
     return result;
   },
