@@ -193,7 +193,7 @@ function CommandCenter() {
                     <li key={d.id} className="flex justify-between py-2">
                       <span>{d.donor_name ?? "Anonymous"}</span>
                       <span className="text-muted-foreground">
-                        ${国民Number(d.amount).toFixed(2)} {d.currency} · {new Date(d.created_at).toLocaleString()}
+                        ${Number(d.amount).toFixed(2)} {d.currency} · {new Date(d.created_at).toLocaleString()}
                       </span>
                     </li>
                   ))}
