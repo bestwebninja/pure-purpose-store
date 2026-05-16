@@ -261,13 +261,13 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       recentDonations,
       recentWebhooks,
     ] = await Promise.all([
-      supabaseAdmin.from("donations").select("sum:amount.sum(), count:id.count()").single() as Promise<{ data: { sum: number; count: number } | null; error: any }>,
-      supabaseAdmin.from("campaigns").select("status") as Promise<{ data: Array<{ status: string }> | null; error: any }>,
-      supabaseAdmin.from("ngo_applications").select("status") as Promise<{ data: Array<{ status: string }> | null; error: any }>,
-      supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }) as Promise<{ count: number | null; error: any; data: never[] }>,
-      supabaseAdmin.from("ledger_entries").select("donation_id, side, amount") as Promise<{ data: Array<{ donation_id: string | null; side: string; amount: number }> | null; error: any }>,
-      supabaseAdmin.from("donations").select("id, amount, currency, donor_name, created_at, campaign_id").order("created_at", { ascending: false }).limit(10) as Promise<{ data: Array<{ id: string; amount: number | string; currency: string; donor_name: string | null; created_at: string; campaign_id: string | null }> | null; error: any }>,
-      supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10) as Promise<{ data: Array<{ source: string; topic: string; event_id: string; processed_at: string }> | null; error: any }>,
+      supabaseAdmin.from("donations").select("sum:amount.sum(), count:id.count()").single() as unknown as Promise<{ data: { sum: number; count: number } | null; error: any }>,
+      supabaseAdmin.from("campaigns").select("status") as unknown as Promise<{ data: Array<{ status: string }> | null; error: any }>,
+      supabaseAdmin.from("ngo_applications").select("status") as unknown as Promise<{ data: Array<{ status: string }> | null; error: any }>,
+      supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }) as unknown as Promise<{ count: number | null; error: any; data: never[] }>,
+      supabaseAdmin.from("ledger_entries").select("donation_id, side, amount") as unknown as Promise<{ data: Array<{ donation_id: string | null; side: string; amount: number }> | null; error: any }>,
+      supabaseAdmin.from("donations").select("id, amount, currency, donor_name, created_at, campaign_id").order("created_at", { ascending: false }).limit(10) as unknown as Promise<{ data: Array<{ id: string; amount: number | string; currency: string; donor_name: string | null; created_at: string; campaign_id: string | null }> | null; error: any }>,
+      supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10) as unknown as Promise<{ data: Array<{ source: string; topic: string; event_id: string; processed_at: string }> | null; error: any }>,
     ]);
 
     // Enforce explicit types on aggregate response
