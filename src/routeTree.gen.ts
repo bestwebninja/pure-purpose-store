@@ -272,7 +272,6 @@ export interface FileRoutesByFullPath {
   '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
@@ -312,7 +311,6 @@ export interface FileRoutesByTo {
   '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
-
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
@@ -353,7 +351,6 @@ export interface FileRoutesById {
   '/api/public/petri-recompute': typeof ApiPublicPetriRecomputeRoute
   '/api/public/shopify-webhook': typeof ApiPublicShopifyWebhookRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
@@ -474,6 +471,306 @@ export interface FileRouteTypes {
     | '/api/public/shopify-webhook'
   fileRoutesById: FileRoutesById
 }
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AboutMyblessingsRoute: typeof AboutMyblessingsRoute
+  AboutUsRoute: typeof AboutUsRoute
+  BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
+  CategoriesRoute: typeof CategoriesRouteWithChildren
+  DashboardRoute: typeof DashboardRouteWithChildren
+  ExploreBlessingsRoute: typeof ExploreBlessingsRoute
+  GiveRoute: typeof GiveRoute
+  GiveABlessingRoute: typeof GiveABlessingRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  ImpactMapRoute: typeof ImpactMapRoute
+  LoginRoute: typeof LoginRoute
+  MarketplaceRoute: typeof MarketplaceRoute
+  MyBlessingsRoute: typeof MyBlessingsRoute
+  NgoRoute: typeof NgoRouteWithChildren
+  RequestHelpRoute: typeof RequestHelpRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TransparencyRoute: typeof TransparencyRoute
+  AdminCommandCenterRoute: typeof AdminCommandCenterRoute
+  AdminGodViewRoute: typeof AdminGodViewRoute
+  AdminMatchControlRoute: typeof AdminMatchControlRoute
+  AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
+  AdminSponsorsRoute: typeof AdminSponsorsRoute
+  CampaignHandleRoute: typeof CampaignHandleRoute
+  MeGivingRoute: typeof MeGivingRoute
+  MeProfileRoute: typeof MeProfileRoute
+  SponsorDashboardRoute: typeof SponsorDashboardRoute
+  ApiCategoriesTreeRoute: typeof ApiCategoriesTreeRoute
+  ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
+  ApiPublicHealthRoute: typeof ApiPublicHealthRoute
+  ApiPublicPetriBloomRoute: typeof ApiPublicPetriBloomRoute
+  ApiPublicPetriRecomputeRoute: typeof ApiPublicPetriRecomputeRoute
+  ApiPublicShopifyWebhookRoute: typeof ApiPublicShopifyWebhookRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/transparency': {
+      id: '/transparency'
+      path: '/transparency'
+      fullPath: '/transparency'
+      preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-help': {
+      id: '/request-help'
+      path: '/request-help'
+      fullPath: '/request-help'
+      preLoaderRoute: typeof RequestHelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ngo': {
+      id: '/ngo'
+      path: '/ngo'
+      fullPath: '/ngo'
+      preLoaderRoute: typeof NgoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-blessings': {
+      id: '/my-blessings'
+      path: '/my-blessings'
+      fullPath: '/my-blessings'
+      preLoaderRoute: typeof MyBlessingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact-map': {
+      id: '/impact-map'
+      path: '/impact-map'
+      fullPath: '/impact-map'
+      preLoaderRoute: typeof ImpactMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/give-a-blessing': {
+      id: '/give-a-blessing'
+      path: '/give-a-blessing'
+      fullPath: '/give-a-blessing'
+      preLoaderRoute: typeof GiveABlessingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/give': {
+      id: '/give'
+      path: '/give'
+      fullPath: '/give'
+      preLoaderRoute: typeof GiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore-blessings': {
+      id: '/explore-blessings'
+      path: '/explore-blessings'
+      fullPath: '/explore-blessings'
+      preLoaderRoute: typeof ExploreBlessingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-blessing-sponsor': {
+      id: '/become-blessing-sponsor'
+      path: '/become-blessing-sponsor'
+      fullPath: '/become-blessing-sponsor'
+      preLoaderRoute: typeof BecomeBlessingSponsorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-myblessings': {
+      id: '/about-myblessings'
+      path: '/about-myblessings'
+      fullPath: '/about-myblessings'
+      preLoaderRoute: typeof AboutMyblessingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsor/dashboard': {
+      id: '/sponsor/dashboard'
+      path: '/sponsor/dashboard'
+      fullPath: '/sponsor/dashboard'
+      preLoaderRoute: typeof SponsorDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ngo/onboarding': {
+      id: '/ngo/onboarding'
+      path: '/onboarding'
+      fullPath: '/ngo/onboarding'
+      preLoaderRoute: typeof NgoOnboardingRouteImport
+      parentRoute: typeof NgoRoute
+    }
+    '/me/profile': {
+      id: '/me/profile'
+      path: '/me/profile'
+      fullPath: '/me/profile'
+      preLoaderRoute: typeof MeProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/me/giving': {
+      id: '/me/giving'
+      path: '/me/giving'
+      fullPath: '/me/giving'
+      preLoaderRoute: typeof MeGivingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/petri-graph': {
+      id: '/dashboard/petri-graph'
+      path: '/petri-graph'
+      fullPath: '/dashboard/petri-graph'
+      preLoaderRoute: typeof DashboardPetriGraphRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/categories/$slug': {
+      id: '/categories/$slug'
+      path: '/$slug'
+      fullPath: '/categories/$slug'
+      preLoaderRoute: typeof CategoriesSlugRouteImport
+      parentRoute: typeof CategoriesRoute
+    }
+    '/campaign/$handle': {
+      id: '/campaign/$handle'
+      path: '/campaign/$handle'
+      fullPath: '/campaign/$handle'
+      preLoaderRoute: typeof CampaignHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/sponsors': {
+      id: '/admin/sponsors'
+      path: '/admin/sponsors'
+      fullPath: '/admin/sponsors'
+      preLoaderRoute: typeof AdminSponsorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/ngo-dashboard': {
+      id: '/admin/ngo-dashboard'
+      path: '/admin/ngo-dashboard'
+      fullPath: '/admin/ngo-dashboard'
+      preLoaderRoute: typeof AdminNgoDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/match-control': {
+      id: '/admin/match-control'
+      path: '/admin/match-control'
+      fullPath: '/admin/match-control'
+      preLoaderRoute: typeof AdminMatchControlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/god-view': {
+      id: '/admin/god-view'
+      path: '/admin/god-view'
+      fullPath: '/admin/god-view'
+      preLoaderRoute: typeof AdminGodViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/command-center': {
+      id: '/admin/command-center'
+      path: '/admin/command-center'
+      fullPath: '/admin/command-center'
+      preLoaderRoute: typeof AdminCommandCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/shopify-webhook': {
+      id: '/api/public/shopify-webhook'
+      path: '/api/public/shopify-webhook'
+      fullPath: '/api/public/shopify-webhook'
+      preLoaderRoute: typeof ApiPublicShopifyWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/petri-recompute': {
+      id: '/api/public/petri-recompute'
+      path: '/api/public/petri-recompute'
+      fullPath: '/api/public/petri-recompute'
+      preLoaderRoute: typeof ApiPublicPetriRecomputeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/petri-bloom': {
+      id: '/api/public/petri-bloom'
+      path: '/api/public/petri-bloom'
+      fullPath: '/api/public/petri-bloom'
+      preLoaderRoute: typeof ApiPublicPetriBloomRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/health': {
+      id: '/api/public/health'
+      path: '/api/public/health'
+      fullPath: '/api/public/health'
+      preLoaderRoute: typeof ApiPublicHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/go-live-report': {
+      id: '/api/public/go-live-report'
+      path: '/api/public/go-live-report'
+      fullPath: '/api/public/go-live-report'
+      preLoaderRoute: typeof ApiPublicGoLiveReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/categories/tree': {
+      id: '/api/categories/tree'
+      path: '/api/categories/tree'
+      fullPath: '/api/categories/tree'
+      preLoaderRoute: typeof ApiCategoriesTreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
 
 interface CategoriesRouteChildren {
   CategoriesSlugRoute: typeof CategoriesSlugRoute
@@ -542,4 +839,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
   ApiPublicPetriBloomRoute: ApiPublicPetriBloomRoute,
-  ApiPublicPetri
+  ApiPublicPetriRecomputeRoute: ApiPublicPetriRecomputeRoute,
+  ApiPublicShopifyWebhookRoute: ApiPublicShopifyWebhookRoute,
+}
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
