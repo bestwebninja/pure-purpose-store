@@ -111,13 +111,18 @@ export const listSponsorInvoices = createServerFn({ method: "POST" })
       if (data.to) q = q.lte("created_at", data.to);
       const { data: donations } = await q;
 
-      for (const d of donations ?? []) {
-        const { data: existing } = await supabaseAdmin
+      if (donations?.length) {
+        // Optimization: Batch check for existing invoices to avoid N+1 queries
+        const donationIds = donations.map(d => d.id);
+        const { data: existingInvoices } = await supabaseAdmin
           .from("invoices")
-          .select("id")
-          .eq("donation_id", d.id)
-          .maybeSingle();
-        if (existing) continue;
+          .select("donation_id")
+          .in("donation_id", donationIds);
+        
+        const existingMap = new Set(existingInvoices?.map(i => i.donation_id));
+
+        for (const d of donations) {
+          if (existingMap.has(d.id)) continue;
 
         const gross = Number(d.amount ?? 0);
         const donationAmount = round2(gross * DONATION_PCT);
@@ -133,6 +138,7 @@ export const listSponsorInvoices = createServerFn({ method: "POST" })
           currency: d.currency ?? "USD",
           metadata: { donor_email: d.donor_email },
         });
+        }
       }
     }
 

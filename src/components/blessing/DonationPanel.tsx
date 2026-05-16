@@ -46,13 +46,16 @@ export function DonationPanel({
     }
     setLoading(true);
     try {
+      const [firstName = "", ...surnameParts] = name.trim().split(" ");
+      const surname = surnameParts.join(" ") || "Stranger";
+
       const { checkoutUrl } = await checkoutFn({
         data: {
           campaignId: campaign.id,
           amount: exactAmount,
-          donorName: anon ? undefined : name || undefined,
+          first_name: anon ? "Anonymous" : firstName || "Kind",
+          surname: anon ? "Donor" : surname,
           message: message || undefined,
-          isAnonymous: anon,
         },
       });
       window.open(checkoutUrl, "_blank");
@@ -122,13 +125,7 @@ export function DonationPanel({
         onClick={handleGive}
         disabled={loading || exactAmount < 1}
         size="lg"
-        className="w-full text-lg hover:opacity-95"
-        style={{
-          backgroundColor: "#1d4ed8",
-          color: "#f8f6ee",
-          boxShadow:
-            "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
-        }}
+        className="btn-blessing w-full text-lg hover:opacity-95"
       >
         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Heart className="mr-2 h-4 w-4" fill="currentColor" />}
         Fund this Blessing for {formatMoney(exactAmount, campaign.currency)}

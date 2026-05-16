@@ -223,7 +223,7 @@ function RequestHelp() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
+    <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto max-w-2xl px-6 py-16">
          <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
@@ -231,8 +231,7 @@ function RequestHelp() {
         </p>
 
         <Card
-          className="mt-8 space-y-5 border-white/20 p-6 text-white"
-          style={{ backgroundColor: "#0a1f6b" }}
+          className="mt-8 space-y-5 border-white/20 p-6 text-white bg-primary/50 backdrop-blur-sm"
         >
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="grid grid-cols-[120px_1fr_1fr] gap-4">

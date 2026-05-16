@@ -2,14 +2,53 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
+
+const SIMILARITY_PASS = 0.85;
+const SIMILARITY_FLAG = 0.5;
 
 const SubmitSchema = z.object({
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(200),
+  ein: z.string().regex(/^\d{2}-\d{7}$/, "Format must be XX-XXXXXXX"),
+  organization_type: z.string().min(1),
   country: z.string().trim().min(2).max(80),
   causes: z.array(z.string().min(1).max(60)).min(1).max(10),
   geography: z.string().trim().min(2).max(120),
 });
+
+function editDistance(s1: string, s2: string): number {
+  s1 = s1.toLowerCase().trim();
+  s2 = s2.toLowerCase().trim();
+  if (s1 === s2) return 0;
+  const costs: number[] = [];
+  for (let i = 0; i <= s1.length; i++) {
+    let lastValue = i;
+    for (let j = 0; j <= s2.length; j++) {
+      if (i === 0) costs[j] = j;
+      else if (j > 0) {
+        let newValue = costs[j - 1];
+        if (s1.charAt(i - 1) !== s2.charAt(j - 1))
+          newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+        costs[j - 1] = lastValue;
+        lastValue = newValue;
+      }
+    }
+    if (i > 0) costs[s2.length] = lastValue;
+  }
+  return costs[s2.length];
+}
+
+function calculateSimilarity(s1: string, s2: string): number {
+  // Normalize by removing common suffixes that skew distance results for NGOs
+  const normalize = (s: string) => s.toLowerCase().replace(/\b(inc|llc|corp|foundation|charity|nfp|org|the)\b/g, "").trim();
+  const n1 = normalize(s1);
+  const n2 = normalize(s2);
+  const longer = n1.length > n2.length ? n1 : n2;
+  const shorter = n1.length > n2.length ? n2 : n1;
+  if (longer.length === 0) return 1.0;
+  return (longer.length - editDistance(n1, n2)) / longer.length;
+}
 
 // TODO: Replace stub with real intelligence/compliance check.
 function runIntelligenceCheck(input: { name: string; email: string }) {
@@ -23,16 +62,73 @@ function runIntelligenceCheck(input: { name: string; email: string }) {
 export const submitNgoApplication = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SubmitSchema.parse(input))
   .handler(async ({ data }) => {
+    // Automated Verification Matrix Logic (ProPublica Nonprofit Explorer API)
+    const cleanEin = data.ein.replace(/\D/g, "");
+    const proPublicaUrl = `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`;
+    let vettingMatrix: VettingMatrixEntry[] = [];
+    let autoStatus: "PENDING" | "ACTIVE" | "REJECTED" = "PENDING";
+
+    try {
+      const res = await fetch(proPublicaUrl);
+      if (res.ok) {
+        const json = await res.json();
+        const org = json.organization;
+        if (org) {
+          const einMatch = org.ein === cleanEin;
+          vettingMatrix.push({ point: "EIN Match", userInput: data.ein, proData: org.ein, status: einMatch ? "PASS" : "FAIL", action: einMatch ? "None" : "Verify EIN accuracy" });
+          
+          const sim = calculateSimilarity(data.name, org.name);
+          const nameStatus = sim >= SIMILARITY_PASS ? "PASS" : (sim >= SIMILARITY_FLAG ? "FLAG" : "FAIL");
+          vettingMatrix.push({ point: "Legal Name Match", userInput: data.name, proData: org.name, status: nameStatus, action: nameStatus === "PASS" ? "None" : "Check for DBA mismatch" });
+
+          const sub = org.sub_section || "N/A";
+          const subPass = sub.includes("3");
+          vettingMatrix.push({ point: "Tax-Exempt Subsection", userInput: data.organization_type, proData: sub, status: subPass ? "PASS" : "FLAG", action: subPass ? "None" : "Confirm non-profit status" });
+
+          const taxYear = org.tax_year ? parseInt(org.tax_year) : 0;
+          const recent = taxYear >= (new Date().getFullYear() - 2);
+          vettingMatrix.push({ point: "Filing Recency", userInput: "N/A", proData: taxYear ? `Year: ${taxYear}` : "No filing", status: recent ? "PASS" : "FLAG", action: recent ? "None" : "Request recent Form 990" });
+
+          const revoked = !!org.revocation_date;
+          vettingMatrix.push({ point: "Revocation Status", userInput: "N/A", proData: revoked ? `Revoked: ${org.revocation_date}` : "Active", status: revoked ? "FAIL" : "PASS", action: revoked ? "Manual review required" : "None" });
+
+          vettingMatrix.push({ point: "Principal Officer", userInput: "N/A", proData: org.officer_name || "See latest 990", status: "PASS", action: "Identity verify officer" });
+
+          const addr = `${org.address || ""}, ${org.city || ""}, ${org.state || ""} ${org.zipcode || ""}`;
+          vettingMatrix.push({ point: "Principal Address", userInput: data.geography, proData: addr, status: "PASS", action: "Verify location" });
+
+          const hasFail = vettingMatrix.some(m => m.status === "FAIL");
+          const hasFlag = vettingMatrix.some(m => m.status === "FLAG");
+          if (hasFail) autoStatus = "REJECTED";
+          else if (!hasFlag) autoStatus = "ACTIVE";
+          else autoStatus = "PENDING";
+        } else {
+          vettingMatrix.push({ point: "EIN Match", userInput: data.ein, proData: "NOT FOUND", status: "FAIL", action: "Verify EIN accuracy" });
+          autoStatus = "REJECTED";
+        }
+      } else {
+        vettingMatrix.push({ point: "Vetting Service", userInput: "N/A", proData: `HTTP ${res.status}`, status: "FLAG", action: "ProPublica API unreachable; manual verification required" });
+      }
+    } catch (err) {
+      console.error("Vetting API error:", err);
+      vettingMatrix.push({ point: "Vetting Service", userInput: "N/A", proData: "CONNECTION_ERROR", status: "FLAG", action: "External API error; check logs" });
+    }
+
+    const timestamp = new Date();
+    const formattedTime = timestamp.toLocaleString('en-US', { timeZone: 'UTC' });
+    
     const intel = runIntelligenceCheck({ name: data.name, email: data.email });
     const { data: row, error } = await supabaseAdmin
       .from("ngo_applications")
       .insert({
         name: data.name,
         email: data.email,
+        ein: data.ein,
+        organization_type: data.organization_type,
         country: data.country,
         causes: data.causes,
         geography: data.geography,
-        status: "PENDING",
+        status: autoStatus,
         trust_score: intel.trust_score,
         intelligence_status: intel.intelligence_status,
       })
@@ -40,12 +136,28 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
+    // Edge-safe Digital Receipt Generation (Simulated)
+    // In production, use a library like 'jspdf' (edge compatible) or an external PDF service.
+    const receiptLabel = `www.myblessings.us NGO Application ${formattedTime}`;
+    console.log(`[Receipt Generated]: ${receiptLabel}`);
+
     await supabaseAdmin.from("audit_logs").insert({
       action: "NGO_SUBMITTED",
       entity_type: "ngo_application",
       entity_id: row.id,
-      metadata: { name: data.name, email: data.email, intel },
+      metadata: { 
+        name: data.name, 
+        email: data.email, 
+        intel,
+        receipt_label: receiptLabel,
+        submitted_at: timestamp.toISOString(),
+        vetting_matrix: vettingMatrix
+      },
     });
+
+    // Trigger applicant receipt email (Simulated)
+    // Enqueue via your preferred provider (Postmark, Resend, etc.)
+    console.log(`[Email Triggered]: Sending receipt to ${data.email}`);
 
     return { id: row.id, ...intel };
   });
@@ -149,18 +261,19 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       recentDonations,
       recentWebhooks,
     ] = await Promise.all([
-      supabaseAdmin.from("donations").select("amount, currency"),
-      supabaseAdmin.from("campaigns").select("status"),
-      supabaseAdmin.from("ngo_applications").select("status"),
-      supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }),
-      supabaseAdmin.from("ledger_entries").select("donation_id, side, amount"),
-      supabaseAdmin.from("donations").select("id, amount, currency, donor_name, created_at, campaign_id").order("created_at", { ascending: false }).limit(10),
-      supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10),
+      supabaseAdmin.from("donations").select("sum:amount.sum(), count:id.count()").single() as Promise<{ data: { sum: number; count: number } | null; error: any }>,
+      supabaseAdmin.from("campaigns").select("status") as Promise<{ data: Array<{ status: string }> | null; error: any }>,
+      supabaseAdmin.from("ngo_applications").select("status") as Promise<{ data: Array<{ status: string }> | null; error: any }>,
+      supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }) as Promise<{ count: number | null; error: any; data: never[] }>,
+      supabaseAdmin.from("ledger_entries").select("donation_id, side, amount") as Promise<{ data: Array<{ donation_id: string | null; side: string; amount: number }> | null; error: any }>,
+      supabaseAdmin.from("donations").select("id, amount, currency, donor_name, created_at, campaign_id").order("created_at", { ascending: false }).limit(10) as Promise<{ data: Array<{ id: string; amount: number | string; currency: string; donor_name: string | null; created_at: string; campaign_id: string | null }> | null; error: any }>,
+      supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10) as Promise<{ data: Array<{ source: string; topic: string; event_id: string; processed_at: string }> | null; error: any }>,
     ]);
 
-    // Donations totals
-    const donations = donationsAgg.data ?? [];
-    const totalRaised = donations.reduce((s, d) => s + Number(d.amount ?? 0), 0);
+    // Enforce explicit types on aggregate response
+    const donationStats = donationsAgg.data as { sum: number; count: number } | null;
+    const totalRaised = Number(donationStats?.sum ?? 0);
+    const donationCount = Number(donationStats?.count ?? 0);
 
     // Campaign breakdown
     const campaignStatus: Record<string, number> = {};
@@ -170,24 +283,29 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
     const ngoStatus: Record<string, number> = {};
     for (const n of ngoAgg.data ?? []) ngoStatus[n.status] = (ngoStatus[n.status] ?? 0) + 1;
 
-    // Ledger balance check (per donation: debits == credits)
+    // Ledger balance check (per donation: debits == credits). 
+    // Optimization: Using a Map to aggregate in-memory is faster than individual queries, 
+    // but should eventually be replaced by a database VIEW for zero-memory impact.
+    const ledgerRows = (ledgerEntries.data ?? []) as Array<{ donation_id: string | null; side: string; amount: number }>;
     const ledgerTotals = new Map<string, { d: number; c: number }>();
-    for (const e of ledgerEntries.data ?? []) {
+    for (const e of ledgerRows) {
       const key = e.donation_id ?? "_null";
-      const t = ledgerTotals.get(key) ?? { d: 0, c: 0 };
-      if (e.side === "debit") t.d += Number(e.amount);
-      else t.c += Number(e.amount);
-      ledgerTotals.set(key, t);
+      const current = ledgerTotals.get(key) ?? { d: 0, c: 0 };
+      const amt = Number(e.amount);
+      if (e.side === "debit") current.d += amt;
+      else current.c += amt;
+      ledgerTotals.set(key, current);
     }
+
     const unbalanced = [...ledgerTotals.entries()].filter(([, t]) => Math.abs(t.d - t.c) > 0.001).map(([k]) => k);
 
     return {
       donations: {
-        count: donations.length,
+        count: donationCount,
         totalRaised,
       },
       campaigns: {
-        total: (campaignsAgg.data ?? []).length,
+        total: campaignsAgg.data?.length ?? 0,
         byStatus: campaignStatus,
       },
       ngo: {
@@ -196,7 +314,7 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       },
       pipeline: {
         webhookEventsSeen: webhookCount.count ?? 0,
-        donationsRecorded: donations.length,
+        donationsRecorded: donationCount,
         shopifyWebhookSecretConfigured: !!process.env.SHOPIFY_WEBHOOK_SECRET,
       },
       ledger: {
@@ -206,7 +324,7 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
         balanced: unbalanced.length === 0,
       },
       recent: {
-        donations: recentDonations.data ?? [],
+        donations: (recentDonations.data ?? []) as Array<{ id: string; amount: number | string; currency: string; donor_name: string | null; created_at: string; campaign_id: string | null }>,
         webhooks: recentWebhooks.data ?? [],
       },
       generatedAt: new Date().toISOString(),

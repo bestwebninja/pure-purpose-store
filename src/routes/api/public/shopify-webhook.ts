@@ -121,11 +121,9 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
         const amount = Number(payload.total_price ?? 0);
 
         const donorName =
-          attrs.is_anonymous === "true"
-            ? null
-            : attrs.donor_name ||
-              [payload.customer?.first_name, payload.customer?.last_name].filter(Boolean).join(" ") ||
-              null;
+          attrs.donor_name ||
+          [payload.customer?.first_name, payload.customer?.last_name].filter(Boolean).join(" ") ||
+          null;
 
         // Insert donation (unique on shopify_order_id → second-layer idempotency)
         const { error: donationErr } = await supabaseAdmin.from("donations").insert({
@@ -137,7 +135,6 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           donor_name: donorName,
           donor_email: payload.customer?.email ?? payload.email ?? null,
           message: attrs.donor_message || null,
-          is_anonymous: attrs.is_anonymous === "true",
         });
 
         if (donationErr) {

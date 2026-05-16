@@ -29,14 +29,14 @@ function withChannel(url: string) {
 }
 
 export const createBlessingCheckout = createServerFn({ method: "POST" })
-  .inputValidator((input: { campaignId: string; amount: number; donorName?: string; message?: string; isAnonymous?: boolean }) =>
+  .inputValidator((input: { campaignId: string; amount: number; first_name: string; surname: string; message?: string }) =>
     z
       .object({
         campaignId: z.string().uuid(),
         amount: z.number().min(1).max(100000),
-        donorName: z.string().max(120).optional(),
+        first_name: z.string().trim().min(1).max(60),
+        surname: z.string().trim().min(1).max(60),
         message: z.string().max(500).optional(),
-        isAnonymous: z.boolean().optional(),
       })
       .parse(input),
   )
@@ -73,9 +73,8 @@ export const createBlessingCheckout = createServerFn({ method: "POST" })
             attributes: [
               { key: "campaign_id", value: campaign.id },
               { key: "campaign_handle", value: campaign.handle },
-              { key: "donor_name", value: data.donorName ?? "" },
+              { key: "donor_name", value: `${data.first_name} ${data.surname}`.trim() },
               { key: "donor_message", value: data.message ?? "" },
-              { key: "is_anonymous", value: data.isAnonymous ? "true" : "false" },
             ],
             note: `Blessing for ${campaign.title}`,
           },

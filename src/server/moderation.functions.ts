@@ -199,8 +199,10 @@ export const moderateImage = createServerFn({ method: "POST" })
       const failsSmileRule = data.requireSmilingHuman && !smilingHuman;
       allow = parsed.allow && !failsSmileRule;
       verdict = allow ? "allow" : "reject";
-      if (failsSmileRule && !reason) {
-        reason = "Smiling is a must — please upload a photo where you are clearly smiling.";
+      if (!allow && !reason) {
+        reason = failsSmileRule
+          ? "Smiling is a must — please upload a photo where you are clearly smiling."
+          : "This image does not meet our community safety or quality standards.";
       }
     } else {
       smilingHuman = null;
@@ -209,6 +211,9 @@ export const moderateImage = createServerFn({ method: "POST" })
       verdict = "review";
       allow = false;
     }
+
+    // Cleanly type the raw response for the audit log
+    const rawResponse = (raw ?? { error: providerError }) as Record<string, unknown>;
 
     // Audit log via service role (bypasses RLS, never exposed to client).
     await supabaseAdmin
@@ -225,8 +230,8 @@ export const moderateImage = createServerFn({ method: "POST" })
         reason,
         smiling_human: smilingHuman,
         confidence,
-        raw_response: (raw ?? { error: providerError }) as never,
-      } as never)
+        raw_response: rawResponse,
+      } as any)
       .then(() => undefined, () => undefined);
 
     return {
