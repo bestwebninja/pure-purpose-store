@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCommandCenterSnapshot } from "../server/ngo.functions.server";
-import { getLifecycleCounts, type LifecycleCounts } from "@/lib/dashboard.functions";
+import { getLifecycleCounts, type LifecycleCounts } from "../lib/dashboard.functions";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
@@ -33,9 +33,10 @@ function Stat({ label, value, tone }: { label: string; value: string | number; t
 }
 
 function CommandCenter() {
+  const loaderData = Route.useLoaderData();
   const fetchSnapshot = useServerFn(getCommandCenterSnapshot);
   const fetchCounts = useServerFn(getLifecycleCounts);
-  const [snap, setSnap] = useState<Snapshot | null>(null);
+  const [snap, setSnap] = useState<Snapshot | null>(loaderData);
   const [counts, setCounts] = useState<LifecycleCounts | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

@@ -1,0 +1,25 @@
+name: Sync to Umbrella
+on:
+  push:
+    branches: [main]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Primary
+        uses: actions/checkout@v4
+      - name: Checkout Umbrella
+        uses: actions/checkout@v4
+        with:
+          repository: bestwebninja/myblessings
+          path: myblessings
+          token: ${{ secrets.SYNC_TOKEN }}
+      - name: Rsync and Push
+        run: |
+          rsync -av --delete --exclude '.git' ./ myblessings/apps/pure-purpose-store/
+          cd myblessings
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Sync Pure Purpose Store [auto-sync]" || exit 0
+          git push origin main

@@ -50,13 +50,46 @@ function calculateSimilarity(s1: string, s2: string): number {
   return (longer.length - editDistance(n1, n2)) / longer.length;
 }
 
-// TODO: Replace stub with real intelligence/compliance check.
-function runIntelligenceCheck(input: { name: string; email: string }) {
-  const score = Math.floor(60 + Math.random() * 35);
-  return {
-    trust_score: score,
-    intelligence_status: score > 75 ? "AUTO_REVIEWED" : "PENDING_REVIEW",
-  };
+async function runIntelligenceCheck(input: { name: string; email: string }) {
+  const apiKey = process.env.LOVABLE_API_KEY;
+  if (!apiKey) {
+    return { trust_score: 50, intelligence_status: "PENDING_REVIEW" };
+  }
+
+  try {
+    const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-1.5-flash",
+        messages: [
+          {
+            role: "system",
+            content: "You are an NGO compliance officer. Analyze the provided organization name and email. Return a JSON object with a 'trust_score' (0-100) and an 'analysis' (max 20 words). If the name appears to be a known high-impact charity, score high. If it looks suspicious or like a generic placeholder, score low.",
+          },
+          { role: "user", content: `Org: ${input.name}, Email: ${input.email}` },
+        ],
+        response_format: { type: "json_object" },
+      }),
+    });
+
+    if (!res.ok) throw new Error("AI Gateway failure");
+
+    const json = await res.json();
+    const result = JSON.parse(json.choices[0].message.content);
+    
+    return {
+      trust_score: Number(result.trust_score) || 60,
+      intelligence_status: result.trust_score > 80 ? "AUTO_REVIEWED" : "PENDING_REVIEW",
+      ai_reasoning: result.analysis,
+    };
+  } catch (err) {
+    console.error("runIntelligenceCheck AI Error:", err);
+    return { trust_score: 60, intelligence_status: "PENDING_REVIEW" };
+  }
 }
 
 export const submitNgoApplication = createServerFn({ method: "POST" })
@@ -117,7 +150,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
     const timestamp = new Date();
     const formattedTime = timestamp.toLocaleString('en-US', { timeZone: 'UTC' });
     
-    const intel = runIntelligenceCheck({ name: data.name, email: data.email });
+    const intel = await runIntelligenceCheck({ name: data.name, email: data.email });
     const { data: row, error } = await supabaseAdmin
       .from("ngo_applications")
       .insert({
@@ -131,6 +164,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
         status: autoStatus,
         trust_score: intel.trust_score,
         intelligence_status: intel.intelligence_status,
+        ai_reasoning: intel.ai_reasoning,
       })
       .select("id")
       .single();
