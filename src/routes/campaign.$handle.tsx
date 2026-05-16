@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, MapPin, Users, Heart } from "lucide-react";
-import { getCampaignByHandle } from "../server/campaigns.functions";
+import { getCampaignByHandle } from "../server/campaigns.functions.server";
 import { DonationPanel } from "../components/blessing/DonationPanel";
 import { useCampaignRealtime } from "../hooks/useCampaignRealtime";
 
