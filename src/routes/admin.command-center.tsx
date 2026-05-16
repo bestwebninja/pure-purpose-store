@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getCommandCenterSnapshot } from "@/server/ngo.functions";
+import { getCommandCenterSnapshot } from "../server/ngo.functions.server";
 import { getLifecycleCounts, type LifecycleCounts } from "@/lib/dashboard.functions";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/admin/command-center")({
       { name: "robots", content: "noindex" },
     ],
   }),
+  loader: async () => await getCommandCenterSnapshot(),
   component: CommandCenter,
 });
 
