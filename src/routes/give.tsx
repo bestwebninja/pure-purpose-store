@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
-import { listCampaigns, type Campaign } from "@/server/campaigns.functions";
+import { listCampaigns } from "../server/campaigns.functions.server";
+import type { Campaign } from "../server/campaigns.functions.server";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/give")({
     ],
     links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/give" }],
   }),
-  loader: () => listCampaigns(),
+  loader: async () => await listCampaigns(),
   component: GivePage,
 });
 
