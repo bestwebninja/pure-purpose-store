@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, ShieldCheck, Sparkles } from "lucide-react";
@@ -6,9 +6,9 @@ import { Heart, ShieldCheck, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/ngo")({
   head: () => ({
     meta: [
-      { title: "For NGOs — MyBlessings" },
+      { title: "For NGOs â€” MyBlessings" },
       { name: "description", content: "Apply to receive blessings for your cause. Join the MyBlessings network of vetted nonprofits." },
-      { property: "og:title", content: "For NGOs — MyBlessings" },
+      { property: "og:title", content: "For NGOs â€” MyBlessings" },
       { property: "og:description", content: "Apply to receive blessings for your cause." },
     ],
   }),

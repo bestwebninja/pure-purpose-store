@@ -1,7 +1,6 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { listCampaignsByCategory } from "@/server/campaigns.functions";
-import type { Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "../components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "../hooks/useCampaignRealtime";
 
@@ -14,13 +13,13 @@ export const Route = createFileRoute("/categories/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData?.category
       ? [
-          { title: `${loaderData.category.name} Blessings — MyBlessings` },
+          { title: `${loaderData.category.name} Blessings â€” MyBlessings` },
           { name: "description", content: loaderData.category.description ?? `Support ${loaderData.category.name} causes.` },
-          { property: "og:title", content: `${loaderData.category.name} Blessings — MyBlessings` },
+          { property: "og:title", content: `${loaderData.category.name} Blessings â€” MyBlessings` },
           { property: "og:description", content: loaderData.category.description ?? `Support ${loaderData.category.name} causes.` },
           { property: "og:url", content: `https://pure-purpose-store.lovable.app/categories/${loaderData.category.slug}` },
         ]
-      : [{ title: "Category — MyBlessings" }],
+      : [{ title: "Category â€” MyBlessings" }],
     links: loaderData?.category
       ? [{ rel: "canonical", href: `https://pure-purpose-store.lovable.app/categories/${loaderData.category.slug}` }]
       : [],
@@ -28,7 +27,7 @@ export const Route = createFileRoute("/categories/$slug")({
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="text-display text-3xl font-semibold text-white">Category not found</h1>
-      <Link to="/categories" className="mt-4 inline-block text-primary hover:underline">← All categories</Link>
+      <Link to="/categories" className="mt-4 inline-block text-primary hover:underline">â† All categories</Link>
     </div>
   ),
   component: CategoryPage,

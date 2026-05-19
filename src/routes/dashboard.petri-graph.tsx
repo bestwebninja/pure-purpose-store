@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +9,7 @@ import { PetriGraphView, type GraphEdge, type GraphNode } from "@/components/pet
 export const Route = createFileRoute("/dashboard/petri-graph")({
   head: () => ({
     meta: [
-      { title: "Petri Graph Inspector — MyBlessings" },
+      { title: "Petri Graph Inspector â€” MyBlessings" },
       { name: "description", content: "Real-time view of Petri Bloom intents and matches." },
     ],
   }),
@@ -172,11 +172,11 @@ function PetriGraphPage() {
       const kind: "request" | "intent" = p.source_type === "request" ? "request" : "intent";
       const id = t.source_id ?? t.id;
       if (!nodeMap.has(id)) {
-        const loc = [p.location?.city, p.location?.country].filter(Boolean).join(", ") || "—";
+        const loc = [p.location?.city, p.location?.country].filter(Boolean).join(", ") || "â€”";
         nodeMap.set(id, {
           id,
           kind,
-          label: `${kind === "request" ? "Req" : "Spo"} · ${loc}`,
+          label: `${kind === "request" ? "Req" : "Spo"} Â· ${loc}`,
           data: { token: t, payload: p },
         });
       }
@@ -187,10 +187,10 @@ function PetriGraphPage() {
       if (!m.help_request_id || !m.sponsor_id) continue;
       // Synthesize endpoints if not seen yet
       if (!nodeMap.has(m.help_request_id)) {
-        nodeMap.set(m.help_request_id, { id: m.help_request_id, kind: "request", label: "Req · ?", data: {} });
+        nodeMap.set(m.help_request_id, { id: m.help_request_id, kind: "request", label: "Req Â· ?", data: {} });
       }
       if (!nodeMap.has(m.sponsor_id)) {
-        nodeMap.set(m.sponsor_id, { id: m.sponsor_id, kind: "intent", label: "Spo · ?", data: {} });
+        nodeMap.set(m.sponsor_id, { id: m.sponsor_id, kind: "intent", label: "Spo Â· ?", data: {} });
       }
       es.push({
         id: m.id,
@@ -205,7 +205,7 @@ function PetriGraphPage() {
   }, [visibleTokens, visibleMatches, layer]);
 
   if (!authChecked) {
-    return <div className="mx-auto max-w-6xl p-8 text-muted-foreground">Loading…</div>;
+    return <div className="mx-auto max-w-6xl p-8 text-muted-foreground">Loadingâ€¦</div>;
   }
   if (!allowed) {
     return (
@@ -243,7 +243,7 @@ function PetriGraphPage() {
               className="shrink-0"
               onClick={() => setLayer(m)}
             >
-              {m === "all" ? "All Layers" : m === "layer1" ? "L1 · Signals" : m === "layer2" ? "L2 · Matching" : "L3 · Confirmed"}
+              {m === "all" ? "All Layers" : m === "layer1" ? "L1 Â· Signals" : m === "layer2" ? "L2 Â· Matching" : "L3 Â· Confirmed"}
             </Button>
           ))}
         </div>

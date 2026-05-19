@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
@@ -11,7 +11,7 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — MyBlessings" },
+      { title: "Dashboard â€” MyBlessings" },
       { name: "description", content: "Your live view of the blessing lifecycle." },
     ],
   }),

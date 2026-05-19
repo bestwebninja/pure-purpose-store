@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+﻿import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   forceCenter,
   forceLink,
@@ -138,7 +138,7 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
                   setHover({
                     x: ev.clientX,
                     y: ev.clientY,
-                    text: `score ${e.score} · ${e.status}`,
+                    text: `score ${e.score} Â· ${e.status}`,
                   })
                 }
                 onMouseLeave={() => setHover(null)}
@@ -176,7 +176,7 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
         <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "#f5c518" }} /> Sponsor Intent</span>
         <span><span className="inline-block h-1 w-6" style={{ background: "#16a34a" }} /> auto_match</span>
         <span><span className="inline-block h-1 w-6" style={{ background: "#eab308" }} /> pending_review</span>
-        <span>Scroll to zoom · drag to pan</span>
+        <span>Scroll to zoom Â· drag to pan</span>
       </div>
     </div>
   );

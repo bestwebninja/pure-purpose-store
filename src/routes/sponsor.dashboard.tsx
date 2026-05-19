@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ type Sponsor = {
 };
 
 export const Route = createFileRoute("/sponsor/dashboard")({
-  head: () => ({ meta: [{ title: "Sponsor Dashboard — MyBlessings" }] }),
+  head: () => ({ meta: [{ title: "Sponsor Dashboard â€” MyBlessings" }] }),
   component: SponsorDashboard,
 });
 
@@ -56,7 +56,7 @@ function SponsorDashboard() {
   }, [navigate]);
 
   if (loading) {
-    return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading…</div>;
+    return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loadingâ€¦</div>;
   }
 
   if (!sponsor) {
@@ -90,9 +90,9 @@ function SponsorDashboard() {
           <h2 className="text-sm font-semibold text-muted-foreground">Profile</h2>
           <dl className="mt-3 space-y-2 text-sm">
             <div><dt className="inline text-muted-foreground">Role: </dt><dd className="inline font-medium">{sponsor.sponsor_role}</dd></div>
-            <div><dt className="inline text-muted-foreground">Organisation: </dt><dd className="inline font-medium">{sponsor.organization_name || "—"}</dd></div>
-            <div><dt className="inline text-muted-foreground">Location: </dt><dd className="inline font-medium">{location || "—"}</dd></div>
-            <div><dt className="inline text-muted-foreground">Zip: </dt><dd className="inline font-medium">{sponsor.zip || "—"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Organisation: </dt><dd className="inline font-medium">{sponsor.organization_name || "â€”"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Location: </dt><dd className="inline font-medium">{location || "â€”"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Zip: </dt><dd className="inline font-medium">{sponsor.zip || "â€”"}</dd></div>
           </dl>
         </Card>
 

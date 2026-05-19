@@ -1,13 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card } from "../components/ui/card";
 import { listCategories } from "@/server/ngo.functions";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Browse Categories — MyBlessings" },
-      { name: "description", content: "Discover causes by category — children, education, healthcare, disaster relief, food, and elder care." },
-      { property: "og:title", content: "Browse Categories — MyBlessings" },
+      { title: "Browse Categories â€” MyBlessings" },
+      { name: "description", content: "Discover causes by category â€” children, education, healthcare, disaster relief, food, and elder care." },
+      { property: "og:title", content: "Browse Categories â€” MyBlessings" },
       { property: "og:description", content: "Discover causes by category." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/categories" },
     ],

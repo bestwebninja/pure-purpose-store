@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
@@ -9,9 +9,9 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "Marketplace — MyBlessings" },
+      { title: "Marketplace â€” MyBlessings" },
       { name: "description", content: "Browse active blessings and choose who to support." },
-      { property: "og:title", content: "Marketplace — MyBlessings" },
+      { property: "og:title", content: "Marketplace â€” MyBlessings" },
       { property: "og:description", content: "Browse active blessings and choose who to support." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/marketplace" },
     ],
@@ -42,7 +42,7 @@ function MarketplacePage() {
       <p className="mt-1 text-sm text-muted-foreground">Every blessing matters. Pick one to support.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       {feed && feed.campaigns.length === 0 ? (
-        <p className="mt-10 text-sm text-muted-foreground">No active blessings yet — check back soon.</p>
+        <p className="mt-10 text-sm text-muted-foreground">No active blessings yet â€” check back soon.</p>
       ) : (
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {feed?.campaigns.map((c) => <CampaignCard key={c.id} campaign={c as never} />)}

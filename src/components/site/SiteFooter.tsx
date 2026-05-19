@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
+﻿import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
 import { useEffect, useState } from "react";
 
-// Curated, license-friendly nature imagery (Unsplash CDN — free to use).
+// Curated, license-friendly nature imagery (Unsplash CDN â€” free to use).
 const FOOTER_IMAGES = [
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=70", // sunflower field
   "https://images.unsplash.com/photo-1444492417251-9c84a5fa18e0?auto=format&fit=crop&w=1920&q=70", // sunflower close
@@ -61,7 +61,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/15 py-6 text-center text-xs text-white/70">
-        © {new Date().getFullYear()} www.MyBlessings.US (Yes! Every blessing matters).
+        Â© {new Date().getFullYear()} www.MyBlessings.US (Yes! Every blessing matters).
       </div>
     </footer>
   );

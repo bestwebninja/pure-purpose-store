@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ type Case = {
 };
 
 export const Route = createFileRoute("/my-blessings")({
-  head: () => ({ meta: [{ title: "My Blessings — MyBlessings" }] }),
+  head: () => ({ meta: [{ title: "My Blessings â€” MyBlessings" }] }),
   component: MyBlessings,
 });
 
@@ -62,7 +62,7 @@ function MyBlessings() {
       </div>
 
       {loading ? (
-        <p className="mt-10 text-muted-foreground">Loading…</p>
+        <p className="mt-10 text-muted-foreground">Loadingâ€¦</p>
       ) : cases.length === 0 ? (
         <Card className="mt-10 p-8 text-center">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>

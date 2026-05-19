@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -52,7 +52,7 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
         const { url } = await getDocUrlFn();
         if (!cancelled) setDocSignedUrl(url);
       } catch {
-        /* non-fatal — link just won't render */
+        /* non-fatal â€” link just won't render */
       }
     })();
     return () => {
@@ -71,7 +71,7 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
       if (kind === "logo") {
         if (!ALLOWED_LOGO_TYPES.includes(file.type)) throw new Error("Logo must be PNG, JPG, WebP, or SVG");
         if (file.size > MAX_LOGO_BYTES) throw new Error("Logo must be under 4 MB");
-        // Image Trust Layer — gate raster logos through the AI safety check.
+        // Image Trust Layer â€” gate raster logos through the AI safety check.
         // SVGs are skipped (Gemini vision can't ingest vector content directly).
         if (file.type !== "image/svg+xml") {
           const b64 = await fileToBase64(file);
@@ -169,7 +169,7 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
             {busy === "logo" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
             {logoUrl ? "Replace logo" : "Upload logo"}
           </Button>
-          <p className="text-[11px] text-muted-foreground">PNG, JPG, WebP, SVG · up to 4 MB</p>
+          <p className="text-[11px] text-muted-foreground">PNG, JPG, WebP, SVG Â· up to 4 MB</p>
         </div>
 
         {/* Doc */}
@@ -212,7 +212,7 @@ export function SponsorUploadWidget({ initialLogoUrl, initialDocUrl, onSaved }: 
             {busy === "doc" ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
             {docPath ? "Replace document" : "Upload PDF"}
           </Button>
-          <p className="text-[11px] text-muted-foreground">PDF only · up to 10 MB · private</p>
+          <p className="text-[11px] text-muted-foreground">PDF only Â· up to 10 MB Â· private</p>
         </div>
       </div>
     </Card>

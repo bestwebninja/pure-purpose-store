@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Read-only system report. Aggregates real signals from the database.
- * No fake "kernel/governor/runtime lock" — only what actually exists.
+ * No fake "kernel/governor/runtime lock" â€” only what actually exists.
  */
 export const Route = createFileRoute("/api/public/go-live-report")({
   server: {

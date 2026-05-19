@@ -1,4 +1,4 @@
-export type VettingMatrixEntry = {
+﻿export type VettingMatrixEntry = {
   point: string;
   userInput: string;
   proData: string;

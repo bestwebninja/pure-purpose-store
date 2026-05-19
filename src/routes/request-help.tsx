@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,9 +19,9 @@ type CategoryNode = {
 export const Route = createFileRoute("/request-help")({
   head: () => ({
     meta: [
-       { title: "BlessME — MyBlessings" },
+       { title: "BlessME â€” MyBlessings" },
       { name: "description", content: "Tell us what you need. We'll connect you with sponsors and providers." },
-      { property: "og:title", content: "BlessME — Request a Blessing" },
+      { property: "og:title", content: "BlessME â€” Request a Blessing" },
       { property: "og:description", content: "Share your story and connect with sponsors who want to help." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/request-help" },
     ],
@@ -116,7 +116,7 @@ function RequestHelp() {
 
   const flatCategories = tree.flatMap((root) => [
     { id: root.id, label: root.name },
-    ...root.children.map((c) => ({ id: c.id, label: `${root.name} › ${c.name}` })),
+    ...root.children.map((c) => ({ id: c.id, label: `${root.name} â€º ${c.name}` })),
   ]);
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -225,7 +225,7 @@ function RequestHelp() {
   return (
     <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto max-w-2xl px-6 py-16">
-         <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
+         <h1 className="text-display text-3xl font-semibold text-white">BlessME ðŸ™</h1>
         <p className="mt-2 text-white/80">
           Sign up as a recipient and tell us what you need. Sponsors will be matched to your request.
         </p>
@@ -243,7 +243,7 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, salutation: e.target.value })}
                   className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
                 >
-                  <option value="" className="text-black">—</option>
+                  <option value="" className="text-black">â€”</option>
                   {SALUTATIONS.map((s) => (
                     <option key={s} value={s} className="text-black">{s}</option>
                   ))}
@@ -335,7 +335,7 @@ function RequestHelp() {
                       onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
                       className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
                     >
-                      <option value="" className="text-black">Type…</option>
+                      <option value="" className="text-black">Typeâ€¦</option>
                       {HELP_TYPES.map((t) => (
                         <option key={t.value} value={t.value} className="text-black">{t.label}</option>
                       ))}
@@ -355,7 +355,7 @@ function RequestHelp() {
                       onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
                       className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
                     >
-                      <option value="" className="text-black">Choose food kind…</option>
+                      <option value="" className="text-black">Choose food kindâ€¦</option>
                       {FOOD_KINDS.map((f) => (
                         <option key={f.value} value={f.value} className="text-black">{f.label}</option>
                       ))}
@@ -408,7 +408,7 @@ function RequestHelp() {
               </div>
             </div>
             <Button type="submit" disabled={submitting} className="w-full">
-              {submitting ? "Submitting…" : "Submit Application"}
+              {submitting ? "Submittingâ€¦" : "Submit Application"}
             </Button>
           </form>
         </Card>

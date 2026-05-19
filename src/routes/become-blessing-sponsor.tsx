@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -16,7 +16,7 @@ const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "
 export const Route = createFileRoute("/become-blessing-sponsor")({
   head: () => ({
     meta: [
-      { title: "Become a Blessing Sponsor — MyBlessings" },
+      { title: "Become a Blessing Sponsor â€” MyBlessings" },
       { name: "description", content: "Sign up as a Blessing Sponsor to help connect those in need with support." },
     ],
   }),
@@ -177,7 +177,7 @@ function BecomeSponsor() {
           </div>
 
           <Button type="submit" className="w-full" disabled={submitting}>
-            {submitting ? "Submitting…" : "Submit for verification"}
+            {submitting ? "Submittingâ€¦" : "Submit for verification"}
           </Button>
         </form>
       </Card>

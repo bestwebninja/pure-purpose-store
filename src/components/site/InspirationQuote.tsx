@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 
 const QUOTES: { text: string; author: string }[] = [
   { text: "No one has ever become poor by giving.", author: "Anne Frank" },

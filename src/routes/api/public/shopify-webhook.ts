@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+﻿import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Shopify Order webhook handler.
  *
- * Configure in Shopify Admin → Settings → Notifications → Webhooks:
+ * Configure in Shopify Admin â†’ Settings â†’ Notifications â†’ Webhooks:
  *   Topic: "Order creation" (and/or "Order paid")
  *   URL: https://<your-domain>/api/public/shopify-webhook
  *   Format: JSON
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
             .from("webhook_events")
             .insert({ source: "shopify", event_id: eventId, topic });
           if (dupErr) {
-            // Unique violation = already processed → ack so Shopify stops retrying.
+            // Unique violation = already processed â†’ ack so Shopify stops retrying.
             console.log("Duplicate Shopify webhook", eventId, dupErr.message);
             return new Response("ok", { status: 200 });
           }
@@ -125,7 +125,7 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
           [payload.customer?.first_name, payload.customer?.last_name].filter(Boolean).join(" ") ||
           null;
 
-        // Insert donation (unique on shopify_order_id → second-layer idempotency)
+        // Insert donation (unique on shopify_order_id â†’ second-layer idempotency)
         const { error: donationErr } = await supabaseAdmin.from("donations").insert({
           campaign_id: campaignId,
           shopify_order_id: orderId,
@@ -138,7 +138,7 @@ export const Route = createFileRoute("/api/public/shopify-webhook")({
         });
 
         if (donationErr) {
-          // duplicate order → already counted
+          // duplicate order â†’ already counted
           if (donationErr.code === "23505") return new Response("ok", { status: 200 });
           console.error("donation insert error", donationErr);
           return new Response("DB error", { status: 500 });

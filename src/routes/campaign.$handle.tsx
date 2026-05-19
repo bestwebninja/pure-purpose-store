@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, MapPin, Users, Heart } from "lucide-react";
 import { getCampaignByHandle } from "@/server/campaigns.functions";
 import { DonationPanel } from "../components/blessing/DonationPanel";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/campaign/$handle")({
     return {
       meta: c
         ? [
-            { title: `${c.title} — MyBlessings` },
+            { title: `${c.title} â€” MyBlessings` },
             { name: "description", content: c.short_description ?? c.title },
             { property: "og:title", content: c.title },
             { property: "og:description", content: c.short_description ?? "Give a blessing on MyBlessings." },
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/campaign/$handle")({
             { property: "og:url", content: url },
             ...(c.image_url ? [{ property: "og:image", content: c.image_url }] : []),
           ]
-        : [{ title: "Blessing — MyBlessings" }],
+        : [{ title: "Blessing â€” MyBlessings" }],
       links: c ? [{ rel: "canonical", href: url }] : [],
       scripts: c
         ? [
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/campaign/$handle")({
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="text-display text-4xl font-semibold">Blessing not found</h1>
       <p className="mt-2 text-muted-foreground">It may have ended or been moved.</p>
-      <Link to="/" className="mt-6 inline-block text-primary hover:underline">← Browse blessings</Link>
+      <Link to="/" className="mt-6 inline-block text-primary hover:underline">â† Browse blessings</Link>
     </div>
   ),
   component: CampaignPage,

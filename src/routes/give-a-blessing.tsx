@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -22,9 +22,9 @@ type CategoryNode = {
 export const Route = createFileRoute("/give-a-blessing")({
   head: () => ({
     meta: [
-      { title: "Configure a Blessing — MyBlessings" },
+      { title: "Configure a Blessing â€” MyBlessings" },
       { name: "description", content: "Sponsor someone in need. Configure your blessing in a minute." },
-      { property: "og:title", content: "Configure a Blessing — MyBlessings" },
+      { property: "og:title", content: "Configure a Blessing â€” MyBlessings" },
       { property: "og:description", content: "Sponsor someone in need. Configure your blessing in a minute." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/give-a-blessing" },
     ],
@@ -91,7 +91,7 @@ function GiveABlessing() {
     () =>
       tree.flatMap((root) => [
         { id: root.id, label: root.name, isRoot: true },
-        ...root.children.map((c) => ({ id: c.id, label: `${root.name} › ${c.name}`, isRoot: false })),
+        ...root.children.map((c) => ({ id: c.id, label: `${root.name} â€º ${c.name}`, isRoot: false })),
       ]),
     [tree],
   );
@@ -167,14 +167,14 @@ function GiveABlessing() {
       // Single source of truth for the in-flight blessing intent.
       // Stored in sessionStorage (temporary session only) so the existing
       // Shopify checkout flow at /give can read one canonical object.
-      // No DB writes here — Shopify confirmation is what creates persistent records.
+      // No DB writes here â€” Shopify confirmation is what creates persistent records.
       const intent = {
         ...form,
         allocation,
         createdAt: new Date().toISOString(),
       };
       window.sessionStorage.setItem("myblessings.blessingIntent", JSON.stringify(intent));
-      // Non-blocking Petri Bloom signal — never blocks Shopify checkout.
+      // Non-blocking Petri Bloom signal â€” never blocks Shopify checkout.
       try {
         void fetch("/api/public/petri-bloom", {
           method: "POST",
@@ -197,9 +197,9 @@ function GiveABlessing() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
       <div className="mx-auto max-w-2xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing 🙏</h1>
+        <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing ðŸ™</h1>
         <p className="mt-2 text-white/80">
-          Step {step + 1} of {STEPS.length} — {STEPS[step]}
+          Step {step + 1} of {STEPS.length} â€” {STEPS[step]}
         </p>
 
         <Card className="mt-8 space-y-5 border-white/20 p-6 text-white" style={{ backgroundColor: "#0a1f6b" }}>
@@ -230,14 +230,14 @@ function GiveABlessing() {
               <div className="space-y-2">
                 <Label>Profile image URL (optional)</Label>
                 <Input className={inputCls} value={form.profileImage} maxLength={500}
-                  placeholder="https://…"
+                  placeholder="https://â€¦"
                   onChange={(e) => setForm({ ...form, profileImage: e.target.value })} />
-                <p className="text-xs text-white/60">Image upload coming soon — paste a URL for now.</p>
+                <p className="text-xs text-white/60">Image upload coming soon â€” paste a URL for now.</p>
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <Checkbox checked={form.facebookConnected}
                   onCheckedChange={(v) => setForm({ ...form, facebookConnected: v === true })} />
-                <span>Connect Facebook (placeholder — coming soon)</span>
+                <span>Connect Facebook (placeholder â€” coming soon)</span>
               </label>
               <div className="flex justify-end">
                 <Button onClick={() => setStep(1)}
@@ -251,7 +251,7 @@ function GiveABlessing() {
               <div className="space-y-2">
                 <Label>Pick up to 3 blessing types</Label>
                 {flatCats.length === 0 ? (
-                  <p className="text-sm text-white/70">Loading categories…</p>
+                  <p className="text-sm text-white/70">Loading categoriesâ€¦</p>
                 ) : (
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {flatCats.map((c) => (
@@ -357,7 +357,7 @@ function GiveABlessing() {
                 <div><dt className="text-white/70">Location</dt><dd>{[form.city, form.state, form.zip, form.countries].filter(Boolean).join(", ")}</dd></div>
                 <div><dt className="text-white/70">Total budget</dt><dd>${form.totalBudget}</dd></div>
                 <div><dt className="text-white/70">Split</dt>
-                  <dd>Accom ${allocation.accommodation} · Food ${allocation.food} · Transport ${allocation.transport}</dd>
+                  <dd>Accom ${allocation.accommodation} Â· Food ${allocation.food} Â· Transport ${allocation.transport}</dd>
                 </div>
               </dl>
               <p className="text-xs text-white/60">
@@ -366,7 +366,7 @@ function GiveABlessing() {
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(3)}>Back</Button>
                 <Button onClick={onSubmit} disabled={submitting}>
-                  {submitting ? "Saving…" : "Submit & Continue to Checkout"}
+                  {submitting ? "Savingâ€¦" : "Submit & Continue to Checkout"}
                 </Button>
               </div>
             </>

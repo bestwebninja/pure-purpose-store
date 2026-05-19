@@ -1,10 +1,10 @@
-import { Card } from "@/components/ui/card";
+﻿import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 /**
  * STUB: BlessingPaymentForm. Real checkout flows through Shopify via the
- * DonationPanel on the campaign route. Exact-amount funding only —
+ * DonationPanel on the campaign route. Exact-amount funding only â€”
  * partial / custom donations are not permitted.
  */
 export function BlessingPaymentForm({

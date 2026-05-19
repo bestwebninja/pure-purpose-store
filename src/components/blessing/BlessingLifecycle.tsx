@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+﻿import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Inbox, Link2, HandCoins, Truck, BookOpen, Repeat } from "lucide-react";
 import type { LifecycleCounts } from "@/server/lifecycle.server";

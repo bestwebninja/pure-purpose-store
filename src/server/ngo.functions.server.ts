@@ -1,4 +1,4 @@
-import { createServerFn } from "@tanstack/react-start";
+﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
@@ -273,7 +273,7 @@ export const listCategories = createServerFn({ method: "GET" }).handler(async ()
   return { categories: data ?? [] };
 });
 
-// ─── Admin Command Center: real ops snapshot ─────────────────────────────
+// â”€â”€â”€ Admin Command Center: real ops snapshot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

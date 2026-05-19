@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Sparkles, HandHeart, Globe, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
@@ -101,13 +101,13 @@ function AboutMyBlessings() {
       <section className="mx-auto max-w-7xl px-6 pb-16 text-center">
         <div className="flex flex-col items-center justify-center gap-3">
           <Button asChild size="lg" className="bg-yellow-300 text-[#0a1f6b] hover:bg-yellow-400 w-full max-w-xs text-lg" style={garamond}>
-            <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing 🙏</Link>
+            <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing ðŸ™</Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 text-sm border-double w-full max-w-xs" style={garamond}>
             <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> BlessME</Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 text-sm border-double w-full max-w-xs" style={garamond}>
-            <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner 🌍</Link>
+            <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner ðŸŒ</Link>
           </Button>
         </div>
       </section>

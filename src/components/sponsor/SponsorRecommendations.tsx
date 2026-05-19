@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -47,7 +47,7 @@ export function SponsorRecommendations() {
         <div>
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-accent" />
-            <h2 className="text-sm font-semibold text-muted-foreground">SponsorDecisionAI · Recommended for you</h2>
+            <h2 className="text-sm font-semibold text-muted-foreground">SponsorDecisionAI Â· Recommended for you</h2>
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
             Top matches ranked from open opportunities by your history and interests.
@@ -60,7 +60,7 @@ export function SponsorRecommendations() {
 
       <div className="mt-5 space-y-3">
         {loading && !recs ? (
-          <div className="py-8 text-center text-sm text-muted-foreground">Analyzing the matching pool…</div>
+          <div className="py-8 text-center text-sm text-muted-foreground">Analyzing the matching poolâ€¦</div>
         ) : error ? (
           <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">{error}</div>
         ) : !recs || recs.length === 0 ? (
@@ -81,7 +81,7 @@ export function SponsorRecommendations() {
                       {r.source === "petri_match" ? "PETRI match" : "Campaign"}
                     </Badge>
                     {r.category ? <Badge variant="secondary" className="text-[10px]">{r.category}</Badge> : null}
-                    {r.amount ? <span>· {formatCurrency(r.amount, r.currency)}</span> : null}
+                    {r.amount ? <span>Â· {formatCurrency(r.amount, r.currency)}</span> : null}
                   </div>
                 </div>
                 <div className="text-right">

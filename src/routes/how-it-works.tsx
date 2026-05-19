@@ -1,13 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, Search, Sparkles, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How It Works — MyBlessings" },
+      { title: "How It Works â€” MyBlessings" },
       { name: "description", content: "Discover, give, and witness. Three steps to turning generosity into impact." },
-      { property: "og:title", content: "How It Works — MyBlessings" },
+      { property: "og:title", content: "How It Works â€” MyBlessings" },
       { property: "og:description", content: "Three simple steps to give a blessing." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/how-it-works" },
     ],

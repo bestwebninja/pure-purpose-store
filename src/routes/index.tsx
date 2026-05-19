@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
@@ -8,13 +8,13 @@ import { getPublicStats } from "@/server/stats.functions";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Home — MyBlessings · Give With Purpose" },
-      { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes — transparently." },
-      { property: "og:title", content: "MyBlessings — Give With Purpose" },
-      { property: "og:description", content: "Support real people and real causes — transparently." },
+      { title: "Home â€” MyBlessings Â· Give With Purpose" },
+      { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes â€” transparently." },
+      { property: "og:title", content: "MyBlessings â€” Give With Purpose" },
+      { property: "og:description", content: "Support real people and real causes â€” transparently." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/" },
       { property: "og:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
-      { property: "og:image:alt", content: "MyBlessings — give with purpose" },
+      { property: "og:image:alt", content: "MyBlessings â€” give with purpose" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
@@ -105,9 +105,9 @@ function Hero() {
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-green-500">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-accent" /> 100% transparent ledger</span>
-            <span className="text-white/30">·</span>
+            <span className="text-white/30">Â·</span>
             <span>Secure Shopify checkout</span>
-            <span className="text-white/30">·</span>
+            <span className="text-white/30">Â·</span>
             <span>Verified recipients</span>
           </div>
         </div>
@@ -127,7 +127,7 @@ function Hero() {
               <p className="text-display text-lg italic text-white">
                 "Charity is the best deposit account."
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">— founding principle</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">â€” founding principle</p>
             </div>
           </div>
         </div>
@@ -161,7 +161,7 @@ function ImpactStrip() {
         {stats.map((s) => (
           <div key={s.label} className="bg-secondary px-6 py-8">
             <div className="text-display text-3xl text-primary md:text-4xl">
-              {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
+              {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "â€”")}
             </div>
             <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
           </div>
@@ -228,7 +228,7 @@ function Testimony() {
           <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-red-500 text-white">A</div>
           <div>
             <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
-            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient · Healthcare</div>
+            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient Â· Healthcare</div>
           </div>
         </div>
       </div>

@@ -1,16 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
 import { listCampaigns } from "@/server/campaigns.functions";
-import type { Campaign } from "@/server/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
 
 export const Route = createFileRoute("/give")({
   head: () => ({
     meta: [
-      { title: "Give a Blessing — MyBlessings" },
+      { title: "Give a Blessing â€” MyBlessings" },
       { name: "description", content: "Choose a blessing to support. Every dollar goes to real people, transparently." },
-      { property: "og:title", content: "Give a Blessing — MyBlessings" },
+      { property: "og:title", content: "Give a Blessing â€” MyBlessings" },
       { property: "og:description", content: "Choose a blessing to support. Every dollar goes to real people, transparently." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/give" },
     ],
@@ -43,7 +42,7 @@ function GivePage() {
         {live.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border/80 bg-secondary/30 p-12 text-center">
             <h3 className="text-display text-xl font-semibold">No blessings available yet</h3>
-            <p className="mt-2 text-sm text-muted-foreground">New campaigns are added regularly — please check back soon.</p>
+            <p className="mt-2 text-sm text-muted-foreground">New campaigns are added regularly â€” please check back soon.</p>
             <Link to="/" className="mt-6 inline-flex items-center text-primary hover:underline">
               Back to home <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
