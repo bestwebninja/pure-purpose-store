@@ -1,4 +1,4 @@
-﻿/* eslint-disable */
+/* eslint-disable */
 
 // @ts-nocheck
 
@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
 import { Route as NgoRouteImport } from './routes/ngo'
 import { Route as MyBlessingsRouteImport } from './routes/my-blessings'
@@ -55,6 +56,11 @@ const TransparencyRoute = TransparencyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestHelpRoute = RequestHelpRouteImport.update({
@@ -251,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
@@ -330,6 +338,7 @@ export interface FileRoutesById {
   '/my-blessings': typeof MyBlessingsRoute
   '/ngo': typeof NgoRouteWithChildren
   '/request-help': typeof RequestHelpRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
@@ -371,6 +380,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
@@ -410,6 +420,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
@@ -449,6 +460,7 @@ export interface FileRouteTypes {
     | '/my-blessings'
     | '/ngo'
     | '/request-help'
+    | '/reset-password'
     | '/sitemap.xml'
     | '/transparency'
     | '/admin/command-center'
@@ -489,6 +501,7 @@ export interface RootRouteChildren {
   MyBlessingsRoute: typeof MyBlessingsRoute
   NgoRoute: typeof NgoRouteWithChildren
   RequestHelpRoute: typeof RequestHelpRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
@@ -522,6 +535,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-help': {
@@ -824,6 +844,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyBlessingsRoute: MyBlessingsRoute,
   NgoRoute: NgoRouteWithChildren,
   RequestHelpRoute: RequestHelpRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
@@ -845,12 +866,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
