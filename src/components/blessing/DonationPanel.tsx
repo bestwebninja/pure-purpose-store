@@ -8,8 +8,8 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
-import { createBlessingCheckout } from "../../server/checkout.functions";
-import type { Campaign } from "../../server/campaigns.functions.server";
+
+import type { Campaign } from "../@/server/campaigns.functions.server";
 import { createBlessingCheckout } from "@/server/checkout.functions";
 import type { Campaign } from "@/server/campaigns.functions";
 

@@ -1,0 +1,7 @@
+{
+  "primary": "origin",
+  "secondary": "upstream",
+  "syncMode": "manual",
+  "allowedBranches": ["main"],
+  "protectPrimary": true
+}

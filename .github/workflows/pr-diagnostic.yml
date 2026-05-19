@@ -1,0 +1,32 @@
+name: PR Diagnostic Bot
+
+on:
+  pull_request:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Architecture Guard (capture output)
+        id: guard
+        run: |
+          node scripts/update-scripts.js > guard.log 2>&1 || true
+          cat guard.log
+
+      - name: Upload log artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arch-guard-log
+          path: guard.log

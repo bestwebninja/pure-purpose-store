@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
 import heroImage from "@/assets/hero-blessings.jpg";
-import { getPublicStats } from "../server/stats.functions";
+import { getPublicStats } from "@/server/stats.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({

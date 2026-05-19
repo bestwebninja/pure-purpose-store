@@ -10,7 +10,7 @@ import { toast } from "sonner";
 export function BlessingPaymentForm({
   campaignHandle,
   exactAmount,
-  currency = "USD",
+  currency = "USD"
 }: {
   campaignHandle?: string;
   exactAmount?: number;
@@ -20,10 +20,9 @@ export function BlessingPaymentForm({
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 0
   }).format(amount);
-  return (
-    <Card className="p-6">
+  return <Card className="p-6">
       <h3 className="text-display text-lg font-semibold">Give a Blessing</h3>
       <p className="mt-1 text-sm text-muted-foreground">
         {campaignHandle ? `Supporting ${campaignHandle}` : "Fund the full blessing package."}
@@ -34,15 +33,8 @@ export function BlessingPaymentForm({
         </p>
         <p className="mt-1 text-display text-2xl font-semibold text-primary">{formatted}</p>
       </div>
-      <Button
-        type="button"
-        className="mt-4 w-full"
-        disabled={amount < 1}
-        onClick={() => toast?.success?.("Stub: would redirect to Shopify checkout")}
-      >
+      <Button type="button" className="mt-4 w-full" disabled={amount < 1} onClick={() => toast?.success?.("Stub: would redirect to Shopify checkout")}>
         {amount < 1 ? "Select a blessing to fund" : `Fund this Blessing for ${formatted}`}
       </Button>
-    </Card>
-  );
+    </Card>;
 }
-

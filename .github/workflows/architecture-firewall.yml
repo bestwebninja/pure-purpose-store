@@ -1,0 +1,29 @@
+name: Architecture Firewall
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  architecture-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run AST Engine
+        run: node scripts/ast-engine-v2.js
+
+      - name: Run Architecture Health Report
+        run: node scripts/arch-health-report.ps1
+        shell: pwsh
