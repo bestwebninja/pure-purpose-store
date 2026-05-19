@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { Campaign } from "./campaign.model";
+import type { Campaign } from "./campaign.types";
 
 export async function getByHandle(handle: string) {
   const { data, error } = await supabaseAdmin
@@ -14,18 +14,32 @@ export async function getByHandle(handle: string) {
 }
 
 export async function list() {
-  const { data } = await supabaseAdmin.from("campaigns").select("*");
+  const { data, error } = await supabaseAdmin
+    .from("campaigns")
+    .select("*");
+
+  if (error) return [];
+
   return (data ?? []) as Campaign[];
 }
 
 export async function listByCategory(slug: string) {
-  const [{ data: category }, { data: campaigns }] = await Promise.all([
-    supabaseAdmin.from("categories").select("*").eq("slug", slug).maybeSingle(),
-    supabaseAdmin.from("campaigns").select("*").eq("category_slug", slug),
-  ]);
+  const [{ data: category, error: catErr }, { data: campaigns, error: campErr }] =
+    await Promise.all([
+      supabaseAdmin
+        .from("categories")
+        .select("*")
+        .eq("slug", slug)
+        .maybeSingle(),
+
+      supabaseAdmin
+        .from("campaigns")
+        .select("*")
+        .eq("category_slug", slug),
+    ]);
 
   return {
-    category,
-    campaigns: (campaigns ?? []) as Campaign[],
+    category: catErr ? null : category,
+    campaigns: campErr ? [] : ((campaigns ?? []) as Campaign[]),
   };
 }
