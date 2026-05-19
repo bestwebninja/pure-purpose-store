@@ -1,8 +1,9 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Heart, ArrowRight } from "lucide-react";
 import { listCampaigns } from "@/server/campaigns.functions";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "@/hooks/useCampaignRealtime";
+import type { Campaign } from "@/server/campaigns.functions";
 
 export const Route = createFileRoute("/give")({
   head: () => ({
