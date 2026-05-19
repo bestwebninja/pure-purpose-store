@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,23 @@ function ResetPasswordPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [hasSession, setHasSession] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Supabase parses the recovery token from the URL hash and creates a session.
+    // Listen for PASSWORD_RECOVERY, then verify a session exists.
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || session) {
+        setHasSession(true);
+      }
+    });
+
+    supabase.auth.getSession().then(({ data }) => {
+      setHasSession((prev) => prev ?? !!data.session);
+    });
+
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   const handleUpdate = async () => {
     if (!password || password.length < 6) {
@@ -52,6 +69,20 @@ function ResetPasswordPage() {
         <p className="text-muted-foreground mt-2">
           Redirecting you to login...
         </p>
+      </div>
+    );
+  }
+
+  if (hasSession === false) {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24 text-center">
+        <h1 className="text-2xl font-semibold">Invalid or expired link</h1>
+        <p className="text-sm text-muted-foreground mt-2">
+          This password reset link is no longer valid. Please request a new one from the login page.
+        </p>
+        <Button className="mt-6" onClick={() => navigate({ to: "/login" })}>
+          Back to login
+        </Button>
       </div>
     );
   }
