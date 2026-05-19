@@ -1,7 +1,8 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { Campaign } from "@/domain/campaign";
+import type { Blessing } from "@/domain/blessing/blessing.model";
+import { campaignToBlessing } from "@/domain/blessing/blessing.adapter";
 
-export async function getActiveBlessings(): Promise<Campaign[]> {
+export async function getActiveBlessings(): Promise<Blessing[]> {
   const { data, error } = await supabase
     .from("campaigns")
     .select("*")
@@ -9,10 +10,10 @@ export async function getActiveBlessings(): Promise<Campaign[]> {
 
   if (error) throw error;
 
-  return (data ?? []) as Campaign[];
+  return (data ?? []).map(campaignToBlessing);
 }
 
-export async function getBlessingByHandle(handle: string): Promise<Campaign | null> {
+export async function getBlessingByHandle(handle: string): Promise<Blessing | null> {
   const { data, error } = await supabase
     .from("campaigns")
     .select("*")
@@ -21,11 +22,13 @@ export async function getBlessingByHandle(handle: string): Promise<Campaign | nu
 
   if (error) throw error;
 
-  return (data as Campaign) ?? null;
+  return data ? campaignToBlessing(data) : null;
 }
 
 export async function getFundingVelocity() {
-  const { data, error } = await supabase.from("campaigns").select("goal_amount, raised_amount, status");
+  const { data, error } = await supabase
+    .from("campaigns")
+    .select("goal_amount, raised_amount, status");
 
   if (error) throw error;
 
