@@ -1,9 +1,14 @@
-import type { Campaign } from "./campaign.types";
+import { Campaign } from "./campaign.model";
 
-export const campaignProgress = (c: Campaign) =>
-  c.goal_amount > 0
-    ? Math.round((c.raised_amount / c.goal_amount) * 100)
-    : 0;
+export function isFunded(c: Campaign) {
+  return c.goal_amount > 0 && c.raised_amount >= c.goal_amount;
+}
 
-export const isFunded = (c: Campaign) =>
-  c.goal_amount > 0 && c.raised_amount >= c.goal_amount;
+export function fundingProgress(c: Campaign) {
+  if (!c.goal_amount) return 0;
+  return Math.min(100, (c.raised_amount / c.goal_amount) * 100);
+}
+
+export function isActive(c: Campaign) {
+  return c.status === "active";
+}
