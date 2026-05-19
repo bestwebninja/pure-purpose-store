@@ -1,21 +1,25 @@
+export type CampaignStatus = "draft" | "active" | "paused" | "completed";
+
 export type Campaign = {
   id: string;
   handle: string;
   title: string;
 
-  image_url?: string | null;
-  short_description?: string | null;
   story?: string | null;
 
-  location?: string | null;
+  status: CampaignStatus;
 
-  status?: "draft" | "active" | "paused" | "completed";
-
-  currency: string;
   goal_amount: number;
   raised_amount: number;
-
   donor_count: number;
 
+  currency: string;
+
+  image_url?: string | null;
+  location?: string | null;
+
   shopify_variant_id?: string | null;
+
+  created_at?: string | null;
+  updated_at?: string | null;
 };
