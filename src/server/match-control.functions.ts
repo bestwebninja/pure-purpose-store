@@ -14,39 +14,39 @@ export const listMatchesForControl = createServerFn({ method: "GET" })
 
 export const approveMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { matchId: string }) => input)
+  .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
-    await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.matchId);
+    await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
     return { ok: true };
   });
 
 export const rejectMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { matchId: string }) => input)
+  .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
-    await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.matchId);
+    await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
     return { ok: true };
   });
 
 export const executeMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { matchId: string }) => input)
+  .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await context.supabase
       .from("matches" as any)
       .update({ execution_status: "executed", last_executed_at: new Date().toISOString() })
-      .eq("id", data.matchId);
+      .eq("id", data.id);
     return { ok: true };
   });
 
 export const listFulfillmentForMatch = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { matchId: string }) => input)
+  .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     const { data: events } = await context.supabase
       .from("fulfillment_events" as any)
       .select("*")
-      .eq("match_id", data.matchId)
+      .eq("match_id", data.id)
       .order("created_at", { ascending: false });
     return { events: (events ?? []) as any[] };
   });
