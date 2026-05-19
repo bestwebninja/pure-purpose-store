@@ -5,6 +5,7 @@ export type Campaign = {
   handle: string;
   title: string;
 
+  short_description?: string | null;
   story?: string | null;
 
   status: CampaignStatus;
