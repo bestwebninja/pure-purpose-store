@@ -1,3 +1,4 @@
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import * as repo from "./campaign.repo";
 import { Campaign } from "./campaign.model";
 
