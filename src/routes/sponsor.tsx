@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SponsorshipDashboard } from "@/components/sponsorship/SponsorshipDashboard";
 
-export const Route = createFileRoute("/give")({
-  component: GivePage,
+export const Route = createFileRoute("/sponsor")({
+  component: SponsorPage,
 });
 
-function GivePage() {
+function SponsorPage() {
   return (
     <div className="min-h-screen w-full">
       <SponsorshipDashboard />
