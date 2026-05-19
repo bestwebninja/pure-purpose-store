@@ -169,6 +169,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
       .select("id")
       .single();
     if (error) throw new Error(error.message);
+    const rowAny = row as any;
 
     // Edge-safe Digital Receipt Generation (Simulated)
     // In production, use a library like 'jspdf' (edge compatible) or an external PDF service.
@@ -178,7 +179,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
     await supabaseAdmin.from("audit_logs").insert({
       action: "NGO_SUBMITTED",
       entity_type: "ngo_application",
-      entity_id: row.id,
+      entity_id: rowAny.id,
       metadata: { 
         name: data.name, 
         email: data.email, 
@@ -193,7 +194,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
     // Enqueue via your preferred provider (Postmark, Resend, etc.)
     console.log(`[Email Triggered]: Sending receipt to ${data.email}`);
 
-    return { id: row.id, ...intel };
+    return { id: rowAny.id, ...intel };
   });
 
 export const listNgoApplications = createServerFn({ method: "GET" })
