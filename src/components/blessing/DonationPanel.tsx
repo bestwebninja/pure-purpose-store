@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
 
 import { createBlessingCheckout } from "@/server/checkout.functions";
+import type { Campaign } from "@/server/campaigns.functions";
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 

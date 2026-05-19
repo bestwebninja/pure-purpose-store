@@ -1,4 +1,4 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
@@ -152,7 +152,7 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
     
     const intel = await runIntelligenceCheck({ name: data.name, email: data.email });
     const { data: row, error } = await supabaseAdmin
-      .from("ngo_applications")
+      .from("ngo_applications" as any)
       .insert({
         name: data.name,
         email: data.email,

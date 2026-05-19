@@ -1,4 +1,4 @@
-import { supabaseAdmin } from "@/integrations/supabase/client";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { Campaign } from "./campaign.model";
 
 export async function getByHandle(handle: string) {

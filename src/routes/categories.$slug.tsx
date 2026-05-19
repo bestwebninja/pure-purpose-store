@@ -1,8 +1,9 @@
-﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { listCampaignsByCategory } from "@/server/campaigns.functions";
 import { CampaignCard } from "../components/blessing/CampaignCard";
 import { useCampaignsRealtime } from "../hooks/useCampaignRealtime";
+import type { Campaign } from "@/server/campaigns.functions";
 
 export const Route = createFileRoute("/categories/$slug")({
   loader: async ({ params }) => {
