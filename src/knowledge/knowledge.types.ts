@@ -1,4 +1,4 @@
-import type { Campaign } from "@/domain/campaign";
+import type { Blessing } from "@/domain/blessing/blessing.model";
 
 export type KnowledgeQuery =
   | "active_blessings"
@@ -6,11 +6,11 @@ export type KnowledgeQuery =
   | "funding_velocity";
 
 export type ActiveBlessingsResult = {
-  items: Campaign[];
+  items: Blessing[];
 };
 
 export type BlessingByHandleResult = {
-  item: Campaign | null;
+  item: Blessing | null;
 };
 
 export type FundingVelocityResult = {
