@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      accommodation_suppliers: {
+        Row: {
+          available_rooms: number
+          base_nightly_rate_usd: number
+          city: string
+          country: string
+          created_at: string | null
+          id: string
+          name: string
+          status: string | null
+          total_rooms: number
+          trust_score: number | null
+          type: string
+          updated_at: string | null
+          vegan_meal_available: boolean | null
+          vegetarian_meal_available: boolean | null
+          zip: string
+        }
+        Insert: {
+          available_rooms?: number
+          base_nightly_rate_usd: number
+          city: string
+          country: string
+          created_at?: string | null
+          id?: string
+          name: string
+          status?: string | null
+          total_rooms?: number
+          trust_score?: number | null
+          type: string
+          updated_at?: string | null
+          vegan_meal_available?: boolean | null
+          vegetarian_meal_available?: boolean | null
+          zip: string
+        }
+        Update: {
+          available_rooms?: number
+          base_nightly_rate_usd?: number
+          city?: string
+          country?: string
+          created_at?: string | null
+          id?: string
+          name?: string
+          status?: string | null
+          total_rooms?: number
+          trust_score?: number | null
+          type?: string
+          updated_at?: string | null
+          vegan_meal_available?: boolean | null
+          vegetarian_meal_available?: boolean | null
+          zip?: string
+        }
+        Relationships: []
+      }
       assistance_categories: {
         Row: {
           created_at: string
@@ -1220,6 +1274,30 @@ export type Database = {
           processed_at?: string
           source?: string
           topic?: string | null
+        }
+        Relationships: []
+      }
+      zip_supply_index: {
+        Row: {
+          active_supplier_count: number | null
+          has_accommodation: boolean | null
+          id: string
+          last_updated: string | null
+          zip: string
+        }
+        Insert: {
+          active_supplier_count?: number | null
+          has_accommodation?: boolean | null
+          id?: string
+          last_updated?: string | null
+          zip: string
+        }
+        Update: {
+          active_supplier_count?: number | null
+          has_accommodation?: boolean | null
+          id?: string
+          last_updated?: string | null
+          zip?: string
         }
         Relationships: []
       }
