@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransparencyRouteImport } from './routes/transparency'
+import { Route as SponsorRouteImport } from './routes/sponsor'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RequestHelpRouteImport } from './routes/request-help'
@@ -20,7 +21,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ImpactMapRouteImport } from './routes/impact-map'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
-import { Route as GiveRouteImport } from './routes/give'
 import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CategoriesRouteImport } from './routes/categories'
@@ -51,6 +51,11 @@ import { Route as ApiCategoriesTreeRouteImport } from './routes/api/categories/t
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
   path: '/transparency',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SponsorRoute = SponsorRouteImport.update({
+  id: '/sponsor',
+  path: '/sponsor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -103,11 +108,6 @@ const GiveABlessingRoute = GiveABlessingRouteImport.update({
   path: '/give-a-blessing',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GiveRoute = GiveRouteImport.update({
-  id: '/give',
-  path: '/give',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ExploreBlessingsRoute = ExploreBlessingsRouteImport.update({
   id: '/explore-blessings',
   path: '/explore-blessings',
@@ -149,9 +149,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SponsorDashboardRoute = SponsorDashboardRouteImport.update({
-  id: '/sponsor/dashboard',
-  path: '/sponsor/dashboard',
-  getParentRoute: () => rootRouteImport,
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => SponsorRoute,
 } as any)
 const NgoOnboardingRoute = NgoOnboardingRouteImport.update({
   id: '/onboarding',
@@ -248,7 +248,6 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
-  '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -259,6 +258,7 @@ export interface FileRoutesByFullPath {
   '/request-help': typeof RequestHelpRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/god-view': typeof AdminGodViewRoute
@@ -288,7 +288,6 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
-  '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -299,6 +298,7 @@ export interface FileRoutesByTo {
   '/request-help': typeof RequestHelpRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/god-view': typeof AdminGodViewRoute
@@ -329,7 +329,6 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
-  '/give': typeof GiveRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -340,6 +339,7 @@ export interface FileRoutesById {
   '/request-help': typeof RequestHelpRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
   '/admin/command-center': typeof AdminCommandCenterRoute
   '/admin/god-view': typeof AdminGodViewRoute
@@ -371,7 +371,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/dashboard'
     | '/explore-blessings'
-    | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -382,6 +381,7 @@ export interface FileRouteTypes {
     | '/request-help'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/sponsor'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/god-view'
@@ -411,7 +411,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/dashboard'
     | '/explore-blessings'
-    | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -422,6 +421,7 @@ export interface FileRouteTypes {
     | '/request-help'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/sponsor'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/god-view'
@@ -451,7 +451,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/dashboard'
     | '/explore-blessings'
-    | '/give'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -462,6 +461,7 @@ export interface FileRouteTypes {
     | '/request-help'
     | '/reset-password'
     | '/sitemap.xml'
+    | '/sponsor'
     | '/transparency'
     | '/admin/command-center'
     | '/admin/god-view'
@@ -492,7 +492,6 @@ export interface RootRouteChildren {
   CategoriesRoute: typeof CategoriesRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
   ExploreBlessingsRoute: typeof ExploreBlessingsRoute
-  GiveRoute: typeof GiveRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
   ImpactMapRoute: typeof ImpactMapRoute
@@ -503,6 +502,7 @@ export interface RootRouteChildren {
   RequestHelpRoute: typeof RequestHelpRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SponsorRoute: typeof SponsorRouteWithChildren
   TransparencyRoute: typeof TransparencyRoute
   AdminCommandCenterRoute: typeof AdminCommandCenterRoute
   AdminGodViewRoute: typeof AdminGodViewRoute
@@ -512,7 +512,6 @@ export interface RootRouteChildren {
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
-  SponsorDashboardRoute: typeof SponsorDashboardRoute
   ApiCategoriesTreeRoute: typeof ApiCategoriesTreeRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
@@ -528,6 +527,13 @@ declare module '@tanstack/react-router' {
       path: '/transparency'
       fullPath: '/transparency'
       preLoaderRoute: typeof TransparencyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sponsor': {
+      id: '/sponsor'
+      path: '/sponsor'
+      fullPath: '/sponsor'
+      preLoaderRoute: typeof SponsorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -600,13 +606,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GiveABlessingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/give': {
-      id: '/give'
-      path: '/give'
-      fullPath: '/give'
-      preLoaderRoute: typeof GiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/explore-blessings': {
       id: '/explore-blessings'
       path: '/explore-blessings'
@@ -665,10 +664,10 @@ declare module '@tanstack/react-router' {
     }
     '/sponsor/dashboard': {
       id: '/sponsor/dashboard'
-      path: '/sponsor/dashboard'
+      path: '/dashboard'
       fullPath: '/sponsor/dashboard'
       preLoaderRoute: typeof SponsorDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof SponsorRoute
     }
     '/ngo/onboarding': {
       id: '/ngo/onboarding'
@@ -826,6 +825,17 @@ const NgoRouteChildren: NgoRouteChildren = {
 
 const NgoRouteWithChildren = NgoRoute._addFileChildren(NgoRouteChildren)
 
+interface SponsorRouteChildren {
+  SponsorDashboardRoute: typeof SponsorDashboardRoute
+}
+
+const SponsorRouteChildren: SponsorRouteChildren = {
+  SponsorDashboardRoute: SponsorDashboardRoute,
+}
+
+const SponsorRouteWithChildren =
+  SponsorRoute._addFileChildren(SponsorRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -835,7 +845,6 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesRoute: CategoriesRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
   ExploreBlessingsRoute: ExploreBlessingsRoute,
-  GiveRoute: GiveRoute,
   GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
   ImpactMapRoute: ImpactMapRoute,
@@ -846,6 +855,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestHelpRoute: RequestHelpRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SponsorRoute: SponsorRouteWithChildren,
   TransparencyRoute: TransparencyRoute,
   AdminCommandCenterRoute: AdminCommandCenterRoute,
   AdminGodViewRoute: AdminGodViewRoute,
@@ -855,7 +865,6 @@ const rootRouteChildren: RootRouteChildren = {
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
-  SponsorDashboardRoute: SponsorDashboardRoute,
   ApiCategoriesTreeRoute: ApiCategoriesTreeRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
@@ -866,3 +875,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
