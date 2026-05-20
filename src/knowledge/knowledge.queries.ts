@@ -1,5 +1,6 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Blessing } from "@/domain/blessing/blessing.model";
+import type { Campaign } from "@/domain/campaign";
 import { campaignToBlessing } from "@/domain/blessing/blessing.adapter";
 
 export async function getActiveBlessings(): Promise<Blessing[]> {
@@ -10,7 +11,7 @@ export async function getActiveBlessings(): Promise<Blessing[]> {
 
   if (error) throw error;
 
-  return (data ?? []).map(campaignToBlessing);
+  return ((data ?? []) as unknown as Campaign[]).map(campaignToBlessing);
 }
 
 export async function getBlessingByHandle(handle: string): Promise<Blessing | null> {
@@ -22,7 +23,7 @@ export async function getBlessingByHandle(handle: string): Promise<Blessing | nu
 
   if (error) throw error;
 
-  return data ? campaignToBlessing(data) : null;
+  return data ? campaignToBlessing(data as unknown as Campaign) : null;
 }
 
 export async function getFundingVelocity() {

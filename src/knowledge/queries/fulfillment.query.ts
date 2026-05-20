@@ -1,18 +1,21 @@
+import { supabase } from "@/integrations/supabase/client";
+
 export async function getFulfillmentStatus(zip: string) {
   const accommodation = await supabase
-    .from("housing_partners")
+    .from("accommodation_suppliers" as any)
     .select("*")
     .eq("zip", zip)
     .maybeSingle();
 
   const food = await supabase
-    .from("food_partners")
+    .from("accommodation_suppliers" as any)
     .select("*")
     .eq("zip", zip)
+    .eq("vegan_meal_available", true)
     .maybeSingle();
 
   const transport = await supabase
-    .from("transport_partners")
+    .from("accommodation_suppliers" as any)
     .select("*")
     .eq("zip", zip)
     .maybeSingle();
