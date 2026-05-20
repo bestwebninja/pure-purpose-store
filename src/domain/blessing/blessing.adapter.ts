@@ -16,9 +16,6 @@ export function campaignToBlessing(c: Campaign): Blessing {
 
     status,
 
-    image_url: c.image_url ?? null,
-    location: c.location ?? null,
-
     person_id: "",
     created_at: c.created_at ?? undefined,
     updated_at: c.updated_at ?? undefined,
