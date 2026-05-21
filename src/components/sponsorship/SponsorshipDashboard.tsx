@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { checkZipFulfillment } from "@/lib/suppliers/zipFulfillment.functions";
+import { verifyCheckoutFulfillment } from "@/lib/suppliers/checkoutVerification.functions";
 
 type FulfillmentState =
   | { status: "idle" }
@@ -14,11 +15,21 @@ type FulfillmentState =
 
 export function SponsorshipDashboard() {
   const checkZip = useServerFn(checkZipFulfillment);
+  const verifyCheckout = useServerFn(verifyCheckoutFulfillment);
   const [zip, setZip] = useState("");
   const [state, setState] = useState<FulfillmentState>({ status: "idle" });
+  const [verifying, setVerifying] = useState(false);
+  const [verified, setVerified] = useState<null | {
+    fulfillable: boolean;
+    supplierCount: number;
+    zip: string;
+  }>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
 
   useEffect(() => {
     const value = zip.trim();
+    setVerified(null);
+    setVerifyError(null);
     if (!value) {
       setState({ status: "idle" });
       return;
@@ -50,6 +61,24 @@ export function SponsorshipDashboard() {
   }, [zip, checkZip]);
 
   const fulfillable = state.status === "ready" && state.active;
+
+  async function handleSponsor() {
+    const value = zip.trim();
+    if (!value) return;
+    setVerifying(true);
+    setVerifyError(null);
+    try {
+      const res = await verifyCheckout({ data: { zip: value } });
+      setVerified(res);
+      if (!res.fulfillable) {
+        setVerifyError("Sponsorship not yet active in this region");
+      }
+    } catch (err) {
+      setVerifyError(err instanceof Error ? err.message : "Verification failed");
+    } finally {
+      setVerifying(false);
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[30%_70%] gap-4 p-4">
@@ -107,13 +136,26 @@ export function SponsorshipDashboard() {
 
             <Button
               type="button"
-              disabled={!fulfillable}
+              disabled={!fulfillable || verifying}
               className="w-full"
+              onClick={handleSponsor}
             >
-              {fulfillable
+              {verifying
+                ? "Verifying real-world availability…"
+                : fulfillable
                 ? "Sponsor this package"
                 : "Enter a serviceable ZIP to continue"}
             </Button>
+
+            {verifyError && (
+              <p className="text-sm text-destructive">{verifyError}</p>
+            )}
+            {verified?.fulfillable && (
+              <p className="text-sm text-green-700">
+                Verified — {verified.supplierCount} active supplier
+                {verified.supplierCount === 1 ? "" : "s"} ready for fulfillment.
+              </p>
+            )}
           </CardContent>
         </Card>
       </section>
