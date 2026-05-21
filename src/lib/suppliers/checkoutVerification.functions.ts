@@ -1,6 +1,6 @@
-import { createServerFn } from "@tanstack/react-start";
+﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { verifyFulfillmentBeforeCheckout } from "@/server/suppliers/checkoutVerification.server";
+import { verifyFulfillmentBeforeCheckout } from "@/server/api/gateway";
 
 const schema = z.object({
   zip: z.string().min(1).max(16).regex(/^[A-Za-z0-9 \-]+$/),

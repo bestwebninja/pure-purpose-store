@@ -1,4 +1,5 @@
-
-import { startSupplierVerificationCron } from '@/server/cron/supplierVerification.cron';
+﻿
+import { startSupplierVerificationCron } from '@/server/api/gateway';
 startSupplierVerificationCron();
+
 

@@ -2,7 +2,11 @@
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { verifyFundingPackage, getShopifyCredentials } from "@/server/api/gateway";
+import {
+  SHOPIFY_STORE_PERMANENT_DOMAIN,
+  SHOPIFY_STOREFRONT_URL,
+  SHOPIFY_STOREFRONT_TOKEN,
+} from "";
 
 const CART_CREATE = `
   mutation cartCreate($input: CartInput!) {
@@ -41,7 +45,6 @@ export const createBlessingCheckout = createServerFn({ method: "POST" })
       .select("id, handle, title, shopify_variant_id")
       .eq("id", data.campaignId)
       .maybeSingle();
-      
     if (error || !campaign) {
       throw new Error("Blessing not found");
     }
@@ -51,18 +54,15 @@ export const createBlessingCheckout = createServerFn({ method: "POST" })
       );
     }
 
-    // Dynamic runtime evaluation securely calls process.env variables from the server side only
-    const credentials = await getShopifyCredentials();
-
     // Quantity = donation amount in whole units. Variant price should be 1.00 of the same currency
     // so totals match. (Standard "donation product" pattern in Shopify.)
     const quantity = Math.max(1, Math.round(data.amount));
 
-    const res = await fetch(credentials.url, {
+    const res = await fetch(SHOPIFY_STOREFRONT_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": credentials.token,
+        "X-Shopify-Storefront-Access-Token": SHOPIFY_STOREFRONT_TOKEN,
       },
       body: JSON.stringify({
         query: CART_CREATE,
@@ -93,7 +93,7 @@ export const createBlessingCheckout = createServerFn({ method: "POST" })
     }
     const checkoutUrl = json?.data?.cartCreate?.cart?.checkoutUrl;
     if (!checkoutUrl) throw new Error("No checkout URL returned");
-    return { checkoutUrl: withChannel(checkoutUrl), domain: credentials.domain };
+    return { checkoutUrl: withChannel(checkoutUrl), domain: SHOPIFY_STORE_PERMANENT_DOMAIN };
   });
 
 /**
@@ -134,7 +134,7 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
     const amountCents = Math.round(data.amount * 100);
     if (amountCents !== pkg.total_cents) {
       throw new Error(
-        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} — received ${data.amount.toFixed(2)}.`,
+        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} â€” received ${data.amount.toFixed(2)}.`,
       );
     }
 
@@ -147,5 +147,12 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
       total: pkg.total_cents / 100,
       currency: pkg.currency,
       item_count: pkg.items.length,
+      // Checkout URL generation per blessing item is wired separately in the
+      // Funding Package UI flow; this guarded endpoint is the sole authority
+      // for confirming amount === package.total before any Shopify cart is
+      // created.
     };
   });
+
+
+

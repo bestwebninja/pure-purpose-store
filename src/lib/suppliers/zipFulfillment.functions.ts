@@ -1,9 +1,9 @@
-import { createServerFn } from "@tanstack/react-start";
+﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import {
   isZipFulfillable,
   getActiveSuppliersByZip,
-} from "@/server/suppliers/zipFulfillment.server";
+} from "@/server/api/gateway";
 
 const zipSchema = z.object({
   zip: z.string().min(1).max(16).regex(/^[A-Za-z0-9 \-]+$/),

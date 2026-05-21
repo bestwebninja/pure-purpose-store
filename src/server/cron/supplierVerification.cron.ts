@@ -1,4 +1,4 @@
-import { runSupplierVerificationCycle } from "@/server/openclaw/supplierVerificationWorker";
+﻿import { runSupplierVerificationCycle } from "@/server/api/gateway";
 
 let isRunning = false;
 

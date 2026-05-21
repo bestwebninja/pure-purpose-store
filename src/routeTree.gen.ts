@@ -29,6 +29,7 @@ import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as AboutMyblessingsRouteImport } from './routes/about-myblessings'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as SponsorDashboardRouteImport } from './routes/sponsor.dashboard'
 import { Route as NgoOnboardingRouteImport } from './routes/ngo.onboarding'
 import { Route as MeProfileRouteImport } from './routes/me.profile'
@@ -146,6 +147,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SponsorDashboardRoute = SponsorDashboardRouteImport.update({
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -312,6 +319,7 @@ export interface FileRoutesByTo {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/admin': typeof AdminIndexRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -353,6 +361,7 @@ export interface FileRoutesById {
   '/me/profile': typeof MeProfileRoute
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
+  '/admin/': typeof AdminIndexRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -395,6 +404,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/admin/'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -435,6 +445,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/admin'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -475,6 +486,7 @@ export interface FileRouteTypes {
     | '/me/profile'
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
+    | '/admin/'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -512,6 +524,7 @@ export interface RootRouteChildren {
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
   MeProfileRoute: typeof MeProfileRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   ApiCategoriesTreeRoute: typeof ApiCategoriesTreeRoute
   ApiPublicGoLiveReportRoute: typeof ApiPublicGoLiveReportRoute
   ApiPublicHealthRoute: typeof ApiPublicHealthRoute
@@ -660,6 +673,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sponsor/dashboard': {
@@ -865,6 +885,7 @@ const rootRouteChildren: RootRouteChildren = {
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,
   MeProfileRoute: MeProfileRoute,
+  AdminIndexRoute: AdminIndexRoute,
   ApiCategoriesTreeRoute: ApiCategoriesTreeRoute,
   ApiPublicGoLiveReportRoute: ApiPublicGoLiveReportRoute,
   ApiPublicHealthRoute: ApiPublicHealthRoute,
@@ -875,3 +896,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

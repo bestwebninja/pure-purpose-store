@@ -1,5 +1,5 @@
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { verifyFulfillmentBeforeCheckout } from "@/server/suppliers/checkoutVerification.server";
+﻿import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { verifyFulfillmentBeforeCheckout } from "@/server/api/gateway";
 import { calculatePetriAllocation } from "@/domain/petri/petri.engine";
 import type {
   BlesseeProfile,
@@ -68,7 +68,7 @@ export async function allocateStabilizationSponsor(
 /**
  * Loads eligible blessee profiles for a ZIP. Sourced from `cases` rows that
  * are open for stabilization. Returns empty list if the projection cannot
- * be derived — keeps the engine deterministic.
+ * be derived â€” keeps the engine deterministic.
  */
 async function loadEligibleBlessees(zip: string): Promise<BlesseeProfile[]> {
   const { data, error } = await supabaseAdmin
