@@ -2,7 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { listSponsorInvoices } from "@/server/invoicing.functions";
+import { listSponsorInvoices } from "@/server/api/gateway";
 
 type Invoice = {
   id: string;
@@ -130,4 +130,5 @@ export function SponsorInvoicesList() {
     </Card>
   );
 }
+
 

@@ -2,7 +2,7 @@
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "@/server/utils";
+import { cn } from "@/server/api/gateway";
 import { Button } from "@/components/ui/button";
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -238,4 +238,5 @@ export {
   CarouselPrevious,
   CarouselNext,
 };
+
 

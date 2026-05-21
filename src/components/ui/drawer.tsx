@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
-import { cn } from "@/server/utils";
+import { cn } from "@/server/api/gateway";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -96,4 +96,5 @@ export {
   DrawerTitle,
   DrawerDescription,
 };
+
 

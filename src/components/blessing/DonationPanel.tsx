@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,8 +9,8 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
 
-import { createBlessingCheckout } from "@/server/checkout.functions";
-import type { Campaign } from "@/server/campaigns.functions";
+import { createBlessingCheckout } from "@/server/api/gateway";
+import type { Campaign } from "@/server/api/gateway";
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 
@@ -31,7 +31,7 @@ export function DonationPanel({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Exact-amount funding only â€” sponsors fund the full blessing package.
+  // Exact-amount funding only Ã¢â‚¬â€ sponsors fund the full blessing package.
   const exactAmount = campaign.goal_amount;
 
   const pct = Math.min(
@@ -93,7 +93,7 @@ export function DonationPanel({
           {formatMoney(exactAmount, campaign.currency)}
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Partial donations are not accepted â€” sponsor the full blessing.
+          Partial donations are not accepted Ã¢â‚¬â€ sponsor the full blessing.
         </p>
       </div>
 
@@ -123,7 +123,7 @@ export function DonationPanel({
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Thinking of youâ€¦"
+            placeholder="Thinking of youÃ¢â‚¬Â¦"
             rows={3}
           />
         </div>
@@ -139,9 +139,10 @@ export function DonationPanel({
         Fund this Blessing for {formatMoney(exactAmount, campaign.currency)}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
-        Secure checkout powered by Shopify Â· 100% transparent
+        Secure checkout powered by Shopify Ã‚Â· 100% transparent
       </p>
     </Card>
   );
 }
+
 

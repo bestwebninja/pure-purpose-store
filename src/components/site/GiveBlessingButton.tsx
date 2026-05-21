@@ -17,8 +17,10 @@ export function GiveBlessingButton({ className = "", size = "default" }: Props) 
           "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
       }}
     >
-      <Link to="/give-a-blessing">Give a Blessing ðŸ™</Link>
+      {/* FIXED: Replaced corrupted encoding characters with explicit Unicode literal evaluation */}
+      <Link to="/give-a-blessing">
+        Give a Blessing {"\u{1F64F}"}
+      </Link>
     </Button>
   );
 }
-

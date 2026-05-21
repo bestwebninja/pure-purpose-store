@@ -4,7 +4,9 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
-import { cn } from "@/server/utils";
+// FIXED: Routed class merging utility away from the server entry point 
+// and into your client-safe shared utility layer.
+import { cn } from "@/utils/api";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -102,4 +104,3 @@ export {
   DialogTitle,
   DialogDescription,
 };
-

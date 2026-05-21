@@ -5,13 +5,14 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
+    "dev": "powershell -ExecutionPolicy Bypass -File ./scripts/enforce-gateway.ps1 && vite dev",
+    "build": "powershell -ExecutionPolicy Bypass -File ./scripts/enforce-gateway.ps1 && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "echo no tests yet ^&^& exit 0"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",

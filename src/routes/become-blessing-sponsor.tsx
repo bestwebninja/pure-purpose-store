@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { createSponsorProfile } from "@/server/sponsor.functions";
+import { createSponsorProfile } from "@/server/api/gateway";
 
  const ROLES = ["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"] as const;
 const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "Counselling", "Disaster Relief", "Elderly Care"];
@@ -187,4 +187,5 @@ function BecomeSponsor() {
 
 const glow =
   "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
+
 

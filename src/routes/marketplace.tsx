@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { CampaignCard } from "@/components/blessing/CampaignCard";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
-import { getMarketplaceFeed, getLifecycleCounts, type LifecycleCounts } from "@/server/lifecycle.server";
+import { getMarketplaceFeed, getLifecycleCounts, type LifecycleCounts } from "@/server/api/gateway";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
 export const Route = createFileRoute("/marketplace")({
@@ -51,4 +51,5 @@ function MarketplacePage() {
     </div>
   );
 }
+
 

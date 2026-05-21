@@ -3,7 +3,9 @@
 import * as React from "react";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
 
-import { cn } from "@/server/utils";
+// FIXED: Routed class merging utility away from the server entry point 
+// and into your client-safe shared utility configuration layer.
+import { cn } from "@/utils/api";
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
@@ -23,4 +25,3 @@ const Progress = React.forwardRef<
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
 export { Progress };
-

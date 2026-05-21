@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { listSponsors, updateSponsorStatus } from "@/server/sponsor.functions";
+import { listSponsors, updateSponsorStatus } from "@/server/api/gateway";
 
 type Sponsor = {
   id: string;
@@ -93,4 +93,5 @@ function AdminSponsors() {
     </div>
   );
 }
+
 

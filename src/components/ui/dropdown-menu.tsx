@@ -3,8 +3,7 @@
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
-
-import { cn } from "@/server/utils";
+import { cn } from "@/utils/api";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -167,23 +166,3 @@ const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTML
     <span className={cn("ml-auto text-xs tracking-widest opacity-60", className)} {...props} />
   );
 };
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
-
-export {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuCheckboxItem,
-  DropdownMenuRadioItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuRadioGroup,
-};
-

@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
-import { getMySponsorProfile } from "@/server/sponsor.functions";
+import { getMySponsorProfile } from "@/server/api/gateway";
 import { SponsorUploadWidget } from "@/components/sponsor/SponsorUploadWidget";
 import { SponsorRecommendations } from "@/components/sponsor/SponsorRecommendations";
 import { SponsorInvoicesList } from "@/components/sponsor/SponsorInvoicesList";
@@ -123,4 +123,5 @@ function SponsorDashboard() {
     </div>
   );
 }
+
 

@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
+﻿import { Link } from "@tanstack/react-router";
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Users, MapPin } from "lucide-react";
-import type { Campaign } from "@/server/campaigns.functions";
+import type { Campaign } from "@/server/api/gateway";
 type CardCampaign = Pick<Campaign, "handle" | "title" | "image_url" | "short_description" | "location" | "donor_count" | "goal_amount" | "raised_amount" | "currency">;
 function formatMoney(n: number, currency = "USD") {
   return new Intl.NumberFormat("en-US", {
@@ -50,3 +50,4 @@ export function CampaignCard({
       </Card>
     </Link>;
 }
+

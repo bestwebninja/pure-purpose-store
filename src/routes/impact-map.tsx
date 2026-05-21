@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
-import { getImpactMapData, getLifecycleCounts, type LifecycleCounts } from "@/server/lifecycle.server";
+import { getImpactMapData, getLifecycleCounts, type LifecycleCounts } from "@/server/api/gateway";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
 export const Route = createFileRoute("/impact-map")({
@@ -68,4 +68,5 @@ function ImpactMapPage() {
     </div>
   );
 }
+
 

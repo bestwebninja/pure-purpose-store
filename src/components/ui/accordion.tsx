@@ -2,7 +2,7 @@
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { ChevronDown } from "lucide-react";
 
-import { cn } from "@/server/utils";
+import { cn } from "@/server/api/gateway";
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -49,4 +49,5 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+
 

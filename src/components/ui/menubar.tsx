@@ -2,7 +2,7 @@
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 import { Check, ChevronRight, Circle } from "lucide-react";
 
-import { cn } from "@/server/utils";
+import { cn } from "@/server/api/gateway";
 
 function MenubarMenu({ ...props }: React.ComponentProps<typeof MenubarPrimitive.Menu>) {
   return <MenubarPrimitive.Menu {...props} />;
@@ -227,4 +227,5 @@ export {
   MenubarSub,
   MenubarShortcut,
 };
+
 

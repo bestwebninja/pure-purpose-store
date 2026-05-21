@@ -4,9 +4,9 @@ import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getCommandCenterSnapshot } from "@/server/ngo.functions.server";
+import { getCommandCenterSnapshot } from "@/server/api/gateway";
 
-import { getLifecycleCounts, type LifecycleCounts } from "@/server/lifecycle.server";
+import { getLifecycleCounts, type LifecycleCounts } from "@/server/api/gateway";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
@@ -226,4 +226,5 @@ function CommandCenter() {
     </div>
   );
 }
+
 

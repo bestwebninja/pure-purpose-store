@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useServerFn } from "@tanstack/react-start";
-import { getSponsorRecommendations } from "@/server/sponsor-decision.functions";
+import { getSponsorRecommendations } from "@/server/api/gateway";
 import { Sparkles, Loader2, RefreshCw } from "lucide-react";
 
 type Recommendation = {
@@ -107,4 +107,5 @@ function formatCurrency(amount: number, currency: string) {
     return `${currency} ${Math.round(amount)}`;
   }
 }
+
 

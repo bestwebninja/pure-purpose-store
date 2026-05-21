@@ -1,5 +1,5 @@
 ﻿import { Link, useNavigate } from "@tanstack/react-router";
-import { Heart, ChevronDown, UserCircle2, ShieldCheck, Menu } from "lucide-react";
+import { Heart, ChevronDown, ShieldCheck, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GiveBlessingButton } from "@/components/site/GiveBlessingButton";
@@ -16,9 +16,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
-    { to: "/explore-blessings", label: "Our Blessings" },
-   { to: "/request-help", label: "BlessME" },
-   { to: "/my-blessings", label: "My Blessings" },
+  { to: "/explore-blessings", label: "Our Blessings" },
+  { to: "/request-help", label: "BlessME" },
+  { to: "/my-blessings", label: "My Blessings" },
 ] as const;
 
 export function SiteHeader() {
@@ -28,6 +28,7 @@ export function SiteHeader() {
   const [isSponsor, setIsSponsor] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState<string | null>(null);
+
   useEffect(() => {
     let cancelled = false;
     const check = async (uid: string | undefined) => {
@@ -55,10 +56,12 @@ export function SiteHeader() {
         setDisplayName(p?.display_name ?? null);
       }
     };
+    
     supabase.auth.getUser().then(({ data }) => check(data.user?.id));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       window.setTimeout(() => check(session?.user?.id), 0);
     });
+    
     return () => {
       cancelled = true;
       sub.subscription.unsubscribe();
@@ -87,6 +90,7 @@ export function SiteHeader() {
           </span>
           <span className="text-display text-lg font-semibold tracking-tight">MyBlessings</span>
         </Link>
+        
         <nav className="hidden flex-1 items-center justify-center gap-6 lg:flex">
           {NAV.map((item) => (
             <Link
@@ -130,6 +134,7 @@ export function SiteHeader() {
             </DropdownMenu>
           )}
         </nav>
+        
         <div className="flex shrink-0 items-center gap-2">
           <Sheet>
             <SheetTrigger asChild>
@@ -200,11 +205,13 @@ export function SiteHeader() {
               </nav>
             </SheetContent>
           </Sheet>
+          
           {!isSponsor && (
             <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
+          
           {userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-muted hover:text-foreground sm:inline-flex">
@@ -242,4 +249,3 @@ export function SiteHeader() {
     </header>
   );
 }
-

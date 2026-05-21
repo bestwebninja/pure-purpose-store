@@ -11,7 +11,7 @@ import {
   rejectMatch,
   executeMatch,
   listFulfillmentForMatch,
-} from "@/server/match-control.functions";
+} from "@/server/api/gateway";
 
 type Match = {
   id: string;
@@ -179,4 +179,5 @@ function AdminMatchControl() {
     </div>
   );
 }
+
 

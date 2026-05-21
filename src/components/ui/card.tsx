@@ -1,6 +1,8 @@
 ﻿import * as React from "react";
 
-import { cn } from "@/server/utils";
+// FIXED: Routed class merging utility away from the server entry point 
+// and into your client-safe utility configuration layer.
+import { cn } from "@/utils/api";
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
@@ -53,4 +55,3 @@ const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 CardFooter.displayName = "CardFooter";
 
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };
-

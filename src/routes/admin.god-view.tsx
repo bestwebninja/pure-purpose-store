@@ -10,8 +10,8 @@ import { Slider } from "@/components/ui/slider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { recomputePetriScores } from "@/server/petri-recompute.functions";
-import { approveFlywheelReport, listImpactReports } from "@/server/flywheel.functions";
+import { recomputePetriScores } from "@/server/api/gateway";
+import { approveFlywheelReport, listImpactReports } from "@/server/api/gateway";
 
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
@@ -744,4 +744,5 @@ function GodView() {
     </div>
   );
 }
+
 

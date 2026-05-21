@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 
-import { cn } from "@/server/utils";
+import { cn } from "@/server/api/gateway";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
@@ -329,4 +329,5 @@ export {
   ChartLegendContent,
   ChartStyle,
 };
+
 

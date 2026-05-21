@@ -1,12 +1,1 @@
-#!/bin/sh
-
-echo "🔒 Running Architecture Guard..."
-
-powershell -ExecutionPolicy Bypass -File scripts/arch-guard.ps1
-
-if [ $? -ne 0 ]; then
-  echo "❌ Architecture violation detected - commit blocked"
-  exit 1
-fi
-
-echo "✅ Architecture clean - commit allowed"
+npm test

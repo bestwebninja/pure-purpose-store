@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { getMyGiving } from "@/server/giving.functions";
+import { getMyGiving } from "@/server/api/gateway";
 
 type Donation = {
   id: string;
@@ -102,4 +102,5 @@ function MyGiving() {
     </div>
   );
 }
+
 
