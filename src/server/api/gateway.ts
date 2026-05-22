@@ -68,8 +68,16 @@ const shopify = () => import("../shopify");
 const match = () => import("../match-control.functions");
 const campaigns = () => import("../campaigns.functions");
 const sponsor = () => import("../sponsor.functions");
+const sponsorDecision = () => import("../sponsor-decision.functions");
+const sponsorUploads = () => import("../sponsor-uploads.functions");
+const invoicing = () => import("../invoicing.functions");
+const lifecycle = () => import("../lifecycle.server");
+const flywheel = () => import("../flywheel.functions");
+const giving = () => import("../giving.functions");
 const stats = () => import("../stats.functions");
 const petri = () => import("../petri-recompute.functions");
+const petriCore = () => import("../petri-recompute.server");
+const petriAllocation = () => import("../petri/petriAllocation.server");
 
 // Suppliers
 const supplierZip = () =>
@@ -77,6 +85,8 @@ const supplierZip = () =>
 
 const supplierSync = () =>
   import("../suppliers/supplierSync.server");
+const checkoutVerification = () =>
+  import("../suppliers/checkoutVerification.server");
 
 // Utilities
 const moderation = () => import("../moderation.functions");
