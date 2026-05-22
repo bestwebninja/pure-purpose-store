@@ -28,7 +28,7 @@ function ResetPasswordPage() {
     });
 
     supabase.auth.getSession().then(({ data }) => {
-      setHasSession((prev) => prev ?? !!data.session);
+      setHasSession((prev) => (prev === null ? !!data.session : prev));
     });
 
     return () => sub.subscription.unsubscribe();
@@ -51,6 +51,9 @@ function ResetPasswordPage() {
 
       setDone(true);
       toast.success("Password updated successfully");
+
+      // Sign out the recovery session so the user signs in cleanly with the new password.
+      await supabase.auth.signOut();
 
       setTimeout(() => {
         navigate({ to: "/login" });
