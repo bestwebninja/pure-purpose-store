@@ -22,6 +22,7 @@ export type Database = {
           country: string
           created_at: string | null
           id: string
+          last_verified_at: string | null
           name: string
           status: string | null
           total_rooms: number
@@ -30,6 +31,8 @@ export type Database = {
           updated_at: string | null
           vegan_meal_available: boolean | null
           vegetarian_meal_available: boolean | null
+          verification_source: string | null
+          verification_status: string | null
           zip: string
         }
         Insert: {
@@ -39,6 +42,7 @@ export type Database = {
           country: string
           created_at?: string | null
           id?: string
+          last_verified_at?: string | null
           name: string
           status?: string | null
           total_rooms?: number
@@ -47,6 +51,8 @@ export type Database = {
           updated_at?: string | null
           vegan_meal_available?: boolean | null
           vegetarian_meal_available?: boolean | null
+          verification_source?: string | null
+          verification_status?: string | null
           zip: string
         }
         Update: {
@@ -56,6 +62,7 @@ export type Database = {
           country?: string
           created_at?: string | null
           id?: string
+          last_verified_at?: string | null
           name?: string
           status?: string | null
           total_rooms?: number
@@ -64,6 +71,8 @@ export type Database = {
           updated_at?: string | null
           vegan_meal_available?: boolean | null
           vegetarian_meal_available?: boolean | null
+          verification_source?: string | null
+          verification_status?: string | null
           zip?: string
         }
         Relationships: []
