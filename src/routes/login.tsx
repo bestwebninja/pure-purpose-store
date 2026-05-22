@@ -199,7 +199,7 @@ function Login() {
               <button
                 type="button"
                 onClick={handlePasswordReset}
-                className="text-sm font-medium text-primary hover:underline"
+                className="text-sm font-semibold text-blue-600 underline hover:text-blue-700"
               >
                 Forgot password?
               </button>
