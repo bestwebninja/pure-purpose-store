@@ -1,4 +1,36 @@
 import { createServerFn } from "@tanstack/react-start";
+import { cn } from "@/lib/utils";
+
+export { cn };
+
+export type Campaign = {
+  id: string;
+  handle: string;
+  title: string;
+  story: string | null;
+  short_description: string | null;
+  image_url: string | null;
+  beneficiary_name: string | null;
+  location: string | null;
+  goal_amount: number;
+  raised_amount: number;
+  donor_count: number;
+  currency: string;
+  status: string;
+  featured: boolean;
+  shopify_product_id: string | null;
+  shopify_variant_id: string | null;
+  category_slug?: string | null;
+};
+
+export type LifecycleCounts = {
+  requested: number;
+  matched: number;
+  funded: number;
+  delivered: number;
+  storyPublished: number;
+  followupActive: number;
+};
 
 /**
  * ===========================
@@ -267,9 +299,12 @@ export const getPublicStats = fn(
 export const getLifecycleCounts = fn(
   async (...args: any[]) =>
     (await stats()).getLifecycleCounts?.(...args) ?? {
-      active: 0,
-      pending: 0,
-      completed: 0,
+      requested: 0,
+      matched: 0,
+      funded: 0,
+      delivered: 0,
+      storyPublished: 0,
+      followupActive: 0,
     }
 );
 
