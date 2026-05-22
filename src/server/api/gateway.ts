@@ -1,4 +1,36 @@
 import { createServerFn } from "@tanstack/react-start";
+import { cn } from "@/lib/utils";
+
+export { cn };
+
+export type Campaign = {
+  id: string;
+  handle: string;
+  title: string;
+  story: string | null;
+  short_description: string | null;
+  image_url: string | null;
+  beneficiary_name: string | null;
+  location: string | null;
+  goal_amount: number;
+  raised_amount: number;
+  donor_count: number;
+  currency: string;
+  status: string;
+  featured: boolean;
+  shopify_product_id: string | null;
+  shopify_variant_id: string | null;
+  category_slug?: string | null;
+};
+
+export type LifecycleCounts = {
+  requested: number;
+  matched: number;
+  funded: number;
+  delivered: number;
+  storyPublished: number;
+  followupActive: number;
+};
 
 /**
  * ===========================
@@ -15,7 +47,9 @@ import { createServerFn } from "@tanstack/react-start";
 // =================================================
 
 function fn<T extends (...args: any[]) => any>(impl: T) {
-  return createServerFn().handler(impl);
+  return createServerFn({ method: "POST" })
+    .inputValidator((input: unknown) => input)
+    .handler((ctx: any) => impl(ctx));
 }
 
 // =================================================
@@ -23,53 +57,63 @@ function fn<T extends (...args: any[]) => any>(impl: T) {
 // =================================================
 
 // NGO
-const ngo = () => import("../ngo.functions.server");
+const ngo = (): Promise<any> => import("../ngo.functions.server");
 
 // Core
-const checkout = () => import("../checkout.functions");
-const cron = () => import("../cron/supplierVerification.cron");
-const shopify = () => import("../shopify");
+const checkout = (): Promise<any> => import("../checkout.functions");
+const cron = (): Promise<any> => import("../cron/supplierVerification.cron");
+const shopify = (): Promise<any> => import("../shopify");
 
 // Domain
-const match = () => import("../match-control.functions");
-const campaigns = () => import("../campaigns.functions");
-const sponsor = () => import("../sponsor.functions");
-const stats = () => import("../stats.functions");
-const petri = () => import("../petri-recompute.functions");
+const match = (): Promise<any> => import("../match-control.functions");
+const campaigns = (): Promise<any> => import("../campaigns.functions");
+const sponsor = (): Promise<any> => import("../sponsor.functions");
+const sponsorDecision = (): Promise<any> => import("../sponsor-decision.functions");
+const sponsorUploads = (): Promise<any> => import("../sponsor-uploads.functions");
+const invoicing = (): Promise<any> => import("../invoicing.functions");
+const lifecycle = (): Promise<any> => import("../lifecycle.server");
+const flywheel = (): Promise<any> => import("../flywheel.functions");
+const giving = (): Promise<any> => import("../giving.functions");
+const stats = (): Promise<any> => import("../stats.functions");
+const petri = (): Promise<any> => import("../petri-recompute.functions");
+const petriCore = (): Promise<any> => import("../petri-recompute.server");
+const petriAllocation = (): Promise<any> => import("../petri/petriAllocation.server");
 
 // Suppliers
-const supplierZip = () =>
-  import("../suppliers/zipFulfillment.functions");
+const supplierZip = (): Promise<any> =>
+  import("../suppliers/zipFulfillment.server");
 
-const supplierSync = () =>
+const supplierSync = (): Promise<any> =>
   import("../suppliers/supplierSync.server");
+const checkoutVerification = (): Promise<any> =>
+  import("../suppliers/checkoutVerification.server");
 
 // Utilities
-const moderation = () => import("../moderation.functions");
-const profile = () => import("../profile.functions");
+const moderation = (): Promise<any> => import("../moderation.functions");
+const profile = (): Promise<any> => import("../profile.functions");
 
 // =================================================
 // NGO
 // =================================================
 
 export const listNgoApplications = fn(
-  async (...args: any[]) =>
-    (await ngo()).listNgoApplications?.(...args) ?? []
+  async (ctx: any) =>
+    (await ngo()).listNgoApplications?.(ctx) ?? []
 );
 
 export const updateNgoStatus = fn(
-  async (...args: any[]) =>
-    (await ngo()).updateNgoStatus?.(...args)
+  async (ctx: any) =>
+    (await ngo()).updateNgoStatus?.(ctx)
 );
 
 export const submitNgoApplication = fn(
-  async (...args: any[]) =>
-    (await ngo()).submitNgoApplication?.(...args)
+  async (ctx: any) =>
+    (await ngo()).submitNgoApplication?.(ctx)
 );
 
 export const checkIsAdmin = fn(
-  async (...args: any[]) =>
-    (await ngo()).checkIsAdmin?.(...args) ?? false
+  async (ctx: any) =>
+    (await ngo()).checkIsAdmin?.(ctx) ?? false
 );
 
 // =================================================
@@ -77,30 +121,30 @@ export const checkIsAdmin = fn(
 // =================================================
 
 export const listMatchesForControl = fn(
-  async (...args: any[]) =>
-    (await match()).listMatchesForControl?.(...args) ?? {
+  async (ctx: any) =>
+    (await match()).listMatchesForControl?.(ctx) ?? {
       matches: [],
     }
 );
 
 export const approveMatch = fn(
-  async (...args: any[]) =>
-    (await match()).approveMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).approveMatch?.(ctx)
 );
 
 export const rejectMatch = fn(
-  async (...args: any[]) =>
-    (await match()).rejectMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).rejectMatch?.(ctx)
 );
 
 export const executeMatch = fn(
-  async (...args: any[]) =>
-    (await match()).executeMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).executeMatch?.(ctx)
 );
 
 export const listFulfillmentForMatch = fn(
-  async (...args: any[]) =>
-    (await match()).listFulfillmentForMatch?.(...args) ?? {
+  async (ctx: any) =>
+    (await match()).listFulfillmentForMatch?.(ctx) ?? {
       events: [],
     }
 );
@@ -110,13 +154,13 @@ export const listFulfillmentForMatch = fn(
 // =================================================
 
 export const getCampaignByHandle = fn(
-  async (...args: any[]) =>
-    (await campaigns()).getCampaignByHandle?.(...args) ?? {}
+  async (ctx: any) =>
+    (await campaigns()).getCampaignByHandle?.(ctx) ?? {}
 );
 
 export const listCampaignsByCategory = fn(
-  async (...args: any[]) =>
-    (await campaigns()).listCampaignsByCategory?.(...args) ?? []
+  async (ctx: any) =>
+    (await campaigns()).listCampaignsByCategory?.(ctx) ?? []
 );
 
 // =================================================
@@ -124,43 +168,43 @@ export const listCampaignsByCategory = fn(
 // =================================================
 
 export const listSponsors = fn(
-  async (...args: any[]) =>
-    (await sponsor()).listSponsors?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).listSponsors?.(ctx) ?? []
 );
 
 export const updateSponsorStatus = fn(
-  async (...args: any[]) =>
-    (await sponsor()).updateSponsorStatus?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).updateSponsorStatus?.(ctx)
 );
 
 export const createSponsorProfile = fn(
-  async (...args: any[]) =>
-    (await sponsor()).createSponsorProfile?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).createSponsorProfile?.(ctx)
 );
 
 export const getMySponsorProfile = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getMySponsorProfile?.(...args) ?? {}
+  async (ctx: any) =>
+    (await sponsor()).getMySponsorProfile?.(ctx) ?? {}
 );
 
 export const getSponsorRecommendations = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getSponsorRecommendations?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).getSponsorRecommendations?.(ctx) ?? []
 );
 
 export const listSponsorInvoices = fn(
-  async (...args: any[]) =>
-    (await sponsor()).listSponsorInvoices?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).listSponsorInvoices?.(ctx) ?? []
 );
 
 export const updateSponsorAssets = fn(
-  async (...args: any[]) =>
-    (await sponsor()).updateSponsorAssets?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).updateSponsorAssets?.(ctx)
 );
 
 export const getMySponsorDocUrl = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getMySponsorDocUrl?.(...args) ?? ""
+  async (ctx: any) =>
+    (await sponsor()).getMySponsorDocUrl?.(ctx) ?? ""
 );
 
 // =================================================
@@ -168,23 +212,23 @@ export const getMySponsorDocUrl = fn(
 // =================================================
 
 export const createBlessingCheckout = fn(
-  async (...args: any[]) =>
-    (await checkout()).createBlessingCheckout?.(...args)
+  async (ctx: any) =>
+    (await checkout()).createBlessingCheckout?.(ctx)
 );
 
 export const verifyFulfillmentBeforeCheckout = fn(
-  async (...args: any[]) =>
-    (await checkout()).verifyFulfillmentBeforeCheckout?.(...args)
+  async (ctx: any) =>
+    (await checkout()).verifyFulfillmentBeforeCheckout?.(ctx)
 );
 
 export const verifyFundingPackage = fn(
-  async (...args: any[]) =>
-    (await checkout()).verifyFundingPackage?.(...args)
+  async (ctx: any) =>
+    (await checkout()).verifyFundingPackage?.(ctx)
 );
 
 export const getShopifyCredentials = fn(
-  async (...args: any[]) =>
-    (await shopify()).getShopifyCredentials?.(...args)
+  async (ctx: any) =>
+    (await shopify()).getShopifyCredentials?.(ctx)
 );
 
 // =================================================
@@ -192,18 +236,18 @@ export const getShopifyCredentials = fn(
 // =================================================
 
 export const allocateStabilizationSponsor = fn(
-  async (...args: any[]) =>
-    (await petri()).allocateStabilizationSponsor?.(...args)
+  async (ctx: any) =>
+    (await petri()).allocateStabilizationSponsor?.(ctx)
 );
 
 export const recomputePetriScores = fn(
-  async (...args: any[]) =>
-    (await petri()).recomputePetriScores?.(...args)
+  async (ctx: any) =>
+    (await petri()).recomputePetriScores?.(ctx)
 );
 
 export const recomputePetriScoresCore = fn(
-  async (...args: any[]) =>
-    (await petri()).recomputePetriScoresCore?.(...args)
+  async (ctx: any) =>
+    (await petri()).recomputePetriScoresCore?.(ctx)
 );
 
 // =================================================
@@ -211,13 +255,13 @@ export const recomputePetriScoresCore = fn(
 // =================================================
 
 export const isZipFulfillable = fn(
-  async (...args: any[]) =>
-    (await supplierZip()).isZipFulfillable?.(...args) ?? true
+  async (ctx: any) =>
+    (await supplierZip()).isZipFulfillable?.(ctx) ?? true
 );
 
 export const getActiveSuppliersByZip = fn(
-  async (...args: any[]) =>
-    (await supplierZip()).getActiveSuppliersByZip?.(...args) ?? []
+  async (ctx: any) =>
+    (await supplierZip()).getActiveSuppliersByZip?.(ctx) ?? []
 );
 
 // =================================================
@@ -225,13 +269,13 @@ export const getActiveSuppliersByZip = fn(
 // =================================================
 
 export const runSupplierVerificationCycle = fn(
-  async (...args: any[]) =>
-    (await cron()).runSupplierVerificationCycle?.(...args)
+  async (ctx: any) =>
+    (await cron()).runSupplierVerificationCycle?.(ctx)
 );
 
 export const startSupplierVerificationCron = fn(
-  async (...args: any[]) =>
-    (await cron()).startSupplierVerificationCron?.(...args)
+  async (ctx: any) =>
+    (await cron()).startSupplierVerificationCron?.(ctx)
 );
 
 // =================================================
@@ -239,18 +283,18 @@ export const startSupplierVerificationCron = fn(
 // =================================================
 
 export const getCommandCenterSnapshot = fn(
-  async (...args: any[]) =>
-    (await stats()).getCommandCenterSnapshot?.(...args) ?? {}
+  async (ctx: any) =>
+    (await stats()).getCommandCenterSnapshot?.(ctx) ?? {}
 );
 
 export const listImpactReports = fn(
-  async (...args: any[]) =>
-    (await stats()).listImpactReports?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).listImpactReports?.(ctx) ?? []
 );
 
 export const approveFlywheelReport = fn(
-  async (...args: any[]) =>
-    (await stats()).approveFlywheelReport?.(...args)
+  async (ctx: any) =>
+    (await stats()).approveFlywheelReport?.(ctx)
 );
 
 // =================================================
@@ -258,29 +302,32 @@ export const approveFlywheelReport = fn(
 // =================================================
 
 export const getPublicStats = fn(
-  async (...args: any[]) =>
-    (await stats()).getPublicStats?.(...args) ?? {
+  async (ctx: any) =>
+    (await stats()).getPublicStats?.(ctx) ?? {
       total: 0,
     }
 );
 
 export const getLifecycleCounts = fn(
-  async (...args: any[]) =>
-    (await stats()).getLifecycleCounts?.(...args) ?? {
-      active: 0,
-      pending: 0,
-      completed: 0,
+  async (ctx: any) =>
+    (await stats()).getLifecycleCounts?.(ctx) ?? {
+      requested: 0,
+      matched: 0,
+      funded: 0,
+      delivered: 0,
+      storyPublished: 0,
+      followupActive: 0,
     }
 );
 
 export const getImpactMapData = fn(
-  async (...args: any[]) =>
-    (await stats()).getImpactMapData?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).getImpactMapData?.(ctx) ?? []
 );
 
 export const getMarketplaceFeed = fn(
-  async (...args: any[]) =>
-    (await stats()).getMarketplaceFeed?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).getMarketplaceFeed?.(ctx) ?? []
 );
 
 // =================================================
@@ -288,23 +335,23 @@ export const getMarketplaceFeed = fn(
 // =================================================
 
 export const getMyProfile = fn(
-  async (...args: any[]) =>
-    (await profile()).getMyProfile?.(...args) ?? {}
+  async (ctx: any) =>
+    (await profile()).getMyProfile?.(ctx) ?? {}
 );
 
 export const updateMyProfile = fn(
-  async (...args: any[]) =>
-    (await profile()).updateMyProfile?.(...args)
+  async (ctx: any) =>
+    (await profile()).updateMyProfile?.(ctx)
 );
 
 export const moderateImage = fn(
-  async (...args: any[]) =>
-    (await moderation()).moderateImage?.(...args)
+  async (ctx: any) =>
+    (await moderation()).moderateImage?.(ctx)
 );
 
 export const getMyGiving = fn(
-  async (...args: any[]) =>
-    (await profile()).getMyGiving?.(...args) ?? {}
+  async (ctx: any) =>
+    (await profile()).getMyGiving?.(ctx) ?? {}
 );
 
 // =================================================
