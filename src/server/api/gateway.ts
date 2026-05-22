@@ -57,40 +57,40 @@ function fn<T extends (...args: any[]) => any>(impl: T) {
 // =================================================
 
 // NGO
-const ngo = () => import("../ngo.functions.server");
+const ngo = (): Promise<any> => import("../ngo.functions.server");
 
 // Core
-const checkout = () => import("../checkout.functions");
-const cron = () => import("../cron/supplierVerification.cron");
-const shopify = () => import("../shopify");
+const checkout = (): Promise<any> => import("../checkout.functions");
+const cron = (): Promise<any> => import("../cron/supplierVerification.cron");
+const shopify = (): Promise<any> => import("../shopify");
 
 // Domain
-const match = () => import("../match-control.functions");
-const campaigns = () => import("../campaigns.functions");
-const sponsor = () => import("../sponsor.functions");
-const sponsorDecision = () => import("../sponsor-decision.functions");
-const sponsorUploads = () => import("../sponsor-uploads.functions");
-const invoicing = () => import("../invoicing.functions");
-const lifecycle = () => import("../lifecycle.server");
-const flywheel = () => import("../flywheel.functions");
-const giving = () => import("../giving.functions");
-const stats = () => import("../stats.functions");
-const petri = () => import("../petri-recompute.functions");
-const petriCore = () => import("../petri-recompute.server");
-const petriAllocation = () => import("../petri/petriAllocation.server");
+const match = (): Promise<any> => import("../match-control.functions");
+const campaigns = (): Promise<any> => import("../campaigns.functions");
+const sponsor = (): Promise<any> => import("../sponsor.functions");
+const sponsorDecision = (): Promise<any> => import("../sponsor-decision.functions");
+const sponsorUploads = (): Promise<any> => import("../sponsor-uploads.functions");
+const invoicing = (): Promise<any> => import("../invoicing.functions");
+const lifecycle = (): Promise<any> => import("../lifecycle.server");
+const flywheel = (): Promise<any> => import("../flywheel.functions");
+const giving = (): Promise<any> => import("../giving.functions");
+const stats = (): Promise<any> => import("../stats.functions");
+const petri = (): Promise<any> => import("../petri-recompute.functions");
+const petriCore = (): Promise<any> => import("../petri-recompute.server");
+const petriAllocation = (): Promise<any> => import("../petri/petriAllocation.server");
 
 // Suppliers
-const supplierZip = () =>
+const supplierZip = (): Promise<any> =>
   import("../suppliers/zipFulfillment.server");
 
-const supplierSync = () =>
+const supplierSync = (): Promise<any> =>
   import("../suppliers/supplierSync.server");
-const checkoutVerification = () =>
+const checkoutVerification = (): Promise<any> =>
   import("../suppliers/checkoutVerification.server");
 
 // Utilities
-const moderation = () => import("../moderation.functions");
-const profile = () => import("../profile.functions");
+const moderation = (): Promise<any> => import("../moderation.functions");
+const profile = (): Promise<any> => import("../profile.functions");
 
 // =================================================
 // NGO
