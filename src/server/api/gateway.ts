@@ -87,23 +87,23 @@ const profile = () => import("../profile.functions");
 // =================================================
 
 export const listNgoApplications = fn(
-  async (...args: any[]) =>
-    (await ngo()).listNgoApplications?.(...args) ?? []
+  async (ctx: any) =>
+    (await ngo()).listNgoApplications?.(ctx) ?? []
 );
 
 export const updateNgoStatus = fn(
-  async (...args: any[]) =>
-    (await ngo()).updateNgoStatus?.(...args)
+  async (ctx: any) =>
+    (await ngo()).updateNgoStatus?.(ctx)
 );
 
 export const submitNgoApplication = fn(
-  async (...args: any[]) =>
-    (await ngo()).submitNgoApplication?.(...args)
+  async (ctx: any) =>
+    (await ngo()).submitNgoApplication?.(ctx)
 );
 
 export const checkIsAdmin = fn(
-  async (...args: any[]) =>
-    (await ngo()).checkIsAdmin?.(...args) ?? false
+  async (ctx: any) =>
+    (await ngo()).checkIsAdmin?.(ctx) ?? false
 );
 
 // =================================================
@@ -111,30 +111,30 @@ export const checkIsAdmin = fn(
 // =================================================
 
 export const listMatchesForControl = fn(
-  async (...args: any[]) =>
-    (await match()).listMatchesForControl?.(...args) ?? {
+  async (ctx: any) =>
+    (await match()).listMatchesForControl?.(ctx) ?? {
       matches: [],
     }
 );
 
 export const approveMatch = fn(
-  async (...args: any[]) =>
-    (await match()).approveMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).approveMatch?.(ctx)
 );
 
 export const rejectMatch = fn(
-  async (...args: any[]) =>
-    (await match()).rejectMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).rejectMatch?.(ctx)
 );
 
 export const executeMatch = fn(
-  async (...args: any[]) =>
-    (await match()).executeMatch?.(...args)
+  async (ctx: any) =>
+    (await match()).executeMatch?.(ctx)
 );
 
 export const listFulfillmentForMatch = fn(
-  async (...args: any[]) =>
-    (await match()).listFulfillmentForMatch?.(...args) ?? {
+  async (ctx: any) =>
+    (await match()).listFulfillmentForMatch?.(ctx) ?? {
       events: [],
     }
 );
@@ -144,13 +144,13 @@ export const listFulfillmentForMatch = fn(
 // =================================================
 
 export const getCampaignByHandle = fn(
-  async (...args: any[]) =>
-    (await campaigns()).getCampaignByHandle?.(...args) ?? {}
+  async (ctx: any) =>
+    (await campaigns()).getCampaignByHandle?.(ctx) ?? {}
 );
 
 export const listCampaignsByCategory = fn(
-  async (...args: any[]) =>
-    (await campaigns()).listCampaignsByCategory?.(...args) ?? []
+  async (ctx: any) =>
+    (await campaigns()).listCampaignsByCategory?.(ctx) ?? []
 );
 
 // =================================================
@@ -158,43 +158,43 @@ export const listCampaignsByCategory = fn(
 // =================================================
 
 export const listSponsors = fn(
-  async (...args: any[]) =>
-    (await sponsor()).listSponsors?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).listSponsors?.(ctx) ?? []
 );
 
 export const updateSponsorStatus = fn(
-  async (...args: any[]) =>
-    (await sponsor()).updateSponsorStatus?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).updateSponsorStatus?.(ctx)
 );
 
 export const createSponsorProfile = fn(
-  async (...args: any[]) =>
-    (await sponsor()).createSponsorProfile?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).createSponsorProfile?.(ctx)
 );
 
 export const getMySponsorProfile = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getMySponsorProfile?.(...args) ?? {}
+  async (ctx: any) =>
+    (await sponsor()).getMySponsorProfile?.(ctx) ?? {}
 );
 
 export const getSponsorRecommendations = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getSponsorRecommendations?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).getSponsorRecommendations?.(ctx) ?? []
 );
 
 export const listSponsorInvoices = fn(
-  async (...args: any[]) =>
-    (await sponsor()).listSponsorInvoices?.(...args) ?? []
+  async (ctx: any) =>
+    (await sponsor()).listSponsorInvoices?.(ctx) ?? []
 );
 
 export const updateSponsorAssets = fn(
-  async (...args: any[]) =>
-    (await sponsor()).updateSponsorAssets?.(...args)
+  async (ctx: any) =>
+    (await sponsor()).updateSponsorAssets?.(ctx)
 );
 
 export const getMySponsorDocUrl = fn(
-  async (...args: any[]) =>
-    (await sponsor()).getMySponsorDocUrl?.(...args) ?? ""
+  async (ctx: any) =>
+    (await sponsor()).getMySponsorDocUrl?.(ctx) ?? ""
 );
 
 // =================================================
@@ -202,23 +202,23 @@ export const getMySponsorDocUrl = fn(
 // =================================================
 
 export const createBlessingCheckout = fn(
-  async (...args: any[]) =>
-    (await checkout()).createBlessingCheckout?.(...args)
+  async (ctx: any) =>
+    (await checkout()).createBlessingCheckout?.(ctx)
 );
 
 export const verifyFulfillmentBeforeCheckout = fn(
-  async (...args: any[]) =>
-    (await checkout()).verifyFulfillmentBeforeCheckout?.(...args)
+  async (ctx: any) =>
+    (await checkout()).verifyFulfillmentBeforeCheckout?.(ctx)
 );
 
 export const verifyFundingPackage = fn(
-  async (...args: any[]) =>
-    (await checkout()).verifyFundingPackage?.(...args)
+  async (ctx: any) =>
+    (await checkout()).verifyFundingPackage?.(ctx)
 );
 
 export const getShopifyCredentials = fn(
-  async (...args: any[]) =>
-    (await shopify()).getShopifyCredentials?.(...args)
+  async (ctx: any) =>
+    (await shopify()).getShopifyCredentials?.(ctx)
 );
 
 // =================================================
@@ -226,18 +226,18 @@ export const getShopifyCredentials = fn(
 // =================================================
 
 export const allocateStabilizationSponsor = fn(
-  async (...args: any[]) =>
-    (await petri()).allocateStabilizationSponsor?.(...args)
+  async (ctx: any) =>
+    (await petri()).allocateStabilizationSponsor?.(ctx)
 );
 
 export const recomputePetriScores = fn(
-  async (...args: any[]) =>
-    (await petri()).recomputePetriScores?.(...args)
+  async (ctx: any) =>
+    (await petri()).recomputePetriScores?.(ctx)
 );
 
 export const recomputePetriScoresCore = fn(
-  async (...args: any[]) =>
-    (await petri()).recomputePetriScoresCore?.(...args)
+  async (ctx: any) =>
+    (await petri()).recomputePetriScoresCore?.(ctx)
 );
 
 // =================================================
@@ -245,13 +245,13 @@ export const recomputePetriScoresCore = fn(
 // =================================================
 
 export const isZipFulfillable = fn(
-  async (...args: any[]) =>
-    (await supplierZip()).isZipFulfillable?.(...args) ?? true
+  async (ctx: any) =>
+    (await supplierZip()).isZipFulfillable?.(ctx) ?? true
 );
 
 export const getActiveSuppliersByZip = fn(
-  async (...args: any[]) =>
-    (await supplierZip()).getActiveSuppliersByZip?.(...args) ?? []
+  async (ctx: any) =>
+    (await supplierZip()).getActiveSuppliersByZip?.(ctx) ?? []
 );
 
 // =================================================
@@ -259,13 +259,13 @@ export const getActiveSuppliersByZip = fn(
 // =================================================
 
 export const runSupplierVerificationCycle = fn(
-  async (...args: any[]) =>
-    (await cron()).runSupplierVerificationCycle?.(...args)
+  async (ctx: any) =>
+    (await cron()).runSupplierVerificationCycle?.(ctx)
 );
 
 export const startSupplierVerificationCron = fn(
-  async (...args: any[]) =>
-    (await cron()).startSupplierVerificationCron?.(...args)
+  async (ctx: any) =>
+    (await cron()).startSupplierVerificationCron?.(ctx)
 );
 
 // =================================================
@@ -273,18 +273,18 @@ export const startSupplierVerificationCron = fn(
 // =================================================
 
 export const getCommandCenterSnapshot = fn(
-  async (...args: any[]) =>
-    (await stats()).getCommandCenterSnapshot?.(...args) ?? {}
+  async (ctx: any) =>
+    (await stats()).getCommandCenterSnapshot?.(ctx) ?? {}
 );
 
 export const listImpactReports = fn(
-  async (...args: any[]) =>
-    (await stats()).listImpactReports?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).listImpactReports?.(ctx) ?? []
 );
 
 export const approveFlywheelReport = fn(
-  async (...args: any[]) =>
-    (await stats()).approveFlywheelReport?.(...args)
+  async (ctx: any) =>
+    (await stats()).approveFlywheelReport?.(ctx)
 );
 
 // =================================================
@@ -292,15 +292,15 @@ export const approveFlywheelReport = fn(
 // =================================================
 
 export const getPublicStats = fn(
-  async (...args: any[]) =>
-    (await stats()).getPublicStats?.(...args) ?? {
+  async (ctx: any) =>
+    (await stats()).getPublicStats?.(ctx) ?? {
       total: 0,
     }
 );
 
 export const getLifecycleCounts = fn(
-  async (...args: any[]) =>
-    (await stats()).getLifecycleCounts?.(...args) ?? {
+  async (ctx: any) =>
+    (await stats()).getLifecycleCounts?.(ctx) ?? {
       requested: 0,
       matched: 0,
       funded: 0,
@@ -311,13 +311,13 @@ export const getLifecycleCounts = fn(
 );
 
 export const getImpactMapData = fn(
-  async (...args: any[]) =>
-    (await stats()).getImpactMapData?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).getImpactMapData?.(ctx) ?? []
 );
 
 export const getMarketplaceFeed = fn(
-  async (...args: any[]) =>
-    (await stats()).getMarketplaceFeed?.(...args) ?? []
+  async (ctx: any) =>
+    (await stats()).getMarketplaceFeed?.(ctx) ?? []
 );
 
 // =================================================
@@ -325,23 +325,23 @@ export const getMarketplaceFeed = fn(
 // =================================================
 
 export const getMyProfile = fn(
-  async (...args: any[]) =>
-    (await profile()).getMyProfile?.(...args) ?? {}
+  async (ctx: any) =>
+    (await profile()).getMyProfile?.(ctx) ?? {}
 );
 
 export const updateMyProfile = fn(
-  async (...args: any[]) =>
-    (await profile()).updateMyProfile?.(...args)
+  async (ctx: any) =>
+    (await profile()).updateMyProfile?.(ctx)
 );
 
 export const moderateImage = fn(
-  async (...args: any[]) =>
-    (await moderation()).moderateImage?.(...args)
+  async (ctx: any) =>
+    (await moderation()).moderateImage?.(ctx)
 );
 
 export const getMyGiving = fn(
-  async (...args: any[]) =>
-    (await profile()).getMyGiving?.(...args) ?? {}
+  async (ctx: any) =>
+    (await profile()).getMyGiving?.(ctx) ?? {}
 );
 
 // =================================================
