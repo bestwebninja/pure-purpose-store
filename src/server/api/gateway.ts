@@ -47,7 +47,9 @@ export type LifecycleCounts = {
 // =================================================
 
 function fn<T extends (...args: any[]) => any>(impl: T) {
-  return createServerFn().handler(impl);
+  return createServerFn({ method: "POST" })
+    .inputValidator((input: unknown) => input)
+    .handler((ctx: any) => impl(ctx));
 }
 
 // =================================================
@@ -71,7 +73,7 @@ const petri = () => import("../petri-recompute.functions");
 
 // Suppliers
 const supplierZip = () =>
-  import("../suppliers/zipFulfillment.functions");
+  import("../suppliers/zipFulfillment.server");
 
 const supplierSync = () =>
   import("../suppliers/supplierSync.server");
