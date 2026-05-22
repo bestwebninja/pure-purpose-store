@@ -10,38 +10,77 @@ import { createServerFn } from "@tanstack/react-start";
  * - ALL server access goes through fn()
  */
 
-// ---------------- WRAPPER ----------------
+// =================================================
+// WRAPPER
+// =================================================
 
 function fn<T extends (...args: any[]) => any>(impl: T) {
   return createServerFn().handler(impl);
 }
 
-// ---------------- MODULE LOADERS ----------------
+// =================================================
+// MODULE LOADERS
+// =================================================
 
-const ngo = () => import("../ngo.functions");
+// NGO
+const ngo = () => import("../ngo.functions.server");
+
+// Core
 const checkout = () => import("../checkout.functions");
 const cron = () => import("../cron/supplierVerification.cron");
 const shopify = () => import("../shopify");
 
+// Domain
 const match = () => import("../match-control.functions");
 const campaigns = () => import("../campaigns.functions");
-
 const sponsor = () => import("../sponsor.functions");
 const stats = () => import("../stats.functions");
-
 const petri = () => import("../petri-recompute.functions");
 
-const supplierZip = () => import("../suppliers/zipFulfillment.functions");
-const supplierSync = () => import("../suppliers/supplierSync.server");
+// Suppliers
+const supplierZip = () =>
+  import("../suppliers/zipFulfillment.functions");
 
+const supplierSync = () =>
+  import("../suppliers/supplierSync.server");
+
+// Utilities
 const moderation = () => import("../moderation.functions");
 const profile = () => import("../profile.functions");
 
-// ---------------- MATCH ----------------
+// =================================================
+// NGO
+// =================================================
+
+export const listNgoApplications = fn(
+  async (...args: any[]) =>
+    (await ngo()).listNgoApplications?.(...args) ?? []
+);
+
+export const updateNgoStatus = fn(
+  async (...args: any[]) =>
+    (await ngo()).updateNgoStatus?.(...args)
+);
+
+export const submitNgoApplication = fn(
+  async (...args: any[]) =>
+    (await ngo()).submitNgoApplication?.(...args)
+);
+
+export const checkIsAdmin = fn(
+  async (...args: any[]) =>
+    (await ngo()).checkIsAdmin?.(...args) ?? false
+);
+
+// =================================================
+// MATCH
+// =================================================
 
 export const listMatchesForControl = fn(
   async (...args: any[]) =>
-    (await match()).listMatchesForControl?.(...args) ?? { matches: [] }
+    (await match()).listMatchesForControl?.(...args) ?? {
+      matches: [],
+    }
 );
 
 export const approveMatch = fn(
@@ -61,10 +100,14 @@ export const executeMatch = fn(
 
 export const listFulfillmentForMatch = fn(
   async (...args: any[]) =>
-    (await match()).listFulfillmentForMatch?.(...args) ?? { events: [] }
+    (await match()).listFulfillmentForMatch?.(...args) ?? {
+      events: [],
+    }
 );
 
-// ---------------- CAMPAIGNS ----------------
+// =================================================
+// CAMPAIGNS
+// =================================================
 
 export const getCampaignByHandle = fn(
   async (...args: any[]) =>
@@ -76,7 +119,9 @@ export const listCampaignsByCategory = fn(
     (await campaigns()).listCampaignsByCategory?.(...args) ?? []
 );
 
-// ---------------- SPONSORS ----------------
+// =================================================
+// SPONSORS
+// =================================================
 
 export const listSponsors = fn(
   async (...args: any[]) =>
@@ -114,11 +159,13 @@ export const updateSponsorAssets = fn(
 );
 
 export const getMySponsorDocUrl = fn(
-  async () =>
-    (await sponsor()).getMySponsorDocUrl?.() ?? ""
+  async (...args: any[]) =>
+    (await sponsor()).getMySponsorDocUrl?.(...args) ?? ""
 );
 
-// ---------------- CHECKOUT ----------------
+// =================================================
+// CHECKOUT
+// =================================================
 
 export const createBlessingCheckout = fn(
   async (...args: any[]) =>
@@ -136,11 +183,13 @@ export const verifyFundingPackage = fn(
 );
 
 export const getShopifyCredentials = fn(
-  async () =>
-    (await shopify()).getShopifyCredentials?.()
+  async (...args: any[]) =>
+    (await shopify()).getShopifyCredentials?.(...args)
 );
 
-// ---------------- PETRI ----------------
+// =================================================
+// PETRI
+// =================================================
 
 export const allocateStabilizationSponsor = fn(
   async (...args: any[]) =>
@@ -148,16 +197,18 @@ export const allocateStabilizationSponsor = fn(
 );
 
 export const recomputePetriScores = fn(
-  async () =>
-    (await petri()).recomputePetriScores?.()
+  async (...args: any[]) =>
+    (await petri()).recomputePetriScores?.(...args)
 );
 
 export const recomputePetriScoresCore = fn(
-  async () =>
-    (await petri()).recomputePetriScoresCore?.()
+  async (...args: any[]) =>
+    (await petri()).recomputePetriScoresCore?.(...args)
 );
 
-// ---------------- SUPPLIERS ----------------
+// =================================================
+// SUPPLIERS
+// =================================================
 
 export const isZipFulfillable = fn(
   async (...args: any[]) =>
@@ -169,28 +220,32 @@ export const getActiveSuppliersByZip = fn(
     (await supplierZip()).getActiveSuppliersByZip?.(...args) ?? []
 );
 
-// ---------------- CRON ----------------
+// =================================================
+// CRON
+// =================================================
 
 export const runSupplierVerificationCycle = fn(
-  async () =>
-    (await cron()).runSupplierVerificationCycle?.()
+  async (...args: any[]) =>
+    (await cron()).runSupplierVerificationCycle?.(...args)
 );
 
 export const startSupplierVerificationCron = fn(
-  async () =>
-    (await cron()).startSupplierVerificationCron?.()
+  async (...args: any[]) =>
+    (await cron()).startSupplierVerificationCron?.(...args)
 );
 
-// ---------------- ADMIN / SYSTEM ----------------
+// =================================================
+// ADMIN / SYSTEM
+// =================================================
 
 export const getCommandCenterSnapshot = fn(
-  async () =>
-    (await stats()).getCommandCenterSnapshot?.() ?? {}
+  async (...args: any[]) =>
+    (await stats()).getCommandCenterSnapshot?.(...args) ?? {}
 );
 
 export const listImpactReports = fn(
-  async () =>
-    (await stats()).listImpactReports?.() ?? []
+  async (...args: any[]) =>
+    (await stats()).listImpactReports?.(...args) ?? []
 );
 
 export const approveFlywheelReport = fn(
@@ -198,16 +253,20 @@ export const approveFlywheelReport = fn(
     (await stats()).approveFlywheelReport?.(...args)
 );
 
-// ---------------- STATS ----------------
+// =================================================
+// STATS
+// =================================================
 
 export const getPublicStats = fn(
-  async () =>
-    (await stats()).getPublicStats?.() ?? { total: 0 }
+  async (...args: any[]) =>
+    (await stats()).getPublicStats?.(...args) ?? {
+      total: 0,
+    }
 );
 
 export const getLifecycleCounts = fn(
-  async () =>
-    (await stats()).getLifecycleCounts?.() ?? {
+  async (...args: any[]) =>
+    (await stats()).getLifecycleCounts?.(...args) ?? {
       active: 0,
       pending: 0,
       completed: 0,
@@ -215,41 +274,46 @@ export const getLifecycleCounts = fn(
 );
 
 export const getImpactMapData = fn(
-  async () =>
-    (await stats()).getImpactMapData?.() ?? []
+  async (...args: any[]) =>
+    (await stats()).getImpactMapData?.(...args) ?? []
 );
 
 export const getMarketplaceFeed = fn(
-  async () =>
-    (await stats()).getMarketplaceFeed?.() ?? []
+  async (...args: any[]) =>
+    (await stats()).getMarketplaceFeed?.(...args) ?? []
 );
 
-// ---------------- PROFILE ----------------
+// =================================================
+// PROFILE
+// =================================================
 
 export const getMyProfile = fn(
-  async () =>
-    (await stats()).getMyProfile?.() ?? {}
+  async (...args: any[]) =>
+    (await profile()).getMyProfile?.(...args) ?? {}
 );
 
 export const updateMyProfile = fn(
   async (...args: any[]) =>
-    (await stats()).updateMyProfile?.(...args)
+    (await profile()).updateMyProfile?.(...args)
 );
 
 export const moderateImage = fn(
   async (...args: any[]) =>
-    (await stats()).moderateImage?.(...args)
+    (await moderation()).moderateImage?.(...args)
 );
 
 export const getMyGiving = fn(
-  async () =>
-    (await stats()).getMyGiving?.() ?? {}
+  async (...args: any[]) =>
+    (await profile()).getMyGiving?.(...args) ?? {}
 );
 
-// ---------------- SAFE ESCAPE HATCH ----------------
+// =================================================
+// SAFE ESCAPE HATCH
+// =================================================
 
-export const __call = fn(async (module: string, method: string, data: any) => {
-  const mod: any = await import(`../${module}`);
-  return mod?.[method]?.(data);
-});
-
+export const __call = fn(
+  async (module: string, method: string, data: any) => {
+    const mod: any = await import(`../${module}`);
+    return mod?.[method]?.(data);
+  }
+);
