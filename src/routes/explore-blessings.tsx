@@ -204,7 +204,7 @@ function ExploreBlessings() {
 
       <section className="mb-10">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">
             Categories
           </h2>
           {activeSub && (
@@ -250,7 +250,7 @@ function ExploreBlessings() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">
           {activeSub
             ? activeSub.split("::")[1]
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}

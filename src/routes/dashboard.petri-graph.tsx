@@ -278,7 +278,7 @@ function PetriGraphPage() {
         </Card>
 
         <Card className="p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Inspector</h2>
           {!selectedNode && !selectedEdge && (
             <p className="mt-3 text-sm text-muted-foreground text-white">Click a node or edge to inspect.</p>
           )}
