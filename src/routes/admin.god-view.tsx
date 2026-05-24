@@ -305,7 +305,7 @@ function GodView() {
   };
 
   if (!authReady) {
-    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground">Loadingâ€¦</div>;
+    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground">Loading…</div>;
   }
   if (!isAdmin) {
     return (
@@ -335,7 +335,7 @@ function GodView() {
       const res = (await recompute({ data: {} })) as RecomputeRunSummary & { ok: boolean };
       setLastRecompute(res);
       toast.success("Recompute complete", {
-        description: `${res.scanned} scanned Â· ${res.written} written Â· ${res.duration_ms}ms`,
+        description: `${res.scanned} scanned · ${res.written} written · ${res.duration_ms}ms`,
       });
       await loadAll();
     } catch (e) {
@@ -351,57 +351,21 @@ function GodView() {
         <div>
           <div className="flex items-center gap-2">
             <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Operator Console â€” Live</span>
+            <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Operator Console — Live</span>
           </div>
           <h1 className="text-display mt-1 text-3xl font-semibold tracking-tight">God View</h1>
         </div>
         <Button size="sm" variant="outline" onClick={loadAll} disabled={loading}>
-          {loading ? "Refreshingâ€¦" : "Refresh"}
+          {loading ? "Refreshing…" : "Refresh"}
         </Button>
         <Button size="sm" onClick={handleForceRecompute} disabled={recomputing}>
-          {recomputing ? "Recomputingâ€¦" : "Force Recompute"}
+          {recomputing ? "Recomputing…" : "Force Recompute"}
         </Button>
       </header>
-
-      <section className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        <StatTile label="Sponsors" value={counts.sponsors} hint={`${counts.sponsorsPending} pending`} tone={counts.sponsorsPending ? "warn" : "ok"} />
-        <StatTile label="Cases" value={counts.cases} hint={`${counts.casesOpen} open`} tone="info" />
-        <StatTile label="NGOs" value={counts.ngos} hint={`${counts.ngosPending} pending`} tone={counts.ngosPending ? "warn" : "ok"} />
-        <StatTile label="Providers" value={counts.providers} tone="info" />
-        <StatTile label="Sponsorships" value={counts.sponsorships} tone="info" />
-        <StatTile label="Donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
-      </section>
-
-      <Tabs defaultValue="ai" className="mt-6">
-        <TabsList className="flex w-full flex-wrap justify-start gap-1 rounded-lg bg-muted/50 p-1">
-          <TabsTrigger value="map">Global Map</TabsTrigger>
-          <TabsTrigger value="sponsors">Sponsors</TabsTrigger>
-          <TabsTrigger value="funding">Funding Flow</TabsTrigger>
-          <TabsTrigger value="priority">Priority Queue</TabsTrigger>
-          <TabsTrigger value="fulfillment">Fulfillment</TabsTrigger>
-          <TabsTrigger value="suppliers">Suppliers</TabsTrigger>
-          <TabsTrigger value="ngo">NGO Trust</TabsTrigger>
-          <TabsTrigger value="ai">AI Decisions Feed</TabsTrigger>
-          <TabsTrigger value="treasury">Treasury</TabsTrigger>
-          <TabsTrigger value="reports">Sponsor Reports</TabsTrigger>
-          <TabsTrigger value="autonomy">Autonomy</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="priority" className="mt-4">
-          <Card className="p-0">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
-              <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding Priority Queue</h2>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Heuristic composite from urgency, stability, delivery confidence, sponsor alignment, and economic impact.
-                  {lastRecompute ? (
-                    <> Last run: {lastRecompute.scanned} scanned, {lastRecompute.written} written, {lastRecompute.duration_ms}ms ({lastRecompute.trigger}).</>
-                  ) : null}
-                </p>
-              </div>
+...
               <div className="flex flex-wrap items-center gap-2 text-xs">
                 <Badge className="bg-emerald-500/15 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300">
-                  Matching autonomy L{matchingAutonomy} Â· {AUTONOMY_LABELS[matchingAutonomy]}
+                  Matching autonomy L{matchingAutonomy} · {AUTONOMY_LABELS[matchingAutonomy]}
                 </Badge>
                 <Badge variant="outline">{queueAutoCount} auto-fund</Badge>
                 <Badge variant="outline">{queueAwaiting} awaiting approval</Badge>
@@ -424,7 +388,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {scorecards.length === 0 ? (
-                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet â€” hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
                   ) : scorecards.map((s, i) => {
                     const decisionTone =
                       s.autonomy_decision === "auto" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
