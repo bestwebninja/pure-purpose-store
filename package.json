@@ -5,8 +5,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File ./scripts/enforce-gateway.ps1 && vite dev",
-    "build": "powershell -ExecutionPolicy Bypass -File ./scripts/enforce-gateway.ps1 && vite build",
+    "dev": "node ./scripts/enforce-gateway.js && vite dev",
+    "build": "node ./scripts/enforce-gateway.js && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
