@@ -190,7 +190,7 @@ function ExploreBlessings() {
   const filtered = activeSub ? [] : blessings;
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12">
+    <div className="mt-2 text-muted-foreground text-slate-50">
       <header className="mb-8">
         <h1 className="text-display text-5xl font-normal tracking-tight text-foreground md:text-6xl text-yellow-100">
           Our Blessings
