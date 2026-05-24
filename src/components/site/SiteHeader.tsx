@@ -207,7 +207,7 @@ export function SiteHeader() {
           </Sheet>
           
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground text-white">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
