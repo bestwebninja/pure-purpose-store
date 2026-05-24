@@ -1,7 +1,8 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 
-const fn = createServerFn().handler;
-
-export const login = fn(async (data: any) => data);
-export const logout = fn(async () => true);
-export const resetPassword = fn(async (email: string) => true);
+export const login = createServerFn({ method: "POST" })
+  .handler(async () => ({ ok: true }));
+export const logout = createServerFn({ method: "POST" })
+  .handler(async () => true);
+export const resetPassword = createServerFn({ method: "POST" })
+  .handler(async () => true);

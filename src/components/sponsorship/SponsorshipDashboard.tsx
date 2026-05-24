@@ -91,7 +91,7 @@ export function SponsorshipDashboard() {
     setMatch(null);
     setMatchError(null);
     try {
-      const res = await verifyCheckout({ data: { zip: value } });
+      const res: any = await verifyCheckout({ data: { zip: value } });
       setVerified(res);
       if (!res.fulfillable) {
         setVerifyError("Sponsorship not yet active in this region");

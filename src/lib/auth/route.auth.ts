@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 
 /**
  * ===========================
@@ -11,7 +11,7 @@ export type UserRole = "public" | "protected" | "admin" | "petri";
 
 export async function getUserRole(request?: Request): Promise<UserRole> {
   try {
-    const supabase = createServerClient(
+    const supabase = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_ANON_KEY!
     );
