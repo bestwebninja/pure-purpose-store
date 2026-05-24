@@ -23,6 +23,7 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
 import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CorporateSignupRouteImport } from './routes/corporate-signup'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BecomeBlessingSponsorRouteImport } from './routes/become-blessing-sponsor'
 import { Route as AboutUsRouteImport } from './routes/about-us'
@@ -38,7 +39,7 @@ import { Route as DashboardPetriGraphRouteImport } from './routes/dashboard.petr
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
-import { Route as AdminPetriOsRouteImport } from './routes/admin.petri-os'
+import { Route as AdminPetriRouteImport } from './routes/admin.petri'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as AdminMatchControlRouteImport } from './routes/admin.match-control'
 import { Route as AdminGodViewRouteImport } from './routes/admin.god-view'
@@ -49,6 +50,7 @@ import { Route as ApiPublicPetriBloomRouteImport } from './routes/api/public/pet
 import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 import { Route as ApiPublicGoLiveReportRouteImport } from './routes/api/public/go-live-report'
 import { Route as ApiCategoriesTreeRouteImport } from './routes/api/categories/tree'
+import { Route as AdminCommandCenterPetriRouteImport } from './routes/admin/command-center/petri'
 
 const TransparencyRoute = TransparencyRouteImport.update({
   id: '/transparency',
@@ -118,6 +120,11 @@ const ExploreBlessingsRoute = ExploreBlessingsRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorporateSignupRoute = CorporateSignupRouteImport.update({
+  id: '/corporate-signup',
+  path: '/corporate-signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesRoute = CategoriesRouteImport.update({
@@ -195,9 +202,9 @@ const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
   path: '/admin/sponsors',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminPetriOsRoute = AdminPetriOsRouteImport.update({
-  id: '/admin/petri-os',
-  path: '/admin/petri-os',
+const AdminPetriRoute = AdminPetriRouteImport.update({
+  id: '/admin/petri',
+  path: '/admin/petri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminNgoDashboardRoute = AdminNgoDashboardRouteImport.update({
@@ -250,6 +257,11 @@ const ApiCategoriesTreeRoute = ApiCategoriesTreeRouteImport.update({
   path: '/api/categories/tree',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCommandCenterPetriRoute = AdminCommandCenterPetriRouteImport.update({
+  id: '/petri',
+  path: '/petri',
+  getParentRoute: () => AdminCommandCenterRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -258,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -272,11 +285,11 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
-  '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/command-center': typeof AdminCommandCenterRouteWithChildren
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
-  '/admin/petri-os': typeof AdminPetriOsRoute
+  '/admin/petri': typeof AdminPetriRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -286,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/command-center/petri': typeof AdminCommandCenterPetriRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -300,6 +314,7 @@ export interface FileRoutesByTo {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -314,11 +329,11 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
-  '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/command-center': typeof AdminCommandCenterRouteWithChildren
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
-  '/admin/petri-os': typeof AdminPetriOsRoute
+  '/admin/petri': typeof AdminPetriRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -328,6 +343,7 @@ export interface FileRoutesByTo {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/command-center/petri': typeof AdminCommandCenterPetriRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -343,6 +359,7 @@ export interface FileRoutesById {
   '/about-us': typeof AboutUsRoute
   '/become-blessing-sponsor': typeof BecomeBlessingSponsorRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
@@ -357,11 +374,11 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sponsor': typeof SponsorRouteWithChildren
   '/transparency': typeof TransparencyRoute
-  '/admin/command-center': typeof AdminCommandCenterRoute
+  '/admin/command-center': typeof AdminCommandCenterRouteWithChildren
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
-  '/admin/petri-os': typeof AdminPetriOsRoute
+  '/admin/petri': typeof AdminPetriRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -371,6 +388,7 @@ export interface FileRoutesById {
   '/ngo/onboarding': typeof NgoOnboardingRoute
   '/sponsor/dashboard': typeof SponsorDashboardRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/command-center/petri': typeof AdminCommandCenterPetriRoute
   '/api/categories/tree': typeof ApiCategoriesTreeRoute
   '/api/public/go-live-report': typeof ApiPublicGoLiveReportRoute
   '/api/public/health': typeof ApiPublicHealthRoute
@@ -387,6 +405,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/corporate-signup'
     | '/dashboard'
     | '/explore-blessings'
     | '/give-a-blessing'
@@ -405,7 +424,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
-    | '/admin/petri-os'
+    | '/admin/petri'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -415,6 +434,7 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/admin/'
+    | '/admin/command-center/petri'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -429,6 +449,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/corporate-signup'
     | '/dashboard'
     | '/explore-blessings'
     | '/give-a-blessing'
@@ -447,7 +468,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
-    | '/admin/petri-os'
+    | '/admin/petri'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -457,6 +478,7 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/admin'
+    | '/admin/command-center/petri'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -471,6 +493,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/become-blessing-sponsor'
     | '/categories'
+    | '/corporate-signup'
     | '/dashboard'
     | '/explore-blessings'
     | '/give-a-blessing'
@@ -489,7 +512,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
-    | '/admin/petri-os'
+    | '/admin/petri'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -499,6 +522,7 @@ export interface FileRouteTypes {
     | '/ngo/onboarding'
     | '/sponsor/dashboard'
     | '/admin/'
+    | '/admin/command-center/petri'
     | '/api/categories/tree'
     | '/api/public/go-live-report'
     | '/api/public/health'
@@ -514,6 +538,7 @@ export interface RootRouteChildren {
   AboutUsRoute: typeof AboutUsRoute
   BecomeBlessingSponsorRoute: typeof BecomeBlessingSponsorRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
+  CorporateSignupRoute: typeof CorporateSignupRoute
   DashboardRoute: typeof DashboardRouteWithChildren
   ExploreBlessingsRoute: typeof ExploreBlessingsRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
@@ -528,11 +553,11 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SponsorRoute: typeof SponsorRouteWithChildren
   TransparencyRoute: typeof TransparencyRoute
-  AdminCommandCenterRoute: typeof AdminCommandCenterRoute
+  AdminCommandCenterRoute: typeof AdminCommandCenterRouteWithChildren
   AdminGodViewRoute: typeof AdminGodViewRoute
   AdminMatchControlRoute: typeof AdminMatchControlRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
-  AdminPetriOsRoute: typeof AdminPetriOsRoute
+  AdminPetriRoute: typeof AdminPetriRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
@@ -646,6 +671,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/corporate-signup': {
+      id: '/corporate-signup'
+      path: '/corporate-signup'
+      fullPath: '/corporate-signup'
+      preLoaderRoute: typeof CorporateSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories': {
       id: '/categories'
       path: '/categories'
@@ -751,11 +783,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSponsorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/petri-os': {
-      id: '/admin/petri-os'
-      path: '/admin/petri-os'
-      fullPath: '/admin/petri-os'
-      preLoaderRoute: typeof AdminPetriOsRouteImport
+    '/admin/petri': {
+      id: '/admin/petri'
+      path: '/admin/petri'
+      fullPath: '/admin/petri'
+      preLoaderRoute: typeof AdminPetriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/ngo-dashboard': {
@@ -828,6 +860,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCategoriesTreeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/command-center/petri': {
+      id: '/admin/command-center/petri'
+      path: '/petri'
+      fullPath: '/admin/command-center/petri'
+      preLoaderRoute: typeof AdminCommandCenterPetriRouteImport
+      parentRoute: typeof AdminCommandCenterRoute
+    }
   }
 }
 
@@ -876,6 +915,17 @@ const SponsorRouteChildren: SponsorRouteChildren = {
 const SponsorRouteWithChildren =
   SponsorRoute._addFileChildren(SponsorRouteChildren)
 
+interface AdminCommandCenterRouteChildren {
+  AdminCommandCenterPetriRoute: typeof AdminCommandCenterPetriRoute
+}
+
+const AdminCommandCenterRouteChildren: AdminCommandCenterRouteChildren = {
+  AdminCommandCenterPetriRoute: AdminCommandCenterPetriRoute,
+}
+
+const AdminCommandCenterRouteWithChildren =
+  AdminCommandCenterRoute._addFileChildren(AdminCommandCenterRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -883,6 +933,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   BecomeBlessingSponsorRoute: BecomeBlessingSponsorRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
+  CorporateSignupRoute: CorporateSignupRoute,
   DashboardRoute: DashboardRouteWithChildren,
   ExploreBlessingsRoute: ExploreBlessingsRoute,
   GiveABlessingRoute: GiveABlessingRoute,
@@ -897,11 +948,11 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SponsorRoute: SponsorRouteWithChildren,
   TransparencyRoute: TransparencyRoute,
-  AdminCommandCenterRoute: AdminCommandCenterRoute,
+  AdminCommandCenterRoute: AdminCommandCenterRouteWithChildren,
   AdminGodViewRoute: AdminGodViewRoute,
   AdminMatchControlRoute: AdminMatchControlRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
-  AdminPetriOsRoute: AdminPetriOsRoute,
+  AdminPetriRoute: AdminPetriRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,

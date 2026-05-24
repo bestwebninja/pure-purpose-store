@@ -1,13 +1,18 @@
-export default function PetriAdminPage() {
-  return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">
-        Petri Mesh Command Center
-      </h1>
+import { createFileRoute } from '@tanstack/react-router';
 
-      <p className="mt-4 opacity-70">
-        Gateway OS telemetry active.
-      </p>
+export const Route = createFileRoute('/admin/petri')({
+  component: PetriAdminPage,
+});
+
+function PetriAdminPage() {
+  return (
+    <div style={{ padding: 24 }}>
+      <h1>🧠 Petri OS Control Center</h1>
+
+      <p>Gateway OS: Active</p>
+      <p>Petri Mesh: Running</p>
+
+      <button>Recompute Petri Scores</button>
     </div>
   );
 }

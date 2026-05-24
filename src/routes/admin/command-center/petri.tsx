@@ -1,13 +1,13 @@
-﻿import { createFileRoute } from '@tanstack/react-router';
+﻿import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/admin/petri-os')({
+export const Route = createFileRoute("/admin/command-center/petri")({
   component: PetriDashboard,
 });
 
 function PetriDashboard() {
   return (
     <div style={{ padding: 24 }}>
-      <h1>ðŸ§  Petri OS Control Center</h1>
+      <h1>🧠 Petri OS Control Center</h1>
 
       <section>
         <h2>System Health</h2>
