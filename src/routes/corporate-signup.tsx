@@ -98,10 +98,10 @@ function CorporateSignup() {
         </h1>
 
         <Section title="Company Details">
-          <Input label="Company Name" onChange={(v) => update("company_name", v)} />
-          <Input label="Industry" onChange={(v) => update("industry", v)} />
-          <Input label="Website" onChange={(v) => update("website", v)} />
-          <Input label="Company Size" onChange={(v) => update("company_size", v)} />
+          <Input label="Company Name" onChange={(v: string) => update("company_name", v)} />
+          <Input label="Industry" onChange={(v: string) => update("industry", v)} />
+          <Input label="Website" onChange={(v: string) => update("website", v)} />
+          <Input label="Company Size" onChange={(v: string) => update("company_size", v)} />
         </Section>
 
         {/* ✅ FIXED POC SECTION */}
@@ -109,32 +109,32 @@ function CorporateSignup() {
           <div className="grid grid-cols-2 gap-3">
             <Input
               label="First Name"
-              onChange={(v) => update("poc_first_name", v)}
+              onChange={(v: string) => update("poc_first_name", v)}
             />
             <Input
               label="Surname"
-              onChange={(v) => update("poc_surname", v)}
+              onChange={(v: string) => update("poc_surname", v)}
             />
           </div>
 
-          <Input label="Email" onChange={(v) => update("poc_email", v)} />
-          <Input label="Phone" onChange={(v) => update("poc_phone", v)} />
-          <Input label="Department" onChange={(v) => update("poc_department", v)} />
-          <Input label="Role / Title" onChange={(v) => update("poc_role", v)} />
+          <Input label="Email" onChange={(v: string) => update("poc_email", v)} />
+          <Input label="Phone" onChange={(v: string) => update("poc_phone", v)} />
+          <Input label="Department" onChange={(v: string) => update("poc_department", v)} />
+          <Input label="Role / Title" onChange={(v: string) => update("poc_role", v)} />
         </Section>
 
         <Section title="Corporate Address">
-          <Input label="Address Line 1" onChange={(v) => update("address_line1", v)} />
-          <Input label="Address Line 2" onChange={(v) => update("address_line2", v)} />
+          <Input label="Address Line 1" onChange={(v: string) => update("address_line1", v)} />
+          <Input label="Address Line 2" onChange={(v: string) => update("address_line2", v)} />
 
           <div className="grid grid-cols-2 gap-3">
-            <Input label="City" onChange={(v) => update("city", v)} />
-            <Input label="State" onChange={(v) => update("state", v)} />
+            <Input label="City" onChange={(v: string) => update("city", v)} />
+            <Input label="State" onChange={(v: string) => update("state", v)} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <Input label="ZIP Code" onChange={(v) => update("zip", v)} />
-            <Input label="Country" onChange={(v) => update("country", v)} />
+            <Input label="ZIP Code" onChange={(v: string) => update("zip", v)} />
+            <Input label="Country" onChange={(v: string) => update("country", v)} />
           </div>
         </Section>
 
@@ -148,16 +148,16 @@ function CorporateSignup() {
               "Event Sponsorship",
               "Hybrid",
             ]}
-            onChange={(v) => update("contribution_type", v)}
+            onChange={(v: string) => update("contribution_type", v)}
           />
 
           <Select
             label="Frequency"
             options={["One-time", "Monthly", "Quarterly", "Annual"]}
-            onChange={(v) => update("contribution_frequency", v)}
+            onChange={(v: string) => update("contribution_frequency", v)}
           />
 
-          <Input label="Budget Range" onChange={(v) => update("budget_range", v)} />
+          <Input label="Budget Range" onChange={(v: string) => update("budget_range", v)} />
         </Section>
 
         <Section title="Branding & Sponsorship">
@@ -169,7 +169,7 @@ function CorporateSignup() {
               "Internal Only",
               "No Branding",
             ]}
-            onChange={(v) => update("branding_interest", v)}
+            onChange={(v: string) => update("branding_interest", v)}
           />
 
           <Select
@@ -179,7 +179,7 @@ function CorporateSignup() {
               "Limited Attribution",
               "No Attribution",
             ]}
-            onChange={(v) => update("sponsorship_interest", v)}
+            onChange={(v: string) => update("sponsorship_interest", v)}
           />
         </Section>
 
