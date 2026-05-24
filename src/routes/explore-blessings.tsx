@@ -42,7 +42,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "emergency-travel",
-    icon: "âœˆï¸",
+    icon: "✈️",
     name: "Emergency Travel",
     subs: [
       "Bus / Train / Airline tickets",
@@ -53,7 +53,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "mobility-support",
-    icon: "ðŸš—",
+    icon: "🚗",
     name: "Mobility Support",
     subs: [
       "Uber rides",
@@ -67,7 +67,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "accessibility-support",
-    icon: "â™¿",
+    icon: "♿",
     name: "Accessibility Support",
     subs: [
       "Wheelchair hire",
@@ -92,7 +92,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "connectivity-support",
-    icon: "ðŸ“±",
+    icon: "📱",
     name: "Connectivity Support",
     subs: [
       "Mobile airtime",
@@ -105,7 +105,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "family-support",
-    icon: "ðŸ‘¶",
+    icon: "👶",
     name: "Family Support",
     subs: [
       "Diapers",
@@ -118,7 +118,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "stranded-traveler",
-    icon: "ðŸ§³",
+    icon: "🧳",
     name: "Stranded Traveler Assistance",
     subs: [
       "Missed flights",
