@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { submitCorporateApplication } from "@/server/api/corporate.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/corporate-signup")({
   component: CorporateSignup,
 });
 
 function CorporateSignup() {
+  const submitFn = useServerFn(submitCorporateApplication);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     company_name: "",
     industry: "",
@@ -41,9 +47,46 @@ function CorporateSignup() {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log("CORPORATE APPLICATION:", form);
-    alert("Corporate application submitted (MVP mode)");
+  const handleSubmit = async () => {
+    if (!form.company_name || !form.poc_email) {
+      toast.error("Company name and contact email are required");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const poc_name = `${form.poc_first_name} ${form.poc_surname}`.trim();
+      await submitFn({
+        data: {
+          company_name: form.company_name,
+          industry: form.industry,
+          website: form.website,
+          poc_name,
+          poc_email: form.poc_email,
+          poc_phone: form.poc_phone,
+          poc_department: form.poc_department,
+          poc_role: form.poc_role,
+          address_line1: form.address_line1,
+          address_line2: form.address_line2,
+          city: form.city,
+          state: form.state,
+          zip: form.zip,
+          country: form.country,
+          company_size: form.company_size,
+          contribution_type: form.contribution_type,
+          contribution_frequency: form.contribution_frequency,
+          sponsorship_interest: form.sponsorship_interest,
+          branding_interest: form.branding_interest,
+          budget_range: form.budget_range,
+          notes: form.notes,
+        },
+      });
+      setSubmitted(true);
+      toast.success("Application submitted. We'll be in touch.");
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to submit application");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -55,10 +98,10 @@ function CorporateSignup() {
         </h1>
 
         <Section title="Company Details">
-          <Input label="Company Name" onChange={(v) => update("company_name", v)} />
-          <Input label="Industry" onChange={(v) => update("industry", v)} />
-          <Input label="Website" onChange={(v) => update("website", v)} />
-          <Input label="Company Size" onChange={(v) => update("company_size", v)} />
+          <Input label="Company Name" onChange={(v: string) => update("company_name", v)} />
+          <Input label="Industry" onChange={(v: string) => update("industry", v)} />
+          <Input label="Website" onChange={(v: string) => update("website", v)} />
+          <Input label="Company Size" onChange={(v: string) => update("company_size", v)} />
         </Section>
 
         {/* ✅ FIXED POC SECTION */}
@@ -66,32 +109,32 @@ function CorporateSignup() {
           <div className="grid grid-cols-2 gap-3">
             <Input
               label="First Name"
-              onChange={(v) => update("poc_first_name", v)}
+              onChange={(v: string) => update("poc_first_name", v)}
             />
             <Input
               label="Surname"
-              onChange={(v) => update("poc_surname", v)}
+              onChange={(v: string) => update("poc_surname", v)}
             />
           </div>
 
-          <Input label="Email" onChange={(v) => update("poc_email", v)} />
-          <Input label="Phone" onChange={(v) => update("poc_phone", v)} />
-          <Input label="Department" onChange={(v) => update("poc_department", v)} />
-          <Input label="Role / Title" onChange={(v) => update("poc_role", v)} />
+          <Input label="Email" onChange={(v: string) => update("poc_email", v)} />
+          <Input label="Phone" onChange={(v: string) => update("poc_phone", v)} />
+          <Input label="Department" onChange={(v: string) => update("poc_department", v)} />
+          <Input label="Role / Title" onChange={(v: string) => update("poc_role", v)} />
         </Section>
 
         <Section title="Corporate Address">
-          <Input label="Address Line 1" onChange={(v) => update("address_line1", v)} />
-          <Input label="Address Line 2" onChange={(v) => update("address_line2", v)} />
+          <Input label="Address Line 1" onChange={(v: string) => update("address_line1", v)} />
+          <Input label="Address Line 2" onChange={(v: string) => update("address_line2", v)} />
 
           <div className="grid grid-cols-2 gap-3">
-            <Input label="City" onChange={(v) => update("city", v)} />
-            <Input label="State" onChange={(v) => update("state", v)} />
+            <Input label="City" onChange={(v: string) => update("city", v)} />
+            <Input label="State" onChange={(v: string) => update("state", v)} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <Input label="ZIP Code" onChange={(v) => update("zip", v)} />
-            <Input label="Country" onChange={(v) => update("country", v)} />
+            <Input label="ZIP Code" onChange={(v: string) => update("zip", v)} />
+            <Input label="Country" onChange={(v: string) => update("country", v)} />
           </div>
         </Section>
 
@@ -105,16 +148,16 @@ function CorporateSignup() {
               "Event Sponsorship",
               "Hybrid",
             ]}
-            onChange={(v) => update("contribution_type", v)}
+            onChange={(v: string) => update("contribution_type", v)}
           />
 
           <Select
             label="Frequency"
             options={["One-time", "Monthly", "Quarterly", "Annual"]}
-            onChange={(v) => update("contribution_frequency", v)}
+            onChange={(v: string) => update("contribution_frequency", v)}
           />
 
-          <Input label="Budget Range" onChange={(v) => update("budget_range", v)} />
+          <Input label="Budget Range" onChange={(v: string) => update("budget_range", v)} />
         </Section>
 
         <Section title="Branding & Sponsorship">
@@ -126,7 +169,7 @@ function CorporateSignup() {
               "Internal Only",
               "No Branding",
             ]}
-            onChange={(v) => update("branding_interest", v)}
+            onChange={(v: string) => update("branding_interest", v)}
           />
 
           <Select
@@ -136,7 +179,7 @@ function CorporateSignup() {
               "Limited Attribution",
               "No Attribution",
             ]}
-            onChange={(v) => update("sponsorship_interest", v)}
+            onChange={(v: string) => update("sponsorship_interest", v)}
           />
         </Section>
 
@@ -150,9 +193,14 @@ function CorporateSignup() {
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded font-semibold"
+          disabled={submitting || submitted}
+          className="w-full bg-black hover:bg-gray-900 disabled:opacity-60 text-white py-3 rounded font-semibold"
         >
-          Submit Corporate Application
+          {submitted
+            ? "Submitted ✓"
+            : submitting
+            ? "Submitting…"
+            : "Submit Corporate Application"}
         </button>
 
       </div>
