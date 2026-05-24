@@ -138,7 +138,7 @@ export function SponsorshipDashboard() {
               maxLength={16}
             />
             {state.status === "loading" && (
-              <p className="text-sm text-muted-foreground">Checking coverage…</p>
+              <p className="text-sm text-muted-foreground text-white">Checking coverage…</p>
             )}
             {state.status === "ready" && state.active && (
               <p className="text-sm text-green-700">
@@ -164,7 +164,7 @@ export function SponsorshipDashboard() {
             <CardTitle>Sponsorship package — $500</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground text-white">
               Accommodation, meals and reintegration support routed to verified
               local suppliers in the sponsored ZIP.
             </p>

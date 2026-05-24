@@ -80,7 +80,7 @@ function ResetPasswordPage() {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24 text-center">
         <h1 className="text-2xl font-semibold">Invalid or expired link</h1>
-        <p className="text-sm text-muted-foreground mt-2">
+        <p className="text-sm text-muted-foreground text-white mt-2">
           This password reset link is no longer valid. Please request a new one from the login page.
         </p>
         <Button className="mt-6" onClick={() => navigate({ to: "/login" })}>
@@ -93,7 +93,7 @@ function ResetPasswordPage() {
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24">
       <h1 className="text-2xl font-semibold">Set New Password</h1>
-      <p className="text-sm text-muted-foreground mt-2">
+      <p className="text-sm text-muted-foreground text-white mt-2">
         Choose a secure password for your account.
       </p>
 

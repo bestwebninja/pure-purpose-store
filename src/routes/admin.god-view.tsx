@@ -305,7 +305,7 @@ function GodView() {
   };
 
   if (!authReady) {
-    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground">Loading…</div>;
+    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground text-white">Loading…</div>;
   }
   if (!isAdmin) {
     return (
@@ -424,7 +424,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {scorecards.length === 0 ? (
-                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground text-white">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
                   ) : scorecards.map((s, i) => {
                     const decisionTone =
                       s.autonomy_decision === "auto" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
@@ -467,7 +467,7 @@ function GodView() {
         <TabsContent value="map" className="mt-4">
           <Card className="p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground text-white">
               Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 — counts shown above
               already reflect live data scoped by country.
             </p>
@@ -514,7 +514,7 @@ function GodView() {
               </TableHeader>
               <TableBody>
                 {events.length === 0 ? (
-                  <TableRow><TableCell colSpan={5} className="text-center text-sm text-muted-foreground">No events yet</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={5} className="text-center text-sm text-muted-foreground text-white">No events yet</TableCell></TableRow>
                 ) : events.map((e) => (
                   <TableRow key={e.id}>
                     <TableCell className="text-xs text-muted-foreground">{timeAgo(e.created_at)}</TableCell>
@@ -532,7 +532,7 @@ function GodView() {
         <TabsContent value="suppliers" className="mt-4">
           <Card className="p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground text-white">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
               ship with the routing engine in Phase 4.
             </p>
@@ -576,7 +576,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {feed.length === 0 ? (
-                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground">Waiting for routing engine activity…</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground text-white">Waiting for routing engine activity…</TableCell></TableRow>
                   ) : feed.map((row) => (
                     <TableRow key={`${row.kind}-${row.id}`}>
                       <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{timeAgo(row.created_at)}</TableCell>
@@ -650,7 +650,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {reports.length === 0 ? (
-                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground">No flywheel reports yet.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground text-white">No flywheel reports yet.</TableCell></TableRow>
                   ) : reports.map((r) => {
                     const tone =
                       r.status === "sent" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
@@ -704,7 +704,7 @@ function GodView() {
             </div>
             <div className="divide-y">
               {modules.length === 0 ? (
-                <div className="p-6 text-sm text-muted-foreground">No modules configured.</div>
+                <div className="p-6 text-sm text-muted-foreground text-white">No modules configured.</div>
               ) : modules.map((m) => (
                 <div key={m.id} className="grid grid-cols-1 items-center gap-4 p-4 sm:grid-cols-[1fr_auto_2fr_auto]">
                   <div>

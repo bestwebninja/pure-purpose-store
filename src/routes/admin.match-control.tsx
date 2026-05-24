@@ -120,8 +120,8 @@ function AdminMatchControl() {
       </p>
 
       <div className="mt-8 space-y-3">
-        {matches === null && <p className="text-sm text-muted-foreground">Loading…</p>}
-        {matches?.length === 0 && <p className="text-sm text-muted-foreground">No matches yet.</p>}
+        {matches === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
+        {matches?.length === 0 && <p className="text-sm text-muted-foreground text-white">No matches yet.</p>}
         {matches?.map((m) => (
           <Card key={m.id} className="p-5">
             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -136,7 +136,7 @@ function AdminMatchControl() {
                   </Badge>
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-sm text-muted-foreground text-white">
                   score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
                   {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
                   {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}

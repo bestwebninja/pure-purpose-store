@@ -60,11 +60,11 @@ export function SponsorRecommendations() {
 
       <div className="mt-5 space-y-3">
         {loading && !recs ? (
-          <div className="py-8 text-center text-sm text-muted-foreground">Analyzing the matching pool…</div>
+          <div className="py-8 text-center text-sm text-muted-foreground text-white">Analyzing the matching pool…</div>
         ) : error ? (
           <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">{error}</div>
         ) : !recs || recs.length === 0 ? (
-          <div className="rounded-md border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+          <div className="rounded-md border border-dashed border-border p-6 text-center text-sm text-muted-foreground text-white">
             No open matches right now. Check back soon.
           </div>
         ) : (

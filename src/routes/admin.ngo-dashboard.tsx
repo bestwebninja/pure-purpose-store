@@ -96,7 +96,7 @@ function AdminDashboard() {
         <h1 className="text-display text-3xl font-semibold text-white">Admin Dashboard</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-muted-foreground">You must be signed in as an admin to view this page.</p>
+          <p className="mt-2 text-sm text-muted-foreground text-white">You must be signed in as an admin to view this page.</p>
         </Card>
       </div>
     );
@@ -137,7 +137,7 @@ function AdminDashboard() {
                         {m.status}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 text-sm text-muted-foreground">{m.action}</td>
+                    <td className="px-6 py-4 text-sm text-muted-foreground text-white">{m.action}</td>
                   </tr>
                 ))}
               </tbody>
@@ -155,8 +155,8 @@ function AdminDashboard() {
       <h1 className="text-display text-3xl font-semibold text-white">NGO Applications</h1>
       <p className="mt-2 text-muted-foreground text-slate-50">Live admin view — updates in realtime.</p>
       <div className="mt-8 space-y-3">
-        {apps === null && <p className="text-sm text-muted-foreground">Loading…</p>}
-        {apps?.length === 0 && <p className="text-sm text-muted-foreground">No applications yet.</p>}
+        {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
+        {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
         {apps?.map((a) => (
           <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-yellow-400/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1">
@@ -166,7 +166,7 @@ function AdminDashboard() {
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground">{a.email} · {a.country} · {a.geography}</p>
+              <p className="text-sm text-muted-foreground text-white">{a.email} · {a.country} · {a.geography}</p>
               <p className="mt-1 text-xs text-muted-foreground">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>

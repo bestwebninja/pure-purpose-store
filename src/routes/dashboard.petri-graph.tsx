@@ -221,7 +221,7 @@ function PetriGraphPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-display text-xl font-semibold sm:text-2xl">Petri Graph Inspector</h1>
-          <p className="text-sm text-muted-foreground">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
+          <p className="text-sm text-muted-foreground text-white">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{nodes.length} nodes</Badge>
@@ -264,7 +264,7 @@ function PetriGraphPage() {
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
         <Card className="p-3 sm:p-4">
            {nodes.length === 0 ? (
-             <p className="p-8 text-center text-sm text-muted-foreground">
+             <p className="p-8 text-center text-sm text-muted-foreground text-white">
                No data yet. Submit a Give a Blessing or BlessME to populate the graph.
              </p>
            ) : (
@@ -280,7 +280,7 @@ function PetriGraphPage() {
         <Card className="p-4">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
           {!selectedNode && !selectedEdge && (
-            <p className="mt-3 text-sm text-muted-foreground">Click a node or edge to inspect.</p>
+            <p className="mt-3 text-sm text-muted-foreground text-white">Click a node or edge to inspect.</p>
           )}
           {selectedNode && (
             <div className="mt-3 space-y-2 text-sm">

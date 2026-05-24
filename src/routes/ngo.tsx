@@ -39,7 +39,7 @@ function NgoLanding() {
           <Card key={f.title} className="p-6">
             <f.icon className="h-6 w-6 text-primary" />
             <h3 className="mt-3 font-semibold">{f.title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
+            <p className="mt-1 text-sm text-muted-foreground text-white">{f.body}</p>
           </Card>
         ))}
       </div>

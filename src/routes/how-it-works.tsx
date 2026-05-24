@@ -68,7 +68,7 @@ function HowItWorks() {
               <span className="text-sm font-medium text-muted-foreground">Step {i + 1}</span>
             </div>
             <h3 className="text-display mt-4 text-xl font-semibold">{s.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
+            <p className="mt-2 text-sm text-muted-foreground text-white">{s.body}</p>
           </div>
         ))}
       </div>

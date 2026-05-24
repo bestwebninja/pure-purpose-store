@@ -151,7 +151,7 @@ function Login() {
           : "Create your account"}
       </h1>
 
-      <p className="mt-2 text-center text-sm text-muted-foreground">
+      <p className="mt-2 text-center text-sm text-muted-foreground text-white">
         {mode === "signin"
           ? "Sign in to your dashboard."
           : "Sign up with email to get started."}
