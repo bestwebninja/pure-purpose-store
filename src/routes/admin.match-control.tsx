@@ -153,7 +153,7 @@ function AdminMatchControl() {
                 <Button size="sm" variant="destructive" onClick={() => handle(m.id, "reject")} disabled={!!busy || m.status === "rejected"}>
                   Reject
                 </Button>
-                <Button size="sm" variant="ghost" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
+                <Button size="sm" variant="ghost" className="text-white" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
                   {events[m.id] ? "Hide" : "Events"}
                 </Button>
               </div>
