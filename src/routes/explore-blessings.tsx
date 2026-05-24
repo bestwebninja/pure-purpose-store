@@ -222,7 +222,7 @@ function ExploreBlessings() {
                   <Button
                     size="sm"
                     variant={isActiveCat ? "default" : "secondary"}
-                    className="rounded-full bg-blue-700 text-white"
+                    className="rounded-full bg-blue-700"
                   >
                     <span className="mr-1.5" aria-hidden>{cat.icon}</span>
                     {cat.name}
