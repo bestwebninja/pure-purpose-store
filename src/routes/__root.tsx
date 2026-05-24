@@ -90,7 +90,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   return (
     <div
-      className="flex min-h-screen flex-col"
+      className="flex min-h-screen flex-col bg-blue-800"
       style={{
         background:
           "linear-gradient(180deg, #eaf2ff 0%, #d9e6ff 40%, #c7d8fb 100%)",
