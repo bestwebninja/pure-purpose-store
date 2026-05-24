@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { submitCorporateApplication } from "@/server/api/corporate.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/corporate-signup")({
   component: CorporateSignup,
 });
 
 function CorporateSignup() {
+  const submitFn = useServerFn(submitCorporateApplication);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     company_name: "",
     industry: "",
@@ -41,9 +47,46 @@ function CorporateSignup() {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log("CORPORATE APPLICATION:", form);
-    alert("Corporate application submitted (MVP mode)");
+  const handleSubmit = async () => {
+    if (!form.company_name || !form.poc_email) {
+      toast.error("Company name and contact email are required");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const poc_name = `${form.poc_first_name} ${form.poc_surname}`.trim();
+      await submitFn({
+        data: {
+          company_name: form.company_name,
+          industry: form.industry,
+          website: form.website,
+          poc_name,
+          poc_email: form.poc_email,
+          poc_phone: form.poc_phone,
+          poc_department: form.poc_department,
+          poc_role: form.poc_role,
+          address_line1: form.address_line1,
+          address_line2: form.address_line2,
+          city: form.city,
+          state: form.state,
+          zip: form.zip,
+          country: form.country,
+          company_size: form.company_size,
+          contribution_type: form.contribution_type,
+          contribution_frequency: form.contribution_frequency,
+          sponsorship_interest: form.sponsorship_interest,
+          branding_interest: form.branding_interest,
+          budget_range: form.budget_range,
+          notes: form.notes,
+        },
+      });
+      setSubmitted(true);
+      toast.success("Application submitted. We'll be in touch.");
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to submit application");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -150,9 +193,14 @@ function CorporateSignup() {
 
         <button
           onClick={handleSubmit}
-          className="w-full bg-black hover:bg-gray-900 text-white py-3 rounded font-semibold"
+          disabled={submitting || submitted}
+          className="w-full bg-black hover:bg-gray-900 disabled:opacity-60 text-white py-3 rounded font-semibold"
         >
-          Submit Corporate Application
+          {submitted
+            ? "Submitted ✓"
+            : submitting
+            ? "Submitting…"
+            : "Submit Corporate Application"}
         </button>
 
       </div>
