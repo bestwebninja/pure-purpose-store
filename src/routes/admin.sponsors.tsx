@@ -64,7 +64,7 @@ function AdminSponsors() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
       <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
-      <p className="mt-2 text-muted-foreground">Review and verify Blessing Sponsor applications.</p>
+      <p className="mt-2 text-muted-foreground text-slate-50">Review and verify Blessing Sponsor applications.</p>
       <div className="mt-8 space-y-3">
         {sponsors === null && <p className="text-sm text-muted-foreground">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-muted-foreground">No sponsor applications yet.</p>}
