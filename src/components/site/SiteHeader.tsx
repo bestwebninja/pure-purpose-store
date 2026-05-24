@@ -239,7 +239,7 @@ export function SiteHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-yellow-300 hover:text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-yellow-300 hover:text-foreground text-white">
               <Link to="/login">Login</Link>
             </Button>
           )}
