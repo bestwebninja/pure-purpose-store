@@ -105,7 +105,7 @@ function economicImpact(c: CaseRow | null): number {
 }
 
 function decisionFor(composite: number, autonomy: number): "auto" | "queue" | "manual" {
-  // 0 Manual Â· 1 Suggest Â· 2 Assisted Â· 3 Autonomous
+  // 0 Manual · 1 Suggest · 2 Assisted · 3 Autonomous
   if (autonomy <= 0) return "manual";
   if (autonomy === 1) return composite >= 80 ? "queue" : "manual";
   if (autonomy === 2) return composite >= 75 ? "auto" : composite >= 55 ? "queue" : "manual";
@@ -180,7 +180,7 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
     const alignment = sponsorAlignment(matches);
     const impact = economicImpact(c);
 
-    // Composite: weighted, normalised to 0â€“100.
+    // Composite: weighted, normalised to 0–100.
     const composite = clamp(
       urgency * 0.30 +
         delivery * 0.22 +

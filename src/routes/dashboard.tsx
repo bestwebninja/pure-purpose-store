@@ -11,7 +11,7 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard â€” MyBlessings" },
+      { title: "Dashboard — MyBlessings" },
       { name: "description", content: "Your live view of the blessing lifecycle." },
     ],
   }),

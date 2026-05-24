@@ -18,7 +18,7 @@ type Donation = {
 };
 
 export const Route = createFileRoute("/me/giving")({
-  head: () => ({ meta: [{ title: "My Giving â€” MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "My Giving — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: MyGiving,
 });
 
@@ -49,7 +49,7 @@ function MyGiving() {
     return () => { cancelled = true; };
   }, [navigate]);
 
-  if (loading) return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loadingâ€¦</div>;
+  if (loading) return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading…</div>;
   if (!data) return null;
 
   return (

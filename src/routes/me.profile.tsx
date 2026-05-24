@@ -25,7 +25,7 @@ async function fileToBase64(file: File): Promise<string> {
 }
 
 export const Route = createFileRoute("/me/profile")({
-  head: () => ({ meta: [{ title: "My Profile â€” MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "My Profile — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: ProfilePage,
 });
 
@@ -94,7 +94,7 @@ function ProfilePage() {
     }
     setUploading(true);
     try {
-      // Phase 2 â€” Image Trust Layer: profile photos must show a smiling human.
+      // Phase 2 — Image Trust Layer: profile photos must show a smiling human.
       const b64 = await fileToBase64(file);
       const verdict = await moderate({
         data: {
@@ -108,7 +108,7 @@ function ProfilePage() {
         toast.error("Photo not accepted", {
           description:
             verdict.reason ||
-            "Smiling is a must â€” please upload a photo where you are clearly smiling.",
+            "Smiling is a must — please upload a photo where you are clearly smiling.",
         });
         setUploading(false);
         return;
@@ -139,7 +139,7 @@ function ProfilePage() {
     .join("")
     .toUpperCase();
 
-  if (loading) return <div className="mx-auto max-w-2xl px-6 py-16 text-muted-foreground">Loadingâ€¦</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-6 py-16 text-muted-foreground">Loading…</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
@@ -166,14 +166,14 @@ function ProfilePage() {
               disabled={uploading}
             >
               {uploading ? (
-                <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Uploadingâ€¦</>
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Uploading…</>
               ) : (
                 <><Camera className="mr-2 h-4 w-4" />{avatarUrl ? "Change photo" : "Upload photo"}</>
               )}
             </Button>
             <p className="text-xs text-muted-foreground">JPG or PNG, up to 5 MB.</p>
             <p className="text-xs font-medium text-amber-600">
-              Smiling is a must â€” please upload a photo where you are clearly smiling.
+              Smiling is a must — please upload a photo where you are clearly smiling.
             </p>
           </div>
         </div>
@@ -190,7 +190,7 @@ function ProfilePage() {
             <Label htmlFor="ph">Phone</Label>
             <Input id="ph" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
-          <Button type="submit" disabled={saving}>{saving ? "Savingâ€¦" : "Save"}</Button>
+          <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
         </form>
       </Card>
     </div>

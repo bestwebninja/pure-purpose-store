@@ -6,9 +6,9 @@ import { Heart, ShieldCheck, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/ngo")({
   head: () => ({
     meta: [
-      { title: "For NGOs â€” MyBlessings" },
+      { title: "For NGOs — MyBlessings" },
       { name: "description", content: "Apply to receive blessings for your cause. Join the MyBlessings network of vetted nonprofits." },
-      { property: "og:title", content: "For NGOs â€” MyBlessings" },
+      { property: "og:title", content: "For NGOs — MyBlessings" },
       { property: "og:description", content: "Apply to receive blessings for your cause." },
     ],
   }),

@@ -31,7 +31,7 @@ export function DonationPanel({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Exact-amount funding only Ã¢â‚¬â€ sponsors fund the full blessing package.
+  // Exact-amount funding only — sponsors fund the full blessing package.
   const exactAmount = campaign.goal_amount;
 
   const pct = Math.min(
@@ -93,7 +93,7 @@ export function DonationPanel({
           {formatMoney(exactAmount, campaign.currency)}
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Partial donations are not accepted Ã¢â‚¬â€ sponsor the full blessing.
+          Partial donations are not accepted — sponsor the full blessing.
         </p>
       </div>
 
@@ -123,7 +123,7 @@ export function DonationPanel({
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Thinking of youÃ¢â‚¬Â¦"
+            placeholder="Thinking of you…"
             rows={3}
           />
         </div>
@@ -139,7 +139,7 @@ export function DonationPanel({
         Fund this Blessing for {formatMoney(exactAmount, campaign.currency)}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
-        Secure checkout powered by Shopify Ã‚Â· 100% transparent
+        Secure checkout powered by Shopify Ã‚· 100% transparent
       </p>
     </Card>
   );

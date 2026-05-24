@@ -18,7 +18,7 @@ type Case = {
 };
 
 export const Route = createFileRoute("/my-blessings")({
-  head: () => ({ meta: [{ title: "My Blessings â€” MyBlessings" }] }),
+  head: () => ({ meta: [{ title: "My Blessings — MyBlessings" }] }),
   component: MyBlessings,
 });
 
@@ -62,7 +62,7 @@ function MyBlessings() {
       </div>
 
       {loading ? (
-        <p className="mt-10 text-muted-foreground">Loadingâ€¦</p>
+        <p className="mt-10 text-muted-foreground">Loading…</p>
       ) : cases.length === 0 ? (
         <Card className="mt-10 p-8 text-center">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>

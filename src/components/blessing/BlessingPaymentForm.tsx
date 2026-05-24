@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 /**
  * STUB: BlessingPaymentForm. Real checkout flows through Shopify via the
- * DonationPanel on the campaign route. Exact-amount funding only â€”
+ * DonationPanel on the campaign route. Exact-amount funding only —
  * partial / custom donations are not permitted.
  */
 export function BlessingPaymentForm({
