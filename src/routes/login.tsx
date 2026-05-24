@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Login â€” MyBlessings" },
+      { title: "Login — MyBlessings" },
       {
         name: "description",
         content: "Sign in to your MyBlessings dashboard to manage your giving.",
@@ -40,13 +40,19 @@ function Login() {
         .eq("user_id", userId)
         .eq("role", "admin")
         .maybeSingle(),
-      supabase.from("sponsors").select("id").eq("user_id", userId).maybeSingle(),
+      supabase
+        .from("sponsors")
+        .select("id")
+        .eq("user_id", userId)
+        .maybeSingle(),
     ]);
 
     const [adminRes, sponsorRes] = roles;
 
-    const isAdmin = adminRes.status === "fulfilled" && !!adminRes.value.data;
-    const isSponsor = sponsorRes.status === "fulfilled" && !!sponsorRes.value.data;
+    const isAdmin =
+      adminRes.status === "fulfilled" && !!adminRes.value.data;
+    const isSponsor =
+      sponsorRes.status === "fulfilled" && !!sponsorRes.value.data;
 
     if (isAdmin) navigate({ to: "/admin/command-center" });
     else if (isSponsor) navigate({ to: "/sponsor/dashboard" });
@@ -60,8 +66,13 @@ function Login() {
         return;
       }
 
+      const redirectUrl =
+        typeof window !== "undefined"
+          ? `${window.location.origin}/reset-password`
+          : "/reset-password";
+
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
+        redirectTo: redirectUrl,
       });
 
       if (error) throw error;
@@ -83,7 +94,10 @@ function Login() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/`,
+            emailRedirectTo:
+              typeof window !== "undefined"
+                ? window.location.origin
+                : "/",
             data: { display_name: displayName, phone },
           },
         });
@@ -97,10 +111,11 @@ function Login() {
           toast.success("Check your email to confirm your account.");
         }
       } else {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+        const { data, error } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
 
         if (error) throw error;
 
@@ -109,7 +124,9 @@ function Login() {
       }
     } catch (err: unknown) {
       const msg =
-        err instanceof Error ? err.message : "Authentication failed";
+        err instanceof Error
+          ? err.message
+          : "Authentication failed";
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -129,7 +146,9 @@ function Login() {
       </span>
 
       <h1 className="text-display mt-6 text-3xl font-semibold">
-        {mode === "signin" ? "Welcome back" : "Create your account"}
+        {mode === "signin"
+          ? "Welcome back"
+          : "Create your account"}
       </h1>
 
       <p className="mt-2 text-center text-sm text-muted-foreground">
@@ -147,20 +166,21 @@ function Login() {
                 <Input
                   id="name"
                   value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  required
-                  autoComplete="name"
+                  onChange={(e) =>
+                    setDisplayName(e.target.value)
+                  }
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone (optional)</Label>
+                <Label htmlFor="phone">
+                  Phone (optional)
+                </Label>
                 <Input
                   id="phone"
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  autoComplete="tel"
                 />
               </div>
             </>
@@ -174,7 +194,6 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              autoComplete="email"
             />
           </div>
 
@@ -187,13 +206,10 @@ function Login() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              autoComplete={
-                mode === "signin" ? "current-password" : "new-password"
-              }
             />
           </div>
 
-          {/* ðŸ” FORGOT PASSWORD */}
+          {/* FORGOT PASSWORD */}
           {mode === "signin" && (
             <div className="flex justify-end">
               <button
@@ -212,9 +228,13 @@ function Login() {
             </p>
           )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={loading}
+          >
             {loading
-              ? "Please waitâ€¦"
+              ? "Please wait…"
               : mode === "signin"
               ? "Sign in"
               : "Sign up"}
@@ -238,7 +258,7 @@ function Login() {
         href="/become-blessing-sponsor"
         className="mt-6 text-sm font-medium text-primary hover:underline"
       >
-        Become a Blessing Sponsor â†’
+        Become a Blessing Sponsor →
       </a>
     </div>
   );

@@ -1,23 +1,17 @@
 // src/server/api/gateway/registry.ts
 
-export type GatewayModule = Record<string, any>;
+/**
+ * STATIC GATEWAY CONTRACT ONLY
+ * NO imports allowed (enforced by gateway OS rules)
+ */
 
-class GatewayRegistry {
-  private modules: Record<string, GatewayModule> = {};
+export const registry = {
+  sponsor: {
+    createSponsorProfile: "createSponsorProfile",
+    getMySponsorProfile: "getMySponsorProfile",
+    listSponsors: "listSponsors",
+    updateSponsorStatus: "updateSponsorStatus",
+  },
+};
 
-  register(namespace: string, module: GatewayModule) {
-    this.modules[namespace] = module;
-  }
-
-  get(namespace: string) {
-    const mod = this.modules[namespace];
-    if (!mod) throw new Error(`Gateway module not found: ${namespace}`);
-    return mod;
-  }
-
-  all() {
-    return this.modules;
-  }
-}
-
-export const gatewayRegistry = new GatewayRegistry();
+export type GatewayModule = Record<string, string>;

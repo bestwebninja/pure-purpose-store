@@ -1,35 +1,33 @@
 ﻿// src/server/api/gateway.ts
 // ===============================
 // MyBlessings Gateway OS Router
-// Single Source of Truth API Layer
+// Pure API Surface Layer (NO FUNCTION IMPORTS)
 // ===============================
 
-import * as sponsor from "@/server/api/sponsor.functions";
+import { registry } from "./gateway/registry";
 
 // ===============================
 // FUNCTION REGISTRY
 // ===============================
 
 export const Gateway = {
-  // Sponsor Domain
-  createSponsorProfile: sponsor.createSponsorProfile,
-  getMySponsorProfile: sponsor.getMySponsorProfile,
-  listSponsors: sponsor.listSponsors,
-  updateSponsorStatus: sponsor.updateSponsorStatus,
+  sponsor: registry.sponsor,
 };
 
 // ===============================
 // FLAT EXPORT LAYER (CRITICAL)
 // ===============================
-// This fixes ALL your current import errors in UI
+// UI compatibility layer (safe re-exports)
 
-export const createSponsorProfile = sponsor.createSponsorProfile;
-export const getMySponsorProfile = sponsor.getMySponsorProfile;
-export const listSponsors = sponsor.listSponsors;
-export const updateSponsorStatus = sponsor.updateSponsorStatus;
+export const {
+  createSponsorProfile,
+  getMySponsorProfile,
+  listSponsors,
+  updateSponsorStatus,
+} = registry.sponsor;
 
 // ===============================
-// TYPE SAFE GATEWAY CONTRACT
+// TYPE SAFE CONTRACT
 // ===============================
 
 export type GatewayType = typeof Gateway;
