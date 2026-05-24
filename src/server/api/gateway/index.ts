@@ -1,6 +1,6 @@
 // src/server/api/gateway/index.ts
 
-import { gatewayRegistry } from "./registry";
+import { registry as gatewayRegistry } from "./registry";
 
 // Sponsor module
 import * as sponsor from "./sponsor.gateway";
@@ -10,9 +10,7 @@ import * as blessing from "./blessing.gateway";
 import * as petri from "./petri.gateway";
 
 // Register all modules
-gatewayRegistry.register("sponsor", sponsor);
-gatewayRegistry.register("blessing", blessing);
-gatewayRegistry.register("petri", petri);
+// (registry is a static contract; modules are wired in directly below)
 
 // ================================
 // UNIFIED GATEWAY EXPORT LAYER
