@@ -12,7 +12,7 @@ import { listNgoApplications, updateNgoStatus } from "@/server/api/gateway";
 export const Route = createFileRoute("/admin/ngo-dashboard")({
   head: () => ({
     meta: [
-      { title: "NGO Admin Dashboard â€” MyBlessings" },
+      { title: "NGO Admin Dashboard — MyBlessings" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -106,7 +106,7 @@ function AdminDashboard() {
     return (
       <div className="mx-auto max-w-6xl px-6 py-16">
         <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-white hover:text-yellow-400">
-          â† Back to NGO Applications
+          ← Back to NGO Applications
         </Button>
         <h1 className="text-display text-3xl font-semibold text-white">Verification Audit: {selectedApp.name}</h1>
         
@@ -153,9 +153,9 @@ function AdminDashboard() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <h1 className="text-display text-3xl font-semibold text-white">NGO Applications</h1>
-      <p className="mt-2 text-muted-foreground">Live admin view â€” updates in realtime.</p>
+      <p className="mt-2 text-muted-foreground">Live admin view — updates in realtime.</p>
       <div className="mt-8 space-y-3">
-        {apps === null && <p className="text-sm text-muted-foreground">Loadingâ€¦</p>}
+        {apps === null && <p className="text-sm text-muted-foreground">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground">No applications yet.</p>}
         {apps?.map((a) => (
           <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-yellow-400/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
@@ -166,9 +166,9 @@ function AdminDashboard() {
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground">{a.email} Â· {a.country} Â· {a.geography}</p>
+              <p className="text-sm text-muted-foreground">{a.email} · {a.country} · {a.geography}</p>
               <p className="mt-1 text-xs text-muted-foreground">Causes: {a.causes.join(", ")}</p>
-              <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> Â· {a.intelligence_status}</p>
+              <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>
             <div className="flex gap-2">
               <Button size="sm" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
