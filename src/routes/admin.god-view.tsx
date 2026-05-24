@@ -468,7 +468,7 @@ function GodView() {
           <Card className="p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 â€” counts shown above
+              Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 — counts shown above
               already reflect live data scoped by country.
             </p>
           </Card>
@@ -519,8 +519,8 @@ function GodView() {
                   <TableRow key={e.id}>
                     <TableCell className="text-xs text-muted-foreground">{timeAgo(e.created_at)}</TableCell>
                     <TableCell className="font-mono text-xs">{e.event_type}</TableCell>
-                    <TableCell className="text-xs">{e.provider ?? "â€”"}</TableCell>
-                    <TableCell><Badge variant="outline">{e.status ?? "â€”"}</Badge></TableCell>
+                    <TableCell className="text-xs">{e.provider ?? "—"}</TableCell>
+                    <TableCell><Badge variant="outline">{e.status ?? "—"}</Badge></TableCell>
                     <TableCell className="text-right tabular-nums">{fmtMoney(e.cost ?? 0, e.currency ?? "USD")}</TableCell>
                   </TableRow>
                 ))}
@@ -576,26 +576,26 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {feed.length === 0 ? (
-                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground">Waiting for routing engine activityâ€¦</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground">Waiting for routing engine activity…</TableCell></TableRow>
                   ) : feed.map((row) => (
                     <TableRow key={`${row.kind}-${row.id}`}>
                       <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{timeAgo(row.created_at)}</TableCell>
                       <TableCell>
                         {row.kind === "match"
-                          ? <Badge className="bg-primary/10 text-primary hover:bg-primary/15">match Â· {row.match_generation}</Badge>
+                          ? <Badge className="bg-primary/10 text-primary hover:bg-primary/15">match · {row.match_generation}</Badge>
                           : <Badge variant="outline">event</Badge>}
                       </TableCell>
                       <TableCell className="font-mono text-xs">
                         {row.kind === "match"
-                          ? <>cat:{row.category ?? "â€”"} Â· provider:{row.provider ?? "â€”"}</>
-                          : <>{row.event_type} Â· {row.notes ?? "â€”"}</>}
+                          ? <>cat:{row.category ?? "—"} · provider:{row.provider ?? "—"}</>
+                          : <>{row.event_type} · {row.notes ?? "—"}</>}
                       </TableCell>
                       <TableCell className="text-xs tabular-nums">
-                        {row.kind === "match" ? `${Math.round(Number(row.confidence_score) * 100)}%` : "â€”"}
+                        {row.kind === "match" ? `${Math.round(Number(row.confidence_score) * 100)}%` : "—"}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">
-                          {row.kind === "match" ? `${row.status} / ${row.execution_status}` : (row.status ?? "â€”")}
+                          {row.kind === "match" ? `${row.status} / ${row.execution_status}` : (row.status ?? "—")}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right tabular-nums">
@@ -626,13 +626,13 @@ function GodView() {
           <Card className="p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports â€” Funding Flywheel</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports — Funding Flywheel</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Drafts await Operator approval at L0â€“L2. Reports auto-send at L3 (Autonomous).
+                  Drafts await Operator approval at L0–L2. Reports auto-send at L3 (Autonomous).
                 </p>
               </div>
               <Button size="sm" variant="outline" onClick={loadReports} disabled={reportsLoading}>
-                {reportsLoading ? "Refreshingâ€¦" : "Refresh"}
+                {reportsLoading ? "Refreshing…" : "Refresh"}
               </Button>
             </div>
             <div className="max-h-[640px] overflow-auto">
@@ -661,12 +661,12 @@ function GodView() {
                     return (
                       <TableRow key={r.id}>
                         <TableCell>
-                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}â€¦</div>
-                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}â€¦</div>
+                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}…</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}…</div>
                         </TableCell>
                         <TableCell className="text-right tabular-nums text-xs">{fmtMoney(r.package_total, r.currency)}</TableCell>
                         <TableCell className="text-right tabular-nums text-xs">{fmtMoney(Number(r.next_package?.total ?? 0), r.currency)}</TableCell>
-                        <TableCell className="text-xs">L{r.autonomy_level} Â· {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
+                        <TableCell className="text-xs">L{r.autonomy_level} · {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
                         <TableCell><Badge className={tone}>{r.status}</Badge></TableCell>
                         <TableCell className="text-xs text-muted-foreground">
                           {r.sent_at ? `sent ${timeAgo(r.sent_at)}` : `drafted ${timeAgo(r.created_at)}`}
@@ -676,10 +676,10 @@ function GodView() {
                             <span className="text-xs text-emerald-600 dark:text-emerald-400">Auto-sent</span>
                           ) : canApprove ? (
                             <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
-                              {approvingId === r.id ? "Sendingâ€¦" : "Approve & send"}
+                              {approvingId === r.id ? "Sending…" : "Approve & send"}
                             </Button>
                           ) : (
-                            <span className="text-xs text-muted-foreground">â€”</span>
+                            <span className="text-xs text-muted-foreground">—</span>
                           )}
                         </TableCell>
                       </TableRow>
@@ -697,7 +697,7 @@ function GodView() {
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Autonomy levers</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  0 Manual Â· 1 Suggest Â· 2 Assisted Â· 3 Autonomous. Changes apply instantly.
+                  0 Manual · 1 Suggest · 2 Assisted · 3 Autonomous. Changes apply instantly.
                 </p>
               </div>
               <Badge variant="outline">{modules.length} modules</Badge>
@@ -710,7 +710,7 @@ function GodView() {
                   <div>
                     <div className="font-mono text-sm">{m.module_key}</div>
                     <div className="text-xs text-muted-foreground">
-                      {m.country_code ? `Country: ${m.country_code}` : "All countries"} Â· updated {timeAgo(m.updated_at)}
+                      {m.country_code ? `Country: ${m.country_code}` : "All countries"} · updated {timeAgo(m.updated_at)}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -731,7 +731,7 @@ function GodView() {
                       className="max-w-xs"
                     />
                     <Badge variant="outline" className="min-w-[110px] justify-center">
-                      L{m.autonomy_level} Â· {AUTONOMY_LABELS[m.autonomy_level]}
+                      L{m.autonomy_level} · {AUTONOMY_LABELS[m.autonomy_level]}
                     </Badge>
                   </div>
                   <div />
