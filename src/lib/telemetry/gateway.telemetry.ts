@@ -1,6 +1,6 @@
-/**
+﻿/**
  * ==============================
- * GATEWAY OS — TELEMETRY FEED
+ * GATEWAY OS â€” TELEMETRY FEED
  * ==============================
  * System-wide audit + intelligence stream
  */
@@ -40,7 +40,7 @@ export function emitTelemetry(event: Omit<TelemetryEvent, "timestamp">) {
 
   // DEV visibility
   if (import.meta.env.DEV) {
-    console.log("📡 TELEMETRY:", fullEvent);
+    console.log("ðŸ“¡ TELEMETRY:", fullEvent);
   }
 }
 

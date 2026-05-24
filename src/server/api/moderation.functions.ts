@@ -4,14 +4,14 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
- * Phase 2 â€” Image Trust Layer.
+ * Phase 2 — Image Trust Layer.
  *
  * Every user-submitted image goes through this gate before it can be linked
  * to a profile, sponsor record, case, or blessing. The model is asked to
  * decide three things, in priority order:
  *
  *   1. Is the image safe? (no nudity, gore, hate, weapons, illegal content)
- *   2. Is there a human in the frame, and are they smiling?
+ *   2. Is there a human in the frame, and are they smiling? 
  *      (MyBlessings rule: profile / case photos must show a smiling human.)
  *   3. Is the image clearly a real photo (not a screenshot, meme, or logo
  *      pasted as an avatar)?
@@ -201,7 +201,7 @@ export const moderateImage = createServerFn({ method: "POST" })
       verdict = allow ? "allow" : "reject";
       if (!allow && !reason) {
         reason = failsSmileRule
-          ? "Smiling is a must â€” please upload a photo where you are clearly smiling."
+          ? "Smiling is a must — please upload a photo where you are clearly smiling."
           : "This image does not meet our community safety or quality standards.";
       }
     } else {
@@ -245,4 +245,3 @@ export const moderateImage = createServerFn({ method: "POST" })
         : "Safe, respectful imagery only.",
     };
   });
-

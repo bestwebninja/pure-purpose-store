@@ -134,7 +134,7 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
     const amountCents = Math.round(data.amount * 100);
     if (amountCents !== pkg.total_cents) {
       throw new Error(
-        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} â€” received ${data.amount.toFixed(2)}.`,
+        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} — received ${data.amount.toFixed(2)}.`,
       );
     }
 
@@ -153,6 +153,3 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
       // created.
     };
   });
-
-
-

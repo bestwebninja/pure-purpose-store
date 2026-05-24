@@ -50,7 +50,7 @@ export const updateSponsorAssets = createServerFn({ method: "POST" })
     }
 
     if (data.doc) {
-      // Private bucket â€” store the path; sign on demand.
+      // Private bucket — store the path; sign on demand.
       update.doc_url = data.doc.path;
       const { data: signed } = await supabaseAdmin.storage
         .from(data.doc.bucket)
@@ -100,4 +100,3 @@ export const getMySponsorDocUrl = createServerFn({ method: "GET" })
       .createSignedUrl(sponsor.doc_url, 60 * 60);
     return { url: signed?.signedUrl ?? null };
   });
-
