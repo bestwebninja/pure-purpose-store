@@ -78,7 +78,7 @@ function Hero() {
               size="lg"
               className="h-12 rounded-md bg-accent px-8 text-base font-semibold text-primary shadow-glow hover:bg-accent/90"
             >
-              <Link to="/give">
+              <Link to="/give-a-blessing">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a blessing
               </Link>
             </Button>
@@ -259,7 +259,7 @@ function CTA() {
             size="lg"
             className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90"
           >
-            <Link to="/give"><Heart className="mr-2 h-5 w-5" fill="currentColor" /> Give a blessing</Link>
+            <Link to="/give-a-blessing"><Heart className="mr-2 h-5 w-5" fill="currentColor" /> Give a blessing</Link>
           </Button>
           <Button
             asChild

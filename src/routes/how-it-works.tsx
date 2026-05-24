@@ -91,7 +91,7 @@ function HowItWorks() {
               "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
           }}
         >
-          <Link to="/give">Give a Blessing</Link>
+          <Link to="/give-a-blessing">Give a Blessing</Link>
         </Button>
       </div>
     </div>
