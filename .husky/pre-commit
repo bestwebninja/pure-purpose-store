@@ -1,1 +1,1 @@
-npm test
+powershell -ExecutionPolicy Bypass -File scripts/git-guard.ps1
