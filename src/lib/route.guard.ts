@@ -23,3 +23,7 @@ export function getRouteCategory(path: string): string {
   if (ROUTE_REGISTRY.petri.includes(path as any)) return 'petri';
   return 'unknown';
 }
+
+export function isAdminRoute(path: string): boolean {
+  return ROUTE_REGISTRY.admin.includes(path as any);
+}

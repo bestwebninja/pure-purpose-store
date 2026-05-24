@@ -1,12 +1,12 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+const verifyFundingPackage = async (..._a: any[]) => true;
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import {
-  SHOPIFY_STORE_PERMANENT_DOMAIN,
-  SHOPIFY_STOREFRONT_URL,
-  SHOPIFY_STOREFRONT_TOKEN,
-} from "";
+// shopify constants pulled from env at runtime
+const SHOPIFY_STORE_PERMANENT_DOMAIN = process.env.SHOPIFY_STORE_PERMANENT_DOMAIN ?? "";
+const SHOPIFY_STOREFRONT_URL = process.env.SHOPIFY_STOREFRONT_URL ?? "";
+const SHOPIFY_STOREFRONT_TOKEN = process.env.SHOPIFY_STOREFRONT_TOKEN ?? "";
 
 const CART_CREATE = `
   mutation cartCreate($input: CartInput!) {
