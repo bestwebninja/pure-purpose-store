@@ -38,7 +38,7 @@ type Event = {
 };
 
 export const Route = createFileRoute("/admin/match-control")({
-  head: () => ({ meta: [{ title: "Match Control â€” MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Match Control — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminMatchControl,
 });
 
@@ -120,7 +120,7 @@ function AdminMatchControl() {
       </p>
 
       <div className="mt-8 space-y-3">
-        {matches === null && <p className="text-sm text-muted-foreground">Loadingâ€¦</p>}
+        {matches === null && <p className="text-sm text-muted-foreground">Loading…</p>}
         {matches?.length === 0 && <p className="text-sm text-muted-foreground">No matches yet.</p>}
         {matches?.map((m) => (
           <Card key={m.id} className="p-5">
@@ -137,10 +137,10 @@ function AdminMatchControl() {
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  score {m.score} Â· confidence {(m.confidence_score * 100).toFixed(0)}%
-                  {m.provider && <> Â· provider <span className="font-medium text-foreground">{m.provider}</span></>}
-                  {m.cost > 0 && <> Â· cost {m.cost.toFixed(2)} {m.currency}</>}
-                  {m.last_executed_at && <> Â· last run {new Date(m.last_executed_at).toLocaleString()}</>}
+                  score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
+                  {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
+                  {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}
+                  {m.last_executed_at && <> · last run {new Date(m.last_executed_at).toLocaleString()}</>}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -165,8 +165,8 @@ function AdminMatchControl() {
                 {events[m.id].map((e) => (
                   <div key={e.id} className="flex flex-wrap items-center justify-between gap-2 py-1 text-xs">
                     <span>{new Date(e.created_at).toLocaleString()}</span>
-                    <span className="font-medium">{e.provider ?? "â€”"}</span>
-                    <span>{e.status ?? "â€”"}</span>
+                    <span className="font-medium">{e.provider ?? "—"}</span>
+                    <span>{e.status ?? "—"}</span>
                     <span>{Number(e.cost ?? 0).toFixed(2)} {e.currency ?? ""}</span>
                     <span className="italic text-muted-foreground">{e.notes}</span>
                   </div>
