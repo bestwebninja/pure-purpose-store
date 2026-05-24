@@ -21,7 +21,7 @@ export async function allocateStabilizationSponsor(
 ): Promise<PetriAllocationResult> {
   const normalizedZip = zip.trim();
 
-  const verification = await verifyFulfillmentBeforeCheckout(normalizedZip);
+  const verification: any = await verifyFulfillmentBeforeCheckout(normalizedZip);
   if (!verification.fulfillable) {
     return {
       fulfillable: false,

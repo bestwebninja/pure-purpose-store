@@ -299,7 +299,7 @@ async function resolveAutonomy(primaryKey: string, fallbackKey: string): Promise
     .in("module_key", [primaryKey, fallbackKey])
     .is("country_code", null);
   const byKey = new Map((rows ?? []).map((r) => [r.module_key, r]));
-  const chosen = byKey.get(primaryKey) ?? byKey.get(fallbackKey);
+  const chosen: any = byKey.get(primaryKey) ?? byKey.get(fallbackKey);
   if (!chosen) return 0;
   if (!chosen.enabled) return 0;
   const lvl = Number(chosen.autonomy_level ?? 0);

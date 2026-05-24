@@ -37,7 +37,7 @@ export const moderateImage = async (..._a: Any[]): Promise<Any> => ({ approved: 
 
 // Checkout
 export const createBlessingCheckout = async (..._a: Any[]): Promise<Any> => ({});
-export const verifyFulfillmentBeforeCheckout = async (..._a: Any[]) => true;
+export const verifyFulfillmentBeforeCheckout = async (..._a: Any[]): Promise<Any> => ({ fulfillable: true });
 export const verifyFundingPackage = async (..._a: Any[]) => true;
 
 // Petri
@@ -88,3 +88,12 @@ export const listFulfillmentForMatch = async (..._a: Any[]): Promise<Any> => ({ 
 
 // UI utility
 export const cn = (...classes: Any[]) => classes.filter(Boolean).join(" ");
+
+
+// Campaigns / categories pass-through stubs
+export const listCategories = async (..._a: Any[]): Promise<Any> => ({ categories: [] as Any[] });
+export const listCampaignsByCategory = async (..._a: Any[]): Promise<Any> => ({ category: null, campaigns: [] as Any[] });
+export const getCampaignByHandle = async (..._a: Any[]): Promise<Any> => ({ campaign: null, donations: [] as Any[] });
+
+// Re-export supabase admin for legacy services
+export { supabaseAdmin as supabase } from "@/integrations/supabase/client.server";
