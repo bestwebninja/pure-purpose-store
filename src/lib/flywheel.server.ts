@@ -5,8 +5,8 @@
  * automatically generates the suggested funding package for next month.
  *
  * Autonomy gating:
- *   L3 (Autonomous) â†’ status='sent', auto-emails report + checkout link
- *   L0–L2          â†’ status='draft' / 'pending_review', awaits Operator
+ *   L3 (Autonomous) → status='sent', auto-emails report + checkout link
+ *   L0–L2          → status='draft' / 'pending_review', awaits Operator
  *                     approval inside the God View before being sent.
  *
  * Server-only — must NOT be imported from client code.

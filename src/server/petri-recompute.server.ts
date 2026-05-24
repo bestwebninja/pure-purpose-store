@@ -99,7 +99,7 @@ function economicImpact(c: CaseRow | null): number {
   if (!c) return 20;
   const amount = Number(c.target_amount ?? 0);
   if (amount <= 0) return 15;
-  // Log-scaled so $100 â‰ˆ 25, $1k â‰ˆ 45, $10k â‰ˆ 65, $100k â‰ˆ 85, $1M â‰ˆ 100.
+  // Log-scaled so $100 ≈ 25, $1k ≈ 45, $10k ≈ 65, $100k ≈ 85, $1M ≈ 100.
   const v = (Math.log10(amount) - 1) * 20 + 25;
   return clamp(v);
 }
