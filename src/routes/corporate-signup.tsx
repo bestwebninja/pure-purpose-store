@@ -10,22 +10,29 @@ function CorporateSignup() {
     company_name: "",
     industry: "",
     website: "",
-    poc_name: "",
+
+    poc_first_name: "",
+    poc_surname: "",
     poc_email: "",
     poc_phone: "",
     poc_department: "",
     poc_role: "",
+
     address_line1: "",
     address_line2: "",
     city: "",
     state: "",
     zip: "",
     country: "",
+
     company_size: "",
+
     contribution_type: "",
     contribution_frequency: "",
+
     sponsorship_interest: "",
     branding_interest: "",
+
     budget_range: "",
     notes: "",
   });
@@ -54,8 +61,19 @@ function CorporateSignup() {
           <Input label="Company Size" onChange={(v) => update("company_size", v)} />
         </Section>
 
+        {/* ✅ FIXED POC SECTION */}
         <Section title="Point of Contact">
-          <Input label="Full Name" onChange={(v) => update("poc_name", v)} />
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label="First Name"
+              onChange={(v) => update("poc_first_name", v)}
+            />
+            <Input
+              label="Surname"
+              onChange={(v) => update("poc_surname", v)}
+            />
+          </div>
+
           <Input label="Email" onChange={(v) => update("poc_email", v)} />
           <Input label="Phone" onChange={(v) => update("poc_phone", v)} />
           <Input label="Department" onChange={(v) => update("poc_department", v)} />
@@ -125,8 +143,7 @@ function CorporateSignup() {
         <Section title="Additional Notes">
           <textarea
             className="w-full border border-white/20 bg-white/5 text-white p-3 rounded
-                       placeholder:text-white/40 focus:outline-none
-                       focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                       focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
             onChange={(e) => update("notes", e.target.value)}
           />
         </Section>
@@ -142,6 +159,8 @@ function CorporateSignup() {
     </div>
   );
 }
+
+/* ---------------- UI HELPERS ---------------- */
 
 function Section({ title, children }: any) {
   return (
