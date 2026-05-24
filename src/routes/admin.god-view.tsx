@@ -16,7 +16,7 @@ import { approveFlywheelReport, listImpactReports } from "@/server/api/gateway";
 export const Route = createFileRoute("/admin/god-view")({
   head: () => ({
     meta: [
-      { title: "God View â€” MyBlessings Operator" },
+      { title: "God View — MyBlessings Operator" },
       { name: "robots", content: "noindex" },
     ],
   }),
