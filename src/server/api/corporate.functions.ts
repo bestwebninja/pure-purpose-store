@@ -1,6 +1,17 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
+async function assertAdmin(userId: string) {
+  const { data } = await supabaseAdmin
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (!data) throw new Error("Forbidden: admin role required");
+}
 
 const CorporateSchema = z.object({
   company_name: z.string(),
@@ -77,7 +88,9 @@ export const submitCorporateApplication = createServerFn({ method: "POST" })
   });
 
 export const listCorporateSponsors = createServerFn({ method: "GET" })
-  .handler(async () => {
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context.userId);
     const { data, error } = await supabaseAdmin
       .from("corporate_sponsors")
       .select("*")
