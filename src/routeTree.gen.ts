@@ -38,6 +38,7 @@ import { Route as DashboardPetriGraphRouteImport } from './routes/dashboard.petr
 import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
 import { Route as CampaignHandleRouteImport } from './routes/campaign.$handle'
 import { Route as AdminSponsorsRouteImport } from './routes/admin.sponsors'
+import { Route as AdminPetriOsRouteImport } from './routes/admin.petri-os'
 import { Route as AdminNgoDashboardRouteImport } from './routes/admin.ngo-dashboard'
 import { Route as AdminMatchControlRouteImport } from './routes/admin.match-control'
 import { Route as AdminGodViewRouteImport } from './routes/admin.god-view'
@@ -194,6 +195,11 @@ const AdminSponsorsRoute = AdminSponsorsRouteImport.update({
   path: '/admin/sponsors',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPetriOsRoute = AdminPetriOsRouteImport.update({
+  id: '/admin/petri-os',
+  path: '/admin/petri-os',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminNgoDashboardRoute = AdminNgoDashboardRouteImport.update({
   id: '/admin/ngo-dashboard',
   path: '/admin/ngo-dashboard',
@@ -270,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/petri-os': typeof AdminPetriOsRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -311,6 +318,7 @@ export interface FileRoutesByTo {
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/petri-os': typeof AdminPetriOsRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -353,6 +361,7 @@ export interface FileRoutesById {
   '/admin/god-view': typeof AdminGodViewRoute
   '/admin/match-control': typeof AdminMatchControlRoute
   '/admin/ngo-dashboard': typeof AdminNgoDashboardRoute
+  '/admin/petri-os': typeof AdminPetriOsRoute
   '/admin/sponsors': typeof AdminSponsorsRoute
   '/campaign/$handle': typeof CampaignHandleRoute
   '/categories/$slug': typeof CategoriesSlugRoute
@@ -396,6 +405,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
+    | '/admin/petri-os'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -437,6 +447,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
+    | '/admin/petri-os'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -478,6 +489,7 @@ export interface FileRouteTypes {
     | '/admin/god-view'
     | '/admin/match-control'
     | '/admin/ngo-dashboard'
+    | '/admin/petri-os'
     | '/admin/sponsors'
     | '/campaign/$handle'
     | '/categories/$slug'
@@ -520,6 +532,7 @@ export interface RootRouteChildren {
   AdminGodViewRoute: typeof AdminGodViewRoute
   AdminMatchControlRoute: typeof AdminMatchControlRoute
   AdminNgoDashboardRoute: typeof AdminNgoDashboardRoute
+  AdminPetriOsRoute: typeof AdminPetriOsRoute
   AdminSponsorsRoute: typeof AdminSponsorsRoute
   CampaignHandleRoute: typeof CampaignHandleRoute
   MeGivingRoute: typeof MeGivingRoute
@@ -738,6 +751,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSponsorsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/petri-os': {
+      id: '/admin/petri-os'
+      path: '/admin/petri-os'
+      fullPath: '/admin/petri-os'
+      preLoaderRoute: typeof AdminPetriOsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/ngo-dashboard': {
       id: '/admin/ngo-dashboard'
       path: '/admin/ngo-dashboard'
@@ -881,6 +901,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminGodViewRoute: AdminGodViewRoute,
   AdminMatchControlRoute: AdminMatchControlRoute,
   AdminNgoDashboardRoute: AdminNgoDashboardRoute,
+  AdminPetriOsRoute: AdminPetriOsRoute,
   AdminSponsorsRoute: AdminSponsorsRoute,
   CampaignHandleRoute: CampaignHandleRoute,
   MeGivingRoute: MeGivingRoute,
