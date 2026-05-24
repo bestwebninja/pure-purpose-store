@@ -28,7 +28,7 @@ type Blessing = {
 const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: string[] }[] = [
   {
     slug: "temporary-accommodation",
-    icon: "ðŸ¨",
+    icon: "🏨",
     name: "Temporary Accommodation",
     subs: [
       "Emergency shelter",
@@ -42,7 +42,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "emergency-travel",
-    icon: "✈️",
+    icon: "✈️",
     name: "Emergency Travel",
     subs: [
       "Bus / Train / Airline tickets",
@@ -80,7 +80,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "food-essentials",
-    icon: "ðŸ´",
+    icon: "🍴",
     name: "Food & Essentials Vouchers",
     subs: [
       "Grocery gift cards",
@@ -130,7 +130,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
   },
   {
     slug: "non-medical-recovery",
-    icon: "ðŸ¥",
+    icon: "🏥",
     name: "Non-Medical Recovery Support",
     subs: [
       "Accommodation near hospitals",
@@ -144,9 +144,9 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
 export const Route = createFileRoute("/explore-blessings")({
   head: () => ({
     meta: [
-       { title: "Our Blessings â€” MyBlessings" },
+       { title: "Our Blessings — MyBlessings" },
       { name: "description", content: "Browse blessings available for sponsorship across every assistance category." },
-      { property: "og:title", content: "Our Blessings â€” MyBlessings" },
+      { property: "og:title", content: "Our Blessings — MyBlessings" },
       { property: "og:description", content: "Browse blessings available for sponsorship across every assistance category." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/explore-blessings" },
     ],
@@ -256,7 +256,7 @@ function ExploreBlessings() {
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}
         </h2>
         {loading ? (
-          <p className="text-sm text-muted-foreground">Loadingâ€¦</p>
+          <p className="text-sm text-muted-foreground">Loading…</p>
         ) : filtered.length === 0 ? (
           <Card className="p-8 text-center">
             <p className="text-muted-foreground">
