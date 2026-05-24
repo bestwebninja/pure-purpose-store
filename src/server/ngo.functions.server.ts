@@ -274,7 +274,7 @@ export const listCategories = createServerFn({ method: "GET" }).handler(async ()
   return { categories: data ?? [] };
 });
 
-// â”€â”€â”€ Admin Command Center: real ops snapshot â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─── Admin Command Center: real ops snapshot ─────────────────────────────
 export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

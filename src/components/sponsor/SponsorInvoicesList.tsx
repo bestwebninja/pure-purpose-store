@@ -25,7 +25,7 @@ function formatCurrency(amount: number, currency: string) {
 
 function downloadInvoice(inv: Invoice) {
   const lines = [
-    `MyBlessings â€” Tax Receipt & Platform Invoice`,
+    `MyBlessings — Tax Receipt & Platform Invoice`,
     `Invoice #: ${inv.invoice_number}`,
     `Issued:    ${new Date(inv.issued_at).toLocaleDateString()}`,
     `Currency:  ${inv.currency}`,
@@ -79,14 +79,14 @@ export function SponsorInvoicesList() {
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={refresh} disabled={loading}>
-          {loading ? "Refreshingâ€¦" : "Refresh"}
+          {loading ? "Refreshing…" : "Refresh"}
         </Button>
       </div>
 
       {error ? (
         <p className="mt-4 text-sm text-destructive">{error}</p>
       ) : loading ? (
-        <p className="mt-4 text-sm text-muted-foreground">Loading invoicesâ€¦</p>
+        <p className="mt-4 text-sm text-muted-foreground">Loading invoices…</p>
       ) : invoices.length === 0 ? (
         <p className="mt-4 text-sm text-muted-foreground">No invoices yet. They'll appear here as your contributions settle.</p>
       ) : (

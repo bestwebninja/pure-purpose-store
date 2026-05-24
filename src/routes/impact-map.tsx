@@ -10,7 +10,7 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 export const Route = createFileRoute("/impact-map")({
   head: () => ({
     meta: [
-      { title: "Impact Map â€” MyBlessings" },
+      { title: "Impact Map — MyBlessings" },
       { name: "description", content: "See where blessings are landing across the world." },
     ],
   }),
@@ -55,7 +55,7 @@ function ImpactMapPage() {
                     <MapPin className="h-4 w-4 text-muted-foreground" />
                     {r.location}
                   </span>
-                  <span className="text-muted-foreground">{fmt(r.raised)} Â· {r.donors} blessings Â· {r.count} campaigns</span>
+                  <span className="text-muted-foreground">{fmt(r.raised)} · {r.donors} blessings · {r.count} campaigns</span>
                 </div>
                 <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted">
                   <div className="h-full rounded-full bg-primary" style={{ width: `${Math.round((r.raised / max) * 100)}%` }} />

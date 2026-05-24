@@ -17,7 +17,7 @@ export const requireSupabaseAuth = createMiddleware({ type: 'function' })
         headers = { Authorization: `Bearer ${token}` }
       }
     } catch {
-      // no session â€” server middleware will 401
+      // no session — server middleware will 401
     }
     return next({ headers })
   })

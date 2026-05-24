@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
- * Phase 2 â€” Image Trust Layer.
+ * Phase 2 — Image Trust Layer.
  *
  * Every user-submitted image goes through this gate before it can be linked
  * to a profile, sponsor record, case, or blessing. The model is asked to
@@ -201,7 +201,7 @@ export const moderateImage = createServerFn({ method: "POST" })
       verdict = allow ? "allow" : "reject";
       if (!allow && !reason) {
         reason = failsSmileRule
-          ? "Smiling is a must â€” please upload a photo where you are clearly smiling."
+          ? "Smiling is a must — please upload a photo where you are clearly smiling."
           : "This image does not meet our community safety or quality standards.";
       }
     } else {

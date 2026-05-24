@@ -1,9 +1,9 @@
 ﻿/**
- * Fulfillment Router â€” Layer 3 (Execution)
+ * Fulfillment Router — Layer 3 (Execution)
  *
  * Routes a confirmed Petri Bloom match to a provider adapter,
  * logs an immutable fulfillment_event, and updates the match's
- * execution status. STUB ADAPTERS ONLY â€” no real API calls yet.
+ * execution status. STUB ADAPTERS ONLY — no real API calls yet.
  *
  * Idempotency: each (match_id, action) generates a deterministic
  * idempotency_key. Re-running returns the prior event instead of
@@ -39,7 +39,7 @@ function pickProvider(category?: string | null): Provider {
   // by collapsing to a single lowercase token stream.
   const c = (category ?? "").toLowerCase().replace(/[_-]+/g, " ").trim();
   if (!c) return "none";
-  // Explicit slug map first â€” keeps the routing predictable for known categories.
+  // Explicit slug map first — keeps the routing predictable for known categories.
   const SLUG_MAP: Record<string, Provider> = {
     "food": "wolt",
     "food delivery": "wolt",
@@ -63,7 +63,7 @@ function pickProvider(category?: string | null): Provider {
   return "none";
 }
 
-/** Stub adapters â€” replace with real API integrations later. */
+/** Stub adapters — replace with real API integrations later. */
 const adapters: Record<Provider, (m: MatchInput) => Promise<{ cost: number; currency: string; reference: string }>> = {
   wolt: async (m) => ({ cost: 22.5, currency: "USD", reference: `wolt_stub_${m.id.slice(0, 8)}` }),
   uber: async (m) => ({ cost: 18.0, currency: "USD", reference: `uber_stub_${m.id.slice(0, 8)}` }),
@@ -75,7 +75,7 @@ export async function routeMatchToFulfillment(match: MatchInput): Promise<Router
   const provider = pickProvider(match.category);
   const idempotency_key = `match:${match.id}:execute:v1`;
 
-  // Idempotency check â€” return prior event if it exists.
+  // Idempotency check — return prior event if it exists.
   const existing = await supabaseAdmin
     .from("fulfillment_events")
     .select("id, provider, status, cost, currency, response")

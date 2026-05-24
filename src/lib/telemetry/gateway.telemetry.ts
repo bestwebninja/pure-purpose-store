@@ -1,6 +1,6 @@
 ﻿/**
  * ==============================
- * GATEWAY OS â€” TELEMETRY FEED
+ * GATEWAY OS — TELEMETRY FEED
  * ==============================
  * System-wide audit + intelligence stream
  */

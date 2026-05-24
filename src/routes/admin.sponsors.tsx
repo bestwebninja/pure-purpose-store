@@ -20,7 +20,7 @@ type Sponsor = {
 };
 
 export const Route = createFileRoute("/admin/sponsors")({
-  head: () => ({ meta: [{ title: "Sponsor Verification â€” MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Sponsor Verification — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminSponsors,
 });
 
@@ -66,7 +66,7 @@ function AdminSponsors() {
       <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
       <p className="mt-2 text-muted-foreground">Review and verify Blessing Sponsor applications.</p>
       <div className="mt-8 space-y-3">
-        {sponsors === null && <p className="text-sm text-muted-foreground">Loadingâ€¦</p>}
+        {sponsors === null && <p className="text-sm text-muted-foreground">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-muted-foreground">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
           <Card key={s.id} className="flex flex-wrap items-start justify-between gap-4 p-5">
@@ -77,7 +77,7 @@ function AdminSponsors() {
                   {s.verification_status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground">{s.sponsor_role} Â· {[s.city, s.country].filter(Boolean).join(", ") || "â€”"}</p>
+              <p className="text-sm text-muted-foreground">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
               {s.help_interests?.length > 0 && (
                 <p className="mt-1 text-xs text-muted-foreground">Interests: {s.help_interests.join(", ")}</p>
               )}

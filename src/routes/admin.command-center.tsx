@@ -12,7 +12,7 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 
 export const Route = createFileRoute("/admin/command-center")({
   head: () => ({
-    meta: [{ title: "Command Center â€” MyBlessings Admin" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Command Center — MyBlessings Admin" }, { name: "robots", content: "noindex" }],
   }),
   component: CommandCenter,
 });
@@ -78,16 +78,16 @@ function CommandCenter() {
         <div>
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Command Center</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Live ops view {snap?.generatedAt ? `Â· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
+            Live ops view {snap?.generatedAt ? `· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
           </p>
         </div>
         <Button size="sm" variant="outline" onClick={refresh} disabled={loading}>
-          {loading ? "Refreshingâ€¦" : "Refresh"}
+          {loading ? "Refreshing…" : "Refresh"}
         </Button>
       </div>
 
       {!snap ? (
-        <p className="mt-8 text-sm text-muted-foreground">Loadingâ€¦</p>
+        <p className="mt-8 text-sm text-muted-foreground">Loading…</p>
       ) : (
         <>
           {counts && (
@@ -195,7 +195,7 @@ function CommandCenter() {
                     <li key={d.id} className="flex justify-between py-2">
                       <span>{d.donor_name ?? "Anonymous"}</span>
                       <span className="text-muted-foreground">
-                        ${Number(d.amount).toFixed(2)} {d.currency} Â· {new Date(d.created_at).toLocaleString()}
+                        ${Number(d.amount).toFixed(2)} {d.currency} · {new Date(d.created_at).toLocaleString()}
                       </span>
                     </li>
                   ))}
@@ -213,7 +213,7 @@ function CommandCenter() {
                     <li key={w.event_id} className="py-2">
                       <div className="font-medium text-white">{w.topic ?? "(no topic)"}</div>
                       <div className="text-xs text-muted-foreground">
-                        {w.source} Â· {new Date(w.processed_at).toLocaleString()}
+                        {w.source} · {new Date(w.processed_at).toLocaleString()}
                       </div>
                     </li>
                   ))}

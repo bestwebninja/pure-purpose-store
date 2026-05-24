@@ -5,7 +5,7 @@ import { recomputePetriScoresCore, type RecomputeResult } from "./petri-recomput
 
 /**
  * Admin-only entry point for the PETRI Brain Recompute Loop.
- * Heuristic, auditable scoring â€” no LLM calls in the hot path.
+ * Heuristic, auditable scoring — no LLM calls in the hot path.
  */
 export const recomputePetriScores = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
