@@ -256,7 +256,7 @@ function ExploreBlessings() {
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}
         </h2>
         {loading ? (
-          <p className="text-sm text-muted-foreground">Loading…</p>
+          <p className="text-sm text-muted-foreground text-white">Loading…</p>
         ) : filtered.length === 0 ? (
           <Card className="p-8 text-center">
             <p className="text-muted-foreground">
@@ -274,7 +274,7 @@ function ExploreBlessings() {
                   <div>
                     <h3 className="font-semibold">{b.title}</h3>
                     {b.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{b.description}</p>
+                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground text-white">{b.description}</p>
                     )}
                   </div>
                   <div className="flex items-center justify-between">

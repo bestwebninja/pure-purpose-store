@@ -66,7 +66,7 @@ function CommandCenter() {
         <h1 className="text-display text-3xl font-semibold text-white">Command Center</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-muted-foreground">Sign in as an admin to view ops data.</p>
+          <p className="mt-2 text-sm text-muted-foreground text-white">Sign in as an admin to view ops data.</p>
         </Card>
       </div>
     );
@@ -77,7 +77,7 @@ function CommandCenter() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Command Center</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-muted-foreground text-white">
             Live ops view {snap?.generatedAt ? `· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
           </p>
         </div>
@@ -87,7 +87,7 @@ function CommandCenter() {
       </div>
 
       {!snap ? (
-        <p className="mt-8 text-sm text-muted-foreground">Loading…</p>
+        <p className="mt-8 text-sm text-muted-foreground text-white">Loading…</p>
       ) : (
         <>
           {counts && (
@@ -188,7 +188,7 @@ function CommandCenter() {
             <Card className="p-6 bg-card border-border/60 lg:col-span-2">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent donations</h2>
               {!snap.recent?.donations || snap.recent.donations.length === 0 ? (
-                <p className="mt-3 text-sm text-muted-foreground">No donations yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground text-white">No donations yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.donations.map((d: any) => (
@@ -206,7 +206,7 @@ function CommandCenter() {
             <Card className="p-6 bg-card border-border/60">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent webhooks</h2>
               {!snap.recent?.webhooks || snap.recent.webhooks.length === 0 ? (
-                <p className="mt-3 text-sm text-muted-foreground">No webhook events yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground text-white">No webhook events yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.webhooks.map((w: any) => (

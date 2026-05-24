@@ -54,7 +54,7 @@ function MyBlessings() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-display text-3xl font-semibold text-white">My Blessings</h1>
-          <p className="text-sm text-muted-foreground">Your help requests and their status.</p>
+          <p className="text-sm text-muted-foreground text-white">Your help requests and their status.</p>
         </div>
         <Button asChild>
           <Link to="/request-help">New Request</Link>
@@ -77,7 +77,7 @@ function MyBlessings() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-semibold">{c.title}</h3>
-                  {c.description && <p className="mt-1 text-sm text-muted-foreground">{c.description}</p>}
+                  {c.description && <p className="mt-1 text-sm text-muted-foreground text-white">{c.description}</p>}
                   <p className="mt-2 text-xs text-muted-foreground">
                     {[c.region, c.country].filter(Boolean).join(", ") || "Location not set"}
                   </p>

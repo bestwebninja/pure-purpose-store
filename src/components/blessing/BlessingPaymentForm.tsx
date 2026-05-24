@@ -24,7 +24,7 @@ export function BlessingPaymentForm({
   }).format(amount);
   return <Card className="p-6">
       <h3 className="text-display text-lg font-semibold">Give a Blessing</h3>
-      <p className="mt-1 text-sm text-muted-foreground">
+      <p className="mt-1 text-sm text-muted-foreground text-white">
         {campaignHandle ? `Supporting ${campaignHandle}` : "Fund the full blessing package."}
       </p>
       <div className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-4 text-center">
