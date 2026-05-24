@@ -97,7 +97,7 @@ function CommandCenter() {
           )}
           <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Donations</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Donations</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat
                   label="Total raised"
@@ -108,7 +108,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Campaigns</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Campaigns</h2>
               <div className="mt-4 flex items-baseline gap-3">
                 <Stat label="Total" value={snap.campaigns?.total ?? 0} />
               </div>
@@ -123,7 +123,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">NGO Applications</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">NGO Applications</h2>
               <div className="mt-4 flex items-baseline gap-3">
                 <Stat label="Total" value={snap.ngo?.total ?? 0} />
               </div>
@@ -141,7 +141,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Pipeline</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Pipeline</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat label="Webhook events" value={snap.pipeline?.webhookEventsSeen ?? 0} />
                 <Stat label="Donations recorded" value={snap.pipeline?.donationsRecorded ?? 0} />
@@ -154,7 +154,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Ledger Integrity</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Ledger Integrity</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat label="Entries" value={snap.ledger?.entries ?? 0} />
                 <Stat label="Donations posted" value={snap.ledger?.donationsPosted ?? 0} />
@@ -169,7 +169,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Health</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Health</h2>
               <div className="mt-4 space-y-2 text-sm">
                 <a href="/api/public/health" target="_blank" rel="noreferrer" className="block underline text-primary">
                   /api/public/health
@@ -186,7 +186,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60 lg:col-span-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent donations</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Recent donations</h2>
               {!snap.recent?.donations || snap.recent.donations.length === 0 ? (
                 <p className="mt-3 text-sm text-muted-foreground text-white">No donations yet.</p>
               ) : (
@@ -204,7 +204,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent webhooks</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Recent webhooks</h2>
               {!snap.recent?.webhooks || snap.recent.webhooks.length === 0 ? (
                 <p className="mt-3 text-sm text-muted-foreground text-white">No webhook events yet.</p>
               ) : (
