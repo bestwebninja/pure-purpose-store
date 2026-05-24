@@ -208,7 +208,7 @@ function ExploreBlessings() {
             Categories
           </h2>
           {activeSub && (
-            <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)}>
+            <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)} className="text-white">
               Clear filter
             </Button>
           )}
