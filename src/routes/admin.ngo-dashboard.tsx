@@ -153,7 +153,7 @@ function AdminDashboard() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <h1 className="text-display text-3xl font-semibold text-white">NGO Applications</h1>
-      <p className="mt-2 text-muted-foreground">Live admin view — updates in realtime.</p>
+      <p className="mt-2 text-muted-foreground text-slate-50">Live admin view — updates in realtime.</p>
       <div className="mt-8 space-y-3">
         {apps === null && <p className="text-sm text-muted-foreground">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground">No applications yet.</p>}

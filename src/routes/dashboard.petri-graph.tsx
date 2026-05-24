@@ -211,7 +211,7 @@ function PetriGraphPage() {
     return (
       <div className="mx-auto max-w-6xl p-8">
         <h1 className="text-display text-2xl font-semibold">Petri Graph Inspector</h1>
-        <p className="mt-2 text-muted-foreground">Admins only.</p>
+        <p className="mt-2 text-muted-foreground text-slate-50">Admins only.</p>
       </div>
     );
   }

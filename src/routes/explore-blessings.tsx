@@ -195,7 +195,7 @@ function ExploreBlessings() {
         <h1 className="text-display text-5xl font-normal tracking-tight text-foreground md:text-6xl text-yellow-100">
           Our Blessings
         </h1>
-        <p className="mt-2 text-muted-foreground">Sponsor specific items that meet a real need.</p>
+        <p className="mt-2 text-muted-foreground text-slate-50">Sponsor specific items that meet a real need.</p>
       </header>
 
       {error && (
