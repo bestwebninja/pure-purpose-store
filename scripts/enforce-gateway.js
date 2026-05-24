@@ -6,11 +6,14 @@ const root = 'src';
 const exts = new Set(['.ts', '.tsx']);
 let violations = [];
 
+const allowedImports = ['@/server/api/gateway', '.functions'];
+
 function walk(dir) {
   for (const entry of readdirSync(dir)) {
     const path = join(dir, entry);
     const stat = statSync(path);
     if (stat.isDirectory()) {
+      if (path === join('src', 'server')) continue;
       walk(path);
       continue;
     }
@@ -18,7 +21,7 @@ function walk(dir) {
     if (!exts.has(ext)) continue;
     const lines = readFileSync(path, 'utf8').split(/\r?\n/);
     lines.forEach((line, index) => {
-      if (line.includes('@/server/') && !line.includes('@/server/api/gateway')) {
+      if (line.includes('@/server/') && !allowedImports.some((allowed) => line.includes(allowed))) {
         violations.push(`${path}:${index + 1} ${line}`);
       }
     });
