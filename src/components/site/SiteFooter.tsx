@@ -1,36 +1,16 @@
-﻿import { Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
-import { useEffect, useState } from "react";
-
-// Curated, license-friendly nature imagery
-const FOOTER_IMAGES = [
-  "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=70",
-  "https://images.unsplash.com/photo-1444492417251-9c84a5fa18e0?auto=format&fit=crop&w=1920&q=70",
-  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1920&q=70",
-  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1920&q=70",
-  "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=1920&q=70",
-];
+import sunflowerField from "@/assets/sunflower-field.jpg";
 
 export function SiteFooter() {
-  const [idx, setIdx] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(
-      () => setIdx((i) => (i + 1) % FOOTER_IMAGES.length),
-      7000
-    );
-    return () => clearInterval(t);
-  }, []);
-
   return (
     <footer
       className="relative mt-24 overflow-hidden border-t border-border/60 text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(8,28,80,0.78), rgba(8,28,80,0.92)), url(${FOOTER_IMAGES[idx]})`,
+        backgroundImage: `linear-gradient(rgba(8,28,80,0.55), rgba(8,28,80,0.7)), url(${sunflowerField})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        transition: "background-image 1.2s ease-in-out",
       }}
     >
       {/* Quote strip */}
@@ -84,8 +64,6 @@ export function SiteFooter() {
                 Give a Blessing
               </Link>
             </li>
-
-            {/* ✅ NEW CORPORATE LINK */}
             <li>
               <Link
                 to="/corporate-signup"
