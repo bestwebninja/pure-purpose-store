@@ -3,14 +3,6 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 
 type Blessing = {
@@ -213,39 +205,44 @@ function ExploreBlessings() {
             </Button>
           )}
         </div>
-        <div className="flex flex-wrap gap-2">
-          {CATEGORY_TAXONOMY.map((cat) => {
-            const isActiveCat = activeSub?.startsWith(`${cat.slug}::`);
-            return (
-              <DropdownMenu key={cat.slug}>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    size="sm"
-                    variant={isActiveCat ? "default" : "secondary"}
-                    className="rounded-full bg-blue-700 text-white"
+        <div className="flex flex-col divide-y divide-white/10 rounded-lg border border-white/10 bg-white/5">
+          {[...CATEGORY_TAXONOMY]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((cat) => {
+              const isActiveCat = activeSub?.startsWith(`${cat.slug}::`);
+              return (
+                <div
+                  key={cat.slug}
+                  className="grid grid-cols-1 gap-3 p-3 md:grid-cols-[14rem_1fr] md:items-center"
+                >
+                  <div
+                    className={`flex items-center gap-2 font-semibold ${
+                      isActiveCat ? "text-yellow-100" : "text-white"
+                    }`}
                   >
-                    <span className="mr-1.5" aria-hidden>{cat.icon}</span>
-                    {cat.name}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-64">
-                  <DropdownMenuLabel>{cat.name}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {cat.subs.map((sub) => {
-                    const key = `${cat.slug}::${sub}`;
-                    return (
-                      <DropdownMenuItem
-                        key={key}
-                        onSelect={() => setActiveSub(activeSub === key ? null : key)}
-                      >
-                        {sub}
-                      </DropdownMenuItem>
-                    );
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            );
-          })}
+                    <span aria-hidden>{cat.icon}</span>
+                    <span>{cat.name}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.subs.map((sub) => {
+                      const key = `${cat.slug}::${sub}`;
+                      const isActive = activeSub === key;
+                      return (
+                        <Button
+                          key={key}
+                          size="sm"
+                          variant={isActive ? "default" : "secondary"}
+                          onClick={() => setActiveSub(isActive ? null : key)}
+                          className="rounded-full"
+                        >
+                          {sub}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </section>
 
