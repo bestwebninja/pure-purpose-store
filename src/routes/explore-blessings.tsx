@@ -229,15 +229,17 @@ function ExploreBlessings() {
                       const isActive = activeSub === key;
                       const isVeterans = sub.startsWith("Veterans");
                       return (
-                        <Button
-                          key={key}
-                          size="sm"
-                          variant={isActive ? "default" : "secondary"}
-                          onClick={() => setActiveSub(isActive ? null : key)}
-                          className={`rounded-full ${isVeterans ? "basis-full" : ""}`}
-                        >
-                          {sub}
-                        </Button>
+                        <Fragment key={key}>
+                          {isVeterans && <div className="basis-full h-0" aria-hidden />}
+                          <Button
+                            size="sm"
+                            variant={isActive ? "default" : "secondary"}
+                            onClick={() => setActiveSub(isActive ? null : key)}
+                            className="rounded-full"
+                          >
+                            {sub}
+                          </Button>
+                        </Fragment>
                       );
                     })}
                   </div>
