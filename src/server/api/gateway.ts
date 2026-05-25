@@ -95,5 +95,9 @@ export const listCategories = async (..._a: Any[]): Promise<Any> => ({ categorie
 export const listCampaignsByCategory = async (..._a: Any[]): Promise<Any> => ({ category: null, campaigns: [] as Any[] });
 export const getCampaignByHandle = async (..._a: Any[]): Promise<Any> => ({ campaign: null, donations: [] as Any[] });
 
-// Re-export supabase admin for legacy services
-export { supabaseAdmin as supabase } from "@/integrations/supabase/client.server";
+// NOTE: Do NOT re-export supabaseAdmin from this module.
+// This file is imported by client code (e.g. `cn` is used in UI components),
+// so importing `@/integrations/supabase/client.server` here pulls the
+// service-role client into the client bundle and fails the build.
+// Server code that needs admin access should import it directly from
+// `@/integrations/supabase/client.server`.

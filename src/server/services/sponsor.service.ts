@@ -1,4 +1,4 @@
-import { supabase } from "../api/gateway";
+import { supabaseAdmin as supabase } from "@/integrations/supabase/client.server";
 
 // Sponsor Functions
 export async function listSponsorInvoices(userId: string) {
