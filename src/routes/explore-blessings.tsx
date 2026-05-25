@@ -29,7 +29,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Domestic violence relocation",
       "Disaster displacement",
       "Hospital nearby stays",
-      "Military & Veterans Housing",
+      "Veterans Housing",
     ],
   },
   {
@@ -40,7 +40,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Bus / Train / Airline tickets",
       "Rideshare credits",
       "Airport transfers",
-      "Military & Veterans Travel",
+      "Veterans Travel",
     ],
   },
   {
@@ -54,7 +54,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Bicycles",
       "Fuel cards",
       "Mobility passes",
-      "Military & Veterans Mobility",
+      "Veterans Mobility",
     ],
   },
   {
@@ -67,7 +67,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Walkers",
       "Medical transport coordination",
       "Mobility scooter rental",
-      "Military & Veterans Accessibility Support",
+      "Veterans Accessibility Support",
     ],
   },
   {
@@ -79,7 +79,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Meal vouchers",
       "Pharmacy gift cards",
       "Prepaid essentials",
-      "Military & Veterans Rations / Essentials",
+      "Veterans Rations / Essentials",
     ],
   },
   {
@@ -92,7 +92,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Data bundles",
       "Internet vouchers",
       "Prepaid phones",
-      "Military & Veterans Connectivity",
+      "Veterans Connectivity",
     ],
   },
   {
@@ -105,7 +105,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "School transport",
       "Emergency childcare rides",
       "School meal sponsorship",
-      "Military & Veterans Families Support",
+      "Veterans Families Support",
     ],
   },
   {
@@ -117,7 +117,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Emergency overnight stays",
       "Passport-loss assistance",
       "Border / airport transport",
-      "Military & Veterans Stranded Assistance",
+      "Veterans Stranded Assistance",
     ],
   },
   {
@@ -128,7 +128,7 @@ const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: strin
       "Accommodation near hospitals",
       "Transport to treatment",
       "Meal support during recovery",
-      "Military & Veterans Recovery Logistics",
+      "Veterans Recovery Logistics",
     ],
   },
 ];
@@ -227,13 +227,14 @@ function ExploreBlessings() {
                     {cat.subs.map((sub) => {
                       const key = `${cat.slug}::${sub}`;
                       const isActive = activeSub === key;
+                      const isVeterans = sub.startsWith("Veterans");
                       return (
                         <Button
                           key={key}
                           size="sm"
                           variant={isActive ? "default" : "secondary"}
                           onClick={() => setActiveSub(isActive ? null : key)}
-                          className="rounded-full"
+                          className={`rounded-full ${isVeterans ? "basis-full" : ""}`}
                         >
                           {sub}
                         </Button>
