@@ -223,15 +223,20 @@ function ExploreBlessings() {
                     <span aria-hidden>{cat.icon}</span>
                     <span>{cat.name}</span>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {cat.subs.map((sub) => {
-                      const key = `${cat.slug}::${sub}`;
-                      const isActive = activeSub === key;
-                      const isVeterans = sub.startsWith("Veterans");
-                      return (
-                        <Fragment key={key}>
-                          {isVeterans && <div className="basis-full h-0" aria-hidden />}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {[...cat.subs]
+                      .sort((a, b) => {
+                        const av = a.startsWith("Veterans") ? 1 : 0;
+                        const bv = b.startsWith("Veterans") ? 1 : 0;
+                        if (av !== bv) return av - bv;
+                        return a.localeCompare(b);
+                      })
+                      .map((sub) => {
+                        const key = `${cat.slug}::${sub}`;
+                        const isActive = activeSub === key;
+                        return (
                           <Button
+                            key={key}
                             size="sm"
                             variant={isActive ? "default" : "secondary"}
                             onClick={() => setActiveSub(isActive ? null : key)}
@@ -239,9 +244,8 @@ function ExploreBlessings() {
                           >
                             {sub}
                           </Button>
-                        </Fragment>
-                      );
-                    })}
+                        );
+                      })}
                   </div>
                 </div>
               );
