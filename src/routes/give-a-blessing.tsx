@@ -232,7 +232,7 @@ function GiveABlessing() {
                 <Input className={inputCls} value={form.profileImage} maxLength={500}
                   placeholder="https://…"
                   onChange={(e) => setForm({ ...form, profileImage: e.target.value })} />
-                <p className="text-xs text-white/60">Image upload coming soon — paste a URL for now.</p>
+                <p className="text-xs text-white/60">Upload our drop a link to your public profile .</p>
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <Checkbox checked={form.facebookConnected}
