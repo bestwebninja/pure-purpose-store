@@ -237,7 +237,7 @@ function GiveABlessing() {
               <label className="flex items-center gap-2 text-sm">
                 <Checkbox checked={form.facebookConnected}
                   onCheckedChange={(v) => setForm({ ...form, facebookConnected: v === true })} />
-                <span>Connect Facebook (placeholder — coming soon)</span>
+                <span>Connect your social accounts will be an option next</span>
               </label>
               <div className="flex justify-end">
                 <Button onClick={() => setStep(1)}
