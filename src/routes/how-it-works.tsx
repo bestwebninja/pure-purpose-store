@@ -52,7 +52,7 @@ function HowItWorks() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <header className="text-center">
-        <h1 className="text-display font-semibold md:text-6xl font-serif bg-slate-200 text-lg border-yellow-300">MyBlessings, How you give..</h1>
+        <h1 className="text-display font-semibold md:text-6xl font-serif bg-slate-200 border-yellow-300 text-lg">MyBlessings, How you BLESS..</h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
           We've stripped giving down to its essentials. No noise. No friction. Just three steps
           between you and a meaningful blessing.
