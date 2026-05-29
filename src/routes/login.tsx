@@ -246,10 +246,10 @@ function Login() {
           onClick={() =>
             setMode(mode === "signin" ? "signup" : "signin")
           }
-          className="mt-4 w-full text-center text-xs text-muted-foreground hover:text-foreground"
+          className="mt-4 w-full text-center text-muted-foreground hover:text-foreground text-base text-slate-300"
         >
           {mode === "signin"
-            ? "No account? Sign up"
+            ? "Sign up for an Account"
             : "Have an account? Sign in"}
         </button>
       </Card>
