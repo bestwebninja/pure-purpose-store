@@ -201,7 +201,7 @@ export const moderateImage = createServerFn({ method: "POST" })
       verdict = allow ? "allow" : "reject";
       if (!allow && !reason) {
         reason = failsSmileRule
-          ? "Smiling is a must — please upload a photo where you are clearly smiling."
+          ? "Smiling is a must ;-) { Please upload a Smiling Happy Photo }."
           : "This image does not meet our community safety or quality standards.";
       }
     } else {

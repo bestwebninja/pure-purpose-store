@@ -108,7 +108,7 @@ function ProfilePage() {
         toast.error("Photo not accepted", {
           description:
             verdict.reason ||
-            "Smiling is a must — please upload a photo where you are clearly smiling.",
+            "Smiling is a must ;-) { Please upload a Smiling Happy Photo }.",
         });
         setUploading(false);
         return;
@@ -173,7 +173,7 @@ function ProfilePage() {
             </Button>
             <p className="text-xs text-muted-foreground">Upload our drop a link to your public profile .</p>
             <p className="text-xs font-medium text-amber-600">
-              Smiling is a must — please upload a photo where you are clearly smiling.
+              Smiling is a must ;-) {"{"} Please upload a Smiling Happy Photo {"}"}.
             </p>
           </div>
         </div>
