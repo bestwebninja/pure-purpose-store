@@ -157,7 +157,7 @@ function Login() {
           : "Sign up with email to get started."}
       </p>
 
-      <Card className="mt-8 w-full p-6 shadow-card">
+      <Card className="mt-8 w-full p-6 shadow-card bg-red-500">
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === "signup" && (
             <>
