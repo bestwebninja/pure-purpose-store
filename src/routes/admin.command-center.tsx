@@ -186,7 +186,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60 lg:col-span-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Recent donations</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Recent donations</h2>
               {!snap.recent?.donations || snap.recent.donations.length === 0 ? (
                 <p className="mt-3 text-sm text-muted-foreground text-white">No donations yet.</p>
               ) : (
