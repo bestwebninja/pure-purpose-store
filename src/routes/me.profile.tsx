@@ -108,7 +108,7 @@ function ProfilePage() {
         toast.error("Photo not accepted", {
           description:
             verdict.reason ||
-            "Smiling is a must — please upload a photo where you are clearly smiling.",
+            "Smiling is a must ;-) { Please upload a Smiling Happy Photo }.",
         });
         setUploading(false);
         return;
