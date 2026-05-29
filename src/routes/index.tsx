@@ -161,12 +161,7 @@ function ImpactStrip() {
   return (
     <section className="border-y border-border bg-secondary">
       <div className="mx-auto max-w-7xl px-6 py-10 text-center">
-        <div
-          className="text-3xl md:text-5xl leading-snug text-primary"
-          style={{ fontFamily: '"Great Vibes", "Allura", "Pinyon Script", "Dancing Script", cursive' }}
-        >
-          <InspirationQuote variant="banner" />
-        </div>
+        <InspirationQuote variant="banner" size="cursive-xl" />
       </div>
       <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-border sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
