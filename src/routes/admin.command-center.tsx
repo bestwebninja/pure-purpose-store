@@ -123,7 +123,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">NGO Applications</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">NGO Applications</h2>
               <div className="mt-4 flex items-baseline gap-3">
                 <Stat label="Total" value={snap.ngo?.total ?? 0} />
               </div>
