@@ -171,7 +171,7 @@ function ProfilePage() {
                 <><Camera className="mr-2 h-4 w-4" />{avatarUrl ? "Change photo" : "Upload photo"}</>
               )}
             </Button>
-            <p className="text-xs text-muted-foreground">JPG or PNG, up to 5 MB.</p>
+            <p className="text-xs text-muted-foreground">Profile Image upload inside your profile or connect a profile URL link for now.</p>
             <p className="text-xs font-medium text-amber-600">
               Smiling is a must — please upload a photo where you are clearly smiling.
             </p>
@@ -191,6 +191,10 @@ function ProfilePage() {
             <Input id="ph" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
           <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
+          <div className="mt-8 space-y-2 border-t pt-6">
+            <Label className="text-sm font-semibold">Social Accounts</Label>
+            <p className="text-sm text-muted-foreground">Connected Social Accounts after you sign up.  </p>
+          </div>
         </form>
       </Card>
     </div>
