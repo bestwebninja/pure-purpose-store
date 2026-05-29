@@ -52,7 +52,7 @@ function HowItWorks() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <header className="text-center">
-        <h1 className="text-display md:text-6xl font-serif bg-slate-200 border-yellow-300 text-base font-extralight">MyBlessings, How you BLESS..</h1>
+        <h1 className="text-display md:text-6xl font-serif bg-slate-200 border-yellow-300 text-base font-extralight border shadow-sm opacity-30">MyBlessings, How you BLESS..</h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
           We've stripped giving down to its essentials. No noise. No friction. Just three steps
           between you and a meaningful blessing.
