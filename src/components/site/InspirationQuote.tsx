@@ -14,7 +14,13 @@ const QUOTES: { text: string; author: string }[] = [
 
 const ROTATE_MS = 30 * 60 * 1000; // 30 minutes
 
-export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | "banner" }) {
+export function InspirationQuote({
+  variant = "inline",
+  size,
+}: {
+  variant?: "inline" | "banner";
+  size?: "cursive-xl";
+}) {
   // Start at 0 on both SSR and client to avoid hydration mismatch, then rotate after mount.
   const [idx, setIdx] = useState(0);
   const [show, setShow] = useState(true);
@@ -40,6 +46,31 @@ export function InspirationQuote({ variant = "inline" }: { variant?: "inline" | 
   const goldenIvory = "#F5E6A8";
 
   if (variant === "banner") {
+    if (size === "cursive-xl") {
+      return (
+        <div className={`${base} mx-auto max-w-4xl text-center`}>
+          <p
+            className="text-4xl leading-snug md:text-6xl"
+            style={{
+              fontFamily: '"Great Vibes", "Allura", "Pinyon Script", "Dancing Script", cursive',
+              color: "hsl(var(--primary))",
+            }}
+          >
+            “{q.text}”
+          </p>
+          <p
+            className="mt-3 text-lg md:text-xl"
+            style={{
+              fontFamily: '"Great Vibes", "Allura", "Dancing Script", cursive',
+              color: "hsl(var(--primary))",
+              opacity: 0.85,
+            }}
+          >
+            — {q.author}
+          </p>
+        </div>
+      );
+    }
     return (
       <div className={`${base} mx-auto max-w-3xl text-center`}>
         <p
