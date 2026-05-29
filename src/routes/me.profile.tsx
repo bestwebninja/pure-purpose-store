@@ -191,6 +191,10 @@ function ProfilePage() {
             <Input id="ph" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
           <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
+          <div className="mt-8 space-y-2 border-t pt-6">
+            <Label className="text-sm font-semibold">Social Accounts</Label>
+            <p className="text-sm text-muted-foreground">Connected Social Accounts after you sign up.  </p>
+          </div>
         </form>
       </Card>
     </div>
