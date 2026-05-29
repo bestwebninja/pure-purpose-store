@@ -254,7 +254,7 @@ function ExploreBlessings() {
       </section>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">
           {activeSub
             ? activeSub.split("::")[1]
             : `Blessings${loading ? "" : ` (${filtered.length})`}`}
