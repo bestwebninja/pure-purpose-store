@@ -161,7 +161,7 @@ function ImpactStrip() {
     <section className="border-y border-border bg-secondary">
       <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-border sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="bg-secondary px-6 py-8 bg-slate-400">
+          <div key={s.label} className="bg-secondary px-6 py-8 bg-blue-500">
             <div className="text-display text-3xl text-primary md:text-4xl">
               {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
             </div>
