@@ -90,7 +90,7 @@ function CorporateSignup() {
   };
 
   return (
-    <div className="min-h-screen text-white px-6 py-10 bg-blue-500">
+    <div className="min-h-screen text-white px-6 py-10 bg-blue-700">
       <div className="max-w-2xl mx-auto space-y-6">
 
         <h1 className="text-2xl font-bold text-white">
