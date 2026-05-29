@@ -256,7 +256,7 @@ function Login() {
 
       <a
         href="/become-blessing-sponsor"
-        className="mt-6 text-sm font-medium text-primary hover:underline"
+        className="mt-6 text-sm font-medium text-primary hover:underline text-slate-200"
       >
         Become a Blessing Sponsor →
       </a>
