@@ -172,7 +172,7 @@ function ProfilePage() {
               )}
             </Button>
             <p className="text-xs text-muted-foreground">Upload our drop a link to your public profile .</p>
-            <p className="font-extralight text-base text-red-500">
+            <p className="font-extralight text-base text-blue-700">
               Smiling is a must ;-) {"{"} Please upload a Smiling Happy Photo {"}"}.
             </p>
           </div>
