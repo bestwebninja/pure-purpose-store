@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Heart } from "lucide-react";
-import { InspirationQuote } from "@/components/site/InspirationQuote";
 import sunflowerField from "@/assets/sunflower-field.jpg";
 
 export function SiteFooter() {
@@ -13,11 +12,6 @@ export function SiteFooter() {
         backgroundPosition: "center",
       }}
     >
-      {/* Quote strip */}
-      <div className="border-b border-border/60 px-6 py-6">
-        <InspirationQuote variant="inline" />
-      </div>
-
       {/* Main footer grid */}
       <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
         {/* Brand */}
