@@ -165,7 +165,7 @@ function ImpactStrip() {
             <div className="text-display text-3xl text-primary md:text-4xl">
               {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground bg-slate-200">{s.label}</div>
+            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground bg-yellow-400">{s.label}</div>
           </div>
         ))}
       </div>
