@@ -51,11 +51,10 @@ const STEPS = [
 function HowItWorks() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
-      <header className="text-center">
+      <header className="text-center text-slate-100">
         <h1 className="text-display md:text-6xl font-serif bg-slate-200 border-yellow-300 border shadow-sm opacity-30 text-7xl font-thin text-white">MyBlessings, How you BLESS..</h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-          We've stripped giving down to its essentials. No noise. No friction. Just three steps
-          between you and a meaningful blessing.
+          We've have built the platform with Love, in giving, to its essentials in just three easy steps, between you and a meaningful blessing.
         </p>
       </header>
       <div className="mt-16 grid gap-6 md:grid-cols-3">
