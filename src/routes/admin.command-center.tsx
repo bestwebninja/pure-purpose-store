@@ -154,7 +154,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Ledger Integrity</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Ledger Integrity</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat label="Entries" value={snap.ledger?.entries ?? 0} />
                 <Stat label="Donations posted" value={snap.ledger?.donationsPosted ?? 0} />
