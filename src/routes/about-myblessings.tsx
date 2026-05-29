@@ -106,8 +106,8 @@ function AboutMyBlessings() {
           <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 text-sm border-double w-full max-w-xs" style={garamond}>
             <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> BlessME</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 text-sm border-double w-full max-w-xs" style={garamond}>
-            <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner 🌍</Link>
+          <Button asChild size="lg" variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20 border-double w-full max-w-xs font-extrabold text-lg" style={garamond}>
+            <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner </Link>
           </Button>
         </div>
       </section>
