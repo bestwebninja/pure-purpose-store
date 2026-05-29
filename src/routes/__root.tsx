@@ -89,7 +89,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <div className="min-h-screen bg-yellow-400 text-lg font-serif font-light flex flex-row">
+    <div className="flex min-h-screen flex-col bg-yellow-400">
       <SiteHeader />
       <main className="flex-1 bg-blue-800">
         <Outlet />
