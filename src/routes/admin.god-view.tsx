@@ -311,7 +311,7 @@ function GodView() {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-display text-3xl font-semibold text-white">God View</h1>
-        <Card className="mt-6 p-6 bg-blue-500">
+        <Card className="mt-6 p-6">
           <p className="text-sm">This console is restricted to operators with the admin role.</p>
         </Card>
       </div>

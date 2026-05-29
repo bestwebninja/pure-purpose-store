@@ -144,7 +144,7 @@ function ProfilePage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
       <h1 className="text-display text-3xl font-semibold text-white">My Profile</h1>
-      <Card className="mt-6 p-6 bg-blue-500">
+      <Card className="mt-6 p-6">
         <div className="mb-6 flex items-center gap-4">
           <Avatar className="h-20 w-20 ring-2 ring-border">
             {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName || email} /> : null}

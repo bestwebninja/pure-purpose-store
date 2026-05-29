@@ -64,7 +64,7 @@ function CommandCenter() {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Command Center</h1>
-        <Card className="mt-6 p-6 bg-blue-500">
+        <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
           <p className="mt-2 text-sm text-muted-foreground text-white">Sign in as an admin to view ops data.</p>
         </Card>

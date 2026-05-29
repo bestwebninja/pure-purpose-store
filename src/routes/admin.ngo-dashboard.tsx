@@ -94,7 +94,7 @@ function AdminDashboard() {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Admin Dashboard</h1>
-        <Card className="mt-6 p-6 bg-blue-500">
+        <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
           <p className="mt-2 text-sm text-muted-foreground text-white">You must be signed in as an admin to view this page.</p>
         </Card>
