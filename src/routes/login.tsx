@@ -145,7 +145,7 @@ function Login() {
         <Heart className="h-5 w-5" fill="currentColor" />
       </span>
 
-      <h1 className="text-display mt-6 text-3xl font-semibold">
+      <h1 className="text-display mt-6 text-3xl font-semibold text-slate-200">
         {mode === "signin"
           ? "Welcome back"
           : "Create your account"}
