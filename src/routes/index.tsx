@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
 import heroImage from "@/assets/hero-blessings.jpg";
+import { InspirationQuote } from "@/components/site/InspirationQuote";
 
 // BYPASS VITE SCANNER: Mask the server gateway path safely
 const getGatewayRpc = async () => {
@@ -159,6 +160,14 @@ function ImpactStrip() {
 
   return (
     <section className="border-y border-border bg-secondary">
+      <div className="mx-auto max-w-7xl px-6 py-10 text-center">
+        <div
+          className="text-3xl md:text-5xl leading-snug text-primary"
+          style={{ fontFamily: '"Great Vibes", "Allura", "Pinyon Script", "Dancing Script", cursive' }}
+        >
+          <InspirationQuote variant="banner" />
+        </div>
+      </div>
       <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-border sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.label} className="bg-secondary px-6 py-8 bg-blue-500">
