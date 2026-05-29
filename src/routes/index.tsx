@@ -152,7 +152,7 @@ function ImpactStrip() {
 
   const stats = [
     { label: "Raised across all blessings", value: raisedText },
-    { label: "Donors who showed up", value: giversText },
+    { label: "BLESSINGS GIVEN", value: giversText },
     { label: "Active blessings", value: activeText },
     { label: "Every Blessing sent reaches the Blessed, given with your kindness", value: "100%" },
   ];
