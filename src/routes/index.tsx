@@ -193,7 +193,7 @@ function Trust() {
     {
       icon: Globe2,
       title: "Global, local both",
-      body: "From a hospital bill in Lagos to a furnace in Detroit, your blessing crosses borders cleanly.",
+      body: "From a hospital bill in LA to a Veteran Blessing in Detroit, your blessing crosses , states, borders cleanly and transparently.",
     },
   ];
   return (
