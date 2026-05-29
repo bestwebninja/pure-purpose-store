@@ -83,7 +83,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6 bg-blue-400">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6 bg-white">
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-full shadow-soft" style={{ background: "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)" }}>
             <Heart className="h-4 w-4 text-white" fill="currentColor" />
