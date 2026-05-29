@@ -169,7 +169,7 @@ function CommandCenter() {
             </Card>
 
             <Card className="p-6 bg-card border-border/60">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-slate-50">Health</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Health</h2>
               <div className="mt-4 space-y-2 text-sm">
                 <a href="/api/public/health" target="_blank" rel="noreferrer" className="block underline text-primary">
                   /api/public/health
