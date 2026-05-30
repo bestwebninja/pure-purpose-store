@@ -117,7 +117,7 @@ function Hero() {
               <p className="text-display text-lg italic text-white">
                 "Charity is the best deposit account."
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">A HUM FOUNDING PRINCIPLE</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">OUR FOUNDING PRINCIPLE</p>
             </div>
           </div>
         </div>
