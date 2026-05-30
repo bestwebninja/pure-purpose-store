@@ -1,142 +1,70 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
-import { Fragment, useEffect, useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import {
+  Accessibility,
+  Wifi,
+  Plane,
+  Users,
+  ShoppingCart,
+  Bike,
+  HeartPulse,
+  Luggage,
+  Home,
+  Compass,
+} from "lucide-react";
+import treeBg from "@/assets/tree-of-life-bg.jpg";
 
-type Blessing = {
-  id: string;
-  title: string;
+type Category = {
   slug: string;
-  description: string | null;
-  price: number;
-  currency: string;
-  image_url: string | null;
-  category_id: string | null;
-  provider_id: string | null;
+  name: string;
+  description: string;
+  tags: string[];
+  Icon: React.ComponentType<{ className?: string }>;
+  featured?: boolean;
+  wide?: boolean;
 };
 
-const CATEGORY_TAXONOMY: { slug: string; icon: string; name: string; subs: string[] }[] = [
+const CATEGORIES: Category[] = [
+  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility },
+  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: Wifi },
+  { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane },
+  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users },
+  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart },
+  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike },
+  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HeartPulse },
+  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Luggage },
+  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Bissister displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, wide: true },
   {
-    slug: "temporary-accommodation",
-    icon: "🏨",
-    name: "Temporary Accommodation",
-    subs: [
-      "Emergency shelter",
-      "Family relocation",
-      "Stranded traveler",
-      "Domestic violence relocation",
-      "Disaster displacement",
-      "Hospital nearby stays",
-      "Veterans Housing",
+    slug: "veteran-stabilization",
+    name: "Veteran Stabilization",
+    description: "Support for veterans facing challenges during and after their transition to civilian life.",
+    tags: [
+      "transitioning to civilian life",
+      "employment and career rebuilding",
+      "ptsd and trauma recovery",
+      "subbistance abuse and sobriety support",
+      "isolation and loss of community",
+      "substance abuse and sobriety support",
+      "housing instability",
+      "financial stress",
+      "navigating benefits systems",
     ],
+    Icon: Compass,
+    featured: true,
+    wide: true,
   },
-  {
-    slug: "emergency-travel",
-    icon: "✈️",
-    name: "Emergency Travel",
-    subs: [
-      "Bus / Train / Airline tickets",
-      "Rideshare credits",
-      "Airport transfers",
-      "Veterans Travel",
-    ],
-  },
-  {
-    slug: "mobility-support",
-    icon: "🚗",
-    name: "Mobility Support",
-    subs: [
-      "Uber rides",
-      "Taxi vouchers",
-      "Scooters",
-      "Bicycles",
-      "Fuel cards",
-      "Mobility passes",
-      "Veterans Mobility",
-    ],
-  },
-  {
-    slug: "accessibility-support",
-    icon: "♿",
-    name: "Accessibility Support",
-    subs: [
-      "Wheelchair hire",
-      "Crutches",
-      "Walkers",
-      "Medical transport coordination",
-      "Mobility scooter rental",
-      "Veterans Accessibility Support",
-    ],
-  },
-  {
-    slug: "food-essentials",
-    icon: "🍴",
-    name: "Food & Essentials Vouchers",
-    subs: [
-      "Grocery gift cards",
-      "Meal vouchers",
-      "Pharmacy gift cards",
-      "Prepaid essentials",
-      "Veterans Rations / Essentials",
-    ],
-  },
-  {
-    slug: "connectivity-support",
-    icon: "📱",
-    name: "Connectivity Support",
-    subs: [
-      "Mobile airtime",
-      "eSIMs",
-      "Data bundles",
-      "Internet vouchers",
-      "Prepaid phones",
-      "Veterans Connectivity",
-    ],
-  },
-  {
-    slug: "family-support",
-    icon: "👶",
-    name: "Family Support",
-    subs: [
-      "Diapers",
-      "Baby supplies",
-      "School transport",
-      "Emergency childcare rides",
-      "School meal sponsorship",
-      "Veterans Families Support",
-    ],
-  },
-  {
-    slug: "stranded-traveler",
-    icon: "🧳",
-    name: "Stranded Traveler Assistance",
-    subs: [
-      "Missed flights",
-      "Emergency overnight stays",
-      "Passport-loss assistance",
-      "Border / airport transport",
-      "Veterans Stranded Assistance",
-    ],
-  },
-  {
-    slug: "non-medical-recovery",
-    icon: "🏥",
-    name: "Non-Medical Recovery Support",
-    subs: [
-      "Accommodation near hospitals",
-      "Transport to treatment",
-      "Meal support during recovery",
-      "Veterans Recovery Logistics",
-    ],
-  },
+];
+
+const IMPACT_METRICS = [
+  { label: "Blessings Delivered", value: "12,847" },
+  { label: "Lives Touched", value: "38,200+" },
+  { label: "Countries Reached", value: "64" },
 ];
 
 export const Route = createFileRoute("/explore-blessings")({
   head: () => ({
     meta: [
-       { title: "Our Blessings — MyBlessings" },
+      { title: "Our Blessings — MyBlessings" },
       { name: "description", content: "Browse blessings available for sponsorship across every assistance category." },
       { property: "og:title", content: "Our Blessings — MyBlessings" },
       { property: "og:description", content: "Browse blessings available for sponsorship across every assistance category." },
@@ -148,158 +76,107 @@ export const Route = createFileRoute("/explore-blessings")({
 });
 
 function ExploreBlessings() {
-  const [blessings, setBlessings] = useState<Blessing[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [activeSub, setActiveSub] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await supabase
-          .from("blessings")
-          .select("id,title,slug,description,price,currency,image_url,category_id,provider_id")
-          .eq("status", "ACTIVE")
-          .order("created_at", { ascending: false })
-          .limit(60);
-        if (cancelled) return;
-        if (res.error) setError(res.error.message);
-        else setBlessings((res.data ?? []) as Blessing[]);
-      } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load blessings");
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // Sub-category filtering is taxonomy-driven; until DB blessings carry the
-  // new category mapping, a sub-category selection narrows to an empty state.
-  const filtered = activeSub ? [] : blessings;
-
   return (
-    <div className="mt-2 pl-[2cm] text-muted-foreground text-slate-50">
-      <header className="mb-8">
-        <h1 className="text-display text-5xl font-normal tracking-tight text-foreground md:text-6xl text-yellow-100">
-          Our Blessings
-        </h1>
-        <p className="mt-2 text-muted-foreground text-slate-50">
-          Sponsor specific items that meet a real need.
-          <br />
-          Which categories are you passionate about giving a blessing in?
-        </p>
-      </header>
+    <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-center bg-no-repeat opacity-40 mix-blend-screen"
+        style={{
+          backgroundImage: `url(${treeBg})`,
+          backgroundSize: "min(1100px, 90%) auto",
+          backgroundPosition: "center 240px",
+        }}
+      />
+      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
 
-      {error && (
-        <Card className="mb-6 border-destructive/40 bg-destructive/5 p-4 text-sm text-destructive">{error}</Card>
-      )}
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
+        <header className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Categories</p>
+          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-white md:text-5xl">
+            Our Blessings
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm text-white/70">
+            Sponsor specific items that meet a real need. Which categories are you passionate about giving a blessing in?
+          </p>
+        </header>
 
-      <section className="mb-10">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">
-            Categories
-          </h2>
-          {activeSub && (
-            <Button size="sm" variant="ghost" onClick={() => setActiveSub(null)} className="text-white">
-              Clear filter
-            </Button>
-          )}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORIES.map((cat) => (
+            <CategoryCard key={cat.slug} category={cat} />
+          ))}
         </div>
-        <div className="flex flex-col divide-y divide-white/10 rounded-lg border border-white/10 bg-white/5">
-          {[...CATEGORY_TAXONOMY]
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((cat) => {
-              const isActiveCat = activeSub?.startsWith(`${cat.slug}::`);
-              return (
-                <div
-                  key={cat.slug}
-                  className="grid grid-cols-1 gap-3 p-3 md:grid-cols-[14rem_1fr] md:items-center"
-                >
-                  <div
-                    className={`flex items-center gap-2 font-semibold ${
-                      isActiveCat ? "text-yellow-100" : "text-white"
-                    }`}
-                  >
-                    <span aria-hidden>{cat.icon}</span>
-                    <span>{cat.name}</span>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    {[...cat.subs]
-                      .sort((a, b) => {
-                        const av = a.startsWith("Veterans") ? 1 : 0;
-                        const bv = b.startsWith("Veterans") ? 1 : 0;
-                        if (av !== bv) return av - bv;
-                        return a.localeCompare(b);
-                      })
-                      .map((sub) => {
-                        const key = `${cat.slug}::${sub}`;
-                        const isActive = activeSub === key;
-                        return (
-                          <Button
-                            key={key}
-                            size="sm"
-                            variant={isActive ? "default" : "secondary"}
-                            onClick={() => setActiveSub(isActive ? null : key)}
-                            className="rounded-full"
-                          >
-                            {sub}
-                          </Button>
-                        );
-                      })}
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-      </section>
 
-      <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">
-          {activeSub
-            ? activeSub.split("::")[1]
-            : `Blessings${loading ? "" : ` (${filtered.length})`}`}
-        </h2>
-        {loading ? (
-          <p className="text-sm text-muted-foreground text-white">Loading…</p>
-        ) : filtered.length === 0 ? (
-          <Card className="p-8 text-center">
-            <p className="text-muted-foreground">
-              No active blessings currently available in this category.
-            </p>
-          </Card>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((b) => (
-              <Card key={b.id} className="overflow-hidden p-0">
-                {b.image_url && (
-                  <img src={b.image_url} alt={b.title} className="h-40 w-full object-cover" />
-                )}
-                <div className="space-y-3 p-4">
-                  <div>
-                    <h3 className="font-semibold">{b.title}</h3>
-                    {b.description && (
-                      <p className="mt-1 line-clamp-2 text-sm text-muted-foreground text-white">{b.description}</p>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="secondary">
-                      {b.currency} {Number(b.price).toFixed(0)}
-                    </Badge>
-                    <Button asChild size="sm">
-                      <Link to="/give">Sponsor</Link>
-                    </Button>
-                  </div>
-                </div>
-              </Card>
+        <section className="mt-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Recent Global Impact</p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            {IMPACT_METRICS.map((m) => (
+              <div
+                key={m.label}
+                className="rounded-2xl border border-cyan-300/20 bg-white/[0.04] p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
+              >
+                <div className="text-display text-3xl text-white md:text-4xl">{m.value}</div>
+                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-cyan-200/70">{m.label}</div>
+              </div>
             ))}
           </div>
-        )}
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
 
+function CategoryCard({ category }: { category: Category }) {
+  const { Icon, name, description, tags, featured, wide } = category;
+  const span = wide ? (featured ? "sm:col-span-2 lg:col-span-3" : "sm:col-span-2 lg:col-span-1") : "";
+  const iconColor = featured ? "text-amber-300" : "text-cyan-300";
+  const ring = featured
+    ? "border-amber-300/40 shadow-[0_0_60px_-20px_rgba(251,191,36,0.6)]"
+    : "border-cyan-300/20 shadow-[0_0_50px_-20px_rgba(56,189,248,0.5)]";
+
+  return (
+    <article
+      className={`group relative flex flex-col rounded-2xl border ${ring} bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 backdrop-blur-xl transition-all hover:border-cyan-200/50 hover:shadow-[0_0_70px_-15px_rgba(56,189,248,0.7)] ${span}`}
+    >
+      <div className="flex items-start gap-4">
+        <div
+          className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border ${
+            featured ? "border-amber-300/40 bg-amber-300/5" : "border-cyan-300/30 bg-cyan-400/5"
+          }`}
+        >
+          <Icon className={`h-9 w-9 ${iconColor} drop-shadow-[0_0_8px_currentColor]`} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-display text-xl leading-tight text-white">{name}</h2>
+          <p className="mt-1.5 text-sm leading-snug text-white/65">{description}</p>
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-1.5">
+        <span className="text-xs text-white/50">{featured ? "New:" : "Preview:"}</span>
+        {tags.map((t) => (
+          <span
+            key={t}
+            className={`rounded-full border px-2.5 py-0.5 text-xs ${
+              featured
+                ? "border-amber-200/40 bg-amber-300/5 text-amber-100/90"
+                : "border-cyan-200/30 bg-cyan-300/5 text-cyan-100/90"
+            }`}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-5">
+        <Button
+          asChild
+          variant="outline"
+          className="w-full rounded-xl border-cyan-200/30 bg-white/[0.04] text-sm text-white hover:border-cyan-200/60 hover:bg-white/[0.08] hover:text-white"
+        >
+          <Link to="/give-a-blessing">Explore &amp; Support</Link>
+        </Button>
+      </div>
+    </article>
+  );
+}
