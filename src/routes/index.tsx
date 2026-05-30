@@ -224,7 +224,7 @@ function Trust() {
 function Testimony() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-24">
-      <div className="rounded-3xl border border-border bg-accent-soft p-10 md:p-16">
+      <div className="rounded-3xl border border-border bg-accent-soft p-10 md:p-16 bg-yellow-200">
         <Quote className="h-10 w-10 text-primary" />
         <p className="text-display mt-6 text-2xl leading-snug text-primary md:text-4xl">
           "I didn't expect strangers to carry me through the worst week of my life.
