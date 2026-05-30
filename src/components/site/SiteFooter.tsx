@@ -54,7 +54,7 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/give" className="hover:text-white">
+              <Link to="/give-a-blessing" className="hover:text-white">
                 Give a Blessing
               </Link>
             </li>
