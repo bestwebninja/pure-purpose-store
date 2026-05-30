@@ -21,7 +21,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ImpactMapRouteImport } from './routes/impact-map'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as GiveABlessingRouteImport } from './routes/give-a-blessing'
-import { Route as ExploreBlessingsRouteImport } from './routes/explore-blessings'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CorporateSignupRouteImport } from './routes/corporate-signup'
 import { Route as CategoriesRouteImport } from './routes/categories'
@@ -110,11 +109,6 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
 const GiveABlessingRoute = GiveABlessingRouteImport.update({
   id: '/give-a-blessing',
   path: '/give-a-blessing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExploreBlessingsRoute = ExploreBlessingsRouteImport.update({
-  id: '/explore-blessings',
-  path: '/explore-blessings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -272,7 +266,6 @@ export interface FileRoutesByFullPath {
   '/categories': typeof CategoriesRouteWithChildren
   '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -316,7 +309,6 @@ export interface FileRoutesByTo {
   '/categories': typeof CategoriesRouteWithChildren
   '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -361,7 +353,6 @@ export interface FileRoutesById {
   '/categories': typeof CategoriesRouteWithChildren
   '/corporate-signup': typeof CorporateSignupRoute
   '/dashboard': typeof DashboardRouteWithChildren
-  '/explore-blessings': typeof ExploreBlessingsRoute
   '/give-a-blessing': typeof GiveABlessingRoute
   '/how-it-works': typeof HowItWorksRoute
   '/impact-map': typeof ImpactMapRoute
@@ -407,7 +398,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/corporate-signup'
     | '/dashboard'
-    | '/explore-blessings'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -451,7 +441,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/corporate-signup'
     | '/dashboard'
-    | '/explore-blessings'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -495,7 +484,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/corporate-signup'
     | '/dashboard'
-    | '/explore-blessings'
     | '/give-a-blessing'
     | '/how-it-works'
     | '/impact-map'
@@ -540,7 +528,6 @@ export interface RootRouteChildren {
   CategoriesRoute: typeof CategoriesRouteWithChildren
   CorporateSignupRoute: typeof CorporateSignupRoute
   DashboardRoute: typeof DashboardRouteWithChildren
-  ExploreBlessingsRoute: typeof ExploreBlessingsRoute
   GiveABlessingRoute: typeof GiveABlessingRoute
   HowItWorksRoute: typeof HowItWorksRoute
   ImpactMapRoute: typeof ImpactMapRoute
@@ -655,13 +642,6 @@ declare module '@tanstack/react-router' {
       path: '/give-a-blessing'
       fullPath: '/give-a-blessing'
       preLoaderRoute: typeof GiveABlessingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/explore-blessings': {
-      id: '/explore-blessings'
-      path: '/explore-blessings'
-      fullPath: '/explore-blessings'
-      preLoaderRoute: typeof ExploreBlessingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -935,7 +915,6 @@ const rootRouteChildren: RootRouteChildren = {
   CategoriesRoute: CategoriesRouteWithChildren,
   CorporateSignupRoute: CorporateSignupRoute,
   DashboardRoute: DashboardRouteWithChildren,
-  ExploreBlessingsRoute: ExploreBlessingsRoute,
   GiveABlessingRoute: GiveABlessingRoute,
   HowItWorksRoute: HowItWorksRoute,
   ImpactMapRoute: ImpactMapRoute,
@@ -968,3 +947,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
