@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
-import heroImage from "@/assets/hero-blessings.jpg";
+import heroImage from "/hero-blessings.png";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
 
 // BYPASS VITE SCANNER: Mask the server gateway path safely
