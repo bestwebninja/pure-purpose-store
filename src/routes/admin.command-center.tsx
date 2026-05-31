@@ -9,8 +9,10 @@ import { getCommandCenterSnapshot } from "@/server/api/gateway";
 import { getLifecycleCounts, type LifecycleCounts } from "@/server/api/gateway";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
+import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 export const Route = createFileRoute("/admin/command-center")({
+  beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({
     meta: [{ title: "Command Center — MyBlessings Admin" }, { name: "robots", content: "noindex" }],
   }),
