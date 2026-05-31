@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import blessingsTreeBg from "@/assets/blessings-tree-bg.png";
 import {
   Accessibility,
   RadioTower,
@@ -92,10 +93,17 @@ function ExploreBlessings() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 bg-blue-700">
-          {CATEGORIES.map((cat) => (
-            <CategoryCard key={cat.slug} category={cat} />
-          ))}
+        <div className="relative">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-center bg-no-repeat bg-contain opacity-30"
+            style={{ backgroundImage: `url(${blessingsTreeBg})` }}
+          />
+          <div className="relative grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {CATEGORIES.map((cat) => (
+              <CategoryCard key={cat.slug} category={cat} />
+            ))}
+          </div>
         </div>
 
         <section className="mt-16">
