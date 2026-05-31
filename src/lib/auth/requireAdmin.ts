@@ -13,28 +13,19 @@ import { checkIsAdmin } from "@/server/api/gateway";
  *  - Authenticated, not admin → redirect to /login with `?forbidden=1`
  *    (UI surfaces a 403 notice; admin pages never render).
  */
-export async function requireAdminBeforeLoad(location: { href: string }) {
+export async function requireAdminBeforeLoad() {
   // Hydrate the Supabase session so the bearer token is attached to the
   // protected server-fn call. If no user is present, bounce to /login.
   const { data: userRes, error: userErr } = await supabase.auth.getUser();
   if (userErr || !userRes.user) {
-    throw redirect({ to: "/login", search: { redirect: location.href } });
+    throw redirect({ to: "/login" });
   }
 
   try {
     const { isAdmin } = await checkIsAdmin();
-    if (!isAdmin) {
-      throw redirect({
-        to: "/login",
-        search: { redirect: location.href, forbidden: 1 },
-      });
-    }
+    if (!isAdmin) throw redirect({ to: "/login" });
   } catch (e) {
-    // Re-throw redirects from the block above untouched.
     if (e && typeof e === "object" && "isRedirect" in (e as object)) throw e;
-    throw redirect({
-      to: "/login",
-      search: { redirect: location.href, forbidden: 1 },
-    });
+    throw redirect({ to: "/login" });
   }
 }
