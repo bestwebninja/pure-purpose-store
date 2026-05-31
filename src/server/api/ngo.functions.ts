@@ -9,4 +9,4 @@ export {
   checkIsAdmin,
   listCategories,
   getCommandCenterSnapshot,
-} from "@/server/ngo.functions.server";
+} from "@/server/ngo.functions";
