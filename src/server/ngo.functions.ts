@@ -53,7 +53,8 @@ function calculateSimilarity(s1: string, s2: string): number {
 async function runIntelligenceCheck(input: { name: string; email: string }) {
   const apiKey = process.env.LOVABLE_API_KEY;
   if (!apiKey) {
-    return { trust_score: 50, intelligence_status: "PENDING_REVIEW" };
+    console.warn("[ngo.runIntelligenceCheck] LOVABLE_API_KEY missing — using fallback score", { name: input.name });
+    return { trust_score: 50, intelligence_status: "PENDING_REVIEW", error: "ai_key_missing" as const };
   }
 
   try {
@@ -76,7 +77,10 @@ async function runIntelligenceCheck(input: { name: string; email: string }) {
       }),
     });
 
-    if (!res.ok) throw new Error("AI Gateway failure");
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`AI Gateway HTTP ${res.status}: ${body.slice(0, 200)}`);
+    }
 
     const json = await res.json();
     const result = JSON.parse(json.choices[0].message.content);
@@ -87,8 +91,8 @@ async function runIntelligenceCheck(input: { name: string; email: string }) {
       ai_reasoning: result.analysis,
     };
   } catch (err) {
-    console.error("runIntelligenceCheck AI Error:", err);
-    return { trust_score: 60, intelligence_status: "PENDING_REVIEW" };
+    console.error("[ngo.runIntelligenceCheck] failed", { name: input.name, error: err instanceof Error ? err.message : String(err) });
+    return { trust_score: 60, intelligence_status: "PENDING_REVIEW", error: "ai_failed" as const };
   }
 }
 
@@ -168,7 +172,10 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
       })
       .select("id")
       .single();
-    if (error) throw new Error(error.message);
+    if (error) {
+      console.error("[ngo.submitNgoApplication] insert failed", { email: data.email, ein: data.ein, error: error.message });
+      throw new Error(`Failed to submit NGO application: ${error.message}`);
+    }
     const rowAny = row as any;
 
     // Edge-safe Digital Receipt Generation (Simulated)
@@ -305,6 +312,19 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       supabaseAdmin.from("webhook_events").select("source, topic, event_id, processed_at").order("processed_at", { ascending: false }).limit(10) as unknown as Promise<{ data: Array<{ source: string; topic: string; event_id: string; processed_at: string }> | null; error: any }>,
     ]);
 
+    // Surface partial query failures instead of silently returning empty arrays.
+    const queryErrors: Record<string, string> = {};
+    if (donationsAgg.error) queryErrors.donations = donationsAgg.error.message ?? String(donationsAgg.error);
+    if (campaignsAgg.error) queryErrors.campaigns = campaignsAgg.error.message ?? String(campaignsAgg.error);
+    if (ngoAgg.error) queryErrors.ngo = ngoAgg.error.message ?? String(ngoAgg.error);
+    if (webhookCount.error) queryErrors.webhooks = webhookCount.error.message ?? String(webhookCount.error);
+    if (ledgerEntries.error) queryErrors.ledger = ledgerEntries.error.message ?? String(ledgerEntries.error);
+    if (recentDonations.error) queryErrors.recentDonations = recentDonations.error.message ?? String(recentDonations.error);
+    if (recentWebhooks.error) queryErrors.recentWebhooks = recentWebhooks.error.message ?? String(recentWebhooks.error);
+    if (Object.keys(queryErrors).length > 0) {
+      console.error("[ngo.getCommandCenterSnapshot] partial query failures", queryErrors);
+    }
+
     // Enforce explicit types on aggregate response
     const donationStats = donationsAgg.data as { sum: number; count: number } | null;
     const totalRaised = Number(donationStats?.sum ?? 0);
@@ -363,6 +383,7 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
         webhooks: recentWebhooks.data ?? [],
       },
       generatedAt: new Date().toISOString(),
+      errors: queryErrors,
     };
   });
 

@@ -15,14 +15,24 @@ type Supplier = {
 export function VerificationDashboard() {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   async function load() {
     setLoading(true);
+    setError(null);
 
-    const { data } = await supabase
+    const { data, error: qErr } = await supabase
       .from("accommodation_suppliers")
       .select("*")
       .order("last_verified_at", { ascending: false });
+
+    if (qErr) {
+      console.error("[VerificationDashboard] load failed", qErr);
+      setError(qErr.message);
+      setSuppliers([]);
+      setLoading(false);
+      return;
+    }
 
     setSuppliers((data as Supplier[]) || []);
     setLoading(false);
@@ -47,6 +57,12 @@ export function VerificationDashboard() {
 
       {loading ? (
         <p>Loading...</p>
+      ) : error ? (
+        <div className="rounded border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300 break-words">
+          Failed to load suppliers: {error}
+        </div>
+      ) : suppliers.length === 0 ? (
+        <p className="text-sm opacity-70">No suppliers found.</p>
       ) : (
         <div className="space-y-3">
           {suppliers.map((s) => (
