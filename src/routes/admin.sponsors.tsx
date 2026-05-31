@@ -56,7 +56,7 @@ function AdminSponsors() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
         <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
       </div>
@@ -64,28 +64,28 @@ function AdminSponsors() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-12">
-      <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">Sponsor Verification</h1>
       <p className="mt-2 text-muted-foreground text-slate-50">Review and verify Blessing Sponsor applications.</p>
       <div className="mt-8 space-y-3">
         {sponsors === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-muted-foreground text-white">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
           <Card key={s.id} className="flex flex-wrap items-start justify-between gap-4 p-5">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-3">
-                <h3 className="font-semibold">{s.organization_name || s.sponsor_role}</h3>
+            <div className="min-w-0 flex-1 basis-full sm:basis-auto">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <h3 className="font-semibold break-words">{s.organization_name || s.sponsor_role}</h3>
                 <Badge variant={s.verification_status === "VERIFIED" ? "default" : s.verification_status === "REJECTED" ? "destructive" : "secondary"}>
                   {s.verification_status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-white">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
+              <p className="text-sm text-muted-foreground text-white break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
               {s.help_interests?.length > 0 && (
-                <p className="mt-1 text-xs text-muted-foreground">Interests: {s.help_interests.join(", ")}</p>
+                <p className="mt-1 text-xs text-muted-foreground break-words">Interests: {s.help_interests.join(", ")}</p>
               )}
-              {s.verification_notes && <p className="mt-2 text-xs italic text-muted-foreground">"{s.verification_notes}"</p>}
+              {s.verification_notes && <p className="mt-2 text-xs italic text-muted-foreground break-words">"{s.verification_notes}"</p>}
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button size="sm" onClick={() => handle(s.id, "VERIFIED")} disabled={s.verification_status === "VERIFIED"}>Verify</Button>
               <Button size="sm" variant="outline" onClick={() => handle(s.id, "REJECTED")} disabled={s.verification_status === "REJECTED"}>Reject</Button>
             </div>

@@ -94,7 +94,7 @@ function AdminDashboard() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Admin Dashboard</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
@@ -106,22 +106,22 @@ function AdminDashboard() {
 
   if (selectedApp) {
     return (
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
         <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-white hover:text-yellow-400">
           ← Back to NGO Applications
         </Button>
-        <h1 className="text-display text-3xl font-semibold text-white">Verification Audit: {selectedApp.name}</h1>
+        <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white break-words">Verification Audit: {selectedApp.name}</h1>
         
         {vettingMatrix ? (
-          <div className="mt-8 overflow-hidden rounded-xl border border-white/10 bg-card shadow-card">
-            <table className="w-full text-left">
+          <div className="mt-8 overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card">
+            <table className="w-full min-w-[640px] text-left">
               <thead className="bg-muted/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <tr>
-                  <th className="px-6 py-4">Data Point</th>
-                  <th className="px-6 py-4">User Input</th>
-                  <th className="px-6 py-4">ProPublica Data</th>
-                  <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4">Action Required</th>
+                  <th className="px-3 py-3 sm:px-6 sm:py-4">Data Point</th>
+                  <th className="px-3 py-3 sm:px-6 sm:py-4">User Input</th>
+                  <th className="px-3 py-3 sm:px-6 sm:py-4">ProPublica Data</th>
+                  <th className="px-3 py-3 sm:px-6 sm:py-4">Status</th>
+                  <th className="px-3 py-3 sm:px-6 sm:py-4">Action Required</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -131,15 +131,15 @@ function AdminDashboard() {
                     m.status === "FLAG" ? "bg-yellow-500/10" : 
                     "bg-green-500/5"
                   }>
-                    <td className="px-6 py-4 font-medium text-white">{m.point}</td>
-                    <td className="px-6 py-4 text-sm text-white/70">{m.userInput}</td>
-                    <td className="px-6 py-4 text-sm text-white/70">{m.proData}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{m.point}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.userInput}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.proData}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
                       <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                         {m.status}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 text-sm text-muted-foreground text-white">{m.action}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground text-white">{m.action}</td>
                   </tr>
                 ))}
               </tbody>
@@ -153,26 +153,26 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <h1 className="text-display text-3xl font-semibold text-white">NGO Applications</h1>
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
+      <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">NGO Applications</h1>
       <p className="mt-2 text-muted-foreground text-slate-50">Live admin view — updates in realtime.</p>
       <div className="mt-8 space-y-3">
         {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
         {apps?.map((a) => (
           <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-yellow-400/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex items-center gap-3">
-                <h3 className="font-semibold">{a.name}</h3>
+                <h3 className="font-semibold break-words">{a.name}</h3>
                 <Badge variant={a.status === "ACTIVE" ? "default" : a.status === "REJECTED" ? "destructive" : "secondary"}>
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-white">{a.email} · {a.country} · {a.geography}</p>
-              <p className="mt-1 text-xs text-muted-foreground">Causes: {a.causes.join(", ")}</p>
+              <p className="text-sm text-muted-foreground text-white break-words">{a.email} · {a.country} · {a.geography}</p>
+              <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button size="sm" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
               <Button size="sm" variant="outline" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
             </div>
