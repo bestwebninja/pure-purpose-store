@@ -15,7 +15,10 @@ export async function isZipFulfillable(zip: string): Promise<ZipFulfillmentStatu
     .eq("zip", normalized)
     .maybeSingle();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[suppliers.isZipFulfillable] zip_supply_index query failed", { zip: normalized, error: error.message });
+    throw new Error(`ZIP fulfillment check failed: ${error.message}`);
+  }
 
   const row = data as
     | { zip: string; has_accommodation: boolean | null; active_supplier_count: number | null }
@@ -55,7 +58,10 @@ export async function getActiveSuppliersByZip(zip: string): Promise<ActiveSuppli
     .eq("status", "active")
     .gt("available_rooms", 0);
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[suppliers.getActiveSuppliersByZip] accommodation_suppliers query failed", { zip: normalized, error: error.message });
+    throw new Error(`Active supplier lookup failed: ${error.message}`);
+  }
 
   return ((data ?? []) as any[]).map((r) => ({
     id: r.id,

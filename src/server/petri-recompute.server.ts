@@ -1,13 +1,14 @@
 ﻿import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export type RecomputeResult = {
-  ok: true;
+  ok: boolean;
   scanned: number;
   written: number;
   skipped: number;
   duration_ms: number;
   trigger: string;
   matching_autonomy: number;
+  errors: string[];
 };
 
 type CaseRow = {
@@ -214,6 +215,7 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
 
   let written = 0;
   let skipped = 0;
+  const chunkErrors: string[] = [];
   if (rows.length > 0) {
     // Upsert in chunks of 100 to stay well below request limits.
     for (let i = 0; i < rows.length; i += 100) {
@@ -222,7 +224,12 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
         .from("petri_scorecards")
         .upsert(chunk, { onConflict: "token_id" });
       if (error) {
-        console.error("[petri-recompute] upsert chunk failed", error);
+        console.error("[petri-recompute] upsert chunk failed", {
+          chunkStart: i,
+          chunkSize: chunk.length,
+          error: error.message,
+        });
+        chunkErrors.push(`chunk@${i}: ${error.message}`);
         skipped += chunk.length;
       } else {
         written += chunk.length;
@@ -230,14 +237,24 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
     }
   }
 
+  if (skipped > 0) {
+    console.error("[petri-recompute] completed with skipped rows", {
+      scanned: tokens.length,
+      written,
+      skipped,
+      trigger: opts.trigger,
+    });
+  }
+
   return {
-    ok: true,
+    ok: skipped === 0,
     scanned: tokens.length,
     written,
     skipped,
     duration_ms: Date.now() - started,
     trigger: opts.trigger,
     matching_autonomy: matchingAutonomy,
+    errors: chunkErrors,
   };
 }
 

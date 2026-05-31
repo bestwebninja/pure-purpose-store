@@ -57,7 +57,10 @@ export const createSponsorProfile = createServerFn({ method: "POST" })
       )
       .select("id")
       .single();
-    if (error) throw new Error(error.message);
+    if (error) {
+      console.error("[sponsor.createSponsorProfile] upsert failed", { userId, role: data.sponsor_role, error: error.message });
+      throw new Error(`Sponsor profile save failed: ${error.message}`);
+    }
 
     await supabaseAdmin.from("audit_logs").insert({
       actor_id: userId,
@@ -123,7 +126,10 @@ export const updateSponsorStatus = createServerFn({ method: "POST" })
       .from("sponsors")
       .update({ verification_status: data.status })
       .eq("id", data.id);
-    if (error) throw new Error(error.message);
+    if (error) {
+      console.error("[sponsor.updateSponsorStatus] update failed", { sponsorId: data.id, status: data.status, actorId: context.userId, error: error.message });
+      throw new Error(`Sponsor status update failed: ${error.message}`);
+    }
     await supabaseAdmin.from("audit_logs").insert({
       actor_id: context.userId,
       action: data.status === "VERIFIED" ? "SPONSOR_VERIFIED" : data.status === "REJECTED" ? "SPONSOR_REJECTED" : "SPONSOR_STATUS_CHANGED",

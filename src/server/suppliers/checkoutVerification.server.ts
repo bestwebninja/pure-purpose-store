@@ -20,6 +20,7 @@ export async function verifyFulfillmentBeforeCheckout(
 ): Promise<CheckoutVerification> {
   const normalized = zip.trim();
   if (!normalized) {
+    console.warn("[suppliers.verifyFulfillmentBeforeCheckout] empty zip");
     return { fulfillable: false, supplierCount: 0, zip: normalized };
   }
 
@@ -28,7 +29,10 @@ export async function verifyFulfillmentBeforeCheckout(
     .select("has_accommodation, active_supplier_count")
     .eq("zip", normalized)
     .maybeSingle();
-  if (zipErr) throw new Error(zipErr.message);
+  if (zipErr) {
+    console.error("[suppliers.verifyFulfillmentBeforeCheckout] zip_supply_index query failed", { zip: normalized, error: zipErr.message });
+    throw new Error(`ZIP fulfillment check failed: ${zipErr.message}`);
+  }
 
   const zipActive =
     !!(zipRow as any)?.has_accommodation &&
@@ -43,7 +47,10 @@ export async function verifyFulfillmentBeforeCheckout(
     .eq("zip", normalized)
     .eq("status", "active")
     .gt("available_rooms", 0);
-  if (supErr) throw new Error(supErr.message);
+  if (supErr) {
+    console.error("[suppliers.verifyFulfillmentBeforeCheckout] accommodation_suppliers query failed", { zip: normalized, error: supErr.message });
+    throw new Error(`Supplier lookup failed: ${supErr.message}`);
+  }
 
   const supplierCount = (suppliers ?? []).length;
   return {
