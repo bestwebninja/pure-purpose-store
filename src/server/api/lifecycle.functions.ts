@@ -7,4 +7,4 @@ export {
   getMarketplaceFeed,
   getImpactMapData,
   type LifecycleCounts,
-} from "@/server/lifecycle.server";
+} from "@/server/lifecycle.functions";
