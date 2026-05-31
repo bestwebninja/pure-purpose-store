@@ -1,6 +1,6 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
-import { recomputePetriScoresCore } from "@/server/api/gateway";
+import { recomputePetriScoresCore } from "@/server/petri-recompute.server";
 
 const MAX_BODY_BYTES = 4 * 1024;
 

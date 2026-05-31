@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   isZipFulfillable,
   getActiveSuppliersByZip,
-} from "@/server/api/gateway";
+} from "@/server/suppliers/zipFulfillment.server";
 
 const zipSchema = z.object({
   zip: z.string().min(1).max(16).regex(/^[A-Za-z0-9 \-]+$/),

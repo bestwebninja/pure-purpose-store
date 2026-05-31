@@ -1,4 +1,4 @@
-﻿import { runSupplierVerificationCycle } from "@/server/api/gateway";
+import { runSupplierSync } from "@/server/suppliers/supplierSync.server";
 
 let isRunning = false;
 
@@ -18,7 +18,7 @@ async function runCycle() {
 
     console.log("[Cron] Supplier verification started");
 
-    await runSupplierVerificationCycle();
+    await runSupplierSync();
 
     console.log("[Cron] Supplier verification complete");
   } catch (err) {

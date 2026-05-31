@@ -2,7 +2,15 @@
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { verifyFundingPackage, getShopifyCredentials } from "@/server/api/gateway";
+import { verifyFundingPackage } from "@/lib/sponsor-decision.server";
+
+async function getShopifyCredentials() {
+  return {
+    url: process.env.SHOPIFY_STOREFRONT_URL ?? "",
+    token: process.env.SHOPIFY_STOREFRONT_TOKEN ?? "",
+    domain: process.env.SHOPIFY_STORE_PERMANENT_DOMAIN ?? "",
+  };
+}
 
 const CART_CREATE = `
   mutation cartCreate($input: CartInput!) {

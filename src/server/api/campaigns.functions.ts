@@ -13,3 +13,11 @@ export const listCampaignsByCategory = createServerFn({ method: "POST" })
     if (error) throw error;
     return data ?? [];
   });
+
+// Re-export real campaign + category readers from the canonical server module
+// so the gateway façade resolves to actual DB-backed queries.
+export {
+  listCampaigns,
+  getCampaignByHandle,
+  type Campaign,
+} from "@/server/campaigns.functions.server";

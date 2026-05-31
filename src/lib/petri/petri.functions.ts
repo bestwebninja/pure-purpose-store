@@ -1,6 +1,6 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { allocateStabilizationSponsor } from "@/server/api/gateway";
+import { allocateStabilizationSponsor } from "@/server/petri/petriAllocation.server";
 
 const intentSchema = z.object({
   sponsor_id: z.string().min(1).max(64),
