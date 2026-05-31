@@ -8,13 +8,11 @@ export const Route = createFileRoute('/admin/petri')({
 
 function PetriAdminPage() {
   return (
-    <div style={{ padding: 24 }}>
-      <h1>🧠 Petri OS Control Center</h1>
-
-      <p>Gateway OS: Active</p>
-      <p>Petri Mesh: Running</p>
-
-      <button>Recompute Petri Scores</button>
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <h1 className="text-2xl sm:text-3xl font-semibold break-words">🧠 Petri OS Control Center</h1>
+      <p className="mt-2 text-sm sm:text-base">Gateway OS: Active</p>
+      <p className="text-sm sm:text-base">Petri Mesh: Running</p>
+      <button className="mt-4 w-full sm:w-auto rounded-md border px-4 py-2 text-sm">Recompute Petri Scores</button>
     </div>
   );
 }

@@ -64,7 +64,7 @@ function CommandCenter() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Command Center</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
@@ -77,9 +77,9 @@ function CommandCenter() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 text-white">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Command Center</h1>
-          <p className="mt-1 text-sm text-muted-foreground text-white">
+          <p className="mt-1 text-sm text-muted-foreground text-white break-words">
             Live ops view {snap?.generatedAt ? `· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
           </p>
         </div>
@@ -97,8 +97,8 @@ function CommandCenter() {
               <BlessingLifecycle counts={counts} />
             </div>
           )}
-          <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="p-6 bg-card border-border/60">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Card className="p-4 sm:p-6 bg-card border-border/60">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Donations</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat
