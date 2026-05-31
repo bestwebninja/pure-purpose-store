@@ -1,103 +1,101 @@
 // src/server/api/gateway.ts
-// Stable Public API Surface (permissive stubs for UI compatibility).
+// =============================================================================
+// Gateway OS — Stable public API surface.
+//
+// Every export below resolves to a REAL implementation:
+//   * createServerFn handlers in src/server/api/*.functions.ts (RPC over HTTP)
+//   * server-fn re-exports from src/server/*.functions.server.ts
+//
+// This file is imported by client UI components (for `cn` and for the
+// server-fn RPC stubs), so it MUST NOT import any `*.server.ts` module at
+// top level — the client import-protection plugin blocks that. All server
+// helpers we expose here are wrapped by a `.functions.ts` file that the
+// TanStack server-fn Vite plugin transforms into client-safe RPC stubs.
+// =============================================================================
 
-export type { Campaign } from "@/server/campaigns.functions.server";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-export type LifecycleCounts = {
-  requested: number;
-  matched: number;
-  funded: number;
-  delivered: number;
-  storyPublished: number;
-  followupActive: number;
-};
+// ──────────────────────── Types ─────────────────────────────────────────────
+export type { Campaign } from "@/server/api/campaigns.functions";
+export type { LifecycleCounts } from "@/server/api/lifecycle.functions";
 
-const emptyLifecycle = (): LifecycleCounts => ({
-  requested: 0, matched: 0, funded: 0, delivered: 0, storyPublished: 0, followupActive: 0,
-});
+// ──────────────────────── Sponsor ───────────────────────────────────────────
+export {
+  createSponsorProfile,
+  getMySponsorProfile,
+  listSponsors,
+  updateSponsorStatus,
+} from "@/server/api/sponsor.functions";
+export { getSponsorRecommendations } from "@/server/api/sponsor-decision.functions";
+export { listSponsorInvoices } from "@/server/api/invoicing.functions";
+export {
+  updateSponsorAssets,
+  getMySponsorDocUrl,
+} from "@/server/api/sponsor-uploads.functions";
+export { moderateImage } from "@/server/api/moderation.functions";
 
-type Any = any;
-const ok = async (..._args: Any[]): Promise<Any> => ({ ok: true });
-const arr = async (..._args: Any[]): Promise<Any[]> => [];
+// ──────────────────────── Checkout ──────────────────────────────────────────
+export { createBlessingCheckout } from "@/server/api/checkout.functions";
 
-export const Gateway = { sponsor: {} as Record<string, unknown> };
+// ──────────────────────── Petri OS ──────────────────────────────────────────
+export { recomputePetriScores } from "@/server/api/petri-recompute.functions";
+
+// ──────────────────────── NGO Lifecycle ─────────────────────────────────────
+export {
+  submitNgoApplication,
+  listNgoApplications,
+  updateNgoStatus,
+  checkIsAdmin,
+  listCategories,
+  getCommandCenterSnapshot,
+} from "@/server/api/ngo.functions";
+
+// ──────────────────────── Profile / Giving ─────────────────────────────────
+export { getMyProfile, updateMyProfile } from "@/server/api/profile.functions";
+export { getMyGiving } from "@/server/api/giving.functions";
+
+// ──────────────────────── Marketplace / Impact / Lifecycle ─────────────────
+export {
+  getLifecycleCounts,
+  getMarketplaceFeed,
+  getImpactMapData,
+} from "@/server/api/lifecycle.functions";
+
+// ──────────────────────── Finance / Flywheel ───────────────────────────────
+export {
+  listImpactReports,
+  approveFlywheelReport,
+} from "@/server/api/flywheel.functions";
+
+// ──────────────────────── Match Control ────────────────────────────────────
+export {
+  listMatchesForControl,
+  approveMatch,
+  rejectMatch,
+  executeMatch,
+  listFulfillmentForMatch,
+} from "@/server/api/match-control.functions";
+
+// ──────────────────────── Campaigns / Categories ───────────────────────────
+export {
+  listCampaignsByCategory,
+  getCampaignByHandle,
+} from "@/server/api/campaigns.functions";
+
+// ──────────────────────── Gateway shim (for legacy `gateway.sponsor.*`) ────
+import { listSponsors as _listSponsors } from "@/server/api/sponsor.functions";
+export const Gateway = {
+  sponsor: {
+    listSponsors: _listSponsors,
+  },
+} as const;
 export const gateway = Gateway;
 export type GatewayType = typeof Gateway;
 
-// Sponsor
-export const createSponsorProfile = ok;
-export const getMySponsorProfile = async (..._a: Any[]): Promise<Any> => ({ profile: null, sponsor: null });
-export const listSponsors = async (..._a: Any[]): Promise<Any> => ({ sponsors: [] as Any[] });
-export const updateSponsorStatus = ok;
-export const getSponsorRecommendations = async (..._a: Any[]): Promise<Any> => ({ recommendations: [] as Any[] });
-export const listSponsorInvoices = async (..._a: Any[]): Promise<Any> => ({ invoices: [] as Any[] });
-export const updateSponsorAssets = async (..._a: Any[]): Promise<Any> => ({ ok: true, logoUrl: "", docUrl: "" });
-export const getMySponsorDocUrl = async (..._a: Any[]): Promise<Any> => ({ url: "" });
-export const moderateImage = async (..._a: Any[]): Promise<Any> => ({ approved: true, allow: true, reason: "" });
-
-// Checkout
-export const createBlessingCheckout = async (..._a: Any[]): Promise<Any> => ({});
-export const verifyFulfillmentBeforeCheckout = async (..._a: Any[]): Promise<Any> => ({ fulfillable: true });
-export const verifyFundingPackage = async (..._a: Any[]) => true;
-
-// Petri
-export const recomputePetriScores = ok;
-export const recomputePetriScoresCore = ok;
-export const allocateStabilizationSponsor = async (..._a: Any[]): Promise<Any> => ({
-  ok: true, fulfillable: true, allocation_score: 0,
-  matched_supplier_id: null, matched_blessee_id: null, reasoning: [] as string[],
-});
-
-// NGO
-export const listNgoApplications = async (..._a: Any[]): Promise<Any> => ({ applications: [] as Any[] });
-export const submitNgoApplication = ok;
-export const updateNgoStatus = ok;
-
-// Zip / supplier
-export const isZipFulfillable = async (..._a: Any[]): Promise<Any> => ({
-  fulfillable: true, zip: "", active: true, supplier_count: 0, supplierCount: 0,
-});
-export const getActiveSuppliersByZip = arr;
-export const runSupplierVerificationCycle = ok;
-export const startSupplierVerificationCron = ok;
-
-// Shopify
-export const getShopifyCredentials = async (..._a: Any[]): Promise<Any> => ({ domain: "", token: "" });
-
-// Command center
-export const getCommandCenterSnapshot = async (..._a: Any[]): Promise<Any> => ({});
-export const getLifecycleCounts = async (..._a: Any[]): Promise<LifecycleCounts> => emptyLifecycle();
-
-// Finance / reporting
-export const listImpactReports = async (..._a: Any[]): Promise<Any> => ({ reports: [] as Any[] });
-export const approveFlywheelReport = ok;
-
-// Profile / giving / marketplace / impact map
-export const getMyProfile = async (..._a: Any[]): Promise<Any> => ({ profile: null });
-export const updateMyProfile = ok;
-export const getMyGiving = async (..._a: Any[]): Promise<Any> => ({ donations: [] as Any[], totalAmount: 0, count: 0 });
-export const getMarketplaceFeed = async (..._a: Any[]): Promise<Any> => ({ campaigns: [] as Any[] });
-export const getImpactMapData = async (..._a: Any[]): Promise<Any> => ({ regions: [] as Any[] });
-
-// Match control
-export const listMatchesForControl = async (..._a: Any[]): Promise<Any> => ({ matches: [] as Any[] });
-export const approveMatch = ok;
-export const rejectMatch = ok;
-export const executeMatch = ok;
-export const listFulfillmentForMatch = async (..._a: Any[]): Promise<Any> => ({ events: [] as Any[] });
-
-// UI utility
-export const cn = (...classes: Any[]) => classes.filter(Boolean).join(" ");
-
-
-// Campaigns / categories pass-through stubs
-export const listCategories = async (..._a: Any[]): Promise<Any> => ({ categories: [] as Any[] });
-export const listCampaignsByCategory = async (..._a: Any[]): Promise<Any> => ({ category: null, campaigns: [] as Any[] });
-export const getCampaignByHandle = async (..._a: Any[]): Promise<Any> => ({ campaign: null, donations: [] as Any[] });
-
-// NOTE: Do NOT re-export supabaseAdmin from this module.
-// This file is imported by client code (e.g. `cn` is used in UI components),
-// so importing `@/integrations/supabase/client.server` here pulls the
-// service-role client into the client bundle and fails the build.
-// Server code that needs admin access should import it directly from
-// `@/integrations/supabase/client.server`.
+// ──────────────────────── UI utility ───────────────────────────────────────
+// Kept in this module because the UI kit already imports `cn` from
+// "@/server/api/gateway" across ~30 shadcn components. Pure client-safe code.
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
