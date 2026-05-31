@@ -147,12 +147,14 @@ function ExploreBlessings() {
         <section className="mt-16">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Recent Global Impact</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
-            {IMPACT_METRICS.map((m) => (
+            {metrics.map((m) => (
               <div
                 key={m.label}
                 className="rounded-2xl border border-cyan-300/20 bg-white/[0.04] p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
               >
-                <div className="text-display text-3xl text-white md:text-4xl">{m.value}</div>
+                <div className="text-display text-3xl text-white md:text-4xl">
+                  {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-white/10 align-middle" /> : "—")}
+                </div>
                 <div className="mt-2 text-xs uppercase tracking-[0.2em] text-cyan-200/70">{m.label}</div>
               </div>
             ))}
