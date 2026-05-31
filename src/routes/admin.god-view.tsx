@@ -12,8 +12,10 @@ import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { recomputePetriScores } from "@/server/api/gateway";
 import { approveFlywheelReport, listImpactReports } from "@/server/api/gateway";
+import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 export const Route = createFileRoute("/admin/god-view")({
+  beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({
     meta: [
       { title: "God View — MyBlessings Operator" },

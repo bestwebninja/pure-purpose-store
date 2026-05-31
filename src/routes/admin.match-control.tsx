@@ -12,6 +12,7 @@ import {
   executeMatch,
   listFulfillmentForMatch,
 } from "@/server/api/gateway";
+import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 type Match = {
   id: string;
@@ -38,6 +39,7 @@ type Event = {
 };
 
 export const Route = createFileRoute("/admin/match-control")({
+  beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({ meta: [{ title: "Match Control — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminMatchControl,
 });
