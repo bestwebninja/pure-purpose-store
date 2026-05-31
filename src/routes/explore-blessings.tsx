@@ -12,8 +12,6 @@ import {
   Home,
   Compass,
 } from "lucide-react";
-import treeBg from "@/assets/tree-of-life-bg.jpg";
-
 type Category = {
   slug: string;
   name: string;
@@ -80,15 +78,6 @@ export const Route = createFileRoute("/explore-blessings")({
 function ExploreBlessings() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-center bg-no-repeat opacity-40 mix-blend-screen"
-        style={{
-          backgroundImage: `url(${treeBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
       <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
 
