@@ -1,11 +1,12 @@
-// NGO server-fn stubs (placeholder).
-import { createServerFn } from "@tanstack/react-start";
-
-export const listNgoApplications = createServerFn({ method: "GET" })
-  .handler(async () => ({ applications: [] as any[] }));
-
-export const updateNgoStatus = createServerFn({ method: "POST" })
-  .handler(async () => ({ ok: true }));
-
-export const submitNgoApplication = createServerFn({ method: "POST" })
-  .handler(async () => ({ ok: true }));
+// Real Gateway binding for NGO admin + onboarding.
+// Re-exports the actual createServerFn implementations defined in
+// `@/server/ngo.functions.server` (ProPublica vetting matrix, AI intelligence
+// score, admin role guard, command-center snapshot, categories).
+export {
+  submitNgoApplication,
+  listNgoApplications,
+  updateNgoStatus,
+  checkIsAdmin,
+  listCategories,
+  getCommandCenterSnapshot,
+} from "@/server/ngo.functions.server";
