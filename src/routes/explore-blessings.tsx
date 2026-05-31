@@ -19,21 +19,22 @@ type Category = {
   name: string;
   description: string;
   tags: string[];
-  Icon: React.ComponentType<{ className?: string }>;
+  Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties; strokeWidth?: number }>;
+  color: string;
   featured?: boolean;
   wide?: boolean;
 };
 
 const CATEGORIES: Category[] = [
-  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility },
-  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: Wifi },
-  { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane },
-  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users },
-  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart },
-  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike },
-  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HeartPulse },
-  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Luggage },
-  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Bissister displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, wide: true },
+  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility, color: "#22d3ee" },
+  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: Wifi, color: "#ec4899" },
+  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart, color: "#facc15" },
+  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HeartPulse, color: "#a855f7" },
+  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users, color: "#f43f5e" },
+  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike, color: "#22c55e" },
+  { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane, color: "#38bdf8" },
+  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Luggage, color: "#60a5fa" },
+  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Disaster displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, color: "#fb923c", wide: true },
   {
     slug: "veteran-stabilization",
     name: "Veteran Stabilization",
@@ -50,6 +51,7 @@ const CATEGORIES: Category[] = [
       "navigating benefits systems",
     ],
     Icon: Compass,
+    color: "#fbbf24",
     featured: true,
     wide: true,
   },
@@ -83,8 +85,8 @@ function ExploreBlessings() {
         className="pointer-events-none absolute inset-0 bg-center bg-no-repeat opacity-40 mix-blend-screen"
         style={{
           backgroundImage: `url(${treeBg})`,
-          backgroundSize: "min(1100px, 90%) auto",
-          backgroundPosition: "center 240px",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       />
       <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
@@ -127,24 +129,30 @@ function ExploreBlessings() {
 }
 
 function CategoryCard({ category }: { category: Category }) {
-  const { Icon, name, description, tags, featured, wide } = category;
-  const span = wide ? (featured ? "sm:col-span-2 lg:col-span-3" : "sm:col-span-2 lg:col-span-1") : "";
-  const iconColor = featured ? "text-amber-300" : "text-cyan-300";
-  const ring = featured
-    ? "border-amber-300/40 shadow-[0_0_60px_-20px_rgba(251,191,36,0.6)]"
-    : "border-cyan-300/20 shadow-[0_0_50px_-20px_rgba(56,189,248,0.5)]";
+  const { Icon, name, description, tags, featured, wide, color } = category;
+  const span = wide ? (featured ? "sm:col-span-2 lg:col-span-4" : "sm:col-span-2 lg:col-span-1") : "";
 
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border ${ring} bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-6 backdrop-blur-xl transition-all hover:border-cyan-200/50 hover:shadow-[0_0_70px_-15px_rgba(56,189,248,0.7)] ${span}`}
+      className={`group relative flex flex-col rounded-2xl border bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-xl transition-all hover:-translate-y-0.5 ${span}`}
+      style={{
+        borderColor: `${color}55`,
+        boxShadow: `0 0 50px -20px ${color}99, inset 0 0 20px -10px ${color}40`,
+      }}
     >
       <div className="flex items-start gap-4">
         <div
-          className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border ${
-            featured ? "border-amber-300/40 bg-amber-300/5" : "border-cyan-300/30 bg-cyan-400/5"
-          }`}
+          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border"
+          style={{
+            borderColor: `${color}66`,
+            backgroundColor: `${color}10`,
+            boxShadow: `0 0 24px -6px ${color}80, inset 0 0 16px -8px ${color}80`,
+          }}
         >
-          <Icon className={`h-9 w-9 ${iconColor} drop-shadow-[0_0_8px_currentColor]`} />
+          <Icon
+            className="h-9 w-9"
+            style={{ color, filter: `drop-shadow(0 0 8px ${color})`, strokeWidth: 1.5 }}
+          />
         </div>
         <div className="min-w-0 flex-1">
           <h2 className="text-display text-xl leading-tight text-white">{name}</h2>
@@ -157,11 +165,12 @@ function CategoryCard({ category }: { category: Category }) {
         {tags.map((t) => (
           <span
             key={t}
-            className={`rounded-full border px-2.5 py-0.5 text-xs ${
-              featured
-                ? "border-amber-200/40 bg-amber-300/5 text-amber-100/90"
-                : "border-cyan-200/30 bg-cyan-300/5 text-cyan-100/90"
-            }`}
+            className="rounded-full border px-2.5 py-0.5 text-xs"
+            style={{
+              borderColor: `${color}55`,
+              backgroundColor: `${color}12`,
+              color: `${color}`,
+            }}
           >
             {t}
           </span>
@@ -172,7 +181,8 @@ function CategoryCard({ category }: { category: Category }) {
         <Button
           asChild
           variant="outline"
-          className="w-full rounded-xl border-cyan-200/30 bg-white/[0.04] text-sm text-white hover:border-cyan-200/60 hover:bg-white/[0.08] hover:text-white"
+          className="w-full rounded-xl border-white/20 bg-white/[0.04] text-sm text-white hover:bg-white/[0.1] hover:text-white"
+          style={{ borderColor: `${color}40` }}
         >
           <Link to="/give-a-blessing">Explore &amp; Support</Link>
         </Button>
