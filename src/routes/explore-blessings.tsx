@@ -25,15 +25,15 @@ type Category = {
 };
 
 const CATEGORIES: Category[] = [
-  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility, color: "#22d3ee" },
-  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: RadioTower, color: "#ec4899" },
-  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart, color: "#facc15" },
-  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HandHeart, color: "#a855f7" },
-  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users, color: "#f43f5e" },
-  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike, color: "#22c55e" },
+  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility, color: "#38bdf8" },
+  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: RadioTower, color: "#38bdf8" },
+  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart, color: "#38bdf8" },
+  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HandHeart, color: "#38bdf8" },
+  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users, color: "#38bdf8" },
+  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike, color: "#38bdf8" },
   { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane, color: "#38bdf8" },
-  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Ambulance, color: "#60a5fa" },
-  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Disaster displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, color: "#fb923c", wide: true },
+  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Ambulance, color: "#38bdf8" },
+  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Disaster displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, color: "#38bdf8", wide: true },
   {
     slug: "veteran-stabilization",
     name: "Veteran Stabilization",
@@ -50,7 +50,7 @@ const CATEGORIES: Category[] = [
       "navigating benefits systems",
     ],
     Icon: Star,
-    color: "#fbbf24",
+    color: "#38bdf8",
     featured: true,
     wide: true,
   },
