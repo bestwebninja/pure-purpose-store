@@ -89,7 +89,7 @@ function ExploreBlessings() {
             Our Blessings
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-white/70">
-            Sponsor specific items that meet a real need. Which categories are you passionate about giving a blessing in?
+            We meet real needs. Which categories are you passionate about giving a blessing in?
           </p>
         </header>
 
