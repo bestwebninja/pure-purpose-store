@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { listSponsors, updateSponsorStatus } from "@/server/api/gateway";
+import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 type Sponsor = {
   id: string;
@@ -20,6 +21,7 @@ type Sponsor = {
 };
 
 export const Route = createFileRoute("/admin/sponsors")({
+  beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({ meta: [{ title: "Sponsor Verification — MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminSponsors,
 });

@@ -1,6 +1,8 @@
 ﻿import { createFileRoute } from "@tanstack/react-router";
+import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 export const Route = createFileRoute("/admin/command-center/petri")({
+  beforeLoad: () => requireAdminBeforeLoad(),
   component: PetriDashboard,
 });
 
