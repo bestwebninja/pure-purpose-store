@@ -148,7 +148,7 @@ function CategoryCard({ category }: { category: Category }) {
         >
           <Icon
             className="h-9 w-9"
-            style={{ color, filter: `drop-shadow(0 0 8px ${color})`, strokeWidth: 1.5 }}
+            style={{ color, strokeWidth: 1.5 }}
           />
         </div>
         <div className="min-w-0 flex-1">
