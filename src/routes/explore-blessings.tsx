@@ -19,7 +19,7 @@ type Category = {
   name: string;
   description: string;
   tags: string[];
-  Icon: React.ComponentType<{ className?: string }>;
+  Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties; strokeWidth?: number }>;
   color: string;
   featured?: boolean;
   wide?: boolean;
