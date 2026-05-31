@@ -145,7 +145,7 @@ function ExploreBlessings() {
         </div>
 
         <section className="mt-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Recent Global Impact</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">BLESSINGS </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {metrics.map((m) => (
               <div
