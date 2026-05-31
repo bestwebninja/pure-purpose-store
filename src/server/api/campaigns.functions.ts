@@ -20,4 +20,4 @@ export {
   listCampaigns,
   getCampaignByHandle,
   type Campaign,
-} from "@/server/campaigns.functions.server";
+} from "@/server/campaigns.functions";
