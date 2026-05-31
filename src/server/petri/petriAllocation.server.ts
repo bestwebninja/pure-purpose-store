@@ -1,5 +1,5 @@
 ﻿import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { verifyFulfillmentBeforeCheckout } from "@/server/api/gateway";
+import { verifyFulfillmentBeforeCheckout } from "@/server/suppliers/checkoutVerification.server";
 import { calculatePetriAllocation } from "@/domain/petri/petri.engine";
 import type {
   BlesseeProfile,

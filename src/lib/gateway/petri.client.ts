@@ -1,11 +1,5 @@
-import {
-  recomputePetriScores,
-  recomputePetriScoresCore,
-  allocateStabilizationSponsor,
-} from '@/server/api/gateway';
+import { recomputePetriScores } from '@/server/api/gateway';
 
 export const petriClient = {
   recomputePetriScores,
-  recomputePetriScoresCore,
-  allocateStabilizationSponsor,
 };
