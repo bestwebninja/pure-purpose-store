@@ -58,7 +58,7 @@ const CATEGORIES: Category[] = [
 
 const IMPACT_METRICS = [
   { label: "ALL BLESSINGS RAISED", value: "12,847" },
-  { label: "Lives Touched", value: "38,200+" },
+  { label: "BLESSINGS GIVEN", value: "38,200+" },
   { label: "BLESSEE'S REACHED", value: "64" },
 ];
 
