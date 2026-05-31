@@ -8,6 +8,18 @@ let violations = [];
 
 const allowedImports = ['@/server/api/gateway', '.functions'];
 
+// Files that are themselves server-side boundaries are allowed to import
+// from `@/server/**/*.server` directly: `.functions.ts(x)` files declare
+// `createServerFn` wrappers, and `src/routes/api/**` files declare server
+// route handlers. Both are stripped from client bundles by the TanStack
+// plugins, so the gateway-only rule does not apply to them.
+function isServerBoundaryFile(path) {
+  const normalized = path.replace(/\\/g, '/');
+  if (/\.functions\.tsx?$/.test(normalized)) return true;
+  if (normalized.startsWith('src/routes/api/')) return true;
+  return false;
+}
+
 function walk(dir) {
   for (const entry of readdirSync(dir)) {
     const path = join(dir, entry);
@@ -19,6 +31,7 @@ function walk(dir) {
     }
     const ext = path.slice(path.lastIndexOf('.'));
     if (!exts.has(ext)) continue;
+    if (isServerBoundaryFile(path)) continue;
     const lines = readFileSync(path, 'utf8').split(/\r?\n/);
     lines.forEach((line, index) => {
       if (line.includes('@/server/') && !allowedImports.some((allowed) => line.includes(allowed))) {
