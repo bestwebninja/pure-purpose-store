@@ -17,6 +17,7 @@ async function assertAdmin(userId: string) {
 export const listImpactReports = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    await assertAdmin(context.userId);
     const { supabase } = context;
     const { data, error } = await supabase
       .from("impact_reports" as any)

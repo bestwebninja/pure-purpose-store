@@ -1,5 +1,6 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { verifyFulfillmentBeforeCheckout } from "@/server/suppliers/checkoutVerification.server";
 
 const schema = z.object({
@@ -7,6 +8,7 @@ const schema = z.object({
 });
 
 export const verifyCheckoutFulfillment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((input) => schema.parse(input))
   .handler(async ({ data }) => {
     return verifyFulfillmentBeforeCheckout(data.zip);
