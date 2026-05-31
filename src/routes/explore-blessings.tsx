@@ -97,6 +97,24 @@ export const Route = createFileRoute("/explore-blessings")({
 });
 
 function ExploreBlessings() {
+  const [data, setData] = useState<PublicStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    getGatewayRpc()
+      .then((getPublicStats: () => Promise<PublicStats>) => getPublicStats())
+      .then((d) => { if (active) { setData(d); setLoading(false); } })
+      .catch(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const metrics = [
+    { label: "ALL BLESSINGS RAISED", value: data ? formatUSD(data.totalRaised) : null },
+    { label: "BLESSINGS GIVEN", value: data ? formatCompact(data.uniqueDonors) : null },
+    { label: "Active Blessings", value: data ? formatCompact(data.campaignsActive) : null },
+  ];
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
       <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
