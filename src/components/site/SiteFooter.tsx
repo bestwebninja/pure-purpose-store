@@ -61,9 +61,17 @@ export function SiteFooter() {
             <li>
               <Link
                 to="/corporate-signup"
-                className="text-sm text-white/70 hover:text-white underline"
+                className="hover:text-white"
               >
                 Corporate Sponsors
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/ngo"
+                className="text-sm text-white/70 hover:text-white underline"
+              >
+                NGO Sign Up
               </Link>
             </li>
           </ul>
