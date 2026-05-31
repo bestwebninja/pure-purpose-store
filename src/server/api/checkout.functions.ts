@@ -1,8 +1,8 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-const verifyFundingPackage = async (..._a: any[]) => true;
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { verifyFundingPackage } from "@/lib/sponsor-decision.server";
 // shopify constants pulled from env at runtime
 const SHOPIFY_STORE_PERMANENT_DOMAIN = process.env.SHOPIFY_STORE_PERMANENT_DOMAIN ?? "";
 const SHOPIFY_STOREFRONT_URL = process.env.SHOPIFY_STOREFRONT_URL ?? "";

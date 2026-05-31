@@ -36,7 +36,10 @@ export {
 export { moderateImage } from "@/server/api/moderation.functions";
 
 // ──────────────────────── Checkout ──────────────────────────────────────────
-export { createBlessingCheckout } from "@/server/api/checkout.functions";
+export {
+  createBlessingCheckout,
+  createFundingPackageCheckout,
+} from "@/server/api/checkout.functions";
 
 // ──────────────────────── Petri OS ──────────────────────────────────────────
 export { recomputePetriScores } from "@/server/api/petri-recompute.functions";
@@ -54,6 +57,15 @@ export {
 // ──────────────────────── Profile / Giving ─────────────────────────────────
 export { getMyProfile, updateMyProfile } from "@/server/api/profile.functions";
 export { getMyGiving } from "@/server/api/giving.functions";
+
+// ──────────────────────── Stats ────────────────────────────────────────────
+export { getPublicStats } from "@/server/api/stats.functions";
+
+// ──────────────────────── Corporate Sponsors ───────────────────────────────
+export {
+  submitCorporateApplication,
+  listCorporateSponsors,
+} from "@/server/api/corporate.functions";
 
 // ──────────────────────── Marketplace / Impact / Lifecycle ─────────────────
 export {
