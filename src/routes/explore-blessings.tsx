@@ -119,7 +119,7 @@ function ExploreBlessings() {
 
 function CategoryCard({ category }: { category: Category }) {
   const { Icon, name, description, tags, featured, wide, color } = category;
-  const span = wide ? (featured ? "sm:col-span-2 lg:col-span-4" : "sm:col-span-2 lg:col-span-1") : "";
+  const span = wide ? (featured ? "sm:col-span-2 lg:col-span-3" : "sm:col-span-2 lg:col-span-1") : "";
 
   return (
     <article
