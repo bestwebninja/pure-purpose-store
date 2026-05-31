@@ -1,9 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
+
+async function assertAdmin(userId: string) {
+  const { data } = await supabaseAdmin
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("role", "admin")
+    .maybeSingle();
+  if (!data) throw new Error("Forbidden: admin role required");
+}
 
 export const listMatchesForControl = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
+    await assertAdmin(context.userId);
     const { data } = await context.supabase
       .from("matches" as any)
       .select("*")
@@ -16,6 +28,7 @@ export const approveMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
     await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
     return { ok: true };
   });
@@ -24,6 +37,7 @@ export const rejectMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
     await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
     return { ok: true };
   });
@@ -32,6 +46,7 @@ export const executeMatch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
     await context.supabase
       .from("matches" as any)
       .update({ execution_status: "executed", last_executed_at: new Date().toISOString() })
@@ -43,6 +58,7 @@ export const listFulfillmentForMatch = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
     const { data: events } = await context.supabase
       .from("fulfillment_events" as any)
       .select("*")
