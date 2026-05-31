@@ -36,7 +36,23 @@ export const generateInvoiceForDonation = createServerFn({ method: "POST" })
     z.object({ donationId: z.string().uuid() }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { userId } = context;
+    const { supabase, userId } = context;
+
+    // Authorization: only the donor (matched by verified email) or an
+    // admin may materialise an invoice for a given donation. Prevents
+    // arbitrary authed users from minting receipts against other people's
+    // donations and attributing them to their own account.
+    const [{ data: userRes }, { data: roleRow }] = await Promise.all([
+      supabase.auth.getUser(),
+      supabaseAdmin
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .eq("role", "admin")
+        .maybeSingle(),
+    ]);
+    const callerEmail = userRes.user?.email ?? null;
+    const isAdmin = !!roleRow;
 
     const { data: donation, error: dErr } = await supabaseAdmin
       .from("donations")
@@ -45,6 +61,9 @@ export const generateInvoiceForDonation = createServerFn({ method: "POST" })
       .maybeSingle();
     if (dErr) throw new Error(dErr.message);
     if (!donation) throw new Error("Donation not found");
+    if (!isAdmin && (!callerEmail || donation.donor_email !== callerEmail)) {
+      throw new Error("Forbidden: donation does not belong to caller");
+    }
 
     // Existing invoice → return it
     const { data: existing } = await supabaseAdmin
