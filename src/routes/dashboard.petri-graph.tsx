@@ -272,7 +272,15 @@ function PetriGraphPage() {
 
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
         <Card className="p-3 sm:p-4">
-           {nodes.length === 0 ? (
+           {!graphLoaded ? (
+             <p className="p-8 text-center text-sm text-muted-foreground text-white">
+               Loading Petri graph…
+             </p>
+           ) : graphError ? (
+             <div className="m-4 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+               Failed to load Petri graph: {graphError}
+             </div>
+           ) : nodes.length === 0 ? (
              <p className="p-8 text-center text-sm text-muted-foreground text-white">
                No data yet. Submit a Give a Blessing or BlessME to populate the graph.
              </p>
