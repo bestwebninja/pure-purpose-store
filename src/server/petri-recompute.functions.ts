@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { recomputePetriScoresCore, type RecomputeResult } from "./petri-recompute.server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Admin-only entry point for the PETRI Brain Recompute Loop.
