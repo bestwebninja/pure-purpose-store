@@ -64,6 +64,8 @@ function PetriGraphPage() {
   const [allowed, setAllowed] = useState(false);
   const [tokens, setTokens] = useState<Token[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
+  const [graphLoaded, setGraphLoaded] = useState(false);
+  const [graphError, setGraphError] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [selectedEdge, setSelectedEdge] = useState<GraphEdge | null>(null);
   const [layer, setLayer] = useState<LayerMode>("all");
@@ -95,12 +97,19 @@ function PetriGraphPage() {
   useEffect(() => {
     if (!allowed) return;
     (async () => {
-      const [{ data: t }, { data: m }] = await Promise.all([
+      setGraphError(null);
+      const [tokensRes, matchesRes] = await Promise.all([
         supabase.from("petri_tokens").select("*").order("created_at", { ascending: false }).limit(200),
         supabase.from("petri_matches").select("*").order("created_at", { ascending: false }).limit(200),
       ]);
-      setTokens((t ?? []) as unknown as Token[]);
-      setMatches((m ?? []) as unknown as Match[]);
+      if (tokensRes.error || matchesRes.error) {
+        const msg = tokensRes.error?.message ?? matchesRes.error?.message ?? "Failed to load Petri graph";
+        console.error("[petri-graph] load failed", { tokens: tokensRes.error, matches: matchesRes.error });
+        setGraphError(msg);
+      }
+      setTokens((tokensRes.data ?? []) as unknown as Token[]);
+      setMatches((matchesRes.data ?? []) as unknown as Match[]);
+      setGraphLoaded(true);
     })();
   }, [allowed]);
 
@@ -263,7 +272,15 @@ function PetriGraphPage() {
 
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
         <Card className="p-3 sm:p-4">
-           {nodes.length === 0 ? (
+           {!graphLoaded ? (
+             <p className="p-8 text-center text-sm text-muted-foreground text-white">
+               Loading Petri graph…
+             </p>
+           ) : graphError ? (
+             <div className="m-4 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
+               Failed to load Petri graph: {graphError}
+             </div>
+           ) : nodes.length === 0 ? (
              <p className="p-8 text-center text-sm text-muted-foreground text-white">
                No data yet. Submit a Give a Blessing or BlessME to populate the graph.
              </p>

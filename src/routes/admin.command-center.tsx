@@ -89,9 +89,23 @@ function CommandCenter() {
       </div>
 
       {!snap ? (
-        <p className="mt-8 text-sm text-muted-foreground text-white">Loading…</p>
+        <p className="mt-8 text-sm text-muted-foreground text-white">Loading live ops data…</p>
       ) : (
         <>
+          {snap.errors && Object.values(snap.errors).some(Boolean) && (
+            <div className="mt-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-200">
+              <p className="font-semibold">Some queries failed — data below is partial:</p>
+              <ul className="mt-1 list-disc pl-5 text-xs">
+                {Object.entries(snap.errors)
+                  .filter(([, v]) => Boolean(v))
+                  .map(([k, v]) => (
+                    <li key={k} className="break-words">
+                      <span className="font-mono">{k}</span>: {String(v)}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
           {counts && (
             <div className="mt-8">
               <BlessingLifecycle counts={counts} />
