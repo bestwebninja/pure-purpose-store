@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { recomputePetriScoresCore, type RecomputeResult } from "./petri-recompute.server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Admin-only entry point for the PETRI Brain Recompute Loop.
@@ -22,6 +23,13 @@ export const recomputePetriScores = createServerFn({ method: "POST" })
     if (roleErr || !roleRow) {
       throw new Error("Forbidden: admin role required");
     }
-    return recomputePetriScoresCore({ limit: data.limit ?? 500, trigger: "admin" });
+    const result = await recomputePetriScoresCore({ limit: data.limit ?? 500, trigger: "admin" });
+    await supabaseAdmin.from("audit_logs").insert({
+      actor_id: userId,
+      action: "PETRI_RECOMPUTE",
+      entity_type: "petri",
+      metadata: { trigger: "admin", limit: data.limit ?? 500, result },
+    });
+    return result;
   });
 

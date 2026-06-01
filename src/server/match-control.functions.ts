@@ -12,6 +12,17 @@ async function assertAdmin(userId: string) {
   if (!data) throw new Error("Forbidden: admin role required");
 }
 
+async function writeAudit(actorId: string, action: string, entityId: string, metadata: Record<string, unknown> = {}) {
+  const { error } = await supabaseAdmin.from("audit_logs").insert({
+    actor_id: actorId,
+    action,
+    entity_type: "match",
+    entity_id: entityId,
+    metadata,
+  });
+  if (error) console.error("[match-control.audit] insert failed", { action, entityId, error: error.message });
+}
+
 export const listMatchesForControl = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
@@ -29,7 +40,9 @@ export const approveMatch = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
+    const { error } = await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
+    if (error) { console.error("[match-control.approveMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    await writeAudit(context.userId, "MATCH_APPROVED", data.id, { status: "approved" });
     return { ok: true };
   });
 
@@ -38,7 +51,9 @@ export const rejectMatch = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
+    const { error } = await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
+    if (error) { console.error("[match-control.rejectMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    await writeAudit(context.userId, "MATCH_REJECTED", data.id, { status: "rejected" });
     return { ok: true };
   });
 
@@ -47,11 +62,19 @@ export const executeMatch = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    await context.supabase
+    // Idempotency: only flip unexecuted rows. Returning rows tells us whether a transition actually happened.
+    const { data: updated, error } = await context.supabase
       .from("matches" as any)
       .update({ execution_status: "executed", last_executed_at: new Date().toISOString() })
-      .eq("id", data.id);
-    return { ok: true };
+      .eq("id", data.id)
+      .neq("execution_status", "executed")
+      .select("id");
+    if (error) { console.error("[match-control.executeMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    const alreadyExecuted = !updated || updated.length === 0;
+    if (!alreadyExecuted) {
+      await writeAudit(context.userId, "MATCH_EXECUTED", data.id, { execution_status: "executed" });
+    }
+    return { ok: true, alreadyExecuted };
   });
 
 export const listFulfillmentForMatch = createServerFn({ method: "GET" })
