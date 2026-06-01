@@ -97,6 +97,21 @@ export const generateInvoiceForDonation = createServerFn({ method: "POST" })
       .single();
     if (iErr) throw new Error(iErr.message);
 
+    await supabaseAdmin.from("audit_logs").insert({
+      actor_id: userId,
+      action: "INVOICE_GENERATED",
+      entity_type: "invoice",
+      entity_id: (inserted as InvoiceRow).id,
+      metadata: {
+        invoice_number: invoiceNumber,
+        donation_id: donation.id,
+        gross_amount: gross,
+        donation_amount: donationAmount,
+        platform_fee_amount: platformFee,
+        currency: donation.currency ?? "USD",
+      },
+    });
+
     return { invoice: inserted as InvoiceRow };
   });
 

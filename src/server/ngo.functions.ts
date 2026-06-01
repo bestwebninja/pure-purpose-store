@@ -99,6 +99,27 @@ async function runIntelligenceCheck(input: { name: string; email: string }) {
 export const submitNgoApplication = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SubmitSchema.parse(input))
   .handler(async ({ data }) => {
+    // Idempotency: collapse rapid duplicate submissions of the same EIN+email
+    // (form double-clicks, retries) into the same application row. Window: 10 minutes.
+    const dupWindow = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const { data: existingApp } = await supabaseAdmin
+      .from("ngo_applications")
+      .select("id, status, trust_score, intelligence_status")
+      .eq("ein", data.ein)
+      .eq("email", data.email)
+      .gte("created_at", dupWindow)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (existingApp) {
+      return {
+        id: (existingApp as any).id,
+        trust_score: (existingApp as any).trust_score,
+        intelligence_status: (existingApp as any).intelligence_status,
+        deduplicated: true,
+      };
+    }
+
     // Automated Verification Matrix Logic (ProPublica Nonprofit Explorer API)
     const cleanEin = data.ein.replace(/\D/g, "");
     const proPublicaUrl = `https://projects.propublica.org/nonprofits/api/v2/organizations/${cleanEin}.json`;
