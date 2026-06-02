@@ -317,6 +317,7 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
 
     const [
       donationsAgg,
+      donationsCountRes,
       campaignsAgg,
       ngoAgg,
       webhookCount,
@@ -324,7 +325,11 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       recentDonations,
       recentWebhooks,
     ] = await Promise.all([
-      supabaseAdmin.from("donations").select("sum:amount.sum(), count:id.count()").single() as unknown as Promise<{ data: { sum: number; count: number } | null; error: any }>,
+      // PostgREST aggregate functions (sum/count via select string) are not enabled
+      // on this project — fetch amounts and sum client-side, and use count:"exact"
+      // head request for the row count.
+      supabaseAdmin.from("donations").select("amount") as unknown as Promise<{ data: Array<{ amount: number | string }> | null; error: any }>,
+      supabaseAdmin.from("donations").select("*", { count: "exact", head: true }) as unknown as Promise<{ count: number | null; error: any; data: never[] }>,
       supabaseAdmin.from("campaigns").select("status") as unknown as Promise<{ data: Array<{ status: string }> | null; error: any }>,
       supabaseAdmin.from("ngo_applications").select("status") as unknown as Promise<{ data: Array<{ status: string }> | null; error: any }>,
       supabaseAdmin.from("webhook_events").select("*", { count: "exact", head: true }) as unknown as Promise<{ count: number | null; error: any; data: never[] }>,
@@ -336,6 +341,7 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
     // Surface partial query failures instead of silently returning empty arrays.
     const queryErrors: Record<string, string> = {};
     if (donationsAgg.error) queryErrors.donations = donationsAgg.error.message ?? String(donationsAgg.error);
+    if (donationsCountRes.error) queryErrors.donationsCount = donationsCountRes.error.message ?? String(donationsCountRes.error);
     if (campaignsAgg.error) queryErrors.campaigns = campaignsAgg.error.message ?? String(campaignsAgg.error);
     if (ngoAgg.error) queryErrors.ngo = ngoAgg.error.message ?? String(ngoAgg.error);
     if (webhookCount.error) queryErrors.webhooks = webhookCount.error.message ?? String(webhookCount.error);
@@ -346,10 +352,10 @@ export const getCommandCenterSnapshot = createServerFn({ method: "GET" })
       console.error("[ngo.getCommandCenterSnapshot] partial query failures", queryErrors);
     }
 
-    // Enforce explicit types on aggregate response
-    const donationStats = donationsAgg.data as { sum: number; count: number } | null;
-    const totalRaised = Number(donationStats?.sum ?? 0);
-    const donationCount = Number(donationStats?.count ?? 0);
+    // Compute aggregates client-side from row data + exact count.
+    const donationRows = donationsAgg.data ?? [];
+    const totalRaised = donationRows.reduce((s, r) => s + Number(r.amount ?? 0), 0);
+    const donationCount = Number(donationsCountRes.count ?? donationRows.length);
 
     // Campaign breakdown
     const campaignStatus: Record<string, number> = {};
