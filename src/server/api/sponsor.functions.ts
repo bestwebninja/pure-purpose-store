@@ -3,7 +3,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { recordEvent } from "@/server/observability/observability.server";
+
+
 
 const SponsorSchema = z.object({
    sponsor_role: z.enum(["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"]),
@@ -61,12 +62,11 @@ export const createSponsorProfile = createServerFn({ method: "POST" })
       .single();
     if (error) throw new Error(error.message);
 
-    await recordEvent({
-      userId,
+    await supabaseAdmin.from("audit_logs").insert({
+      actor_id: userId,
       action: "SPONSOR_CREATED",
-      entityType: "sponsor",
-      entityId: row.id,
-      success: true,
+      entity_type: "sponsor",
+      entity_id: row.id,
       metadata: {
         sponsor_role: data.sponsor_role,
         organization_name: data.organization_name,
@@ -127,12 +127,11 @@ export const updateSponsorStatus = createServerFn({ method: "POST" })
       .update({ verification_status: data.status })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
-    await recordEvent({
-      userId: context.userId,
+    await supabaseAdmin.from("audit_logs").insert({
+      actor_id: context.userId,
       action: data.status === "VERIFIED" ? "SPONSOR_VERIFIED" : data.status === "REJECTED" ? "SPONSOR_REJECTED" : "SPONSOR_STATUS_CHANGED",
-      entityType: "sponsor",
-      entityId: data.id,
-      success: true,
+      entity_type: "sponsor",
+      entity_id: data.id,
       metadata: { status: data.status },
     });
     return { ok: true };
