@@ -97,76 +97,11 @@ function NgoOnboardingPage() {
         {/* Identity Section */}
         <section id="section-identity" className="scroll-mt-24 space-y-6">
           <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">1. Legal Identity</h2>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Legal Name of Organization</Label>
-              <Input id="name" {...form.register("name")} placeholder="As registered with IRS" />
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label>Organization Type</Label>
-                <Select onValueChange={(val) => form.setValue("organization_type", val)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select IRS/NTEE Category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <ScrollArea className="h-60">
-                      {NTEE_CATEGORIES.map((cat) => (
-                        <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
-                      ))}
-                    </ScrollArea>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="ein">EIN (XX-XXXXXXX)</Label>
-                <Input 
-                  id="ein" 
-                  {...form.register("ein")} 
-                  placeholder="00-0000000"
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/\D/g, "").slice(0, 9);
-                    const masked = val.length > 2 ? `${val.slice(0, 2)}-${val.slice(2)}` : val;
-                    e.target.value = masked;
-                    form.setValue("ein", masked);
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mission Section */}
-        <section id="section-mission" className="scroll-mt-24 space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">2. Help Interests</h2>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {CAUSES.map((cause) => (
-              <div key={cause} className="flex items-center space-x-3">
-                <Checkbox
-                  id={cause}
-                  className="h-11 w-11 rounded-md border-2" // Guaranteed 44px hit box
-                  onCheckedChange={(checked) => {
-                    const current = form.getValues("causes");
-                    form.setValue("causes", checked ? [...current, cause] : current.filter(c => c !== cause));
-                  }}
-                />
-                <Label htmlFor={cause} className="cursor-pointer text-base select-none">{cause}</Label>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact/Impact Section */}
-        <section id="section-impact" className="scroll-mt-24 space-y-6">
-          <div className="border-b pb-2">
-            <h2 className="text-xl font-bold">3. Contact & Impact</h2>
+            <h2 className="text-xl font-bold text-slate-300">1. Legal Identity</h2>
+...
+            <h2 className="text-xl font-bold text-slate-300">2. Help Interests</h2>
+...
+            <h2 className="text-xl font-bold text-slate-300">3. Contact & Impact</h2>
           </div>
           <div className="space-y-4">
             <div className="space-y-2">
