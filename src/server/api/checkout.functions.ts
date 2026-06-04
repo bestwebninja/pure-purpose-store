@@ -3,6 +3,7 @@ import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { verifyFundingPackage } from "@/lib/sponsor-decision.server";
+import { recordEvent } from "@/server/observability/observability.server";
 // shopify constants pulled from env at runtime
 const SHOPIFY_STORE_PERMANENT_DOMAIN = process.env.SHOPIFY_STORE_PERMANENT_DOMAIN ?? "";
 const SHOPIFY_STOREFRONT_URL = process.env.SHOPIFY_STOREFRONT_URL ?? "";
@@ -93,6 +94,14 @@ export const createBlessingCheckout = createServerFn({ method: "POST" })
     }
     const checkoutUrl = json?.data?.cartCreate?.cart?.checkoutUrl;
     if (!checkoutUrl) throw new Error("No checkout URL returned");
+    await recordEvent({
+      userId: null,
+      action: "CHECKOUT_CREATED",
+      entityType: "campaign",
+      entityId: campaign.id,
+      success: true,
+      metadata: { amount: data.amount, quantity, currency: "USD" },
+    });
     return { checkoutUrl: withChannel(checkoutUrl), domain: SHOPIFY_STORE_PERMANENT_DOMAIN };
   });
 
@@ -140,6 +149,19 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
 
     // Verifies sum-of-items === total_cents AND HMAC signature.
     await verifyFundingPackage(context.userId, pkg);
+
+    await recordEvent({
+      userId: context.userId,
+      action: "FUNDING_PACKAGE_CHECKOUT_VERIFIED",
+      entityType: "funding_package",
+      entityId: null,
+      success: true,
+      metadata: {
+        total_cents: pkg.total_cents,
+        currency: pkg.currency,
+        item_count: pkg.items.length,
+      },
+    });
 
     return {
       ok: true as const,
