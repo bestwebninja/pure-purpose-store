@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { recordEvent } from "@/server/observability/observability.server";
 
 /**
  * Dual invoicing split:
@@ -78,6 +79,21 @@ export const generateInvoiceForDonation = createServerFn({ method: "POST" })
       .single();
     if (iErr) throw new Error(iErr.message);
 
+    await recordEvent({
+      userId,
+      action: "INVOICE_GENERATED",
+      entityType: "invoice",
+      entityId: (inserted as InvoiceRow).id,
+      success: true,
+      metadata: {
+        donation_id: donation.id,
+        gross_amount: gross,
+        donation_amount: donationAmount,
+        platform_fee_amount: platformFee,
+        currency: donation.currency ?? "USD",
+      },
+    });
+
     return { invoice: inserted as InvoiceRow };
   });
 
@@ -151,6 +167,15 @@ export const listSponsorInvoices = createServerFn({ method: "POST" })
     if (data.to) q = q.lte("issued_at", data.to);
     const { data: invoices, error } = await q;
     if (error) throw new Error(error.message);
+
+    await recordEvent({
+      userId,
+      action: "INVOICES_LISTED",
+      entityType: "invoice",
+      entityId: null,
+      success: true,
+      metadata: { count: invoices?.length ?? 0, from: data.from, to: data.to },
+    });
 
     return { invoices: (invoices ?? []) as InvoiceRow[] };
   });

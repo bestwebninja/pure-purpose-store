@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { recordEvent } from "@/server/observability/observability.server";
 
 async function assertAdmin(userId: string) {
   const { data } = await supabaseAdmin
@@ -12,15 +13,15 @@ async function assertAdmin(userId: string) {
   if (!data) throw new Error("Forbidden: admin role required");
 }
 
-async function writeAudit(actorId: string, action: string, entityId: string, metadata: Record<string, unknown> = {}) {
-  const { error } = await supabaseAdmin.from("audit_logs").insert({
-    actor_id: actorId,
+async function writeAudit(actorId: string, action: string, entityId: string, metadata: Record<string, unknown> = {}, success = true) {
+  await recordEvent({
+    userId: actorId,
     action,
-    entity_type: "match",
-    entity_id: entityId,
+    entityType: "match",
+    entityId,
+    success,
     metadata,
   });
-  if (error) console.error("[match-control.audit] insert failed", { action, entityId, error: error.message });
 }
 
 export const listMatchesForControl = createServerFn({ method: "GET" })
@@ -41,7 +42,10 @@ export const approveMatch = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
     const { error } = await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
-    if (error) { console.error("[match-control.approveMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    if (error) {
+      await writeAudit(context.userId, "MATCH_APPROVED", data.id, { error: error.message }, false);
+      throw new Error(error.message);
+    }
     await writeAudit(context.userId, "MATCH_APPROVED", data.id, { status: "approved" });
     return { ok: true };
   });
@@ -52,7 +56,10 @@ export const rejectMatch = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
     const { error } = await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
-    if (error) { console.error("[match-control.rejectMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    if (error) {
+      await writeAudit(context.userId, "MATCH_REJECTED", data.id, { error: error.message }, false);
+      throw new Error(error.message);
+    }
     await writeAudit(context.userId, "MATCH_REJECTED", data.id, { status: "rejected" });
     return { ok: true };
   });
@@ -69,7 +76,10 @@ export const executeMatch = createServerFn({ method: "POST" })
       .eq("id", data.id)
       .neq("execution_status", "executed")
       .select("id");
-    if (error) { console.error("[match-control.executeMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
+    if (error) {
+      await writeAudit(context.userId, "MATCH_EXECUTED", data.id, { error: error.message }, false);
+      throw new Error(error.message);
+    }
     const alreadyExecuted = !updated || updated.length === 0;
     if (!alreadyExecuted) {
       await writeAudit(context.userId, "MATCH_EXECUTED", data.id, { execution_status: "executed" });
