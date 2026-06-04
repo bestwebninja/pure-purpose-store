@@ -83,7 +83,7 @@ function NgoOnboardingPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-12">
       <header className="mb-12">
-        <h1 className="text-display text-4xl font-semibold">Nonprofit Intake & Verification</h1>
+        <h1 className="text-display text-4xl font-semibold text-slate-300">Nonprofit Intake & Verification</h1>
         <p className="mt-2 text-muted-foreground text-slate-50">Please complete all sections for vetting and registration.</p>
         
         <nav className="mt-6 flex flex-wrap gap-2">
