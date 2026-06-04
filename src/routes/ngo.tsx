@@ -24,7 +24,7 @@ function NgoLanding() {
       <div className="text-center">
         <h1 className="text-display text-4xl font-semibold sm:text-5xl text-slate-200">Bring your Sincerest Empathy to MyBlessings</h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground text-slate-200">
-          Verified nonprofits raise funds with transparency, real-time donor updates, and zero platform fees on direct blessings.
+          Verified nonprofits link up their specific programs on helping others and we channel and monitor the funds our platform receives via our kind sponsors who fund our blessings with transparency, real-time donor updates with direct blessings.
         </p>
         <Button asChild size="lg" className="mt-8">
           <Link to="/ngo/onboarding">Start your application</Link>
