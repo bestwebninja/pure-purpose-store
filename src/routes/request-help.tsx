@@ -227,7 +227,7 @@ function RequestHelp() {
       <div className="mx-auto max-w-2xl px-6 py-16">
          <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
-          Sign up as a recipient and tell us what you need. Sponsors will be matched to your request.
+          Sign up as a recipient or tell us about someone you think needs to be Blessed. Sponsors funds will be automatically matched to your request and once accepted the process of buying the services or products for you or the needy soul will be automatically processed.  Thank you for playing your part in this world of endless Blessings.
         </p>
 
         <Card
