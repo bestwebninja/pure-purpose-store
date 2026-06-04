@@ -64,7 +64,7 @@ function MyBlessings() {
       {loading ? (
         <p className="mt-10 text-muted-foreground">Loading…</p>
       ) : cases.length === 0 ? (
-        <Card className="mt-10 p-8 text-center">
+        <Card className="mt-10 p-8 text-center bg-yellow-200">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>
           <Button asChild className="mt-4">
             <Link to="/request-help">Start your application</Link>
