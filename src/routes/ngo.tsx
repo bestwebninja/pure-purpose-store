@@ -36,7 +36,7 @@ function NgoLanding() {
           { icon: Heart, title: "Direct giving", body: "Donors connect with your cause and see exactly how funds are used." },
           { icon: Sparkles, title: "Free to join", body: "No setup or platform fees. We win when you do." },
         ].map((f) => (
-          <Card key={f.title} className="p-6">
+          <Card key={f.title} className="p-6 bg-yellow-300">
             <f.icon className="h-6 w-6 text-primary" />
             <h3 className="mt-3 font-semibold">{f.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground text-black">{f.body}</p>
