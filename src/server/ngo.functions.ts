@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
 import type { VettingMatrixEntry } from "../integrations/supabase/types.ngo";
+import { recordEvent } from "./observability/observability.server";
 
 const SIMILARITY_PASS = 0.85;
 const SIMILARITY_FLAG = 0.5;
@@ -204,17 +205,20 @@ export const submitNgoApplication = createServerFn({ method: "POST" })
     const receiptLabel = `www.myblessings.us NGO Application ${formattedTime}`;
     console.log(`[Receipt Generated]: ${receiptLabel}`);
 
-    await supabaseAdmin.from("audit_logs").insert({
+    await recordEvent({
+      userId: null,
       action: "NGO_SUBMITTED",
-      entity_type: "ngo_application",
-      entity_id: rowAny.id,
-      metadata: { 
-        name: data.name, 
-        email: data.email, 
+      entityType: "ngo_application",
+      entityId: rowAny.id,
+      success: autoStatus !== "REJECTED",
+      metadata: {
+        name: data.name,
+        email: data.email,
         intel,
+        auto_status: autoStatus,
         receipt_label: receiptLabel,
         submitted_at: timestamp.toISOString(),
-        vetting_matrix: vettingMatrix
+        vetting_matrix: vettingMatrix,
       },
     });
 
@@ -269,11 +273,12 @@ export const updateNgoStatus = createServerFn({ method: "POST" })
       .eq("id", data.id);
     if (error) throw new Error(error.message);
 
-    await supabaseAdmin.from("audit_logs").insert({
-      actor_id: userId,
+    await recordEvent({
+      userId,
       action: data.status === "ACTIVE" ? "NGO_APPROVED" : data.status === "REJECTED" ? "NGO_REJECTED" : "NGO_STATUS_CHANGED",
-      entity_type: "ngo_application",
-      entity_id: data.id,
+      entityType: "ngo_application",
+      entityId: data.id,
+      success: true,
       metadata: { status: data.status },
     });
 
