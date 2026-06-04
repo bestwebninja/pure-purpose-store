@@ -67,7 +67,7 @@ function MyBlessings() {
         <Card className="mt-10 p-8 text-center bg-slate-300">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>
           <Button asChild className="mt-4">
-            <Link to="/request-help">Start Blessing Request</Link>
+            <Link to="/request-help">Start a New Blessing Request, For Your Self or a Person you wish to help up or help along Life's Journey.</Link>
           </Button>
         </Card>
       ) : (
