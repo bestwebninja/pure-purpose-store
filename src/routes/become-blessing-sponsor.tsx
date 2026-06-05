@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { createSponsorProfile } from "@/server/api/gateway";
+import { createSponsorProfile } from "@/lib/gateway";
 
  const ROLES = ["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"] as const;
 const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "Counselling", "Disaster Relief", "Elderly Care"];

@@ -2,7 +2,7 @@
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Users, MapPin } from "lucide-react";
-import type { Campaign } from "@/server/api/gateway";
+import type { Campaign } from "@/lib/gateway";
 type CardCampaign = Pick<Campaign, "handle" | "title" | "image_url" | "short_description" | "location" | "donor_count" | "goal_amount" | "raised_amount" | "currency">;
 function formatMoney(n: number, currency = "USD") {
   return new Intl.NumberFormat("en-US", {

@@ -11,7 +11,7 @@ import {
   rejectMatch,
   executeMatch,
   listFulfillmentForMatch,
-} from "@/server/api/gateway";
+} from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 type Match = {

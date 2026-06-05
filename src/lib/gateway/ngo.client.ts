@@ -2,7 +2,7 @@ import {
   listNgoApplications,
   updateNgoStatus,
   submitNgoApplication,
-} from '@/server/api/gateway';
+} from '@/lib/gateway';
 
 export const ngoClient = {
   listNgoApplications,

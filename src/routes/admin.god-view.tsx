@@ -10,8 +10,8 @@ import { Slider } from "@/components/ui/slider";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { recomputePetriScores } from "@/server/api/gateway";
-import { approveFlywheelReport, listImpactReports } from "@/server/api/gateway";
+import { recomputePetriScores } from "@/lib/gateway";
+import { approveFlywheelReport, listImpactReports } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 export const Route = createFileRoute("/admin/god-view")({

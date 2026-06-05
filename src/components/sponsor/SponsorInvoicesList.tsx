@@ -2,7 +2,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { listSponsorInvoices } from "@/server/api/gateway";
+import { listSponsorInvoices } from "@/lib/gateway";
 
 type Invoice = {
   id: string;

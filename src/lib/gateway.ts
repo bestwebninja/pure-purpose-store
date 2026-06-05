@@ -107,7 +107,7 @@ export type GatewayType = typeof Gateway;
 
 // ──────────────────────── UI utility ───────────────────────────────────────
 // Kept in this module because the UI kit already imports `cn` from
-// "@/server/api/gateway" across ~30 shadcn components. Pure client-safe code.
+// "@/lib/gateway" across ~30 shadcn components. Pure client-safe code.
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
