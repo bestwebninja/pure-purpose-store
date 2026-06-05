@@ -1,6 +1,6 @@
 import { redirect } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { checkIsAdmin } from "@/server/api/gateway";
+import { checkIsAdmin } from "@/lib/auth/admin.functions";
 
 /**
  * Route `beforeLoad` guard for admin-only routes.
