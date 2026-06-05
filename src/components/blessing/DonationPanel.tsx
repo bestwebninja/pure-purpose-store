@@ -9,8 +9,8 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, Loader2, Users } from "lucide-react";
 import { toast } from "sonner";
 
-import { createBlessingCheckout } from "@/server/api/gateway";
-import type { Campaign } from "@/server/api/gateway";
+import { createBlessingCheckout } from "@/lib/gateway";
+import type { Campaign } from "@/lib/gateway";
 
 type CampaignLite = Pick<Campaign, "id" | "handle" | "title" | "currency" | "goal_amount" | "raised_amount">;
 

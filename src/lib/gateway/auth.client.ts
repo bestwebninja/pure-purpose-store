@@ -1,7 +1,7 @@
 import {
   getMyProfile,
   updateMyProfile,
-} from '@/server/api/gateway';
+} from '@/lib/gateway';
 
 export const authClient = {
   getMyProfile,

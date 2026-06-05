@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
-import { listNgoApplications, updateNgoStatus } from "@/server/api/gateway";
+import { listNgoApplications, updateNgoStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 export const Route = createFileRoute("/admin/ngo-dashboard")({

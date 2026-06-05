@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { submitCorporateApplication } from "@/server/api/gateway";
+import { submitCorporateApplication } from "@/lib/gateway";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/corporate-signup")({

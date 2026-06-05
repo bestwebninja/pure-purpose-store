@@ -1,5 +1,5 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
-import { gateway } from "@/server/api/gateway";
+import { gateway } from "@/lib/gateway";
 
 export const testGateway = createServerFn({ method: "GET" })
   .handler(async () => {

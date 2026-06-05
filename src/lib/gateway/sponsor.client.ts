@@ -3,7 +3,7 @@ import {
   createSponsorProfile,
   getSponsorRecommendations,
   updateSponsorAssets,
-} from '@/server/api/gateway';
+} from '@/lib/gateway';
 
 export const sponsorClient = {
   listSponsors,

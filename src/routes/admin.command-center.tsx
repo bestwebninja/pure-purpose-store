@@ -4,9 +4,9 @@ import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getCommandCenterSnapshot } from "@/server/api/gateway";
+import { getCommandCenterSnapshot } from "@/lib/gateway";
 
-import { getLifecycleCounts, type LifecycleCounts } from "@/server/api/gateway";
+import { getLifecycleCounts, type LifecycleCounts } from "@/lib/gateway";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";

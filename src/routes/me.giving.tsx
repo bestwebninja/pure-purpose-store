@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { getMyGiving } from "@/server/api/gateway";
+import { getMyGiving } from "@/lib/gateway";
 
 type Donation = {
   id: string;

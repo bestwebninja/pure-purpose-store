@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useServerFn } from "@tanstack/react-start";
-import { getSponsorRecommendations } from "@/server/api/gateway";
+import { getSponsorRecommendations } from "@/lib/gateway";
 import { Sparkles, Loader2, RefreshCw } from "lucide-react";
 
 type Recommendation = {

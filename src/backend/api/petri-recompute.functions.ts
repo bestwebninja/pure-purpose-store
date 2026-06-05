@@ -1,7 +1,7 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { recomputePetriScoresCore, type RecomputeResult } from "@/server/petri-recompute.server";
+import { recomputePetriScoresCore, type RecomputeResult } from "@/backend/petri-recompute.server";
 
 /**
  * Admin-only entry point for the PETRI Brain Recompute Loop.

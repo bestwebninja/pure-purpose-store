@@ -1,4 +1,4 @@
-import { recomputePetriScores } from '@/server/api/gateway';
+import { recomputePetriScores } from '@/lib/gateway';
 
 export const petriClient = {
   recomputePetriScores,

@@ -9,8 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { getMyProfile, updateMyProfile } from "@/server/api/gateway";
-import { moderateImage } from "@/server/api/gateway";
+import { getMyProfile, updateMyProfile } from "@/lib/gateway";
+import { moderateImage } from "@/lib/gateway";
 
 async function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {

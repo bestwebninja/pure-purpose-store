@@ -1,7 +1,7 @@
 // src/utils/gateway.ts
 
 // Dynamic compilation typing extraction container
-type GatewayModule = typeof import("../server/api/gateway");
+type GatewayModule = typeof import("@/lib/gateway");
 type UnpackPromise<T> = T extends Promise<infer U> ? U : T;
 
 // Extract specific object type architectures directly from the Gateway function returns

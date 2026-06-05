@@ -2,7 +2,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-type GatewayModule = typeof import("../server/api/gateway");
+type GatewayModule = typeof import("@/lib/gateway");
 type UnpackPromise<T> = T extends Promise<infer U> ? U : T;
 
 // 1. Dynamic Categories Extractions

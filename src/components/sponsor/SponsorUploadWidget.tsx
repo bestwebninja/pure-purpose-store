@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
-import { updateSponsorAssets, getMySponsorDocUrl } from "@/server/api/gateway";
-import { moderateImage } from "@/server/api/gateway";
+import { updateSponsorAssets, getMySponsorDocUrl } from "@/lib/gateway";
+import { moderateImage } from "@/lib/gateway";
 import { CheckCircle2, FileText, Image as ImageIcon, Loader2, Upload } from "lucide-react";
 
 const MAX_LOGO_BYTES = 4 * 1024 * 1024; // 4 MB

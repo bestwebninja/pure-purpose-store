@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { listSponsors, updateSponsorStatus } from "@/server/api/gateway";
+import { listSponsors, updateSponsorStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 
 type Sponsor = {
