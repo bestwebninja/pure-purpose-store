@@ -1,4 +1,4 @@
-import { runSupplierSync } from "@/server/suppliers/supplierSync.server";
+import { runSupplierSync } from "@/backend/suppliers/supplierSync.server";
 
 let isRunning = false;
 

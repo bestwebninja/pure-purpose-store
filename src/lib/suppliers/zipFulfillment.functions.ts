@@ -4,7 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import {
   isZipFulfillable,
   getActiveSuppliersByZip,
-} from "@/server/suppliers/zipFulfillment.server";
+} from "@/backend/suppliers/zipFulfillment.server";
 
 const zipSchema = z.object({
   zip: z.string().min(1).max(16).regex(/^[A-Za-z0-9 \-]+$/),

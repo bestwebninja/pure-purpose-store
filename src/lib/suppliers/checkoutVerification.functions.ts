@@ -1,7 +1,7 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { verifyFulfillmentBeforeCheckout } from "@/server/suppliers/checkoutVerification.server";
+import { verifyFulfillmentBeforeCheckout } from "@/backend/suppliers/checkoutVerification.server";
 
 const schema = z.object({
   zip: z.string().min(1).max(16).regex(/^[A-Za-z0-9 \-]+$/),
