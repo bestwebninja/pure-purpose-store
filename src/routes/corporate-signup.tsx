@@ -186,7 +186,7 @@ function CorporateSignup() {
         <Section title="Additional Notes">
           <textarea
             className="w-full border border-white/20 bg-white/5 text-white p-3 rounded
-                       focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                       focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-accent"
             onChange={(e) => update("notes", e.target.value)}
           />
         </Section>
@@ -225,7 +225,7 @@ function Input({ label, onChange }: any) {
       <label className="text-sm text-white/80">{label}</label>
       <input
         className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-accent"
         onChange={(e) => onChange(e.target.value)}
       />
     </div>
@@ -238,7 +238,7 @@ function Select({ label, options, onChange }: any) {
       <label className="text-sm text-white/80">{label}</label>
       <select
         className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-accent"
         onChange={(e) => onChange(e.target.value)}
         defaultValue=""
       >

@@ -115,7 +115,7 @@ export function SiteHeader() {
           )}
           {isAdmin && (
             <DropdownMenu>
-              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md bg-yellow-300 px-3 py-1.5 text-sm font-semibold text-foreground shadow-[0_0_14px_rgba(250,204,21,0.7)] outline-none transition hover:bg-yellow-400">
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90">
                 <ShieldCheck className="h-4 w-4" />
                 Admin
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
@@ -123,25 +123,25 @@ export function SiteHeader() {
               <DropdownMenuContent align="end" className="w-52">
                 <DropdownMenuLabel>Admin tools</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/ngo-dashboard">NGO Applications</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/sponsors">Sponsors</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/petri">Petri OS</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/match-control">Match Control</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/god-view">God View</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/dashboard/petri-graph">Petri Graph</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -243,7 +243,7 @@ export function SiteHeader() {
           </Sheet>
           
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-yellow-300 hover:text-foreground text-white">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-accent hover:text-accent-foreground text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
@@ -259,23 +259,23 @@ export function SiteHeader() {
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/me/giving">My Giving</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/me/profile">Profile</Link>
                 </DropdownMenuItem>
                 {isSponsor && (
-                  <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                  <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                     <Link to="/sponsor/dashboard">Sponsor Dashboard</Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={handleSignOut} className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">Sign out</DropdownMenuItem>
+                <DropdownMenuItem onSelect={handleSignOut} className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">Sign out</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-yellow-300 hover:text-foreground text-white">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-accent hover:text-accent-foreground text-foreground">
               <Link to="/login">Login</Link>
             </Button>
           )}

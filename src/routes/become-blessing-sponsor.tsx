@@ -105,8 +105,8 @@ function BecomeSponsor() {
                   onClick={() => setForm({ ...form, sponsor_role: r })}
                   className={`rounded-md border px-3 py-2 text-sm transition ${
                     form.sponsor_role === r
-                      ? "border-yellow-400 bg-yellow-300 font-semibold text-black shadow-[0_0_18px_rgba(250,204,21,0.85)]"
-                      : "border-border hover:border-yellow-400/60"
+                      ? "border-accent bg-accent font-semibold text-black shadow-[0_0_18px_rgba(250,204,21,0.85)]"
+                      : "border-border hover:border-accent/60"
                   }`}
                 >
                   {r}
@@ -176,7 +176,7 @@ function BecomeSponsor() {
             <Textarea id="verif" rows={3} className={glow} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
           </div>
 
-          <Button type="submit" className="w-full bg-blue-700" disabled={submitting}>
+          <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit for verification"}
           </Button>
         </form>
@@ -186,6 +186,6 @@ function BecomeSponsor() {
 }
 
 const glow =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
+  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
 
 

@@ -21,7 +21,7 @@ export function SiteFooter() {
               className="grid h-9 w-9 place-items-center rounded-full shadow-soft"
               style={{
                 background:
-                  "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)",
+                  undefined,
               }}
             >
               <Heart className="h-4 w-4 text-white" fill="currentColor" />
