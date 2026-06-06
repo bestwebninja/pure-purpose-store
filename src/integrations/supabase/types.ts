@@ -232,6 +232,7 @@ export type Database = {
           handle: string
           id: string
           image_url: string | null
+          is_demo: boolean
           location: string | null
           raised_amount: number
           shopify_product_id: string | null
@@ -253,6 +254,7 @@ export type Database = {
           handle: string
           id?: string
           image_url?: string | null
+          is_demo?: boolean
           location?: string | null
           raised_amount?: number
           shopify_product_id?: string | null
@@ -274,6 +276,7 @@ export type Database = {
           handle?: string
           id?: string
           image_url?: string | null
+          is_demo?: boolean
           location?: string | null
           raised_amount?: number
           shopify_product_id?: string | null
@@ -305,6 +308,7 @@ export type Database = {
           currency: string
           description: string | null
           id: string
+          is_demo: boolean
           postal_code: string | null
           priority: string
           recipient_user_id: string
@@ -326,6 +330,7 @@ export type Database = {
           currency?: string
           description?: string | null
           id?: string
+          is_demo?: boolean
           postal_code?: string | null
           priority?: string
           recipient_user_id: string
@@ -347,6 +352,7 @@ export type Database = {
           currency?: string
           description?: string | null
           id?: string
+          is_demo?: boolean
           postal_code?: string | null
           priority?: string
           recipient_user_id?: string
@@ -495,6 +501,7 @@ export type Database = {
           donor_name: string | null
           id: string
           is_anonymous: boolean
+          is_demo: boolean
           message: string | null
           shopify_checkout_id: string | null
           shopify_order_id: string
@@ -508,6 +515,7 @@ export type Database = {
           donor_name?: string | null
           id?: string
           is_anonymous?: boolean
+          is_demo?: boolean
           message?: string | null
           shopify_checkout_id?: string | null
           shopify_order_id: string
@@ -521,6 +529,7 @@ export type Database = {
           donor_name?: string | null
           id?: string
           is_anonymous?: boolean
+          is_demo?: boolean
           message?: string | null
           shopify_checkout_id?: string | null
           shopify_order_id?: string
@@ -544,6 +553,7 @@ export type Database = {
           event_type: string
           id: string
           idempotency_key: string | null
+          is_demo: boolean
           match_id: string | null
           notes: string | null
           provider: string | null
@@ -559,6 +569,7 @@ export type Database = {
           event_type: string
           id?: string
           idempotency_key?: string | null
+          is_demo?: boolean
           match_id?: string | null
           notes?: string | null
           provider?: string | null
@@ -574,6 +585,7 @@ export type Database = {
           event_type?: string
           id?: string
           idempotency_key?: string | null
+          is_demo?: boolean
           match_id?: string | null
           notes?: string | null
           provider?: string | null
@@ -650,6 +662,7 @@ export type Database = {
           created_at: string
           currency: string
           id: string
+          is_demo: boolean
           next_package: Json | null
           package_signature: string
           package_total: number
@@ -667,6 +680,7 @@ export type Database = {
           created_at?: string
           currency?: string
           id?: string
+          is_demo?: boolean
           next_package?: Json | null
           package_signature: string
           package_total?: number
@@ -684,6 +698,7 @@ export type Database = {
           created_at?: string
           currency?: string
           id?: string
+          is_demo?: boolean
           next_package?: Json | null
           package_signature?: string
           package_total?: number
@@ -813,6 +828,7 @@ export type Database = {
           geography: string | null
           id: string
           intelligence_status: string
+          is_demo: boolean
           name: string
           organization_type: string | null
           status: string
@@ -829,6 +845,7 @@ export type Database = {
           geography?: string | null
           id?: string
           intelligence_status?: string
+          is_demo?: boolean
           name: string
           organization_type?: string | null
           status?: string
@@ -845,6 +862,7 @@ export type Database = {
           geography?: string | null
           id?: string
           intelligence_status?: string
+          is_demo?: boolean
           name?: string
           organization_type?: string | null
           status?: string
@@ -931,6 +949,7 @@ export type Database = {
           execution_status: string
           help_request_id: string | null
           id: string
+          is_demo: boolean
           last_executed_at: string | null
           match_generation: string
           provider: string | null
@@ -947,6 +966,7 @@ export type Database = {
           execution_status?: string
           help_request_id?: string | null
           id?: string
+          is_demo?: boolean
           last_executed_at?: string | null
           match_generation?: string
           provider?: string | null
@@ -963,6 +983,7 @@ export type Database = {
           execution_status?: string
           help_request_id?: string | null
           id?: string
+          is_demo?: boolean
           last_executed_at?: string | null
           match_generation?: string
           provider?: string | null
@@ -1037,6 +1058,7 @@ export type Database = {
           created_at: string
           feedback_score: number
           id: string
+          is_demo: boolean
           match_generation: string
           payload: Json
           score: number
@@ -1049,6 +1071,7 @@ export type Database = {
           created_at?: string
           feedback_score?: number
           id?: string
+          is_demo?: boolean
           match_generation?: string
           payload?: Json
           score?: number
@@ -1061,6 +1084,7 @@ export type Database = {
           created_at?: string
           feedback_score?: number
           id?: string
+          is_demo?: boolean
           match_generation?: string
           payload?: Json
           score?: number
@@ -1195,6 +1219,7 @@ export type Database = {
           doc_url: string | null
           help_interests: string[]
           id: string
+          is_demo: boolean
           logo_url: string | null
           organization_details: string | null
           organization_name: string | null
@@ -1213,6 +1238,7 @@ export type Database = {
           doc_url?: string | null
           help_interests?: string[]
           id?: string
+          is_demo?: boolean
           logo_url?: string | null
           organization_details?: string | null
           organization_name?: string | null
@@ -1231,6 +1257,7 @@ export type Database = {
           doc_url?: string | null
           help_interests?: string[]
           id?: string
+          is_demo?: boolean
           logo_url?: string | null
           organization_details?: string | null
           organization_name?: string | null
