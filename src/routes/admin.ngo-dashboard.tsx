@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
 import { listNgoApplications, updateNgoStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
+import { AdminShell } from "@/components/admin/AdminShell";
 
 export const Route = createFileRoute("/admin/ngo-dashboard")({
   beforeLoad: () => requireAdminBeforeLoad(),
@@ -95,26 +96,28 @@ function AdminDashboard() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Admin Dashboard</h1>
-        <Card className="mt-6 p-6">
+      <AdminShell eyebrow="Admin · NGOs" title="NGO Applications">
+        <Card className="p-6">
           <p className="text-sm text-destructive">{error}</p>
           <p className="mt-2 text-sm text-primary-foreground/70">You must be signed in as an admin to view this page.</p>
         </Card>
-      </div>
+      </AdminShell>
     );
   }
 
   if (selectedApp) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-        <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-primary-foreground hover:text-accent">
-          ← Back to NGO Applications
-        </Button>
-        <h1 className="text-display text-2xl sm:text-3xl font-semibold text-primary-foreground break-words">Verification Audit: {selectedApp.name}</h1>
-        
+      <AdminShell
+        eyebrow="Admin · NGOs"
+        title={`Verification Audit: ${selectedApp.name}`}
+        actions={
+          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="text-primary-foreground hover:text-accent">
+            ← Back
+          </Button>
+        }
+      >
         {vettingMatrix ? (
-          <div className="mt-8">
+          <div>
             {/* Mobile: card list */}
             <div className="space-y-3 md:hidden">
               {vettingMatrix.map((m, i) => (
