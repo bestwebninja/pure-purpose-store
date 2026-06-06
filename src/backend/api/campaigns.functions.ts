@@ -12,7 +12,7 @@ export const listCampaignsByCategory = createServerFn({ method: "POST" })
       .select("*")
       .eq("category_slug", slug);
     if (error) throw error;
-    return filterAllowedByLocation(data ?? []);
+    return { campaigns: filterAllowedByLocation(data ?? []) };
   });
 
 // Re-export real campaign + category readers from the canonical server module
