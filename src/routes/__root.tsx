@@ -31,7 +31,7 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "MyBlessings — Give With Purpose" },
       { name: "description", content: "MyBlessings is a giving platform where every donation becomes a blessing for someone in need. Start a campaign or support a cause today." },
       { name: "author", content: "MyBlessings" },

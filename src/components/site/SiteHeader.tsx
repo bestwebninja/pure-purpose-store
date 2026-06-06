@@ -85,12 +85,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary shadow-soft">
             <Heart className="h-4 w-4 text-primary-foreground" fill="currentColor" />
           </span>
-          <span className="text-display text-lg font-semibold tracking-tight">MyBlessings</span>
+          <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
         </Link>
         
         <nav className="hidden flex-1 items-center justify-center gap-6 lg:flex">
@@ -156,7 +156,7 @@ export function SiteHeader() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
+            <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
