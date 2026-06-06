@@ -23,7 +23,7 @@ export const getLifecycleCounts = createServerFn({ method: "GET" }).handler(asyn
   const matches = matchesRes.data ?? [];
   const donations = donationsRes.data ?? [];
   const fulfillment = fulfillmentRes.data ?? [];
-  const campaigns = filterAllowedByLocation(campaignsRes.data ?? []);
+  const campaigns = (campaignsRes.data ?? []).filter((c) => isAllowedLocation(c.location));
 
   return {
     requested: cases.length,
@@ -42,7 +42,7 @@ export const getMarketplaceFeed = createServerFn({ method: "GET" }).handler(asyn
     .eq("status", "active")
     .order("created_at", { ascending: false })
     .limit(240);
-  return { campaigns: filterAllowedByLocation(data ?? []).slice(0, 60) };
+  return { campaigns: (data ?? []).filter((c) => isAllowedLocation(c.location)).slice(0, 60) };
 });
 
 export const getImpactMapData = createServerFn({ method: "GET" }).handler(async () => {
@@ -51,7 +51,7 @@ export const getImpactMapData = createServerFn({ method: "GET" }).handler(async 
     .select("id, title, location, raised_amount, donor_count, status, category_slug")
     .order("raised_amount", { ascending: false })
     .limit(400);
-  const allowed = filterAllowedByLocation(campaigns ?? []);
+  const allowed = (campaigns ?? []).filter((c) => isAllowedLocation(c.location));
   const byLocation = new Map<string, { location: string; raised: number; donors: number; count: number }>();
   for (const c of allowed) {
     const key = (c.location ?? "Unknown").trim() || "Unknown";
