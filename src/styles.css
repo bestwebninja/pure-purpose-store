@@ -192,6 +192,56 @@
   table {
     max-width: 100%;
   }
+
+  /* GLOBAL TYPOGRAPHY SYSTEM (TOKEN SAFE + STABLE) */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  /* STRONG SURFACE CONTEXT RULES (NO NESTING, NO BREAKING SPECIFICITY) */
+  .bg-primary h1,
+  .bg-primary h2,
+  .bg-primary h3,
+  .bg-primary h4,
+  .bg-primary h5,
+  .bg-primary h6,
+  .bg-gradient-primary h1,
+  .bg-gradient-primary h2,
+  .bg-gradient-primary h3,
+  .bg-gradient-primary h4,
+  .bg-gradient-primary h5,
+  .bg-gradient-primary h6 {
+    color: var(--primary-foreground);
+  }
+
+  /* CARD + LIGHT SURFACES SAFETY */
+  .bg-background h1,
+  .bg-background h2,
+  .bg-background h3,
+  .bg-background h4,
+  .bg-background h5,
+  .bg-background h6,
+  .bg-card h1,
+  .bg-card h2,
+  .bg-card h3,
+  .bg-card h4,
+  .bg-card h5,
+  .bg-card h6 {
+    color: var(--foreground);
+  }
+
+  /* FORM SYSTEM CONSISTENCY */
+  form h1, form h2, form h3 {
+    color: var(--foreground);
+  }
+
+  /* FINAL SAFETY NET (PREVENT BLUE / INHERIT DRIFT BUGS) */
+  main h1, main h2, main h3 {
+    color: var(--foreground);
+  }
 }
 
 @utility text-display {
