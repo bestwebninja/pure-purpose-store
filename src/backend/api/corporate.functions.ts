@@ -96,6 +96,7 @@ export const listCorporateSponsors = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("corporate_sponsors")
       .select("*")
+      .in("country", getAllowedCountries() as unknown as string[])
       .order("created_at", { ascending: false });
 
     if (error) throw new Error(error.message);
