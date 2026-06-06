@@ -170,7 +170,7 @@ function BecomeSponsor() {
           </FormField>
 
           <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
-            {submitting ? "Submitting…" : "Submit for verification"}
+            {submitting ? "Submitting…" : "Submit"}
           </Button>
         </form>
       </Card>
