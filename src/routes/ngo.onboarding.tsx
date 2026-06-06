@@ -61,7 +61,7 @@ function NgoOnboardingPage() {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { causes: [] },
+    defaultValues: { causes: [], country: "US" },
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
