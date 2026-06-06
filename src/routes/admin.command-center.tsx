@@ -22,7 +22,7 @@ export const Route = createFileRoute("/admin/command-center")({
 type Snapshot = Awaited<ReturnType<typeof getCommandCenterSnapshot>>;
 
 function Stat({ label, value, tone }: { label: string; value: string | number; tone?: "ok" | "warn" | "bad" }) {
-  const color = tone === "bad" ? "text-destructive" : tone === "warn" ? "text-amber-500" : "text-foreground";
+  const color = tone === "bad" ? "text-destructive" : tone === "warn" ? "text-accent" : "text-foreground";
   return (
     <div>
       <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
@@ -93,7 +93,7 @@ function CommandCenter() {
       ) : (
         <>
           {snap.errors && Object.values(snap.errors).some(Boolean) && (
-            <div className="mt-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-200">
+            <div className="mt-6 rounded-md border border-accent/40 bg-accent/15 p-3 text-sm text-accent">
               <p className="font-semibold">Some queries failed — data below is partial:</p>
               <ul className="mt-1 list-disc pl-5 text-xs">
                 {Object.entries(snap.errors)

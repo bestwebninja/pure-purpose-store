@@ -50,7 +50,7 @@ export function VerificationDashboard() {
 
       <button
         onClick={load}
-        className="mb-4 w-full sm:w-auto px-4 py-2 bg-yellow-500 text-black rounded text-sm"
+        className="mb-4 w-full sm:w-auto px-4 py-2 bg-accent text-foreground rounded text-sm"
       >
         Refresh
       </button>
@@ -58,7 +58,7 @@ export function VerificationDashboard() {
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
-        <div className="rounded border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-300 break-words">
+        <div className="rounded border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive break-words">
           Failed to load suppliers: {error}
         </div>
       ) : suppliers.length === 0 ? (
@@ -68,7 +68,7 @@ export function VerificationDashboard() {
           {suppliers.map((s) => (
             <div
               key={s.id}
-              className="border border-gray-700 p-3 rounded"
+              className="border border-border p-3 rounded"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <strong className="break-words min-w-0">{s.name}</strong>

@@ -117,12 +117,12 @@ function ExploreBlessings() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
-      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Categories</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">Categories</p>
           <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-primary-foreground md:text-5xl">
             Our Blessings
           </h1>
@@ -145,17 +145,17 @@ function ExploreBlessings() {
         </div>
 
         <section className="mt-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">BLESSINGS </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">BLESSINGS </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-cyan-300/20 bg-primary-foreground/5 p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
+                className="rounded-2xl border border-accent/30 bg-primary-foreground/5 p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
               >
                 <div className="text-display text-3xl text-primary-foreground md:text-4xl">
                   {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-primary-foreground/10 align-middle" /> : "—")}
                 </div>
-                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-cyan-200/70">{m.label}</div>
+                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-accent">{m.label}</div>
               </div>
             ))}
           </div>

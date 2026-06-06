@@ -352,7 +352,7 @@ function GodView() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
             <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Operator Console — Live</span>
           </div>
           <h1 className="text-display mt-1 text-3xl font-semibold tracking-tight">God View</h1>
@@ -402,7 +402,7 @@ function GodView() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs">
-                <Badge className="bg-emerald-500/15 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300">
+                <Badge className="bg-success/15 text-success hover:bg-success/15 dark:text-success">
                   Matching autonomy L{matchingAutonomy} · {AUTONOMY_LABELS[matchingAutonomy]}
                 </Badge>
                 <Badge variant="outline">{queueAutoCount} auto-fund</Badge>
@@ -429,8 +429,8 @@ function GodView() {
                     <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground text-primary-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
                   ) : scorecards.map((s, i) => {
                     const decisionTone =
-                      s.autonomy_decision === "auto" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
-                      : s.autonomy_decision === "queue" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      s.autonomy_decision === "auto" ? "bg-success/15 text-success dark:text-success"
+                      : s.autonomy_decision === "queue" ? "bg-accent/15 text-accent dark:text-accent"
                       : "bg-muted text-muted-foreground";
                     const decisionLabel =
                       s.autonomy_decision === "auto" ? `Auto-fund (L${matchingAutonomy})`
@@ -655,8 +655,8 @@ function GodView() {
                     <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground text-primary-foreground">No flywheel reports yet.</TableCell></TableRow>
                   ) : reports.map((r) => {
                     const tone =
-                      r.status === "sent" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
-                      : r.status === "pending_review" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      r.status === "sent" ? "bg-success/15 text-success dark:text-success"
+                      : r.status === "pending_review" ? "bg-accent/15 text-accent dark:text-accent"
                       : r.status === "failed" ? "bg-destructive/15 text-destructive"
                       : "bg-muted text-muted-foreground";
                     const canApprove = r.status === "draft" || r.status === "pending_review" || r.status === "approved";
@@ -675,7 +675,7 @@ function GodView() {
                         </TableCell>
                         <TableCell className="text-right">
                           {r.status === "sent" ? (
-                            <span className="text-xs text-emerald-600 dark:text-emerald-400">Auto-sent</span>
+                            <span className="text-xs text-success dark:text-success">Auto-sent</span>
                           ) : canApprove ? (
                             <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
                               {approvingId === r.id ? "Sending…" : "Approve & send"}
