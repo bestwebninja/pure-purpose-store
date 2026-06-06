@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DashboardSection } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import {
   listMatchesForControl,
@@ -115,18 +116,17 @@ function AdminMatchControl() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <h1 className="text-display text-2xl font-semibold sm:text-3xl">Match Control</h1>
-      <p className="mt-2 text-muted-foreground text-muted-foreground">
-        Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router (stub providers).
-      </p>
-
-      <div className="mt-8 space-y-3">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <DashboardSection
+        title="Match Control"
+        description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
+      >
+      <div className="space-y-3">
         {matches === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {matches?.length === 0 && <p className="text-sm text-muted-foreground text-white">No matches yet.</p>}
         {matches?.map((m) => (
-          <Card key={m.id} className="p-5">
-            <div className="flex flex-wrap items-start justify-between gap-4">
+          <Card key={m.id} className="p-4 sm:p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <code className="text-xs text-muted-foreground">{m.id.slice(0, 8)}</code>
@@ -138,24 +138,24 @@ function AdminMatchControl() {
                   </Badge>
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground text-white">
+                <p className="mt-2 text-sm text-muted-foreground text-white break-words">
                   score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
                   {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
                   {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}
                   {m.last_executed_at && <> · last run {new Date(m.last_executed_at).toLocaleString()}</>}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2">
-                <Button size="sm" onClick={() => handle(m.id, "approve")} disabled={!!busy || m.status === "rejected"}>
+              <div className="flex flex-wrap gap-2 sm:shrink-0">
+                <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handle(m.id, "approve")} disabled={!!busy || m.status === "rejected"}>
                   Approve & Execute
                 </Button>
-                <Button size="sm" variant="outline" onClick={() => handle(m.id, "execute")} disabled={!!busy}>
+                <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handle(m.id, "execute")} disabled={!!busy}>
                   Re-Execute
                 </Button>
-                <Button size="sm" variant="destructive" onClick={() => handle(m.id, "reject")} disabled={!!busy || m.status === "rejected"}>
+                <Button size="sm" variant="destructive" className="flex-1 sm:flex-none" onClick={() => handle(m.id, "reject")} disabled={!!busy || m.status === "rejected"}>
                   Reject
                 </Button>
-                <Button size="sm" variant="ghost" className="text-white" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
+                <Button size="sm" variant="ghost" className="flex-1 text-white sm:flex-none" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
                   {events[m.id] ? "Hide" : "Events"}
                 </Button>
               </div>
@@ -178,6 +178,7 @@ function AdminMatchControl() {
           </Card>
         ))}
       </div>
+      </DashboardSection>
     </div>
   );
 }

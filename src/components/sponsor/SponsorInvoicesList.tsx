@@ -70,15 +70,15 @@ export function SponsorInvoicesList() {
   }, []);
 
   return (
-    <Card className="p-6">
-      <div className="flex items-center justify-between">
-        <div>
+    <Card className="p-4 sm:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
           <h2 className="text-display text-lg font-semibold">Tax Receipts & Invoices</h2>
           <p className="text-sm text-muted-foreground text-white">
             Each contribution is split into a 93.5% tax-deductible donation and a 6.5% platform fee.
           </p>
         </div>
-        <Button variant="outline" size="sm" onClick={refresh} disabled={loading}>
+        <Button variant="outline" size="sm" onClick={refresh} disabled={loading} className="shrink-0">
           {loading ? "Refreshing…" : "Refresh"}
         </Button>
       </div>
@@ -90,7 +90,40 @@ export function SponsorInvoicesList() {
       ) : invoices.length === 0 ? (
         <p className="mt-4 text-sm text-muted-foreground text-white">No invoices yet. They'll appear here as your contributions settle.</p>
       ) : (
-        <div className="mt-4 overflow-x-auto">
+        <>
+        {/* Mobile: card list */}
+        <ul className="mt-4 space-y-3 md:hidden">
+          {invoices.map((inv) => (
+            <li key={inv.id} className="rounded-md border border-border bg-card p-3">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="font-medium text-foreground break-all">{inv.invoice_number}</div>
+                  <div className="text-xs text-muted-foreground">{new Date(inv.issued_at).toLocaleDateString()}</div>
+                </div>
+                <Badge variant={inv.status === "ISSUED" ? "default" : "secondary"}>{inv.status}</Badge>
+              </div>
+              <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <dt className="text-muted-foreground">Gross</dt>
+                  <dd className="font-medium">{formatCurrency(inv.gross_amount, inv.currency)}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Donation</dt>
+                  <dd className="font-medium">{formatCurrency(inv.donation_amount, inv.currency)}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Platform fee</dt>
+                  <dd className="font-medium">{formatCurrency(inv.platform_fee_amount, inv.currency)}</dd>
+                </div>
+              </dl>
+              <Button size="sm" variant="outline" className="mt-3 w-full" onClick={() => downloadInvoice(inv)}>
+                Download
+              </Button>
+            </li>
+          ))}
+        </ul>
+        {/* Tablet/desktop: full table */}
+        <div className="mt-4 hidden overflow-x-auto md:block">
           <table className="w-full text-sm">
             <thead className="text-left text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
@@ -126,6 +159,7 @@ export function SponsorInvoicesList() {
             </tbody>
           </table>
         </div>
+        </>
       )}
     </Card>
   );

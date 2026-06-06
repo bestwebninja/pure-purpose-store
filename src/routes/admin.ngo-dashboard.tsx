@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DashboardSection } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
@@ -113,8 +114,35 @@ function AdminDashboard() {
         <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white break-words">Verification Audit: {selectedApp.name}</h1>
         
         {vettingMatrix ? (
-          <div className="mt-8 overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card">
-            <table className="w-full min-w-[640px] text-left">
+          <div className="mt-8">
+            {/* Mobile: card list */}
+            <div className="space-y-3 md:hidden">
+              {vettingMatrix.map((m, i) => (
+                <Card
+                  key={`m-${i}`}
+                  className={`p-4 ${
+                    m.status === "FAIL" ? "border-destructive/40 bg-destructive/10" :
+                    m.status === "FLAG" ? "border-accent/40 bg-accent/15" :
+                    "border-success/30 bg-success/10"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <h4 className="text-sm font-semibold text-white break-words">{m.point}</h4>
+                    <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
+                      {m.status}
+                    </Badge>
+                  </div>
+                  <dl className="mt-3 space-y-1.5 text-xs text-white/80">
+                    <div><dt className="inline font-medium text-white/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
+                    <div><dt className="inline font-medium text-white/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
+                    <div><dt className="inline font-medium text-white/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
+                  </dl>
+                </Card>
+              ))}
+            </div>
+            {/* Tablet/desktop: full table */}
+            <div className="hidden overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card md:block">
+            <table className="w-full text-left">
               <thead className="bg-muted/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <tr>
                   <th className="px-3 py-3 sm:px-6 sm:py-4">Data Point</th>
@@ -144,6 +172,7 @@ function AdminDashboard() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         ) : (
           <p className="mt-8 text-muted-foreground italic">No automated vetting record found for this application.</p>
@@ -153,14 +182,13 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-      <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">NGO Applications</h1>
-      <p className="mt-2 text-muted-foreground text-muted-foreground">Live admin view — updates in realtime.</p>
-      <div className="mt-8 space-y-3">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <DashboardSection title="NGO Applications" description="Live admin view — updates in realtime.">
+      <div className="space-y-3">
         {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
         {apps?.map((a) => (
-          <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-accent/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
+          <Card key={a.id} className="flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold break-words">{a.name}</h3>
@@ -172,13 +200,14 @@ function AdminDashboard() {
               <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
-              <Button size="sm" variant="outline" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
+            <div className="flex flex-wrap gap-2 sm:shrink-0" onClick={(e) => e.stopPropagation()}>
+              <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
+              <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
             </div>
           </Card>
         ))}
       </div>
+      </DashboardSection>
     </div>
   );
 }

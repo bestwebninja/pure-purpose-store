@@ -3,6 +3,14 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitCorporateApplication } from "@/lib/gateway";
 import { toast } from "sonner";
+import {
+  FormField,
+  FormInput,
+  FormSelect,
+  FormTextarea,
+  FormPanel,
+  FormGrid,
+} from "@/components/ui/form-control";
 
 export const Route = createFileRoute("/corporate-signup")({
   component: CorporateSignup,
@@ -90,165 +98,143 @@ function CorporateSignup() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground px-6 py-10">
-      <div className="max-w-2xl mx-auto space-y-6">
+    <div className="min-h-screen bg-primary text-primary-foreground">
+      <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8 sm:px-6 sm:py-12">
+        <header className="space-y-1">
+          <h1 className="text-display text-2xl font-semibold text-white sm:text-3xl">
+            Corporate Blessing Intake Portal
+          </h1>
+          <p className="text-sm text-white/70">
+            Tell us about your company and how you'd like to give. We'll be in touch.
+          </p>
+        </header>
 
-        <h1 className="text-2xl font-bold text-white">
-          Corporate Blessing Intake Portal
-        </h1>
+        <FormPanel surface="dark" title="Company Details">
+          <FormField surface="dark" label="Company Name" htmlFor="company_name">
+            <FormInput surface="dark" id="company_name" onChange={(e) => update("company_name", e.target.value)} />
+          </FormField>
+          <FormField surface="dark" label="Industry" htmlFor="industry">
+            <FormInput surface="dark" id="industry" onChange={(e) => update("industry", e.target.value)} />
+          </FormField>
+          <FormField surface="dark" label="Website" htmlFor="website">
+            <FormInput surface="dark" id="website" type="url" placeholder="https://" onChange={(e) => update("website", e.target.value)} />
+          </FormField>
+          <FormField surface="dark" label="Company Size" htmlFor="size">
+            <FormInput surface="dark" id="size" onChange={(e) => update("company_size", e.target.value)} />
+          </FormField>
+        </FormPanel>
 
-        <Section title="Company Details">
-          <Input label="Company Name" onChange={(v: string) => update("company_name", v)} />
-          <Input label="Industry" onChange={(v: string) => update("industry", v)} />
-          <Input label="Website" onChange={(v: string) => update("website", v)} />
-          <Input label="Company Size" onChange={(v: string) => update("company_size", v)} />
-        </Section>
+        <FormPanel surface="dark" title="Point of Contact">
+          <FormGrid>
+            <FormField surface="dark" label="First Name" htmlFor="poc_first">
+              <FormInput surface="dark" id="poc_first" onChange={(e) => update("poc_first_name", e.target.value)} />
+            </FormField>
+            <FormField surface="dark" label="Surname" htmlFor="poc_last">
+              <FormInput surface="dark" id="poc_last" onChange={(e) => update("poc_surname", e.target.value)} />
+            </FormField>
+          </FormGrid>
+          <FormGrid>
+            <FormField surface="dark" label="Email" htmlFor="poc_email">
+              <FormInput surface="dark" id="poc_email" type="email" onChange={(e) => update("poc_email", e.target.value)} />
+            </FormField>
+            <FormField surface="dark" label="Phone" htmlFor="poc_phone">
+              <FormInput surface="dark" id="poc_phone" type="tel" onChange={(e) => update("poc_phone", e.target.value)} />
+            </FormField>
+          </FormGrid>
+          <FormGrid>
+            <FormField surface="dark" label="Department" htmlFor="poc_dept">
+              <FormInput surface="dark" id="poc_dept" onChange={(e) => update("poc_department", e.target.value)} />
+            </FormField>
+            <FormField surface="dark" label="Role / Title" htmlFor="poc_role">
+              <FormInput surface="dark" id="poc_role" onChange={(e) => update("poc_role", e.target.value)} />
+            </FormField>
+          </FormGrid>
+        </FormPanel>
 
-        {/* ✅ FIXED POC SECTION */}
-        <Section title="Point of Contact">
-          <div className="grid grid-cols-2 gap-3">
-            <Input
-              label="First Name"
-              onChange={(v: string) => update("poc_first_name", v)}
-            />
-            <Input
-              label="Surname"
-              onChange={(v: string) => update("poc_surname", v)}
-            />
-          </div>
+        <FormPanel surface="dark" title="Corporate Address">
+          <FormField surface="dark" label="Address Line 1" htmlFor="addr1">
+            <FormInput surface="dark" id="addr1" onChange={(e) => update("address_line1", e.target.value)} />
+          </FormField>
+          <FormField surface="dark" label="Address Line 2" htmlFor="addr2">
+            <FormInput surface="dark" id="addr2" onChange={(e) => update("address_line2", e.target.value)} />
+          </FormField>
+          <FormGrid>
+            <FormField surface="dark" label="City" htmlFor="city">
+              <FormInput surface="dark" id="city" onChange={(e) => update("city", e.target.value)} />
+            </FormField>
+            <FormField surface="dark" label="State" htmlFor="state">
+              <FormInput surface="dark" id="state" onChange={(e) => update("state", e.target.value)} />
+            </FormField>
+          </FormGrid>
+          <FormGrid>
+            <FormField surface="dark" label="ZIP Code" htmlFor="zip">
+              <FormInput surface="dark" id="zip" onChange={(e) => update("zip", e.target.value)} />
+            </FormField>
+            <FormField surface="dark" label="Country" htmlFor="country">
+              <FormInput surface="dark" id="country" onChange={(e) => update("country", e.target.value)} />
+            </FormField>
+          </FormGrid>
+        </FormPanel>
 
-          <Input label="Email" onChange={(v: string) => update("poc_email", v)} />
-          <Input label="Phone" onChange={(v: string) => update("poc_phone", v)} />
-          <Input label="Department" onChange={(v: string) => update("poc_department", v)} />
-          <Input label="Role / Title" onChange={(v: string) => update("poc_role", v)} />
-        </Section>
+        <FormPanel surface="dark" title="Contribution Model">
+          <FormGrid>
+            <FormField surface="dark" label="Contribution Type" htmlFor="ctype">
+              <FormSelect surface="dark" id="ctype" defaultValue="" onChange={(e) => update("contribution_type", e.target.value)}>
+                <option value="" className="text-foreground">Select…</option>
+                {["Direct Funding","Employee Giving","Matched Donations","Event Sponsorship","Hybrid"].map((o) => (
+                  <option key={o} value={o} className="text-foreground">{o}</option>
+                ))}
+              </FormSelect>
+            </FormField>
+            <FormField surface="dark" label="Frequency" htmlFor="cfreq">
+              <FormSelect surface="dark" id="cfreq" defaultValue="" onChange={(e) => update("contribution_frequency", e.target.value)}>
+                <option value="" className="text-foreground">Select…</option>
+                {["One-time","Monthly","Quarterly","Annual"].map((o) => (
+                  <option key={o} value={o} className="text-foreground">{o}</option>
+                ))}
+              </FormSelect>
+            </FormField>
+          </FormGrid>
+          <FormField surface="dark" label="Budget Range" htmlFor="budget">
+            <FormInput surface="dark" id="budget" placeholder="e.g. $10k–$50k / year" onChange={(e) => update("budget_range", e.target.value)} />
+          </FormField>
+        </FormPanel>
 
-        <Section title="Corporate Address">
-          <Input label="Address Line 1" onChange={(v: string) => update("address_line1", v)} />
-          <Input label="Address Line 2" onChange={(v: string) => update("address_line2", v)} />
+        <FormPanel surface="dark" title="Branding & Sponsorship">
+          <FormGrid>
+            <FormField surface="dark" label="Brand Visibility" htmlFor="bvis">
+              <FormSelect surface="dark" id="bvis" defaultValue="" onChange={(e) => update("branding_interest", e.target.value)}>
+                <option value="" className="text-foreground">Select…</option>
+                {["Public Recognition","Co-Branded Campaigns","Internal Only","No Branding"].map((o) => (
+                  <option key={o} value={o} className="text-foreground">{o}</option>
+                ))}
+              </FormSelect>
+            </FormField>
+            <FormField surface="dark" label="Sponsorship Attribution" htmlFor="sattr">
+              <FormSelect surface="dark" id="sattr" defaultValue="" onChange={(e) => update("sponsorship_interest", e.target.value)}>
+                <option value="" className="text-foreground">Select…</option>
+                {["Full Attribution","Limited Attribution","No Attribution"].map((o) => (
+                  <option key={o} value={o} className="text-foreground">{o}</option>
+                ))}
+              </FormSelect>
+            </FormField>
+          </FormGrid>
+        </FormPanel>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Input label="City" onChange={(v: string) => update("city", v)} />
-            <Input label="State" onChange={(v: string) => update("state", v)} />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Input label="ZIP Code" onChange={(v: string) => update("zip", v)} />
-            <Input label="Country" onChange={(v: string) => update("country", v)} />
-          </div>
-        </Section>
-
-        <Section title="Contribution Model">
-          <Select
-            label="Contribution Type"
-            options={[
-              "Direct Funding",
-              "Employee Giving",
-              "Matched Donations",
-              "Event Sponsorship",
-              "Hybrid",
-            ]}
-            onChange={(v: string) => update("contribution_type", v)}
-          />
-
-          <Select
-            label="Frequency"
-            options={["One-time", "Monthly", "Quarterly", "Annual"]}
-            onChange={(v: string) => update("contribution_frequency", v)}
-          />
-
-          <Input label="Budget Range" onChange={(v: string) => update("budget_range", v)} />
-        </Section>
-
-        <Section title="Branding & Sponsorship">
-          <Select
-            label="Brand Visibility"
-            options={[
-              "Public Recognition",
-              "Co-Branded Campaigns",
-              "Internal Only",
-              "No Branding",
-            ]}
-            onChange={(v: string) => update("branding_interest", v)}
-          />
-
-          <Select
-            label="Sponsorship Attribution"
-            options={[
-              "Full Attribution",
-              "Limited Attribution",
-              "No Attribution",
-            ]}
-            onChange={(v: string) => update("sponsorship_interest", v)}
-          />
-        </Section>
-
-        <Section title="Additional Notes">
-          <textarea
-            className="w-full border border-white/20 bg-white/5 text-white p-3 rounded
-                       focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
-            onChange={(e) => update("notes", e.target.value)}
-          />
-        </Section>
+        <FormPanel surface="dark" title="Additional Notes">
+          <FormField surface="dark" htmlFor="notes">
+            <FormTextarea surface="dark" id="notes" rows={4} onChange={(e) => update("notes", e.target.value)} />
+          </FormField>
+        </FormPanel>
 
         <button
           onClick={handleSubmit}
           disabled={submitting || submitted}
-          className="w-full rounded bg-accent py-3 font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-60"
+          className="w-full rounded-md bg-accent py-3 font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-60"
         >
-          {submitted
-            ? "Submitted ✓"
-            : submitting
-            ? "Submitting…"
-            : "Submit Corporate Application"}
+          {submitted ? "Submitted ✓" : submitting ? "Submitting…" : "Submit Corporate Application"}
         </button>
-
       </div>
-    </div>
-  );
-}
-
-/* ---------------- UI HELPERS ---------------- */
-
-function Section({ title, children }: any) {
-  return (
-    <div className="border border-white/10 bg-white/5 rounded p-4 space-y-3">
-      <h2 className="text-white font-semibold">{title}</h2>
-      {children}
-    </div>
-  );
-}
-
-function Input({ label, onChange }: any) {
-  return (
-    <div className="space-y-1">
-      <label className="text-sm text-white/80">{label}</label>
-      <input
-        className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
-  );
-}
-
-function Select({ label, options, onChange }: any) {
-  return (
-    <div className="space-y-1">
-      <label className="text-sm text-white/80">{label}</label>
-      <select
-        className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
-        onChange={(e) => onChange(e.target.value)}
-        defaultValue=""
-      >
-        <option value="">Select...</option>
-        {options.map((o: string) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }

@@ -224,17 +224,15 @@ function RequestHelp() {
 
   return (
     <div className="min-h-screen bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
          <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
           Sign up as a recipient or tell us about someone you think needs to be Blessed. Sponsors funds will be automatically matched to your request and once accepted the process of buying the services or products for you or the needy soul will be automatically processed.  Thank you for playing your part in this world of endless Blessings.
         </p>
 
-        <Card
-          className="mt-8 space-y-5 border-white/20 p-6 text-white bg-primary/50 backdrop-blur-sm"
-        >
+        <Card className="mt-8 space-y-5 border-white/20 p-4 text-white bg-primary/50 backdrop-blur-sm sm:p-6">
           <form onSubmit={onSubmit} className="space-y-5">
-            <div className="grid grid-cols-[120px_1fr_1fr] gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-[120px_1fr_1fr]">
               <div className="space-y-2">
                 <Label htmlFor="salutation">Title</Label>
                 <select
@@ -262,7 +260,7 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, surname: e.target.value })} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="email">Email *</Label>
                 <Input id="email" className={inputCls} type="email" maxLength={200} required
@@ -328,7 +326,7 @@ function RequestHelp() {
               </div>
               {needs.map((n, i) => (
                 <div key={i} className="space-y-2">
-                  <div className="grid grid-cols-[160px_1fr] gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-[160px_1fr]">
                     <select
                       aria-label={`Help need ${i + 1} type`}
                       value={n.type}
@@ -377,7 +375,7 @@ function RequestHelp() {
                 value={form.country}
                 onChange={(e) => setForm({ ...form, country: e.target.value })} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="city">City</Label>
                 <Input id="city" className={inputCls} maxLength={120}
@@ -391,7 +389,7 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, state: e.target.value })} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="zip">Zip</Label>
                 <Input id="zip" className={inputCls} maxLength={20}

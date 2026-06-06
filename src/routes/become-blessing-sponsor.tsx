@@ -2,10 +2,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import {
+  FormField,
+  FormInput,
+  FormTextarea,
+  FormGrid,
+} from "@/components/ui/form-control";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { createSponsorProfile } from "@/lib/gateway";
@@ -90,20 +94,20 @@ function BecomeSponsor() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16 bg-primary text-primary-foreground">
-      <h1 className="text-display text-3xl font-semibold">Become a Blessing Sponsor</h1>
+    <div className="mx-auto w-full max-w-2xl bg-primary px-4 py-8 text-primary-foreground sm:px-6 sm:py-16">
+      <h1 className="text-display text-2xl font-semibold sm:text-3xl">Become a Blessing Sponsor</h1>
       <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 p-6 border-white/20 bg-primary text-primary-foreground">
+      <Card className="mt-8 border-white/20 bg-primary p-4 text-primary-foreground sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <Label>Your role</Label>
+          <div className="space-y-2">
+            <Label className="text-white/85">Your role</Label>
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {ROLES.map((r) => (
                 <button
                   type="button"
                   key={r}
                   onClick={() => setForm({ ...form, sponsor_role: r })}
-                  className={`rounded-md border px-3 py-2 text-sm transition ${
+                  className={`min-h-11 rounded-md border px-3 py-2 text-sm transition ${
                     form.sponsor_role === r
                       ? "border-accent bg-accent font-semibold text-accent-foreground shadow-soft"
                       : "border-border hover:border-accent/60"
@@ -115,55 +119,45 @@ function BecomeSponsor() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="first_name">First name</Label>
-              <Input id="first_name" className={glow} value={form.first_name} onChange={(e) => setForm({ ...form, first_name: e.target.value })} required />
-            </div>
-            <div>
-              <Label htmlFor="last_name">Surname</Label>
-              <Input id="last_name" className={glow} value={form.last_name} onChange={(e) => setForm({ ...form, last_name: e.target.value })} required />
-            </div>
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" className={glow} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
-            </div>
-            <div>
-              <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" type="tel" className={glow} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-            </div>
-            <div>
-              <Label htmlFor="org">Organisation name</Label>
-              <Input id="org" className={glow} value={form.organization_name} onChange={(e) => setForm({ ...form, organization_name: e.target.value })} />
-            </div>
-            <div>
-              <Label htmlFor="country">Country</Label>
-              <Input id="country" className={glow} value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
-            </div>
-            <div>
-              <Label htmlFor="city">City</Label>
-              <Input id="city" className={glow} value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-            </div>
-            <div>
-              <Label htmlFor="state">State / Region</Label>
-              <Input id="state" className={glow} value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
-            </div>
-            <div>
-              <Label htmlFor="zip">Zip / Postal</Label>
-              <Input id="zip" className={glow} value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} />
-            </div>
-          </div>
+          <FormGrid>
+            <FormField surface="dark" label="First name" htmlFor="first_name">
+              <FormInput surface="dark" id="first_name" required value={form.first_name} onChange={(e) => setForm({ ...form, first_name: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Surname" htmlFor="last_name">
+              <FormInput surface="dark" id="last_name" required value={form.last_name} onChange={(e) => setForm({ ...form, last_name: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Email" htmlFor="email">
+              <FormInput surface="dark" id="email" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Phone" htmlFor="phone">
+              <FormInput surface="dark" id="phone" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Organisation name" htmlFor="org">
+              <FormInput surface="dark" id="org" value={form.organization_name} onChange={(e) => setForm({ ...form, organization_name: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Country" htmlFor="country">
+              <FormInput surface="dark" id="country" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="City" htmlFor="city">
+              <FormInput surface="dark" id="city" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="State / Region" htmlFor="state">
+              <FormInput surface="dark" id="state" value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} />
+            </FormField>
+            <FormField surface="dark" label="Zip / Postal" htmlFor="zip">
+              <FormInput surface="dark" id="zip" value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} />
+            </FormField>
+          </FormGrid>
 
-          <div>
-            <Label htmlFor="details">Organisation details</Label>
-            <Textarea id="details" rows={3} className={glow} value={form.organization_details} onChange={(e) => setForm({ ...form, organization_details: e.target.value })} />
-          </div>
+          <FormField surface="dark" label="Organisation details" htmlFor="details">
+            <FormTextarea surface="dark" id="details" rows={3} value={form.organization_details} onChange={(e) => setForm({ ...form, organization_details: e.target.value })} />
+          </FormField>
 
-          <div>
-            <Label>Help interests</Label>
-            <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="space-y-2">
+            <Label className="text-white/85">Help interests</Label>
+            <div className="mt-1 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {HELP_OPTIONS.map((opt) => (
-                <label key={opt} className="flex items-center gap-2 text-sm">
+                <label key={opt} className="flex min-h-11 items-center gap-2 text-sm">
                   <Checkbox checked={form.help_interests.includes(opt)} onCheckedChange={() => toggleInterest(opt)} />
                   {opt}
                 </label>
@@ -171,10 +165,9 @@ function BecomeSponsor() {
             </div>
           </div>
 
-          <div>
-            <Label htmlFor="verif">Verification notes</Label>
-            <Textarea id="verif" rows={3} className={glow} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
-          </div>
+          <FormField surface="dark" label="Verification notes" htmlFor="verif">
+            <FormTextarea surface="dark" id="verif" rows={3} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
+          </FormField>
 
           <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit for verification"}
@@ -184,8 +177,4 @@ function BecomeSponsor() {
     </div>
   );
 }
-
-const glow =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
-
 
