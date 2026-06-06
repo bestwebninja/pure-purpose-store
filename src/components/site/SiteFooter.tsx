@@ -90,7 +90,7 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/15 py-6 text-center text-xs text-white/70">
+      <div className="border-t border-white/15 px-4 py-6 text-center text-xs text-white/70" style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1.5rem)" }}>
         © {new Date().getFullYear()} MyBlessings.US (Every blessing matters)
       </div>
     </footer>
