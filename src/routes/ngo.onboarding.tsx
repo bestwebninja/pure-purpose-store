@@ -176,11 +176,22 @@ function NgoOnboardingPage() {
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="country">Country of Registration</Label>
-                <Input id="country" {...form.register("country")} placeholder="e.g. United States" />
+                <Select
+                  defaultValue="US"
+                  onValueChange={(val) => form.setValue("country", val as "US" | "IL")}
+                >
+                  <SelectTrigger id="country">
+                    <SelectValue placeholder="Select country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="US">United States</SelectItem>
+                    <SelectItem value="IL">Israel</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="geography">Geography of Impact</Label>
-                <Input id="geography" {...form.register("geography")} placeholder="e.g. Worldwide, Local" />
+                <Input id="geography" {...form.register("geography")} placeholder="e.g. US — California, Israel — Tel Aviv" />
               </div>
             </div>
           </div>
