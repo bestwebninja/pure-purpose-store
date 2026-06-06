@@ -117,6 +117,9 @@ export function filterAllowedRows<T extends { country?: string | null | undefine
 }
 
 /** Filter rows that only carry a `location` text field. */
-export function filterAllowedByLocation<T extends Record<string, any>>(rows: T[]): T[] {
-  return rows.filter((r) => isAllowedLocation((r as any).location));
+export function filterAllowedByLocation<T>(rows: T[]): T[] {
+  return rows.filter((r) => {
+    const loc = (r as unknown as { location?: string | null }).location;
+    return isAllowedLocation(loc);
+  });
 }
