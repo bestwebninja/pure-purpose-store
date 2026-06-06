@@ -187,7 +187,7 @@ function NgoOnboardingPage() {
         </section>
 
         <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? "Processing Application..." : "Submit Application & Generate Receipt"}
+          {isSubmitting ? "Processing Application..." : "Submit"}
         </Button>
       </form>
     </div>
