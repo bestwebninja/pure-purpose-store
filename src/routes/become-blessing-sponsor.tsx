@@ -90,10 +90,10 @@ function BecomeSponsor() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
-      <h1 className="text-display text-3xl font-semibold text-white">Become a Blessing Sponsor</h1>
-      <p className="mt-2 text-sm text-white/80">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>
+    <div className="mx-auto max-w-2xl px-6 py-16 bg-primary text-primary-foreground">
+      <h1 className="text-display text-3xl font-semibold">Become a Blessing Sponsor</h1>
+      <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
+      <Card className="mt-8 p-6 border-white/20 bg-primary text-primary-foreground">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label>Your role</Label>
@@ -105,7 +105,7 @@ function BecomeSponsor() {
                   onClick={() => setForm({ ...form, sponsor_role: r })}
                   className={`rounded-md border px-3 py-2 text-sm transition ${
                     form.sponsor_role === r
-                      ? "border-accent bg-accent font-semibold text-black shadow-[0_0_18px_rgba(250,204,21,0.85)]"
+                      ? "border-accent bg-accent font-semibold text-accent-foreground shadow-soft"
                       : "border-border hover:border-accent/60"
                   }`}
                 >
