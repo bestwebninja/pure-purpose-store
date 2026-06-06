@@ -245,6 +245,7 @@ export const listNgoApplications = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("ngo_applications")
       .select("*")
+      .in("country", getAllowedCountries() as unknown as string[])
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     return { applications: data ?? [] };
