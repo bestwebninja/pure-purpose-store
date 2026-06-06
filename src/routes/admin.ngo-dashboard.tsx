@@ -132,16 +132,16 @@ function AdminDashboard() {
                       {m.status}
                     </Badge>
                   </div>
-                  <dl className="mt-3 space-y-1.5 text-xs text-white/80">
-                    <div><dt className="inline font-medium text-white/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
-                    <div><dt className="inline font-medium text-white/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
-                    <div><dt className="inline font-medium text-white/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
+                  <dl className="mt-3 space-y-1.5 text-xs text-primary-foreground/80">
+                    <div><dt className="inline font-medium text-primary-foreground/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
+                    <div><dt className="inline font-medium text-primary-foreground/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
+                    <div><dt className="inline font-medium text-primary-foreground/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
                   </dl>
                 </Card>
               ))}
             </div>
             {/* Tablet/desktop: full table */}
-            <div className="hidden overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card md:block">
+            <div className="hidden overflow-x-auto rounded-xl border border-primary-foreground/10 bg-card shadow-card md:block">
             <table className="w-full text-left">
               <thead className="bg-muted/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <tr>
@@ -160,8 +160,8 @@ function AdminDashboard() {
                     "bg-success/10"
                   }>
                     <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-primary-foreground">{m.point}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.userInput}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.proData}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.userInput}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.proData}</td>
                     <td className="px-3 py-3 sm:px-6 sm:py-4">
                       <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                         {m.status}

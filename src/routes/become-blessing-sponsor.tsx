@@ -97,10 +97,10 @@ function BecomeSponsor() {
     <div className="mx-auto w-full max-w-2xl bg-primary px-4 py-8 text-primary-foreground sm:px-6 sm:py-16">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Become a Blessing Sponsor</h1>
       <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 border-white/20 bg-primary p-4 text-primary-foreground sm:p-6">
+      <Card className="mt-8 border-primary-foreground/20 bg-primary p-4 text-primary-foreground sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label className="text-white/85">Your role</Label>
+            <Label className="text-primary-foreground/85">Your role</Label>
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {ROLES.map((r) => (
                 <button
@@ -154,7 +154,7 @@ function BecomeSponsor() {
           </FormField>
 
           <div className="space-y-2">
-            <Label className="text-white/85">Help interests</Label>
+            <Label className="text-primary-foreground/85">Help interests</Label>
             <div className="mt-1 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {HELP_OPTIONS.map((opt) => (
                 <label key={opt} className="flex min-h-11 items-center gap-2 text-sm">

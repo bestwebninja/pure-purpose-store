@@ -104,7 +104,7 @@ function CorporateSignup() {
           <h1 className="text-display text-2xl font-semibold text-primary-foreground sm:text-3xl">
             Corporate Blessing Intake Portal
           </h1>
-          <p className="text-sm text-white/70">
+          <p className="text-sm text-primary-foreground/70">
             Tell us about your company and how you'd like to give. We'll be in touch.
           </p>
         </header>

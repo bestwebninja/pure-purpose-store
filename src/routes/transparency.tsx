@@ -75,7 +75,7 @@ function TransparencyPage() {
       {/* Value statement segments */}
       <section className="mt-16 space-y-8">
         <div className="flex gap-4 items-start">
-          <div className="p-2 rounded-xl bg-white/5 border border-white/10 shrink-0">
+          <div className="p-2 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 shrink-0">
             <Eye className="h-5 w-5 text-accent" />
           </div>
           <div>
@@ -87,7 +87,7 @@ function TransparencyPage() {
         </div>
 
         <div className="flex gap-4 items-start">
-          <div className="p-2 rounded-xl bg-white/5 border border-white/10 shrink-0">
+          <div className="p-2 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 shrink-0">
             <Shield className="h-5 w-5 text-accent" />
           </div>
           <div>

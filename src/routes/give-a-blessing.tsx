@@ -43,7 +43,7 @@ const sponsorSchema = z.object({
 const STEPS = ["Sponsor a good cause.... ", "Blessing Type", "Location", "Budget", "Review"] as const;
 
 const inputCls =
-  "border-white/30 bg-white/10 text-primary-foreground placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
+  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent";
 
 function GiveABlessing() {
   const navigate = useNavigate();
@@ -198,11 +198,11 @@ function GiveABlessing() {
     <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
         <h1 className="text-display text-3xl font-semibold text-primary-foreground">Give a Blessing 🙏</h1>
-        <p className="mt-2 text-white/80">
+        <p className="mt-2 text-primary-foreground/80">
           Step {step + 1} of {STEPS.length} &nbsp; &#123; {STEPS[step]} &#125;
         </p>
 
-        <Card className="mt-8 space-y-5 border-white/20 bg-primary p-4 text-primary-foreground sm:p-6">
+        <Card className="mt-8 space-y-5 border-primary-foreground/20 bg-primary p-4 text-primary-foreground sm:p-6">
           {step === 0 && (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -232,7 +232,7 @@ function GiveABlessing() {
                 <Input className={inputCls} value={form.profileImage} maxLength={500}
                   placeholder="https://…"
                   onChange={(e) => setForm({ ...form, profileImage: e.target.value })} />
-                <p className="text-xs text-white/60">Upload our drop a link to your public profile .</p>
+                <p className="text-xs text-primary-foreground/60">Upload our drop a link to your public profile .</p>
               </div>
               <label className="flex items-center gap-2 text-sm">
                 <Checkbox checked={form.facebookConnected}
@@ -251,12 +251,12 @@ function GiveABlessing() {
               <div className="space-y-2">
                 <Label>Pick up to 3 blessing types</Label>
                 {flatCats.length === 0 ? (
-                  <p className="text-sm text-white/70">Loading categories…</p>
+                  <p className="text-sm text-primary-foreground/70">Loading categories…</p>
                 ) : (
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {flatCats.map((c) => (
                       <label key={c.id}
-                        className={`flex items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm ${
+                        className={`flex items-center gap-2 rounded-md border border-primary-foreground/20 px-3 py-2 text-sm ${
                           c.isRoot ? "font-semibold" : "pl-6"
                         }`}>
                         <Checkbox
@@ -268,7 +268,7 @@ function GiveABlessing() {
                     ))}
                   </div>
                 )}
-                <p className="text-xs text-white/60">
+                <p className="text-xs text-primary-foreground/60">
                   Selected: {form.selectedCategoryIds.length}/3
                 </p>
               </div>
@@ -303,7 +303,7 @@ function GiveABlessing() {
                 <Label>ZIP / postal code *</Label>
                 <Input className={inputCls} value={form.zip} maxLength={20}
                   onChange={(e) => setForm({ ...form, zip: e.target.value })} required />
-                <p className="text-xs text-white/60">Used to match recipients near you.</p>
+                <p className="text-xs text-primary-foreground/60">Used to match recipients near you.</p>
               </div>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(1)}>Back</Button>
@@ -334,11 +334,11 @@ function GiveABlessing() {
               })}
               <div className="rounded-md border border-accent/50 bg-accent/10 p-4">
                 <h4 className="text-sm font-semibold text-accent">Blessings Allocation Summary</h4>
-                <ul className="mt-2 space-y-1 text-sm text-white/90">
+                <ul className="mt-2 space-y-1 text-sm text-primary-foreground/90">
                   <li>Accommodation: <span className="font-semibold">${allocation.accommodation}</span></li>
                   <li>Food: <span className="font-semibold">${allocation.food}</span></li>
                   <li>Transport: <span className="font-semibold">${allocation.transport}</span></li>
-                  <li className="border-t border-white/20 pt-1">Total: <span className="font-semibold">${form.totalBudget}</span></li>
+                  <li className="border-t border-primary-foreground/20 pt-1">Total: <span className="font-semibold">${form.totalBudget}</span></li>
                 </ul>
               </div>
               <div className="flex justify-between">
@@ -352,15 +352,15 @@ function GiveABlessing() {
             <>
               <h3 className="font-semibold">Review your blessing</h3>
               <dl className="space-y-2 text-sm">
-                <div><dt className="text-white/70">Sponsor</dt><dd>{form.firstName} {form.surname} ({form.email})</dd></div>
-                <div><dt className="text-white/70">Blessing types</dt><dd>{form.selectedCategoryIds.length} selected</dd></div>
-                <div><dt className="text-white/70">Location</dt><dd>{[form.city, form.state, form.zip, form.countries].filter(Boolean).join(", ")}</dd></div>
-                <div><dt className="text-white/70">Total budget</dt><dd>${form.totalBudget}</dd></div>
-                <div><dt className="text-white/70">Split</dt>
+                <div><dt className="text-primary-foreground/70">Sponsor</dt><dd>{form.firstName} {form.surname} ({form.email})</dd></div>
+                <div><dt className="text-primary-foreground/70">Blessing types</dt><dd>{form.selectedCategoryIds.length} selected</dd></div>
+                <div><dt className="text-primary-foreground/70">Location</dt><dd>{[form.city, form.state, form.zip, form.countries].filter(Boolean).join(", ")}</dd></div>
+                <div><dt className="text-primary-foreground/70">Total budget</dt><dd>${form.totalBudget}</dd></div>
+                <div><dt className="text-primary-foreground/70">Split</dt>
                   <dd>Accom ${allocation.accommodation} · Food ${allocation.food} · Transport ${allocation.transport}</dd>
                 </div>
               </dl>
-              <p className="text-xs text-white/60">
+              <p className="text-xs text-primary-foreground/60">
                 Submitting saves your blessing and takes you to the existing Shopify checkout.
               </p>
               <div className="flex justify-between">

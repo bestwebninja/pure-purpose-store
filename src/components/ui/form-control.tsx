@@ -17,7 +17,7 @@ const surfaceInput: Record<Surface, string> = {
   light:
     "border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring",
   dark:
-    "border-white/25 bg-white/10 text-primary-foreground placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent",
+    "border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent",
 };
 
 const baseField =
@@ -45,14 +45,14 @@ export function FormField({
       {label && (
         <Label
           htmlFor={htmlFor}
-          className={cn("text-sm", surface === "dark" ? "text-white/85" : "text-foreground")}
+          className={cn("text-sm", surface === "dark" ? "text-primary-foreground/85" : "text-foreground")}
         >
           {label}
         </Label>
       )}
       {children}
       {hint && (
-        <p className={cn("text-xs", surface === "dark" ? "text-white/60" : "text-muted-foreground")}>
+        <p className={cn("text-xs", surface === "dark" ? "text-primary-foreground/60" : "text-muted-foreground")}>
           {hint}
         </p>
       )}
@@ -148,7 +148,7 @@ export function FormPanel({
       className={cn(
         "space-y-4 rounded-lg border p-4 sm:p-6",
         surface === "dark"
-          ? "border-white/15 bg-white/5 text-primary-foreground"
+          ? "border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground"
           : "border-border bg-card text-card-foreground shadow-card",
         className,
       )}
@@ -166,7 +166,7 @@ export function FormPanel({
             </h2>
           )}
           {description && (
-            <p className={cn("text-xs sm:text-sm", surface === "dark" ? "text-white/70" : "text-muted-foreground")}>
+            <p className={cn("text-xs sm:text-sm", surface === "dark" ? "text-primary-foreground/70" : "text-muted-foreground")}>
               {description}
             </p>
           )}
