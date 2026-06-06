@@ -100,6 +100,10 @@ async function runIntelligenceCheck(input: { name: string; email: string }) {
 export const submitNgoApplication = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SubmitSchema.parse(input))
   .handler(async ({ data }) => {
+    // Data sovereignty: only US + IL applications are accepted.
+    const normalizedCountry = assertAllowedCountry(data.country);
+    data = { ...data, country: normalizedCountry };
+
     // Idempotency: collapse rapid duplicate submissions of the same EIN+email
     // (form double-clicks, retries) into the same application row. Window: 10 minutes.
     const dupWindow = new Date(Date.now() - 10 * 60 * 1000).toISOString();
