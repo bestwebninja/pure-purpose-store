@@ -196,16 +196,16 @@ function GiveABlessing() {
 
   return (
     <div className="min-h-screen bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-2xl px-6 py-16">
+      <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing 🙏</h1>
         <p className="mt-2 text-white/80">
           Step {step + 1} of {STEPS.length} &nbsp; &#123; {STEPS[step]} &#125;
         </p>
 
-        <Card className="mt-8 space-y-5 border-white/20 bg-primary p-6 text-primary-foreground">
+        <Card className="mt-8 space-y-5 border-white/20 bg-primary p-4 text-primary-foreground sm:p-6">
           {step === 0 && (
             <>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>First name</Label>
                   <Input className={inputCls} value={form.firstName} maxLength={80}
@@ -287,7 +287,7 @@ function GiveABlessing() {
                   placeholder="e.g. USA, Mexico"
                   onChange={(e) => setForm({ ...form, countries: e.target.value })} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>State</Label>
                   <Input className={inputCls} value={form.state} maxLength={80}
