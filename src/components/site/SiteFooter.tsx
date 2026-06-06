@@ -13,7 +13,7 @@ export function SiteFooter() {
       }}
     >
       {/* Main footer grid */}
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
         {/* Brand */}
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
