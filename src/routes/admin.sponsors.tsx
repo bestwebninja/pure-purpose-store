@@ -58,7 +58,7 @@ function AdminSponsors() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Sponsor Verification</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Sponsor Verification</h1>
         <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
       </div>
     );
@@ -71,8 +71,8 @@ function AdminSponsors() {
         description="Review and verify Blessing Sponsor applications."
       >
       <div className="space-y-3">
-        {sponsors === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
-        {sponsors?.length === 0 && <p className="text-sm text-muted-foreground text-white">No sponsor applications yet.</p>}
+        {sponsors === null && <p className="text-sm text-muted-foreground text-primary-foreground">Loading…</p>}
+        {sponsors?.length === 0 && <p className="text-sm text-muted-foreground text-primary-foreground">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
           <Card key={s.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5">
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
@@ -82,7 +82,7 @@ function AdminSponsors() {
                   {s.verification_status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-white break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
+              <p className="text-sm text-muted-foreground text-primary-foreground break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
               {s.help_interests?.length > 0 && (
                 <p className="mt-1 text-xs text-muted-foreground break-words">Interests: {s.help_interests.join(", ")}</p>
               )}

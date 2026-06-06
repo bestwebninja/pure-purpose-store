@@ -95,7 +95,7 @@ function CampaignPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
-      <Link to="/" className="inline-flex items-center text-sm text-muted-foreground text-white hover:text-foreground">
+      <Link to="/" className="inline-flex items-center text-sm text-muted-foreground text-primary-foreground hover:text-foreground">
         <ArrowLeft className="mr-1 h-4 w-4" /> All blessings
       </Link>
 
@@ -105,13 +105,13 @@ function CampaignPage() {
             <img src={campaign.image_url} alt={campaign.title} className="w-full rounded-2xl object-cover shadow-card" />
           )}
           <header className="space-y-4">
-            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground text-white">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground text-primary-foreground">
               {campaign.location && (
                 <span className="inline-flex items-center gap-1"><MapPin className="h-3 w-3" /> {campaign.location}</span>
               )}
               {campaign.beneficiary_name && <span>For {campaign.beneficiary_name}</span>}
             </div>
-            <h1 className="text-display text-3xl font-semibold text-white leading-tight md:text-5xl">{campaign.title}</h1>
+            <h1 className="text-display text-3xl font-semibold text-primary-foreground leading-tight md:text-5xl">{campaign.title}</h1>
             {campaign.short_description && (
               <p className="text-lg text-muted-foreground">{campaign.short_description}</p>
             )}
@@ -124,19 +124,19 @@ function CampaignPage() {
             <div className="flex items-center gap-2">
               <Heart className="h-4 w-4 text-primary" fill="currentColor" />
               <h2 className="text-display text-xl font-semibold">Recent blessings</h2>
-              <span className="ml-auto inline-flex items-center gap-1 text-sm text-muted-foreground text-white">
+              <span className="ml-auto inline-flex items-center gap-1 text-sm text-muted-foreground text-primary-foreground">
                 <Users className="h-3 w-3" /> {campaign.donor_count ?? 0} givers
               </span>
             </div>
             {donations.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-white">Be the first to give a blessing.</p>
+              <p className="text-sm text-muted-foreground text-primary-foreground">Be the first to give a blessing.</p>
             ) : (
               <ul className="divide-y divide-border/60">
                 {donations.map((d) => (
                   <li key={d.id} className="flex items-start justify-between gap-4 py-3">
                     <div>
                       <p className="font-medium">{d.is_anonymous ? "Anonymous" : d.donor_name || "A kind giver"}</p>
-                      {d.message && <p className="text-sm text-muted-foreground text-white">{`"${d.message}"`}</p>}
+                      {d.message && <p className="text-sm text-muted-foreground text-primary-foreground">{`"${d.message}"`}</p>}
                     </div>
                     <div className="shrink-0 text-right">
                       <p className="font-semibold">{formatMoney(Number(d.amount), d.currency)}</p>

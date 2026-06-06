@@ -43,7 +43,7 @@ const sponsorSchema = z.object({
 const STEPS = ["Sponsor a good cause.... ", "Blessing Type", "Location", "Budget", "Review"] as const;
 
 const inputCls =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
+  "border-white/30 bg-white/10 text-primary-foreground placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
 
 function GiveABlessing() {
   const navigate = useNavigate();
@@ -197,7 +197,7 @@ function GiveABlessing() {
   return (
     <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing 🙏</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Give a Blessing 🙏</h1>
         <p className="mt-2 text-white/80">
           Step {step + 1} of {STEPS.length} &nbsp; &#123; {STEPS[step]} &#125;
         </p>

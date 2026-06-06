@@ -109,7 +109,7 @@ function AdminMatchControl() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Match Control</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Match Control</h1>
         <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
       </div>
     );
@@ -122,8 +122,8 @@ function AdminMatchControl() {
         description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
       >
       <div className="space-y-3">
-        {matches === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
-        {matches?.length === 0 && <p className="text-sm text-muted-foreground text-white">No matches yet.</p>}
+        {matches === null && <p className="text-sm text-muted-foreground text-primary-foreground">Loading…</p>}
+        {matches?.length === 0 && <p className="text-sm text-muted-foreground text-primary-foreground">No matches yet.</p>}
         {matches?.map((m) => (
           <Card key={m.id} className="p-4 sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
@@ -138,7 +138,7 @@ function AdminMatchControl() {
                   </Badge>
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground text-white break-words">
+                <p className="mt-2 text-sm text-muted-foreground text-primary-foreground break-words">
                   score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
                   {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
                   {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}
@@ -155,7 +155,7 @@ function AdminMatchControl() {
                 <Button size="sm" variant="destructive" className="flex-1 sm:flex-none" onClick={() => handle(m.id, "reject")} disabled={!!busy || m.status === "rejected"}>
                   Reject
                 </Button>
-                <Button size="sm" variant="ghost" className="flex-1 text-white sm:flex-none" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
+                <Button size="sm" variant="ghost" className="flex-1 text-primary-foreground sm:flex-none" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
                   {events[m.id] ? "Hide" : "Events"}
                 </Button>
               </div>

@@ -123,7 +123,7 @@ function ExploreBlessings() {
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <header className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Categories</p>
-          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-white md:text-5xl">
+          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-primary-foreground md:text-5xl">
             Our Blessings
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-white/70">
@@ -152,7 +152,7 @@ function ExploreBlessings() {
                 key={m.label}
                 className="rounded-2xl border border-cyan-300/20 bg-white/[0.04] p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
               >
-                <div className="text-display text-3xl text-white md:text-4xl">
+                <div className="text-display text-3xl text-primary-foreground md:text-4xl">
                   {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-white/10 align-middle" /> : "—")}
                 </div>
                 <div className="mt-2 text-xs uppercase tracking-[0.2em] text-cyan-200/70">{m.label}</div>
@@ -192,7 +192,7 @@ function CategoryCard({ category }: { category: Category }) {
           />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-display text-xl leading-tight text-white">{name}</h2>
+          <h2 className="text-display text-xl leading-tight text-primary-foreground">{name}</h2>
           <p className="mt-1.5 text-sm leading-snug text-white/65">{description}</p>
         </div>
       </div>
@@ -218,7 +218,7 @@ function CategoryCard({ category }: { category: Category }) {
         <Button
           asChild
           variant="outline"
-          className="w-full rounded-xl border-white/20 bg-white/[0.04] text-sm text-white hover:bg-white/[0.1] hover:text-white"
+          className="w-full rounded-xl border-white/20 bg-white/[0.04] text-sm text-primary-foreground hover:bg-white/[0.1] hover:text-primary-foreground"
           style={{ borderColor: `${color}40` }}
         >
           <Link to="/give-a-blessing">Explore &amp; Support</Link>

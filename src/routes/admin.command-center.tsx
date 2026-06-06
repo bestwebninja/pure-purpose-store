@@ -65,21 +65,21 @@ function CommandCenter() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Command Center</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Command Center</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-muted-foreground text-white">Sign in as an admin to view ops data.</p>
+          <p className="mt-2 text-sm text-muted-foreground text-primary-foreground">Sign in as an admin to view ops data.</p>
         </Card>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 text-white sm:px-6 sm:py-12">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 text-primary-foreground sm:px-6 sm:py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Command Center</h1>
-          <p className="mt-1 text-sm text-muted-foreground text-white break-words">
+          <p className="mt-1 text-sm text-muted-foreground text-primary-foreground break-words">
             Live ops view {snap?.generatedAt ? `· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
           </p>
         </div>
@@ -89,7 +89,7 @@ function CommandCenter() {
       </div>
 
       {!snap ? (
-        <p className="mt-8 text-sm text-muted-foreground text-white">Loading live ops data…</p>
+        <p className="mt-8 text-sm text-muted-foreground text-primary-foreground">Loading live ops data…</p>
       ) : (
         <>
           {snap.errors && Object.values(snap.errors).some(Boolean) && (
@@ -204,7 +204,7 @@ function CommandCenter() {
             <Card className="border-border/60 bg-card p-4 sm:p-6 lg:col-span-2">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-foreground">Recent donations</h2>
               {!snap.recent?.donations || snap.recent.donations.length === 0 ? (
-                <p className="mt-3 text-sm text-muted-foreground text-white">No donations yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground text-primary-foreground">No donations yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.donations.map((d: any) => (
@@ -222,12 +222,12 @@ function CommandCenter() {
             <Card className="border-border/60 bg-card p-4 sm:p-6">
               <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-foreground">Recent webhooks</h2>
               {!snap.recent?.webhooks || snap.recent.webhooks.length === 0 ? (
-                <p className="mt-3 text-sm text-muted-foreground text-white">No webhook events yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground text-primary-foreground">No webhook events yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.webhooks.map((w: any) => (
                     <li key={w.event_id} className="py-2">
-                      <div className="font-medium text-white">{w.topic ?? "(no topic)"}</div>
+                      <div className="font-medium text-primary-foreground">{w.topic ?? "(no topic)"}</div>
                       <div className="text-xs text-muted-foreground">
                         {w.source} · {new Date(w.processed_at).toLocaleString()}
                       </div>

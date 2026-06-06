@@ -47,7 +47,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-white">
+    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -87,7 +87,7 @@ function Hero() {
               asChild
               size="lg"
               variant="ghost"
-              className="h-12 rounded-md px-4 text-base font-medium text-white/80 hover:bg-transparent hover:text-white"
+              className="h-12 rounded-md px-4 text-base font-medium text-white/80 hover:bg-transparent hover:text-primary-foreground"
             >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
@@ -114,7 +114,7 @@ function Hero() {
               height={900}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/90 to-transparent p-6">
-              <p className="text-display text-lg italic text-white">
+              <p className="text-display text-lg italic text-primary-foreground">
                 "Charity is the best deposit account."
               </p>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">OUR FOUNDING PRINCIPLE</p>
@@ -201,7 +201,7 @@ function Trust() {
     },
   ];
   return (
-    <section className="bg-primary py-24 text-white">
+    <section className="bg-primary py-24 text-primary-foreground">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-14 max-w-2xl">
           <p className="text-xs uppercase tracking-[0.2em] text-accent">Our standard</p>
@@ -244,7 +244,7 @@ function Testimony() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero py-24 text-white">
+    <section className="relative overflow-hidden bg-gradient-hero py-24 text-primary-foreground">
       <div className="absolute -bottom-40 left-1/2 h-96 w-[60rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" aria-hidden />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1.5fr_1fr] md:items-center">
         <div>
@@ -269,7 +269,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="h-14 rounded-md border-white/40 bg-transparent text-base font-medium text-white hover:bg-white/10 hover:text-white"
+            className="h-14 rounded-md border-white/40 bg-transparent text-base font-medium text-primary-foreground hover:bg-white/10 hover:text-primary-foreground"
           >
             <Link to="/become-blessing-sponsor">Become a sponsor</Link>
           </Button>

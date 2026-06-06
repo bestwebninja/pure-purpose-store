@@ -101,7 +101,7 @@ function CorporateSignup() {
     <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl space-y-6 px-4 py-8 sm:px-6 sm:py-12">
         <header className="space-y-1">
-          <h1 className="text-display text-2xl font-semibold text-white sm:text-3xl">
+          <h1 className="text-display text-2xl font-semibold text-primary-foreground sm:text-3xl">
             Corporate Blessing Intake Portal
           </h1>
           <p className="text-sm text-white/70">

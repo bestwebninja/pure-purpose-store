@@ -31,7 +31,7 @@ export const Route = createFileRoute("/request-help")({
 });
 
 const inputCls =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
+  "border-white/30 bg-white/10 text-primary-foreground placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
 
 const HELP_TYPES: { value: string; label: string }[] = [
   { value: "accommodation", label: "Accommodation" },
@@ -225,12 +225,12 @@ function RequestHelp() {
   return (
     <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
-         <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
+         <h1 className="text-display text-3xl font-semibold text-primary-foreground">BlessME 🙏</h1>
         <p className="mt-2 text-white/80">
           Sign up as a recipient or tell us about someone you think needs to be Blessed. Sponsors funds will be automatically matched to your request and once accepted the process of buying the services or products for you or the needy soul will be automatically processed.  Thank you for playing your part in this world of endless Blessings.
         </p>
 
-        <Card className="mt-8 space-y-5 border-white/20 p-4 text-white bg-primary/50 backdrop-blur-sm sm:p-6">
+        <Card className="mt-8 space-y-5 border-white/20 p-4 text-primary-foreground bg-primary/50 backdrop-blur-sm sm:p-6">
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-[120px_1fr_1fr]">
               <div className="space-y-2">
@@ -239,7 +239,7 @@ function RequestHelp() {
                   id="salutation"
                   value={form.salutation}
                   onChange={(e) => setForm({ ...form, salutation: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                  className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                 >
                   <option value="" className="text-black">—</option>
                   {SALUTATIONS.map((s) => (
@@ -302,7 +302,7 @@ function RequestHelp() {
                 required
                 value={form.category_id}
                 onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-                className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               >
                 <option value="" className="text-black">Select a category</option>
                 {flatCategories.map((c) => (
@@ -331,7 +331,7 @@ function RequestHelp() {
                       aria-label={`Help need ${i + 1} type`}
                       value={n.type}
                       onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
-                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
                       <option value="" className="text-black">Type…</option>
                       {HELP_TYPES.map((t) => (
@@ -351,7 +351,7 @@ function RequestHelp() {
                       aria-label={`Food kind for need ${i + 1}`}
                       value={n.food_kind ?? ""}
                       onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
                       <option value="" className="text-black">Choose food kind…</option>
                       {FOOD_KINDS.map((f) => (

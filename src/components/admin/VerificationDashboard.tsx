@@ -43,7 +43,7 @@ export function VerificationDashboard() {
   }, []);
 
   return (
-    <div className="p-4 sm:p-6 text-white">
+    <div className="p-4 sm:p-6 text-primary-foreground">
       <h1 className="text-xl sm:text-2xl font-bold mb-4 break-words">
         Live Supplier Verification Engine
       </h1>

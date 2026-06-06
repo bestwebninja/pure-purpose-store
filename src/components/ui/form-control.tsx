@@ -17,7 +17,7 @@ const surfaceInput: Record<Surface, string> = {
   light:
     "border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring",
   dark:
-    "border-white/25 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent",
+    "border-white/25 bg-white/10 text-primary-foreground placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent",
 };
 
 const baseField =
@@ -148,7 +148,7 @@ export function FormPanel({
       className={cn(
         "space-y-4 rounded-lg border p-4 sm:p-6",
         surface === "dark"
-          ? "border-white/15 bg-white/5 text-white"
+          ? "border-white/15 bg-white/5 text-primary-foreground"
           : "border-border bg-card text-card-foreground shadow-card",
         className,
       )}
@@ -159,7 +159,7 @@ export function FormPanel({
             <h2
               className={cn(
                 "text-display text-base font-semibold sm:text-lg",
-                surface === "dark" ? "text-white" : "text-foreground",
+                surface === "dark" ? "text-primary-foreground" : "text-foreground",
               )}
             >
               {title}
