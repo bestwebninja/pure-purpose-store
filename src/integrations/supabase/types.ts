@@ -398,6 +398,93 @@ export type Database = {
         }
         Relationships: []
       }
+      corporate_sponsors: {
+        Row: {
+          address_line1: string
+          address_line2: string
+          branding_interest: string
+          budget_range: string
+          city: string
+          company_name: string
+          company_size: string
+          contribution_frequency: string
+          contribution_type: string
+          country: string
+          created_at: string
+          id: string
+          industry: string
+          notes: string
+          poc_department: string
+          poc_email: string
+          poc_name: string
+          poc_phone: string
+          poc_role: string
+          sponsorship_interest: string
+          state: string
+          status: string
+          submitted_by: string | null
+          updated_at: string
+          website: string
+          zip: string
+        }
+        Insert: {
+          address_line1?: string
+          address_line2?: string
+          branding_interest?: string
+          budget_range?: string
+          city?: string
+          company_name: string
+          company_size?: string
+          contribution_frequency?: string
+          contribution_type?: string
+          country?: string
+          created_at?: string
+          id?: string
+          industry?: string
+          notes?: string
+          poc_department?: string
+          poc_email: string
+          poc_name: string
+          poc_phone?: string
+          poc_role?: string
+          sponsorship_interest?: string
+          state?: string
+          status?: string
+          submitted_by?: string | null
+          updated_at?: string
+          website?: string
+          zip?: string
+        }
+        Update: {
+          address_line1?: string
+          address_line2?: string
+          branding_interest?: string
+          budget_range?: string
+          city?: string
+          company_name?: string
+          company_size?: string
+          contribution_frequency?: string
+          contribution_type?: string
+          country?: string
+          created_at?: string
+          id?: string
+          industry?: string
+          notes?: string
+          poc_department?: string
+          poc_email?: string
+          poc_name?: string
+          poc_phone?: string
+          poc_role?: string
+          sponsorship_interest?: string
+          state?: string
+          status?: string
+          submitted_by?: string | null
+          updated_at?: string
+          website?: string
+          zip?: string
+        }
+        Relationships: []
+      }
       donations: {
         Row: {
           amount: number
