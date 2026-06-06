@@ -28,7 +28,7 @@ export const listMatchesForControl = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertAdmin(context.userId);
     const { data } = await context.supabase
-      .from("matches" as any)
+      .from("petri_matches")
       .select("*")
       .order("created_at", { ascending: false })
       .limit(100);
@@ -40,7 +40,7 @@ export const approveMatch = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    const { error } = await context.supabase.from("matches" as any).update({ status: "approved" }).eq("id", data.id);
+    const { error } = await context.supabase.from("petri_matches").update({ status: "approved" }).eq("id", data.id);
     if (error) { console.error("[match-control.approveMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
     await writeAudit(context.userId, "MATCH_APPROVED", data.id, { status: "approved" });
     return { ok: true };
@@ -51,7 +51,7 @@ export const rejectMatch = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    const { error } = await context.supabase.from("matches" as any).update({ status: "rejected" }).eq("id", data.id);
+    const { error } = await context.supabase.from("petri_matches").update({ status: "rejected" }).eq("id", data.id);
     if (error) { console.error("[match-control.rejectMatch] failed", { id: data.id, error: error.message }); throw new Error(error.message); }
     await writeAudit(context.userId, "MATCH_REJECTED", data.id, { status: "rejected" });
     return { ok: true };
@@ -64,7 +64,7 @@ export const executeMatch = createServerFn({ method: "POST" })
     await assertAdmin(context.userId);
     // Idempotency: only flip unexecuted rows. Returning rows tells us whether a transition actually happened.
     const { data: updated, error } = await context.supabase
-      .from("matches" as any)
+      .from("petri_matches")
       .update({ execution_status: "executed", last_executed_at: new Date().toISOString() })
       .eq("id", data.id)
       .neq("execution_status", "executed")
@@ -83,7 +83,7 @@ export const listFulfillmentForMatch = createServerFn({ method: "GET" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
     const { data: events } = await context.supabase
-      .from("fulfillment_events" as any)
+      .from("fulfillment_events")
       .select("*")
       .eq("match_id", data.id)
       .order("created_at", { ascending: false });
