@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DashboardSection } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { type VettingMatrixEntry } from "@/integrations/supabase/types.ngo";
@@ -181,14 +182,13 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-      <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">NGO Applications</h1>
-      <p className="mt-2 text-muted-foreground text-muted-foreground">Live admin view — updates in realtime.</p>
-      <div className="mt-8 space-y-3">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <DashboardSection title="NGO Applications" description="Live admin view — updates in realtime.">
+      <div className="space-y-3">
         {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
         {apps?.map((a) => (
-          <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-accent/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
+          <Card key={a.id} className="flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold break-words">{a.name}</h3>
@@ -200,13 +200,14 @@ function AdminDashboard() {
               <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
-              <Button size="sm" variant="outline" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
+            <div className="flex flex-wrap gap-2 sm:shrink-0" onClick={(e) => e.stopPropagation()}>
+              <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
+              <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
             </div>
           </Card>
         ))}
       </div>
+      </DashboardSection>
     </div>
   );
 }
