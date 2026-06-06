@@ -1,6 +1,6 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { filterAllowedByLocation, getAllowedCountries } from "@/lib/data-sovereignty";
+import { isAllowedLocation, getAllowedCountries } from "@/lib/data-sovereignty";
 
 export type LifecycleCounts = {
   requested: number;
