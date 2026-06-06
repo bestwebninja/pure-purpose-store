@@ -9,7 +9,7 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminPage() {
   return (
-    <div className="min-h-screen bg-black text-primary-foreground">
+    <div className="min-h-screen bg-primary text-primary-foreground">
       <VerificationDashboard />
     </div>
   );

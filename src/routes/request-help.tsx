@@ -241,9 +241,9 @@ function RequestHelp() {
                   onChange={(e) => setForm({ ...form, salutation: e.target.value })}
                   className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                 >
-                  <option value="" className="text-black">—</option>
+                  <option value="" className="text-foreground">—</option>
                   {SALUTATIONS.map((s) => (
-                    <option key={s} value={s} className="text-black">{s}</option>
+                    <option key={s} value={s} className="text-foreground">{s}</option>
                   ))}
                 </select>
               </div>
@@ -304,9 +304,9 @@ function RequestHelp() {
                 onChange={(e) => setForm({ ...form, category_id: e.target.value })}
                 className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               >
-                <option value="" className="text-black">Select a category</option>
+                <option value="" className="text-foreground">Select a category</option>
                 {flatCategories.map((c) => (
-                  <option key={c.id} value={c.id} className="text-black">{c.label}</option>
+                  <option key={c.id} value={c.id} className="text-foreground">{c.label}</option>
                 ))}
               </select>
             </div>
@@ -333,9 +333,9 @@ function RequestHelp() {
                       onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
                       className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
-                      <option value="" className="text-black">Type…</option>
+                      <option value="" className="text-foreground">Type…</option>
                       {HELP_TYPES.map((t) => (
-                        <option key={t.value} value={t.value} className="text-black">{t.label}</option>
+                        <option key={t.value} value={t.value} className="text-foreground">{t.label}</option>
                       ))}
                     </select>
                     <Input
@@ -353,9 +353,9 @@ function RequestHelp() {
                       onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
                       className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
-                      <option value="" className="text-black">Choose food kind…</option>
+                      <option value="" className="text-foreground">Choose food kind…</option>
                       {FOOD_KINDS.map((f) => (
-                        <option key={f.value} value={f.value} className="text-black">{f.label}</option>
+                        <option key={f.value} value={f.value} className="text-foreground">{f.label}</option>
                       ))}
                     </select>
                   )}
