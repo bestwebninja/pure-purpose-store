@@ -48,7 +48,7 @@ export const createSponsorProfile = createServerFn({ method: "POST" })
           city: data.city || null,
           state: data.state || null,
           zip: data.zip || null,
-          country: data.country || null,
+          country: data.country ? assertAllowedCountry(data.country) : null,
           help_interests: data.help_interests,
           verification_notes: data.verification_notes || null,
           verification_status: "PENDING",
