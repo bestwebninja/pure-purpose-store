@@ -17,7 +17,7 @@ const FormSchema = z.object({
   organization_type: z.string().min(1, "Select an organization type"),
   ein: z.string().regex(/^\d{2}-\d{7}$/, "EIN must follow XX-XXXXXXX"),
   email: z.string().email("Invalid contact email"),
-  country: z.string().min(2, "Country is required"),
+  country: z.enum(["US", "IL"], { message: "Country must be United States or Israel" }),
   geography: z.string().min(2, "Geography of impact is required"),
   causes: z.array(z.string()).min(1, "Select at least one cause"),
 });
