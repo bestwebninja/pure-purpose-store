@@ -122,8 +122,8 @@ function AdminMatchControl() {
         description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
       >
       <div className="space-y-3">
-        {matches === null && <p className="text-sm text-muted-foreground text-primary-foreground">Loading…</p>}
-        {matches?.length === 0 && <p className="text-sm text-muted-foreground text-primary-foreground">No matches yet.</p>}
+        {matches === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
+        {matches?.length === 0 && <p className="text-sm text-primary-foreground/70">No matches yet.</p>}
         {matches?.map((m) => (
           <Card key={m.id} className="p-4 sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
@@ -138,7 +138,7 @@ function AdminMatchControl() {
                   </Badge>
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground text-primary-foreground break-words">
+                <p className="mt-2 text-sm text-primary-foreground/70 break-words">
                   score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
                   {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
                   {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}

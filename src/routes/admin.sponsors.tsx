@@ -71,8 +71,8 @@ function AdminSponsors() {
         description="Review and verify Blessing Sponsor applications."
       >
       <div className="space-y-3">
-        {sponsors === null && <p className="text-sm text-muted-foreground text-primary-foreground">Loading…</p>}
-        {sponsors?.length === 0 && <p className="text-sm text-muted-foreground text-primary-foreground">No sponsor applications yet.</p>}
+        {sponsors === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
+        {sponsors?.length === 0 && <p className="text-sm text-primary-foreground/70">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
           <Card key={s.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5">
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
@@ -82,7 +82,7 @@ function AdminSponsors() {
                   {s.verification_status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-primary-foreground break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
+              <p className="text-sm text-primary-foreground/70 break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
               {s.help_interests?.length > 0 && (
                 <p className="mt-1 text-xs text-muted-foreground break-words">Interests: {s.help_interests.join(", ")}</p>
               )}

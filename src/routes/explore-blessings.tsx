@@ -150,7 +150,7 @@ function ExploreBlessings() {
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-cyan-300/20 bg-white/[0.04] p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
+                className="rounded-2xl border border-cyan-300/20 bg-primary-foreground/5 p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
               >
                 <div className="text-display text-3xl text-primary-foreground md:text-4xl">
                   {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-primary-foreground/10 align-middle" /> : "—")}
@@ -218,7 +218,7 @@ function CategoryCard({ category }: { category: Category }) {
         <Button
           asChild
           variant="outline"
-          className="w-full rounded-xl border-primary-foreground/20 bg-white/[0.04] text-sm text-primary-foreground hover:bg-white/[0.1] hover:text-primary-foreground"
+          className="w-full rounded-xl border-primary-foreground/20 bg-primary-foreground/5 text-sm text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
           style={{ borderColor: `${color}40` }}
         >
           <Link to="/give-a-blessing">Explore &amp; Support</Link>

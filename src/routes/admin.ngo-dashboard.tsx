@@ -99,7 +99,7 @@ function AdminDashboard() {
         <h1 className="text-display text-3xl font-semibold text-primary-foreground">Admin Dashboard</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-muted-foreground text-primary-foreground">You must be signed in as an admin to view this page.</p>
+          <p className="mt-2 text-sm text-primary-foreground/70">You must be signed in as an admin to view this page.</p>
         </Card>
       </div>
     );
@@ -167,7 +167,7 @@ function AdminDashboard() {
                         {m.status}
                       </Badge>
                     </td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground text-primary-foreground">{m.action}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70">{m.action}</td>
                   </tr>
                 ))}
               </tbody>
@@ -185,8 +185,8 @@ function AdminDashboard() {
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <DashboardSection title="NGO Applications" description="Live admin view — updates in realtime.">
       <div className="space-y-3">
-        {apps === null && <p className="text-sm text-muted-foreground text-primary-foreground">Loading…</p>}
-        {apps?.length === 0 && <p className="text-sm text-muted-foreground text-primary-foreground">No applications yet.</p>}
+        {apps === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
+        {apps?.length === 0 && <p className="text-sm text-primary-foreground/70">No applications yet.</p>}
         {apps?.map((a) => (
           <Card key={a.id} className="flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
@@ -196,7 +196,7 @@ function AdminDashboard() {
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-primary-foreground break-words">{a.email} · {a.country} · {a.geography}</p>
+              <p className="text-sm text-primary-foreground/70 break-words">{a.email} · {a.country} · {a.geography}</p>
               <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>
