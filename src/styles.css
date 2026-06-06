@@ -210,19 +210,22 @@
   }
 
   /* PRIMARY DARK SURFACES (REQUEST HELP HERO, HEADER, ETC) */
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h1,
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h2,
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h3,
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h4,
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h5,
-  :where(.bg-primary, .bg-gradient-primary, header, footer) h6 {
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h1,
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h2,
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h3,
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h4,
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h5,
+  :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h6 {
     color: oklch(1 0 0);
   }
 
   /* FORCE FIX FOR HERO SECTIONS WITH OVERLAYS (LIKE /request-help) */
   section[class*="bg-primary"] h1,
   section[class*="bg-primary"] h2,
-  section[class*="bg-primary"] h3 {
+  section[class*="bg-primary"] h3,
+  section[class*="bg-gradient-hero"] h1,
+  section[class*="bg-gradient-hero"] h2,
+  section[class*="bg-gradient-hero"] h3 {
     color: oklch(1 0 0) !important;
   }
 }
