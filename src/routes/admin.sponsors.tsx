@@ -8,6 +8,7 @@ import { DashboardSection } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import { listSponsors, updateSponsorStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
+import { AdminShell } from "@/components/admin/AdminShell";
 
 type Sponsor = {
   id: string;
@@ -57,19 +58,18 @@ function AdminSponsors() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Sponsor Verification</h1>
-        <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
-      </div>
+      <AdminShell eyebrow="Admin · Sponsors" title="Sponsor Verification">
+        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+      </AdminShell>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <DashboardSection
-        title="Sponsor Verification"
-        description="Review and verify Blessing Sponsor applications."
-      >
+    <AdminShell
+      eyebrow="Admin · Sponsors"
+      title="Sponsor Verification"
+      description="Review and verify Blessing Sponsor applications."
+    >
       <div className="space-y-3">
         {sponsors === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-primary-foreground/70">No sponsor applications yet.</p>}
@@ -95,8 +95,7 @@ function AdminSponsors() {
           </Card>
         ))}
       </div>
-      </DashboardSection>
-    </div>
+    </AdminShell>
   );
 }
 
