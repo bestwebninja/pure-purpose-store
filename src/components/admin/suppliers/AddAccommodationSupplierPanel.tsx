@@ -46,7 +46,7 @@ export function AddAccommodationSupplierPanel() {
   }
 
   return (
-    <div className="w-full rounded-xl border p-4 bg-white shadow-sm">
+    <div className="w-full rounded-xl border p-4 bg-card shadow-card">
       <h2 className="text-xl font-semibold mb-4">
         Add Accommodation Supplier Node
       </h2>
@@ -149,7 +149,7 @@ export function AddAccommodationSupplierPanel() {
 
       <button
         onClick={handleSubmit}
-        className="mt-5 px-4 py-2 rounded bg-black text-white"
+        className="mt-5 px-4 py-2 rounded bg-primary text-primary-foreground"
         disabled={status === "saving"}
       >
         {status === "saving"

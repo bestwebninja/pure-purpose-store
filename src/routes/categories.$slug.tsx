@@ -39,7 +39,7 @@ export const Route = createFileRoute("/categories/$slug")({
   }),
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-      <h1 className="text-display text-3xl font-semibold text-white">Category not found</h1>
+      <h1 className="text-display text-3xl font-semibold text-primary-foreground">Category not found</h1>
       <Link to="/categories" className="mt-4 inline-block text-primary hover:underline">← All categories</Link>
     </div>
   ),
@@ -51,8 +51,8 @@ function CategoryPage() {
   const live = useCampaignsRealtime<CampaignCategory>(campaigns as CampaignCategory[]);
   
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12 text-white">
-      <Link to="/categories" className="inline-flex items-center text-sm text-muted-foreground text-white hover:text-foreground">
+    <div className="mx-auto max-w-7xl px-6 py-12 text-primary-foreground">
+      <Link to="/categories" className="inline-flex items-center text-sm text-muted-foreground text-primary-foreground hover:text-foreground">
         <ArrowLeft className="mr-1 h-4 w-4" /> All categories
       </Link>
       <h1 className="text-display mt-4 text-4xl font-semibold">{category!.name}</h1>

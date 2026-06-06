@@ -32,7 +32,7 @@ function CategoriesPage() {
   const { categories } = Route.useLoaderData();
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-12 text-white">
+    <div className="mx-auto max-w-7xl px-6 py-12 text-primary-foreground">
       <header className="max-w-2xl">
         <h1 className="text-display text-4xl font-semibold md:text-5xl">Blessing Categories</h1>
         <p className="mt-3 text-lg text-muted-foreground">

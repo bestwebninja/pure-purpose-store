@@ -307,12 +307,12 @@ function GodView() {
   };
 
   if (!authReady) {
-    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground text-white">Loading…</div>;
+    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground text-primary-foreground">Loading…</div>;
   }
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">God View</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">God View</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm">This console is restricted to operators with the admin role.</p>
         </Card>
@@ -352,7 +352,7 @@ function GodView() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
             <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Operator Console — Live</span>
           </div>
           <h1 className="text-display mt-1 text-3xl font-semibold tracking-tight">God View</h1>
@@ -402,7 +402,7 @@ function GodView() {
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs">
-                <Badge className="bg-emerald-500/15 text-emerald-700 hover:bg-emerald-500/20 dark:text-emerald-300">
+                <Badge className="bg-success/15 text-success hover:bg-success/15 dark:text-success">
                   Matching autonomy L{matchingAutonomy} · {AUTONOMY_LABELS[matchingAutonomy]}
                 </Badge>
                 <Badge variant="outline">{queueAutoCount} auto-fund</Badge>
@@ -426,11 +426,11 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {scorecards.length === 0 ? (
-                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground text-white">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground text-primary-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
                   ) : scorecards.map((s, i) => {
                     const decisionTone =
-                      s.autonomy_decision === "auto" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
-                      : s.autonomy_decision === "queue" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      s.autonomy_decision === "auto" ? "bg-success/15 text-success dark:text-success"
+                      : s.autonomy_decision === "queue" ? "bg-accent/15 text-accent dark:text-accent"
                       : "bg-muted text-muted-foreground";
                     const decisionLabel =
                       s.autonomy_decision === "auto" ? `Auto-fund (L${matchingAutonomy})`
@@ -469,7 +469,7 @@ function GodView() {
         <TabsContent value="map" className="mt-4">
           <Card className="p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
-            <p className="mt-2 text-sm text-muted-foreground text-white">
+            <p className="mt-2 text-sm text-muted-foreground text-primary-foreground">
               Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 — counts shown above
               already reflect live data scoped by country.
             </p>
@@ -516,7 +516,7 @@ function GodView() {
               </TableHeader>
               <TableBody>
                 {events.length === 0 ? (
-                  <TableRow><TableCell colSpan={5} className="text-center text-sm text-muted-foreground text-white">No events yet</TableCell></TableRow>
+                  <TableRow><TableCell colSpan={5} className="text-center text-sm text-muted-foreground text-primary-foreground">No events yet</TableCell></TableRow>
                 ) : events.map((e) => (
                   <TableRow key={e.id}>
                     <TableCell className="text-xs text-muted-foreground">{timeAgo(e.created_at)}</TableCell>
@@ -534,7 +534,7 @@ function GodView() {
         <TabsContent value="suppliers" className="mt-4">
           <Card className="p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
-            <p className="text-sm text-muted-foreground text-white">
+            <p className="text-sm text-muted-foreground text-primary-foreground">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
               ship with the routing engine in Phase 4.
             </p>
@@ -578,7 +578,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {feed.length === 0 ? (
-                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground text-white">Waiting for routing engine activity…</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground text-primary-foreground">Waiting for routing engine activity…</TableCell></TableRow>
                   ) : feed.map((row) => (
                     <TableRow key={`${row.kind}-${row.id}`}>
                       <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{timeAgo(row.created_at)}</TableCell>
@@ -652,11 +652,11 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {reports.length === 0 ? (
-                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground text-white">No flywheel reports yet.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={7} className="text-center text-sm text-muted-foreground text-primary-foreground">No flywheel reports yet.</TableCell></TableRow>
                   ) : reports.map((r) => {
                     const tone =
-                      r.status === "sent" ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
-                      : r.status === "pending_review" ? "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                      r.status === "sent" ? "bg-success/15 text-success dark:text-success"
+                      : r.status === "pending_review" ? "bg-accent/15 text-accent dark:text-accent"
                       : r.status === "failed" ? "bg-destructive/15 text-destructive"
                       : "bg-muted text-muted-foreground";
                     const canApprove = r.status === "draft" || r.status === "pending_review" || r.status === "approved";
@@ -675,7 +675,7 @@ function GodView() {
                         </TableCell>
                         <TableCell className="text-right">
                           {r.status === "sent" ? (
-                            <span className="text-xs text-emerald-600 dark:text-emerald-400">Auto-sent</span>
+                            <span className="text-xs text-success dark:text-success">Auto-sent</span>
                           ) : canApprove ? (
                             <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
                               {approvingId === r.id ? "Sending…" : "Approve & send"}
@@ -706,7 +706,7 @@ function GodView() {
             </div>
             <div className="divide-y">
               {modules.length === 0 ? (
-                <div className="p-6 text-sm text-muted-foreground text-white">No modules configured.</div>
+                <div className="p-6 text-sm text-muted-foreground text-primary-foreground">No modules configured.</div>
               ) : modules.map((m) => (
                 <div key={m.id} className="grid grid-cols-1 items-center gap-4 p-4 sm:grid-cols-[1fr_auto_2fr_auto]">
                   <div>

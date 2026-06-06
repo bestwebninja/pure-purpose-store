@@ -96,10 +96,10 @@ function AdminDashboard() {
   if (error) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-white">Admin Dashboard</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Admin Dashboard</h1>
         <Card className="mt-6 p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-muted-foreground text-white">You must be signed in as an admin to view this page.</p>
+          <p className="mt-2 text-sm text-primary-foreground/70">You must be signed in as an admin to view this page.</p>
         </Card>
       </div>
     );
@@ -111,7 +111,7 @@ function AdminDashboard() {
         <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-primary-foreground hover:text-accent">
           ← Back to NGO Applications
         </Button>
-        <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white break-words">Verification Audit: {selectedApp.name}</h1>
+        <h1 className="text-display text-2xl sm:text-3xl font-semibold text-primary-foreground break-words">Verification Audit: {selectedApp.name}</h1>
         
         {vettingMatrix ? (
           <div className="mt-8">
@@ -127,21 +127,21 @@ function AdminDashboard() {
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-sm font-semibold text-white break-words">{m.point}</h4>
+                    <h4 className="text-sm font-semibold text-primary-foreground break-words">{m.point}</h4>
                     <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                       {m.status}
                     </Badge>
                   </div>
-                  <dl className="mt-3 space-y-1.5 text-xs text-white/80">
-                    <div><dt className="inline font-medium text-white/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
-                    <div><dt className="inline font-medium text-white/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
-                    <div><dt className="inline font-medium text-white/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
+                  <dl className="mt-3 space-y-1.5 text-xs text-primary-foreground/80">
+                    <div><dt className="inline font-medium text-primary-foreground/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
+                    <div><dt className="inline font-medium text-primary-foreground/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
+                    <div><dt className="inline font-medium text-primary-foreground/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
                   </dl>
                 </Card>
               ))}
             </div>
             {/* Tablet/desktop: full table */}
-            <div className="hidden overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card md:block">
+            <div className="hidden overflow-x-auto rounded-xl border border-primary-foreground/10 bg-card shadow-card md:block">
             <table className="w-full text-left">
               <thead className="bg-muted/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <tr>
@@ -159,15 +159,15 @@ function AdminDashboard() {
                     m.status === "FLAG" ? "bg-accent/15" : 
                     "bg-success/10"
                   }>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{m.point}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.userInput}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.proData}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-primary-foreground">{m.point}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.userInput}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.proData}</td>
                     <td className="px-3 py-3 sm:px-6 sm:py-4">
                       <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                         {m.status}
                       </Badge>
                     </td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground text-white">{m.action}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70">{m.action}</td>
                   </tr>
                 ))}
               </tbody>
@@ -185,8 +185,8 @@ function AdminDashboard() {
     <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <DashboardSection title="NGO Applications" description="Live admin view — updates in realtime.">
       <div className="space-y-3">
-        {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
-        {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
+        {apps === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
+        {apps?.length === 0 && <p className="text-sm text-primary-foreground/70">No applications yet.</p>}
         {apps?.map((a) => (
           <Card key={a.id} className="flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
@@ -196,7 +196,7 @@ function AdminDashboard() {
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-muted-foreground text-white break-words">{a.email} · {a.country} · {a.geography}</p>
+              <p className="text-sm text-primary-foreground/70 break-words">{a.email} · {a.country} · {a.geography}</p>
               <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
               <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
             </div>

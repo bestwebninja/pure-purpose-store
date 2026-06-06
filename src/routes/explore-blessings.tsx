@@ -117,16 +117,16 @@ function ExploreBlessings() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
-      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">Categories</p>
-          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-white md:text-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">Categories</p>
+          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-primary-foreground md:text-5xl">
             Our Blessings
           </h1>
-          <p className="mt-2 max-w-2xl text-sm text-white/70">
+          <p className="mt-2 max-w-2xl text-sm text-primary-foreground/70">
             We meet real needs. Which categories are you passionate about giving a blessing in?
           </p>
         </header>
@@ -145,17 +145,17 @@ function ExploreBlessings() {
         </div>
 
         <section className="mt-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300/80">BLESSINGS </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">BLESSINGS </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-cyan-300/20 bg-white/[0.04] p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
+                className="rounded-2xl border border-accent/30 bg-primary-foreground/5 p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
               >
-                <div className="text-display text-3xl text-white md:text-4xl">
-                  {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-white/10 align-middle" /> : "—")}
+                <div className="text-display text-3xl text-primary-foreground md:text-4xl">
+                  {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-primary-foreground/10 align-middle" /> : "—")}
                 </div>
-                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-cyan-200/70">{m.label}</div>
+                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-accent">{m.label}</div>
               </div>
             ))}
           </div>
@@ -192,13 +192,13 @@ function CategoryCard({ category }: { category: Category }) {
           />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-display text-xl leading-tight text-white">{name}</h2>
-          <p className="mt-1.5 text-sm leading-snug text-white/65">{description}</p>
+          <h2 className="text-display text-xl leading-tight text-primary-foreground">{name}</h2>
+          <p className="mt-1.5 text-sm leading-snug text-primary-foreground/65">{description}</p>
         </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-1.5">
-        <span className="text-xs text-white/50">{featured ? "New:" : "Preview:"}</span>
+        <span className="text-xs text-primary-foreground/50">{featured ? "New:" : "Preview:"}</span>
         {tags.map((t) => (
           <span
             key={t}
@@ -218,7 +218,7 @@ function CategoryCard({ category }: { category: Category }) {
         <Button
           asChild
           variant="outline"
-          className="w-full rounded-xl border-white/20 bg-white/[0.04] text-sm text-white hover:bg-white/[0.1] hover:text-white"
+          className="w-full rounded-xl border-primary-foreground/20 bg-primary-foreground/5 text-sm text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
           style={{ borderColor: `${color}40` }}
         >
           <Link to="/give-a-blessing">Explore &amp; Support</Link>

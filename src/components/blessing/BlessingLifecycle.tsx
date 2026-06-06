@@ -40,7 +40,7 @@ export function BlessingLifecycle({
 }) {
   return <Card className="p-4 sm:p-6">
       <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Blessing Lifecycle</h2>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-muted-foreground">Blessing Lifecycle</h2>
         <Badge variant="secondary">live</Badge>
       </div>
       <ol className={`grid gap-2 sm:gap-3 ${compact ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-6" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"}`}>

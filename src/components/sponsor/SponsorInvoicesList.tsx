@@ -74,7 +74,7 @@ export function SponsorInvoicesList() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-display text-lg font-semibold">Tax Receipts & Invoices</h2>
-          <p className="text-sm text-muted-foreground text-white">
+          <p className="text-sm text-muted-foreground text-primary-foreground">
             Each contribution is split into a 93.5% tax-deductible donation and a 6.5% platform fee.
           </p>
         </div>
@@ -86,9 +86,9 @@ export function SponsorInvoicesList() {
       {error ? (
         <p className="mt-4 text-sm text-destructive">{error}</p>
       ) : loading ? (
-        <p className="mt-4 text-sm text-muted-foreground text-white">Loading invoices…</p>
+        <p className="mt-4 text-sm text-muted-foreground text-primary-foreground">Loading invoices…</p>
       ) : invoices.length === 0 ? (
-        <p className="mt-4 text-sm text-muted-foreground text-white">No invoices yet. They'll appear here as your contributions settle.</p>
+        <p className="mt-4 text-sm text-muted-foreground text-primary-foreground">No invoices yet. They'll appear here as your contributions settle.</p>
       ) : (
         <>
         {/* Mobile: card list */}

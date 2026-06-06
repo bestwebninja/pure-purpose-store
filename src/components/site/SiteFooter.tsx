@@ -5,7 +5,7 @@ import sunflowerField from "@/assets/sunflower-field.jpg";
 export function SiteFooter() {
   return (
     <footer
-      className="relative mt-24 overflow-hidden border-t border-border/60 text-white"
+      className="relative mt-24 overflow-hidden border-t border-border/60 text-primary-foreground"
       style={{
         backgroundImage: `linear-gradient(rgba(8,28,80,0.55), rgba(8,28,80,0.7)), url(${sunflowerField})`,
         backgroundSize: "cover",
@@ -26,7 +26,7 @@ export function SiteFooter() {
             </span>
           </div>
 
-          <p className="mt-4 max-w-md text-sm text-white/75">
+          <p className="mt-4 max-w-md text-sm text-primary-foreground/75">
             When humanity shows up for one another, blessings happen. A
             transparent giving platform connecting generous people with real
             causes.
@@ -36,26 +36,26 @@ export function SiteFooter() {
         {/* Platform */}
         <div>
           <h4 className="text-display text-sm font-semibold">Platform</h4>
-          <ul className="mt-4 space-y-2 text-sm text-white/75">
+          <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
             <li>
-              <Link to="/how-it-works" className="hover:text-white">
+              <Link to="/how-it-works" className="hover:text-primary-foreground">
                 How It Works
               </Link>
             </li>
             <li>
-              <Link to="/transparency" className="hover:text-white">
+              <Link to="/transparency" className="hover:text-primary-foreground">
                 Transparency
               </Link>
             </li>
             <li>
-              <Link to="/give-a-blessing" className="hover:text-white">
+              <Link to="/give-a-blessing" className="hover:text-primary-foreground">
                 Give a Blessing
               </Link>
             </li>
             <li>
               <Link
                 to="/corporate-signup"
-                className="hover:text-white"
+                className="hover:text-primary-foreground"
               >
                 Corporate Sponsors
               </Link>
@@ -63,7 +63,7 @@ export function SiteFooter() {
             <li>
               <Link
                 to="/ngo"
-                className="text-sm text-white/70 hover:text-white underline"
+                className="text-sm text-primary-foreground/70 hover:text-primary-foreground underline"
               >
                 NGO Sign Up
               </Link>
@@ -74,14 +74,14 @@ export function SiteFooter() {
         {/* Company */}
         <div>
           <h4 className="text-display text-sm font-semibold">Company</h4>
-          <ul className="mt-4 space-y-2 text-sm text-white/75">
+          <ul className="mt-4 space-y-2 text-sm text-primary-foreground/75">
             <li>
-              <Link to="/about-myblessings" className="hover:text-white">
+              <Link to="/about-myblessings" className="hover:text-primary-foreground">
                 About MyBlessings
               </Link>
             </li>
             <li>
-              <Link to="/login" className="hover:text-white">
+              <Link to="/login" className="hover:text-primary-foreground">
                 Login
               </Link>
             </li>
@@ -90,7 +90,7 @@ export function SiteFooter() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/15 px-4 py-6 text-center text-xs text-white/70" style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1.5rem)" }}>
+      <div className="border-t border-primary-foreground/15 px-4 py-6 text-center text-xs text-primary-foreground/70" style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 1.5rem)" }}>
         © {new Date().getFullYear()} MyBlessings.US (Every blessing matters)
       </div>
     </footer>

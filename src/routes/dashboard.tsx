@@ -35,7 +35,7 @@ function DashboardPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Your Dashboard</h1>
-          <p className="mt-1 text-sm text-muted-foreground text-white">Live blessing activity, updated in real time.</p>
+          <p className="mt-1 text-sm text-muted-foreground text-primary-foreground">Live blessing activity, updated in real time.</p>
         </div>
         <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Marketplace</Link></Button>
       </div>
@@ -44,7 +44,7 @@ function DashboardPage() {
         <div className="grid gap-6 md:grid-cols-2">
           <BlessingPaymentForm />
           <Card className="p-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Quick links</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-muted-foreground">Quick links</h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link to="/marketplace" className="underline">Marketplace</Link></li>
               <li><Link to="/impact-map" className="underline">Impact Map</Link></li>

@@ -47,7 +47,7 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-white">
+    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -60,7 +60,7 @@ function Hero() {
       <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-accent/30 blur-3xl" aria-hidden />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 md:grid-cols-[1.1fr_1fr] md:py-32">
         <div className="space-y-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" /> AUTONOMOUS HUMANITARIAN INFRASTRUCTURE AND STABILIZATION OPERATING SYSTEM
           </span>
           <h1 className="text-display text-5xl font-normal leading-[1.02] tracking-tight md:text-7xl">
@@ -68,7 +68,7 @@ function Hero() {
             <br />
             <span className="italic text-accent">Receive blessings.</span>
           </h1>
-          <p className="max-w-xl text-lg leading-relaxed text-white/80">
+          <p className="max-w-xl text-lg leading-relaxed text-primary-foreground/80">
             MyBlessings is a transparent giving platform where every dollar is tracked,
             every story is verified, and every recipient is honored. Built on accountability,
             and AI algorithms.
@@ -87,24 +87,24 @@ function Hero() {
               asChild
               size="lg"
               variant="ghost"
-              className="h-12 rounded-md px-4 text-base font-medium text-white/80 hover:bg-transparent hover:text-white"
+              className="h-12 rounded-md px-4 text-base font-medium text-primary-foreground/80 hover:bg-transparent hover:text-primary-foreground"
             >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-white/60">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-primary-foreground/60">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-accent" /> 100% transparent ledger</span>
-            <span className="text-white/30">·</span>
+            <span className="text-primary-foreground/30">·</span>
             <span>Secure Shopify checkout</span>
-            <span className="text-white/30">·</span>
+            <span className="text-primary-foreground/30">·</span>
             <span>Verified recipients</span>
           </div>
         </div>
         <div className="relative">
           <div className="absolute -inset-4 rounded-[2rem] bg-accent/30 blur-2xl" aria-hidden />
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 shadow-card">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-primary-foreground/10 shadow-card">
             <img
               src={heroImage}
               alt="Hands joined in support"
@@ -114,7 +114,7 @@ function Hero() {
               height={900}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/90 to-transparent p-6">
-              <p className="text-display text-lg italic text-white">
+              <p className="text-display text-lg italic text-primary-foreground">
                 "Charity is the best deposit account."
               </p>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">OUR FOUNDING PRINCIPLE</p>
@@ -201,18 +201,18 @@ function Trust() {
     },
   ];
   return (
-    <section className="bg-primary py-24 text-white">
+    <section className="bg-primary py-24 text-primary-foreground">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-14 max-w-2xl">
           <p className="text-xs uppercase tracking-[0.2em] text-accent">Our standard</p>
           <h2 className="text-display mt-3 text-4xl md:text-5xl">Built on trust,<br/>not transactions.</h2>
         </div>
-        <div className="grid gap-px overflow-hidden rounded-2xl bg-white/10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-px overflow-hidden rounded-2xl bg-primary-foreground/10 md:grid-cols-2 lg:grid-cols-4">
           {items.map((it) => (
             <div key={it.title} className="bg-primary p-8 transition-colors hover:bg-primary-glow/40">
               <it.icon className="h-7 w-7 text-accent" />
               <h3 className="text-display mt-6 text-xl">{it.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/70">{it.body}</p>
+              <p className="mt-3 text-sm leading-relaxed text-primary-foreground/70">{it.body}</p>
             </div>
           ))}
         </div>
@@ -244,7 +244,7 @@ function Testimony() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero py-24 text-white">
+    <section className="relative overflow-hidden bg-gradient-hero py-24 text-primary-foreground">
       <div className="absolute -bottom-40 left-1/2 h-96 w-[60rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" aria-hidden />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1.5fr_1fr] md:items-center">
         <div>
@@ -252,7 +252,7 @@ function CTA() {
           <h2 className="text-display mt-3 text-4xl leading-[1.05] md:text-6xl">
             One blessing<br/>can change a life.
           </h2>
-          <p className="mt-5 max-w-xl text-white/75">
+          <p className="mt-5 max-w-xl text-primary-foreground/75">
             Join the donors, recipients, and partner NGOs building a transparent giving institution
             from the ground up.
           </p>
@@ -269,7 +269,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="h-14 rounded-md border-white/40 bg-transparent text-base font-medium text-white hover:bg-white/10 hover:text-white"
+            className="h-14 rounded-md border-primary-foreground/40 bg-transparent text-base font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
           >
             <Link to="/become-blessing-sponsor">Become a sponsor</Link>
           </Button>
