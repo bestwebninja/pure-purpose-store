@@ -223,9 +223,9 @@ function RequestHelp() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground">
+    <div className="min-h-screen bg-primary text-primary-foreground [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_label]:text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
-         <h1 className="text-display text-3xl font-semibold">BlessME 🙏</h1>
+         <h1 className="text-display text-3xl font-semibold text-white">BlessME 🙏</h1>
         <p className="mt-2 text-primary-foreground/80">
           Sign up as a recipient or tell us about someone you think needs to be Blessed. Sponsors funds will be automatically matched to your request and once accepted the process of buying the services or products for you or the needy soul will be automatically processed.  Thank you for playing your part in this world of endless Blessings.
         </p>
