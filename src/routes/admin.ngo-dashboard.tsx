@@ -113,8 +113,35 @@ function AdminDashboard() {
         <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white break-words">Verification Audit: {selectedApp.name}</h1>
         
         {vettingMatrix ? (
-          <div className="mt-8 overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card">
-            <table className="w-full min-w-[640px] text-left">
+          <div className="mt-8">
+            {/* Mobile: card list */}
+            <div className="space-y-3 md:hidden">
+              {vettingMatrix.map((m, i) => (
+                <Card
+                  key={`m-${i}`}
+                  className={`p-4 ${
+                    m.status === "FAIL" ? "border-destructive/40 bg-destructive/10" :
+                    m.status === "FLAG" ? "border-accent/40 bg-accent/15" :
+                    "border-success/30 bg-success/10"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <h4 className="text-sm font-semibold text-white break-words">{m.point}</h4>
+                    <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
+                      {m.status}
+                    </Badge>
+                  </div>
+                  <dl className="mt-3 space-y-1.5 text-xs text-white/80">
+                    <div><dt className="inline font-medium text-white/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
+                    <div><dt className="inline font-medium text-white/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
+                    <div><dt className="inline font-medium text-white/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
+                  </dl>
+                </Card>
+              ))}
+            </div>
+            {/* Tablet/desktop: full table */}
+            <div className="hidden overflow-x-auto rounded-xl border border-white/10 bg-card shadow-card md:block">
+            <table className="w-full text-left">
               <thead className="bg-muted/50 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 <tr>
                   <th className="px-3 py-3 sm:px-6 sm:py-4">Data Point</th>
@@ -144,6 +171,7 @@ function AdminDashboard() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         ) : (
           <p className="mt-8 text-muted-foreground italic">No automated vetting record found for this application.</p>
