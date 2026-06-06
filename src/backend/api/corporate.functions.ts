@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { assertAllowedCountry, getAllowedCountries } from "@/lib/data-sovereignty";
 
 async function assertAdmin(userId: string) {
   const { data } = await supabaseAdmin
@@ -46,6 +47,7 @@ const CorporateSchema = z.object({
 export const submitCorporateApplication = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => CorporateSchema.parse(input))
   .handler(async ({ data }) => {
+    const country = assertAllowedCountry(data.country);
     const { data: row, error } = await supabaseAdmin
       .from("corporate_sponsors")
       .insert({
@@ -64,7 +66,7 @@ export const submitCorporateApplication = createServerFn({ method: "POST" })
         city: data.city,
         state: data.state,
         zip: data.zip,
-        country: data.country,
+        country,
 
         company_size: data.company_size,
 
@@ -94,6 +96,7 @@ export const listCorporateSponsors = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("corporate_sponsors")
       .select("*")
+      .in("country", getAllowedCountries() as unknown as string[])
       .order("created_at", { ascending: false });
 
     if (error) throw new Error(error.message);

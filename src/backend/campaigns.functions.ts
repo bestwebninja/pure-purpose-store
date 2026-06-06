@@ -1,6 +1,7 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
+import { isAllowedLocation } from "@/lib/data-sovereignty";
 
 export type Campaign = {
   id: string;
@@ -29,12 +30,12 @@ export const listCampaigns = createServerFn({ method: "GET" }).handler(async () 
     .eq("status", "active")
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false })
-    .limit(50);
+    .limit(200);
   if (error) {
     console.error("listCampaigns error", error);
     return { campaigns: [] as Campaign[] };
   }
-  return { campaigns: (data ?? []) as Campaign[] };
+  return { campaigns: ((data ?? []) as Campaign[]).filter((c) => isAllowedLocation(c.location)).slice(0, 50) };
 });
 
 export const listCampaignsByCategory = createServerFn({ method: "GET" })
@@ -49,7 +50,7 @@ export const listCampaignsByCategory = createServerFn({ method: "GET" })
         .eq("category_slug", slug)
         .order("created_at", { ascending: false }),
     ]);
-    return { category, campaigns: (campaigns ?? []) as Campaign[] };
+    return { category, campaigns: ((campaigns ?? []) as Campaign[]).filter((c) => isAllowedLocation(c.location)) };
   });
 
 export const getCampaignByHandle = createServerFn({ method: "GET" })
@@ -58,6 +59,9 @@ export const getCampaignByHandle = createServerFn({ method: "GET" })
     const { data: campaign, error } = await supabaseAdmin.from("campaigns").select("*").eq("handle", handle).maybeSingle();
     if (error) return { campaign: null, donations: [] };
     if (!campaign) return { campaign: null, donations: [] };
+    if (!isAllowedLocation((campaign as Campaign).location)) {
+      return { campaign: null, donations: [] };
+    }
     const { data: donations } = await supabaseAdmin.from("donations").select("id, amount, currency, donor_name, message, is_anonymous, created_at").eq("campaign_id", campaign.id).order("created_at", { ascending: false }).limit(20);
     return { campaign: campaign as Campaign, donations: donations ?? [] };
   });

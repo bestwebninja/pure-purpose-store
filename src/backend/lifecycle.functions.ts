@@ -1,5 +1,6 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { isAllowedLocation, getAllowedCountries } from "@/lib/data-sovereignty";
 
 export type LifecycleCounts = {
   requested: number;
@@ -12,17 +13,17 @@ export type LifecycleCounts = {
 
 export const getLifecycleCounts = createServerFn({ method: "GET" }).handler(async (): Promise<LifecycleCounts> => {
   const [casesRes, matchesRes, donationsRes, fulfillmentRes, campaignsRes] = await Promise.all([
-    supabaseAdmin.from("cases").select("id, status"),
+    supabaseAdmin.from("cases").select("id, status").in("country", getAllowedCountries() as unknown as string[]),
     supabaseAdmin.from("petri_matches").select("id, status, execution_status"),
     supabaseAdmin.from("donations").select("id"),
     supabaseAdmin.from("fulfillment_events").select("id, status, event_type"),
-    supabaseAdmin.from("campaigns").select("id, status, raised_amount, goal_amount, story"),
+    supabaseAdmin.from("campaigns").select("id, status, raised_amount, goal_amount, story, location"),
   ]);
   const cases = casesRes.data ?? [];
   const matches = matchesRes.data ?? [];
   const donations = donationsRes.data ?? [];
   const fulfillment = fulfillmentRes.data ?? [];
-  const campaigns = campaignsRes.data ?? [];
+  const campaigns = (campaignsRes.data ?? []).filter((c) => isAllowedLocation(c.location));
 
   return {
     requested: cases.length,
@@ -40,8 +41,8 @@ export const getMarketplaceFeed = createServerFn({ method: "GET" }).handler(asyn
     .select("id, handle, title, image_url, short_description, location, donor_count, goal_amount, raised_amount, currency, status, category_slug")
     .eq("status", "active")
     .order("created_at", { ascending: false })
-    .limit(60);
-  return { campaigns: data ?? [] };
+    .limit(240);
+  return { campaigns: (data ?? []).filter((c) => isAllowedLocation(c.location)).slice(0, 60) };
 });
 
 export const getImpactMapData = createServerFn({ method: "GET" }).handler(async () => {
@@ -49,9 +50,10 @@ export const getImpactMapData = createServerFn({ method: "GET" }).handler(async 
     .from("campaigns")
     .select("id, title, location, raised_amount, donor_count, status, category_slug")
     .order("raised_amount", { ascending: false })
-    .limit(200);
+    .limit(400);
+  const allowed = (campaigns ?? []).filter((c) => isAllowedLocation(c.location));
   const byLocation = new Map<string, { location: string; raised: number; donors: number; count: number }>();
-  for (const c of campaigns ?? []) {
+  for (const c of allowed) {
     const key = (c.location ?? "Unknown").trim() || "Unknown";
     const cur = byLocation.get(key) ?? { location: key, raised: 0, donors: 0, count: 0 };
     cur.raised += Number(c.raised_amount ?? 0);

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
 import type { VettingMatrixEntry } from "../integrations/supabase/types.ngo";
+import { assertAllowedCountry, getAllowedCountries } from "@/lib/data-sovereignty";
 
 const SIMILARITY_PASS = 0.85;
 const SIMILARITY_FLAG = 0.5;
@@ -99,6 +100,10 @@ async function runIntelligenceCheck(input: { name: string; email: string }) {
 export const submitNgoApplication = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => SubmitSchema.parse(input))
   .handler(async ({ data }) => {
+    // Data sovereignty: only US + IL applications are accepted.
+    const normalizedCountry = assertAllowedCountry(data.country);
+    data = { ...data, country: normalizedCountry };
+
     // Idempotency: collapse rapid duplicate submissions of the same EIN+email
     // (form double-clicks, retries) into the same application row. Window: 10 minutes.
     const dupWindow = new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -240,6 +245,7 @@ export const listNgoApplications = createServerFn({ method: "GET" })
     const { data, error } = await supabaseAdmin
       .from("ngo_applications")
       .select("*")
+      .in("country", getAllowedCountries() as unknown as string[])
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     return { applications: data ?? [] };

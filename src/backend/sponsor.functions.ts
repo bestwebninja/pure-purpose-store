@@ -2,8 +2,10 @@
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { assertAllowedCountry } from "@/lib/data-sovereignty";
 
 const SponsorSchema = z.object({
+// data sovereignty layer
    sponsor_role: z.enum(["Rabbi", "Company-Sponsor", "Minister", "A Friend", "Family Member", "Good Human"]),
   organization_name: z.string().trim().max(200).optional().default(""),
   organization_details: z.string().trim().max(1000).optional().default(""),
@@ -48,7 +50,7 @@ export const createSponsorProfile = createServerFn({ method: "POST" })
           city: data.city || null,
           state: data.state || null,
           zip: data.zip || null,
-          country: data.country || null,
+          country: data.country ? assertAllowedCountry(data.country) : null,
           help_interests: data.help_interests,
           verification_notes: data.verification_notes || null,
           verification_status: "PENDING",
