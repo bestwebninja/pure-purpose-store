@@ -94,7 +94,7 @@ function Hero() {
               </Link>
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-green-500">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-white/60">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-accent" /> 100% transparent ledger</span>
             <span className="text-white/30">·</span>
             <span>Secure Shopify checkout</span>
@@ -165,11 +165,11 @@ function ImpactStrip() {
       </div>
       <div className="mx-auto grid max-w-7xl gap-px overflow-hidden bg-border sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="bg-secondary px-6 py-8 bg-blue-500">
+          <div key={s.label} className="bg-card px-6 py-8">
             <div className="text-display text-3xl text-primary md:text-4xl">
               {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground bg-slate-300">{s.label}</div>
+            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
           </div>
         ))}
       </div>
@@ -224,14 +224,14 @@ function Trust() {
 function Testimony() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-24">
-      <div className="rounded-3xl border border-border bg-accent-soft p-10 md:p-16 bg-yellow-200">
+      <div className="rounded-3xl border border-border bg-accent-soft p-10 md:p-16">
         <Quote className="h-10 w-10 text-primary" />
         <p className="text-display mt-6 text-2xl leading-snug text-primary md:text-4xl">
           "I didn't expect strangers to carry me through the worst week of my life.
           MyBlessings made it feel less like charity and more like community."
         </p>
         <div className="mt-8 flex items-center gap-3 text-sm">
-          <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-red-500 text-white">A</div>
+          <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-primary text-primary-foreground">A</div>
           <div>
             <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
             <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient · Healthcare</div>
@@ -269,7 +269,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="h-14 rounded-md border-white/40 text-base font-medium text-white hover:text-white bg-blue-400"
+            className="h-14 rounded-md border-white/40 bg-transparent text-base font-medium text-white hover:bg-white/10 hover:text-white"
           >
             <Link to="/become-blessing-sponsor">Become a sponsor</Link>
           </Button>

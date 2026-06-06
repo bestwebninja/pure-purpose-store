@@ -138,10 +138,10 @@ export function SponsorshipDashboard() {
               maxLength={16}
             />
             {state.status === "loading" && (
-              <p className="text-sm text-muted-foreground text-white">Checking coverage…</p>
+              <p className="text-sm text-muted-foreground">Checking coverage…</p>
             )}
             {state.status === "ready" && state.active && (
-              <p className="text-sm text-green-700">
+              <p className="text-sm text-success">
                 Active — {state.supplier_count} supplier
                 {state.supplier_count === 1 ? "" : "s"} available
               </p>
@@ -164,7 +164,7 @@ export function SponsorshipDashboard() {
             <CardTitle>Sponsorship package — $500</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground text-white">
+            <p className="text-sm text-muted-foreground">
               Accommodation, meals and reintegration support routed to verified
               local suppliers in the sponsored ZIP.
             </p>
@@ -212,7 +212,7 @@ export function SponsorshipDashboard() {
               <p className="text-sm text-destructive">{verifyError}</p>
             )}
             {verified?.fulfillable && (
-              <p className="text-sm text-green-700">
+              <p className="text-sm text-success">
                 Verified — {verified.supplierCount} active supplier
                 {verified.supplierCount === 1 ? "" : "s"} ready for fulfillment.
               </p>

@@ -220,7 +220,7 @@ function PetriGraphPage() {
     return (
       <div className="mx-auto max-w-6xl p-8">
         <h1 className="text-display text-2xl font-semibold">Petri Graph Inspector</h1>
-        <p className="mt-2 text-muted-foreground text-slate-50">Admins only.</p>
+        <p className="mt-2 text-muted-foreground">Admins only.</p>
       </div>
     );
   }
@@ -230,7 +230,7 @@ function PetriGraphPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-display text-xl font-semibold sm:text-2xl">Petri Graph Inspector</h1>
-          <p className="text-sm text-muted-foreground text-white">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
+          <p className="text-sm text-muted-foreground">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{nodes.length} nodes</Badge>
@@ -273,7 +273,7 @@ function PetriGraphPage() {
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
         <Card className="p-3 sm:p-4">
            {!graphLoaded ? (
-             <p className="p-8 text-center text-sm text-muted-foreground text-white">
+             <p className="p-8 text-center text-sm text-muted-foreground">
                Loading Petri graph…
              </p>
            ) : graphError ? (
@@ -281,7 +281,7 @@ function PetriGraphPage() {
                Failed to load Petri graph: {graphError}
              </div>
            ) : nodes.length === 0 ? (
-             <p className="p-8 text-center text-sm text-muted-foreground text-white">
+             <p className="p-8 text-center text-sm text-muted-foreground">
                No data yet. Submit a Give a Blessing or BlessME to populate the graph.
              </p>
            ) : (
@@ -295,9 +295,9 @@ function PetriGraphPage() {
         </Card>
 
         <Card className="p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground text-gray-950">Inspector</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
           {!selectedNode && !selectedEdge && (
-            <p className="mt-3 text-sm text-muted-foreground text-white">Click a node or edge to inspect.</p>
+            <p className="mt-3 text-sm text-muted-foreground">Click a node or edge to inspect.</p>
           )}
           {selectedNode && (
             <div className="mt-3 space-y-2 text-sm">

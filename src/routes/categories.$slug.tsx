@@ -56,11 +56,11 @@ function CategoryPage() {
         <ArrowLeft className="mr-1 h-4 w-4" /> All categories
       </Link>
       <h1 className="text-display mt-4 text-4xl font-semibold">{category!.name}</h1>
-      {category!.description && <p className="mt-2 text-muted-foreground text-slate-50">{category!.description}</p>}
+      {category!.description && <p className="mt-2 text-muted-foreground">{category!.description}</p>}
       <div className="mt-10">
         {live.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-border/80 bg-secondary/30 p-12 text-center">
-            <p className="text-sm text-muted-foreground text-white">No active blessings in this category yet.</p>
+          <div className="rounded-3xl border border-dashed border-border/80 bg-muted/30 p-12 text-center">
+            <p className="text-sm text-muted-foreground">No active blessings in this category yet.</p>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

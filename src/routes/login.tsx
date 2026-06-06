@@ -135,29 +135,23 @@ function Login() {
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24">
-      <span
-        className="grid h-12 w-12 place-items-center rounded-full text-white shadow-soft"
-        style={{
-          background:
-            "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)",
-        }}
-      >
+      <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-soft">
         <Heart className="h-5 w-5" fill="currentColor" />
       </span>
 
-      <h1 className="text-display mt-6 text-3xl font-semibold text-slate-200">
+      <h1 className="text-display mt-6 text-3xl font-semibold text-foreground">
         {mode === "signin"
           ? "Welcome back"
           : "Create your account"}
       </h1>
 
-      <p className="mt-2 text-center text-sm text-muted-foreground text-white">
+      <p className="mt-2 text-center text-sm text-muted-foreground">
         {mode === "signin"
           ? "Sign in to your dashboard."
           : "Sign up with email to get started."}
       </p>
 
-      <Card className="mt-8 w-full p-6 shadow-card bg-red-500">
+      <Card className="mt-8 w-full p-6 shadow-card">
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === "signup" && (
             <>
@@ -215,7 +209,7 @@ function Login() {
               <button
                 type="button"
                 onClick={handlePasswordReset}
-                className="font-semibold underline text-base text-slate-200"
+                className="text-sm font-medium text-primary underline-offset-4 hover:underline"
               >
                 Forgot password?
               </button>
@@ -223,7 +217,7 @@ function Login() {
           )}
 
           {resetSent && (
-            <p className="text-xs text-green-600">
+            <p className="text-xs text-success">
               Reset link sent. Check your email.
             </p>
           )}
@@ -246,7 +240,7 @@ function Login() {
           onClick={() =>
             setMode(mode === "signin" ? "signup" : "signin")
           }
-          className="mt-4 w-full text-center text-muted-foreground hover:text-foreground text-base text-slate-300"
+          className="mt-4 w-full text-center text-sm text-muted-foreground hover:text-foreground"
         >
           {mode === "signin"
             ? "Sign up for an Account"
@@ -256,7 +250,7 @@ function Login() {
 
       <a
         href="/become-blessing-sponsor"
-        className="mt-6 text-sm font-medium text-primary hover:underline text-slate-200"
+        className="mt-6 text-sm font-medium text-primary hover:underline"
       >
         Become a Blessing Sponsor →
       </a>

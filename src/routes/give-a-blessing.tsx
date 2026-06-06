@@ -43,7 +43,7 @@ const sponsorSchema = z.object({
 const STEPS = ["Sponsor a good cause.... ", "Blessing Type", "Location", "Budget", "Review"] as const;
 
 const inputCls =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
+  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
 
 function GiveABlessing() {
   const navigate = useNavigate();
@@ -195,14 +195,14 @@ function GiveABlessing() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
+    <div className="min-h-screen bg-primary text-primary-foreground">
       <div className="mx-auto max-w-2xl px-6 py-16">
         <h1 className="text-display text-3xl font-semibold text-white">Give a Blessing 🙏</h1>
         <p className="mt-2 text-white/80">
           Step {step + 1} of {STEPS.length} &nbsp; &#123; {STEPS[step]} &#125;
         </p>
 
-        <Card className="mt-8 space-y-5 border-white/20 p-6 text-white" style={{ backgroundColor: "#0a1f6b" }}>
+        <Card className="mt-8 space-y-5 border-white/20 bg-primary p-6 text-primary-foreground">
           {step === 0 && (
             <>
               <div className="grid grid-cols-2 gap-4">
@@ -332,8 +332,8 @@ function GiveABlessing() {
                   </div>
                 );
               })}
-              <div className="rounded-md border border-yellow-300/50 bg-yellow-300/10 p-4">
-                <h4 className="text-sm font-semibold text-yellow-200">Blessings Allocation Summary</h4>
+              <div className="rounded-md border border-accent/50 bg-accent/10 p-4">
+                <h4 className="text-sm font-semibold text-accent">Blessings Allocation Summary</h4>
                 <ul className="mt-2 space-y-1 text-sm text-white/90">
                   <li>Accommodation: <span className="font-semibold">${allocation.accommodation}</span></li>
                   <li>Food: <span className="font-semibold">${allocation.food}</span></li>

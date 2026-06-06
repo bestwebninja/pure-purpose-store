@@ -51,9 +51,9 @@ const STEPS = [
 function HowItWorks() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
-      <header className="text-center text-slate-100">
-        <h1 className="text-display md:text-6xl font-serif border-yellow-300 border shadow-sm text-7xl font-thin text-white opacity-100 bg-blue-300">MyBlessings, How you BLESS..</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground text-slate-200">
+      <header className="text-center">
+        <h1 className="text-display text-5xl font-semibold text-foreground md:text-6xl">MyBlessings, How you BLESS..</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
           We've have built the platform with Love, in giving, to its essentials in just three easy steps, between you and a meaningful blessing.
         </p>
       </header>
@@ -67,7 +67,7 @@ function HowItWorks() {
               <span className="text-sm font-medium text-muted-foreground">Step {i + 1}</span>
             </div>
             <h3 className="text-display mt-4 text-xl font-semibold">{s.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground text-white">{s.body}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
           </div>
         ))}
       </div>
@@ -81,14 +81,7 @@ function HowItWorks() {
         <Button
           asChild
           size="lg"
-          className="mt-6 text-2xl hover:opacity-95"
-          style={{
-            backgroundColor: "#1d4ed8",
-            color: "#f8f6ee",
-            fontFamily: '"Great Vibes", "Snell Roundhand", cursive',
-            boxShadow:
-              "0 0 20px 4px rgba(125, 200, 255, 0.85), 0 0 44px 10px rgba(255, 230, 120, 0.6), 0 0 72px 14px rgba(255, 215, 0, 0.35)",
-          }}
+          className="mt-6 font-blessing text-2xl bg-primary text-primary-foreground hover:bg-primary-glow shadow-blessing-glow"
         >
           <Link to="/give-a-blessing">Give a Blessing</Link>
         </Button>

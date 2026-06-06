@@ -143,7 +143,7 @@ function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-display text-3xl font-semibold text-white">My Profile</h1>
+      <h1 className="text-display text-3xl font-semibold text-foreground">My Profile</h1>
       <Card className="mt-6 p-6">
         <div className="mb-6 flex items-center gap-4">
           <Avatar className="h-20 w-20 ring-2 ring-border">
@@ -172,7 +172,7 @@ function ProfilePage() {
               )}
             </Button>
             <p className="text-xs text-muted-foreground">Upload our drop a link to your public profile .</p>
-            <p className="font-extralight text-base text-blue-700">
+            <p className="text-sm text-muted-foreground">
               Smiling is a must ;-) {"{"} Please upload a Smiling Happy Photo {"}"}.
             </p>
           </div>

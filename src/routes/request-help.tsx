@@ -31,7 +31,7 @@ export const Route = createFileRoute("/request-help")({
 });
 
 const inputCls =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300";
+  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent";
 
 const HELP_TYPES: { value: string; label: string }[] = [
   { value: "accommodation", label: "Accommodation" },
@@ -241,7 +241,7 @@ function RequestHelp() {
                   id="salutation"
                   value={form.salutation}
                   onChange={(e) => setForm({ ...form, salutation: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                  className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                 >
                   <option value="" className="text-black">—</option>
                   {SALUTATIONS.map((s) => (
@@ -304,7 +304,7 @@ function RequestHelp() {
                 required
                 value={form.category_id}
                 onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-                className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
               >
                 <option value="" className="text-black">Select a category</option>
                 {flatCategories.map((c) => (
@@ -333,7 +333,7 @@ function RequestHelp() {
                       aria-label={`Help need ${i + 1} type`}
                       value={n.type}
                       onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
-                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
                       <option value="" className="text-black">Type…</option>
                       {HELP_TYPES.map((t) => (
@@ -353,7 +353,7 @@ function RequestHelp() {
                       aria-label={`Food kind for need ${i + 1}`}
                       value={n.food_kind ?? ""}
                       onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-yellow-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-yellow-300"
+                      className="flex h-10 w-full rounded-md border border-white/30 bg-white/10 px-3 py-2 text-sm text-white focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
                     >
                       <option value="" className="text-black">Choose food kind…</option>
                       {FOOD_KINDS.map((f) => (
