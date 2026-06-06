@@ -47,7 +47,7 @@ export function InspirationQuote({
       return (
         <div className={`${base} mx-auto max-w-4xl text-center`}>
           <p
-            className="font-blessing text-primary text-4xl leading-snug md:text-6xl"
+            className="font-blessing text-primary text-4xl leading-snug md:text-6xl text-slate-300"
           >
             “{q.text}”
           </p>
