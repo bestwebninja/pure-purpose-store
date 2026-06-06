@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { assertAllowedCountry } from "@/lib/data-sovereignty";
 
 const SponsorSchema = z.object({
 // data sovereignty layer
