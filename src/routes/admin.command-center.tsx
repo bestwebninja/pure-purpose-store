@@ -10,6 +10,7 @@ import { getLifecycleCounts, type LifecycleCounts } from "@/lib/gateway";
 import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
+import { AdminShell } from "@/components/admin/AdminShell";
 
 export const Route = createFileRoute("/admin/command-center")({
   beforeLoad: () => requireAdminBeforeLoad(),
@@ -64,36 +65,32 @@ function CommandCenter() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Command Center</h1>
-        <Card className="mt-6 p-6">
+      <AdminShell eyebrow="Admin · Ops" title="Command Center">
+        <Card className="p-6">
           <p className="text-sm text-destructive">{error}</p>
           <p className="mt-2 text-sm text-primary-foreground/70">Sign in as an admin to view ops data.</p>
         </Card>
-      </div>
+      </AdminShell>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 text-primary-foreground sm:px-6 sm:py-12">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="text-display text-2xl font-semibold sm:text-3xl">Command Center</h1>
-          <p className="mt-1 text-sm text-primary-foreground/70 break-words">
-            Live ops view {snap?.generatedAt ? `· updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}
-          </p>
-        </div>
+    <AdminShell
+      eyebrow="Admin · Ops"
+      title="Command Center"
+      description={`Live ops view${snap?.generatedAt ? ` · updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}`}
+      actions={
         <Button size="sm" variant="outline" onClick={refresh} disabled={loading}>
           {loading ? "Refreshing…" : "Refresh"}
         </Button>
-      </div>
-
+      }
+    >
       {!snap ? (
-        <p className="mt-8 text-sm text-primary-foreground/70">Loading live ops data…</p>
+        <p className="text-sm text-primary-foreground/70">Loading live ops data…</p>
       ) : (
         <>
           {snap.errors && Object.values(snap.errors).some(Boolean) && (
-            <div className="mt-6 rounded-md border border-accent/40 bg-accent/15 p-3 text-sm text-accent">
+            <div className="mb-6 rounded-md border border-accent/40 bg-accent/15 p-3 text-sm text-accent">
               <p className="font-semibold">Some queries failed — data below is partial:</p>
               <ul className="mt-1 list-disc pl-5 text-xs">
                 {Object.entries(snap.errors)
@@ -239,7 +236,7 @@ function CommandCenter() {
           </div>
         </>
       )}
-    </div>
+    </AdminShell>
   );
 }
 

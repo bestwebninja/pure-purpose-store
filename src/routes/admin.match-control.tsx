@@ -14,6 +14,7 @@ import {
   listFulfillmentForMatch,
 } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
+import { AdminShell } from "@/components/admin/AdminShell";
 
 type Match = {
   id: string;
@@ -108,19 +109,18 @@ function AdminMatchControl() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Match Control</h1>
-        <Card className="mt-6 p-6"><p className="text-sm text-destructive">{error}</p></Card>
-      </div>
+      <AdminShell eyebrow="Admin · Matches" title="Match Control">
+        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+      </AdminShell>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <DashboardSection
-        title="Match Control"
-        description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
-      >
+    <AdminShell
+      eyebrow="Admin · Matches"
+      title="Match Control"
+      description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
+    >
       <div className="space-y-3">
         {matches === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
         {matches?.length === 0 && <p className="text-sm text-primary-foreground/70">No matches yet.</p>}
@@ -178,8 +178,7 @@ function AdminMatchControl() {
           </Card>
         ))}
       </div>
-      </DashboardSection>
-    </div>
+    </AdminShell>
   );
 }
 
