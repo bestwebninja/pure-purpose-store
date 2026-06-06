@@ -17,14 +17,8 @@ export function SiteFooter() {
         {/* Brand */}
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span
-              className="grid h-9 w-9 place-items-center rounded-full shadow-soft"
-              style={{
-                background:
-                  "linear-gradient(135deg, #ff6f91 0%, #ff3d6e 50%, #e11d48 100%)",
-              }}
-            >
-              <Heart className="h-4 w-4 text-white" fill="currentColor" />
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary shadow-soft">
+              <Heart className="h-4 w-4 text-primary-foreground" fill="currentColor" />
             </span>
 
             <span className="text-display text-lg font-semibold">

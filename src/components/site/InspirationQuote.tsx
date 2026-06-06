@@ -42,29 +42,17 @@ export function InspirationQuote({
   const base =
     "transition-opacity duration-700 ease-in-out " + (show ? "opacity-100" : "opacity-0");
 
-  // Golden ivory color used for all quoted text across the app.
-  const goldenIvory = "#F5E6A8";
-
   if (variant === "banner") {
     if (size === "cursive-xl") {
       return (
         <div className={`${base} mx-auto max-w-4xl text-center`}>
           <p
-            className="text-4xl leading-snug md:text-6xl"
-            style={{
-              fontFamily: '"Great Vibes", "Allura", "Pinyon Script", "Dancing Script", cursive',
-              color: "hsl(var(--primary))",
-            }}
+            className="font-blessing text-primary text-4xl leading-snug md:text-6xl"
           >
             “{q.text}”
           </p>
           <p
-            className="mt-3 text-lg md:text-xl"
-            style={{
-              fontFamily: '"Great Vibes", "Allura", "Dancing Script", cursive',
-              color: "hsl(var(--primary))",
-              opacity: 0.85,
-            }}
+            className="font-blessing text-primary/85 mt-3 text-lg md:text-xl"
           >
             — {q.author}
           </p>
@@ -74,20 +62,19 @@ export function InspirationQuote({
     return (
       <div className={`${base} mx-auto max-w-3xl text-center`}>
         <p
-          className="text-display text-xl italic md:text-2xl"
-          style={{ color: goldenIvory, textShadow: "0 1px 2px rgba(0,0,0,0.25)" }}
+          className="font-blessing text-accent text-2xl md:text-3xl"
         >
           "{q.text}"
         </p>
-        <p className="mt-2 text-sm" style={{ color: goldenIvory, opacity: 0.85 }}>
+        <p className="font-blessing text-accent/85 mt-2 text-sm">
           {q.author}
         </p>
       </div>
     );
   }
   return (
-    <p className={`${base} text-xs italic`} style={{ color: goldenIvory }}>
-      "{q.text}" <span style={{ opacity: 0.8 }}>{q.author}</span>
+    <p className={`${base} font-blessing text-accent text-sm`}>
+      "{q.text}" <span className="opacity-80">{q.author}</span>
     </p>
   );
 }

@@ -90,10 +90,10 @@ function BecomeSponsor() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16" style={{ backgroundColor: "#0a1f6b", color: "#ffffff" }}>
-      <h1 className="text-display text-3xl font-semibold text-white">Become a Blessing Sponsor</h1>
-      <p className="mt-2 text-sm text-white/80">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 p-6 border-white/20 text-white" style={{ backgroundColor: "#0a1f6b" }}>
+    <div className="mx-auto max-w-2xl px-6 py-16 bg-primary text-primary-foreground">
+      <h1 className="text-display text-3xl font-semibold">Become a Blessing Sponsor</h1>
+      <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
+      <Card className="mt-8 p-6 border-white/20 bg-primary text-primary-foreground">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label>Your role</Label>
@@ -105,8 +105,8 @@ function BecomeSponsor() {
                   onClick={() => setForm({ ...form, sponsor_role: r })}
                   className={`rounded-md border px-3 py-2 text-sm transition ${
                     form.sponsor_role === r
-                      ? "border-yellow-400 bg-yellow-300 font-semibold text-black shadow-[0_0_18px_rgba(250,204,21,0.85)]"
-                      : "border-border hover:border-yellow-400/60"
+                      ? "border-accent bg-accent font-semibold text-accent-foreground shadow-soft"
+                      : "border-border hover:border-accent/60"
                   }`}
                 >
                   {r}
@@ -176,7 +176,7 @@ function BecomeSponsor() {
             <Textarea id="verif" rows={3} className={glow} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
           </div>
 
-          <Button type="submit" className="w-full bg-blue-700" disabled={submitting}>
+          <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit for verification"}
           </Button>
         </form>
@@ -186,6 +186,6 @@ function BecomeSponsor() {
 }
 
 const glow =
-  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-yellow-400 focus-visible:ring-yellow-300 focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
+  "border-white/30 bg-white/10 text-white placeholder:text-white/60 focus-visible:border-accent focus-visible:ring-accent focus-visible:shadow-[0_0_18px_rgba(250,204,21,0.7)]";
 
 

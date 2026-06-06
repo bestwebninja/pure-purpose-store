@@ -107,7 +107,7 @@ function AdminDashboard() {
   if (selectedApp) {
     return (
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
-        <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-white hover:text-yellow-400">
+        <Button variant="ghost" onClick={() => setSelectedApp(null)} className="mb-6 text-primary-foreground hover:text-accent">
           ← Back to NGO Applications
         </Button>
         <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white break-words">Verification Audit: {selectedApp.name}</h1>
@@ -127,9 +127,9 @@ function AdminDashboard() {
               <tbody className="divide-y divide-white/5">
                 {vettingMatrix.map((m, i) => (
                   <tr key={i} className={
-                    m.status === "FAIL" ? "bg-red-500/10" : 
-                    m.status === "FLAG" ? "bg-yellow-500/10" : 
-                    "bg-green-500/5"
+                    m.status === "FAIL" ? "bg-destructive/10" : 
+                    m.status === "FLAG" ? "bg-accent/15" : 
+                    "bg-success/10"
                   }>
                     <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-white">{m.point}</td>
                     <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-white/70 break-words">{m.userInput}</td>
@@ -155,12 +155,12 @@ function AdminDashboard() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">NGO Applications</h1>
-      <p className="mt-2 text-muted-foreground text-slate-50">Live admin view — updates in realtime.</p>
+      <p className="mt-2 text-muted-foreground text-muted-foreground">Live admin view — updates in realtime.</p>
       <div className="mt-8 space-y-3">
         {apps === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-muted-foreground text-white">No applications yet.</p>}
         {apps?.map((a) => (
-          <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-yellow-400/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
+          <Card key={a.id} className="flex flex-wrap items-center justify-between gap-4 p-5 hover:border-accent/50 transition-colors cursor-pointer" onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex items-center gap-3">
                 <h3 className="font-semibold break-words">{a.name}</h3>

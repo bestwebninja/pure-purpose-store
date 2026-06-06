@@ -59,7 +59,7 @@ export const Route = createFileRoute("/campaign/$handle")({
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="text-display text-4xl font-semibold">Blessing not found</h1>
-      <p className="mt-2 text-muted-foreground text-slate-50">It may have ended or been moved.</p>
+      <p className="mt-2 text-muted-foreground text-muted-foreground">It may have ended or been moved.</p>
       <Link to="/" className="mt-6 inline-block text-primary hover:underline">← Browse blessings</Link>
     </div>
   ),

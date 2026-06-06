@@ -90,7 +90,7 @@ function CorporateSignup() {
   };
 
   return (
-    <div className="min-h-screen text-white px-6 py-10 bg-blue-700">
+    <div className="min-h-screen bg-primary text-primary-foreground px-6 py-10">
       <div className="max-w-2xl mx-auto space-y-6">
 
         <h1 className="text-2xl font-bold text-white">
@@ -186,7 +186,7 @@ function CorporateSignup() {
         <Section title="Additional Notes">
           <textarea
             className="w-full border border-white/20 bg-white/5 text-white p-3 rounded
-                       focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                       focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
             onChange={(e) => update("notes", e.target.value)}
           />
         </Section>
@@ -194,7 +194,7 @@ function CorporateSignup() {
         <button
           onClick={handleSubmit}
           disabled={submitting || submitted}
-          className="w-full bg-black hover:bg-gray-900 disabled:opacity-60 text-white py-3 rounded font-semibold"
+          className="w-full rounded bg-accent py-3 font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-60"
         >
           {submitted
             ? "Submitted ✓"
@@ -225,7 +225,7 @@ function Input({ label, onChange }: any) {
       <label className="text-sm text-white/80">{label}</label>
       <input
         className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                   focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
         onChange={(e) => onChange(e.target.value)}
       />
     </div>
@@ -238,7 +238,7 @@ function Select({ label, options, onChange }: any) {
       <label className="text-sm text-white/80">{label}</label>
       <select
         className="w-full border border-white/20 bg-white/5 text-white p-2 rounded
-                   focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+                   focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
         onChange={(e) => onChange(e.target.value)}
         defaultValue=""
       >

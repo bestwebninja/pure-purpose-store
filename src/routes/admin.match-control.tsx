@@ -117,7 +117,7 @@ function AdminMatchControl() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Match Control</h1>
-      <p className="mt-2 text-muted-foreground text-slate-50">
+      <p className="mt-2 text-muted-foreground text-muted-foreground">
         Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router (stub providers).
       </p>
 
