@@ -19,6 +19,8 @@ const NAV = [
   { to: "/explore-blessings", label: "Our Blessings" },
   { to: "/request-help", label: "BlessME" },
   { to: "/my-blessings", label: "My Blessings" },
+  { to: "/marketplace", label: "Marketplace" },
+  { to: "/impact-map", label: "Impact Map" },
 ] as const;
 
 export function SiteHeader() {
@@ -130,6 +132,18 @@ export function SiteHeader() {
                 <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
                   <Link to="/admin/sponsors">Sponsors</Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                  <Link to="/admin/petri">Petri OS</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                  <Link to="/admin/match-control">Match Control</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                  <Link to="/admin/god-view">God View</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-yellow-300 focus:text-foreground data-[highlighted]:bg-yellow-300 data-[highlighted]:text-foreground">
+                  <Link to="/dashboard/petri-graph">Petri Graph</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -171,6 +185,16 @@ export function SiteHeader() {
                     </Link>
                   </SheetClose>
                 )}
+                <SheetClose asChild>
+                  <Link to="/ngo/onboarding" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
+                    NGO Onboarding
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link to="/corporate-signup" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">
+                    Corporate Signup
+                  </Link>
+                </SheetClose>
                 {isAdmin && (
                   <>
                     <div className="mt-3 px-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Admin</div>
@@ -182,6 +206,18 @@ export function SiteHeader() {
                     </SheetClose>
                     <SheetClose asChild>
                       <Link to="/admin/sponsors" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Sponsors</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/petri" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Petri OS</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/match-control" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Match Control</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/god-view" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">God View</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/dashboard/petri-graph" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Petri Graph</Link>
                     </SheetClose>
                   </>
                 )}
