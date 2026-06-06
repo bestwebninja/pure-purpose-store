@@ -48,7 +48,7 @@ function PetriAdminPage() {
   const handleSeed = async () => {
     setSeedBusy('seed');
     try {
-      const result = await seed({ data: {} });
+      const result = await seed();
       toast.success(`Demo data seeded in ${result.duration_ms}ms`);
       await refreshCounts();
     } catch (e) {
@@ -61,7 +61,7 @@ function PetriAdminPage() {
   const handleClear = async () => {
     setSeedBusy('clear');
     try {
-      const result = await clearSeed({ data: {} });
+      const result = await clearSeed();
       const total = Object.values(result.deleted).reduce((a, b) => a + b, 0);
       toast.success(`Cleared ${total} demo rows`);
       await refreshCounts();
