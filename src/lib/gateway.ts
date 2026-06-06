@@ -95,6 +95,13 @@ export {
   getCampaignByHandle,
 } from "@/backend/api/campaigns.functions";
 
+// ──────────────────────── Admin Demo Seeder ────────────────────────────────
+export {
+  seedDemoData,
+  clearDemoData,
+  getDemoSeedStatus,
+} from "@/backend/api/admin-seed.functions";
+
 // ──────────────────────── Gateway shim (for legacy `gateway.sponsor.*`) ────
 import { listSponsors as _listSponsors } from "@/backend/api/sponsor.functions";
 export const Gateway = {
