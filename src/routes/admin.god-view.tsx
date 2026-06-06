@@ -13,6 +13,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { recomputePetriScores } from "@/lib/gateway";
 import { approveFlywheelReport, listImpactReports } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
+import { AdminShell } from "@/components/admin/AdminShell";
 
 export const Route = createFileRoute("/admin/god-view")({
   beforeLoad: () => requireAdminBeforeLoad(),
@@ -307,16 +308,19 @@ function GodView() {
   };
 
   if (!authReady) {
-    return <div className="mx-auto max-w-7xl px-6 py-16 text-sm text-muted-foreground text-primary-foreground">Loading…</div>;
+    return (
+      <AdminShell eyebrow="Admin · God View" title="God View">
+        <p className="text-sm text-primary-foreground/70">Loading…</p>
+      </AdminShell>
+    );
   }
   if (!isAdmin) {
     return (
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">God View</h1>
-        <Card className="mt-6 p-6">
+      <AdminShell eyebrow="Admin · God View" title="God View">
+        <Card className="p-6">
           <p className="text-sm">This console is restricted to operators with the admin role.</p>
         </Card>
-      </div>
+      </AdminShell>
     );
   }
 
@@ -348,24 +352,21 @@ function GodView() {
   };
 
   return (
-    <div className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-success" />
-            <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Operator Console — Live</span>
-          </div>
-          <h1 className="text-display mt-1 text-3xl font-semibold tracking-tight">God View</h1>
-        </div>
-        <Button size="sm" variant="outline" onClick={loadAll} disabled={loading}>
-          {loading ? "Refreshing…" : "Refresh"}
-        </Button>
-        <Button size="sm" onClick={handleForceRecompute} disabled={recomputing}>
-          {recomputing ? "Recomputing…" : "Force Recompute"}
-        </Button>
-      </header>
-
-      <section className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+    <AdminShell
+      eyebrow="Operator Console — Live"
+      title="God View"
+      actions={
+        <>
+          <Button size="sm" variant="outline" onClick={loadAll} disabled={loading}>
+            {loading ? "Refreshing…" : "Refresh"}
+          </Button>
+          <Button size="sm" onClick={handleForceRecompute} disabled={recomputing}>
+            {recomputing ? "Recomputing…" : "Force Recompute"}
+          </Button>
+        </>
+      }
+    >
+      <section className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         <StatTile label="Sponsors" value={counts.sponsors} hint={`${counts.sponsorsPending} pending`} tone={counts.sponsorsPending ? "warn" : "ok"} />
         <StatTile label="Cases" value={counts.cases} hint={`${counts.casesOpen} open`} tone="info" />
         <StatTile label="NGOs" value={counts.ngos} hint={`${counts.ngosPending} pending`} tone={counts.ngosPending ? "warn" : "ok"} />
@@ -743,7 +744,7 @@ function GodView() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </AdminShell>
   );
 }
 
