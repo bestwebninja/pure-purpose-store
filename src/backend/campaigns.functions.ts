@@ -1,7 +1,7 @@
 ﻿import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "../integrations/supabase/client.server";
-import { filterAllowedByLocation, isAllowedLocation } from "@/lib/data-sovereignty";
+import { isAllowedLocation } from "@/lib/data-sovereignty";
 
 export type Campaign = {
   id: string;
@@ -35,7 +35,7 @@ export const listCampaigns = createServerFn({ method: "GET" }).handler(async () 
     console.error("listCampaigns error", error);
     return { campaigns: [] as Campaign[] };
   }
-  return { campaigns: filterAllowedByLocation((data ?? []) as Campaign[]).slice(0, 50) };
+  return { campaigns: ((data ?? []) as Campaign[]).filter((c) => isAllowedLocation(c.location)).slice(0, 50) };
 });
 
 export const listCampaignsByCategory = createServerFn({ method: "GET" })
@@ -50,7 +50,7 @@ export const listCampaignsByCategory = createServerFn({ method: "GET" })
         .eq("category_slug", slug)
         .order("created_at", { ascending: false }),
     ]);
-    return { category, campaigns: filterAllowedByLocation((campaigns ?? []) as Campaign[]) };
+    return { category, campaigns: ((campaigns ?? []) as Campaign[]).filter((c) => isAllowedLocation(c.location)) };
   });
 
 export const getCampaignByHandle = createServerFn({ method: "GET" })
