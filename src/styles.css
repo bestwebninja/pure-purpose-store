@@ -216,14 +216,14 @@
   :where(.bg-primary, .bg-gradient-primary, header, footer) h4,
   :where(.bg-primary, .bg-gradient-primary, header, footer) h5,
   :where(.bg-primary, .bg-gradient-primary, header, footer) h6 {
-    color: var(--primary-foreground);
+    color: oklch(1 0 0);
   }
 
   /* FORCE FIX FOR HERO SECTIONS WITH OVERLAYS (LIKE /request-help) */
   section[class*="bg-primary"] h1,
   section[class*="bg-primary"] h2,
   section[class*="bg-primary"] h3 {
-    color: var(--primary-foreground) !important;
+    color: oklch(1 0 0) !important;
   }
 }
 
