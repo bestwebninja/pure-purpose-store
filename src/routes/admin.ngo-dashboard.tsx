@@ -180,13 +180,12 @@ function AdminDashboard() {
         ) : (
           <p className="mt-8 text-muted-foreground italic">No automated vetting record found for this application.</p>
         )}
-      </div>
+      </AdminShell>
     );
   }
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <DashboardSection title="NGO Applications" description="Live admin view — updates in realtime.">
+    <AdminShell eyebrow="Admin · NGOs" title="NGO Applications" description="Live admin view — updates in realtime.">
       <div className="space-y-3">
         {apps === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
         {apps?.length === 0 && <p className="text-sm text-primary-foreground/70">No applications yet.</p>}
@@ -210,8 +209,7 @@ function AdminDashboard() {
           </Card>
         ))}
       </div>
-      </DashboardSection>
-    </div>
+    </AdminShell>
   );
 }
 
