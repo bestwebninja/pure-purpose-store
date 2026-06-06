@@ -46,7 +46,7 @@ export function AddAccommodationSupplierPanel() {
   }
 
   return (
-    <div className="w-full rounded-xl border p-4 bg-white shadow-sm">
+    <div className="w-full rounded-xl border p-4 bg-card shadow-card">
       <h2 className="text-xl font-semibold mb-4">
         Add Accommodation Supplier Node
       </h2>
