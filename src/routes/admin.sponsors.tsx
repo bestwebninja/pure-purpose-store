@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DashboardSection } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import { listSponsors, updateSponsorStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
@@ -64,14 +65,16 @@ function AdminSponsors() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <h1 className="text-display text-2xl sm:text-3xl font-semibold text-white">Sponsor Verification</h1>
-      <p className="mt-2 text-muted-foreground text-muted-foreground">Review and verify Blessing Sponsor applications.</p>
-      <div className="mt-8 space-y-3">
+    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <DashboardSection
+        title="Sponsor Verification"
+        description="Review and verify Blessing Sponsor applications."
+      >
+      <div className="space-y-3">
         {sponsors === null && <p className="text-sm text-muted-foreground text-white">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-muted-foreground text-white">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
-          <Card key={s.id} className="flex flex-wrap items-start justify-between gap-4 p-5">
+          <Card key={s.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5">
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <h3 className="font-semibold break-words">{s.organization_name || s.sponsor_role}</h3>
@@ -85,13 +88,14 @@ function AdminSponsors() {
               )}
               {s.verification_notes && <p className="mt-2 text-xs italic text-muted-foreground break-words">"{s.verification_notes}"</p>}
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button size="sm" onClick={() => handle(s.id, "VERIFIED")} disabled={s.verification_status === "VERIFIED"}>Verify</Button>
-              <Button size="sm" variant="outline" onClick={() => handle(s.id, "REJECTED")} disabled={s.verification_status === "REJECTED"}>Reject</Button>
+            <div className="flex flex-wrap gap-2 sm:shrink-0">
+              <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "VERIFIED")} disabled={s.verification_status === "VERIFIED"}>Verify</Button>
+              <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "REJECTED")} disabled={s.verification_status === "REJECTED"}>Reject</Button>
             </div>
           </Card>
         ))}
       </div>
+      </DashboardSection>
     </div>
   );
 }
