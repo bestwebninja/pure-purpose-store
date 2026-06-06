@@ -132,6 +132,7 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
           .from("cases")
           .select("id,status,priority,target_amount,created_at,category_id,country")
           .in("id", caseIds)
+          .in("country", ["US", "IL"])
       : Promise.resolve({ data: [] as CaseRow[], error: null as null | { message: string } }),
     caseIds.length
       ? supabaseAdmin
