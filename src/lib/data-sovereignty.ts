@@ -112,11 +112,11 @@ export function isAllowedLocation(location: string | null | undefined): boolean 
 }
 
 /** Generic in-memory filter for rows with a `country` field. */
-export function filterAllowedRows<T extends { country?: string | null }>(rows: T[]): T[] {
+export function filterAllowedRows<T extends { country?: string | null | undefined }>(rows: T[]): T[] {
   return rows.filter((r) => isAllowedCountry(r.country));
 }
 
 /** Filter rows that only carry a `location` text field. */
-export function filterAllowedByLocation<T extends { location?: string | null }>(rows: T[]): T[] {
-  return rows.filter((r) => isAllowedLocation(r.location));
+export function filterAllowedByLocation<T extends Record<string, any>>(rows: T[]): T[] {
+  return rows.filter((r) => isAllowedLocation((r as any).location));
 }
