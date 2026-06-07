@@ -57,7 +57,6 @@ function Hero() {
           backgroundSize: "28px 28px",
         }}
       />
-      <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-accent/30 blur-3xl" aria-hidden />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 md:grid-cols-[1.1fr_1fr] md:py-32">
         <div className="space-y-8">
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
