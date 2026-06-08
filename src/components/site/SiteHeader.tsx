@@ -85,8 +85,8 @@ export function SiteHeader() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 text-foreground backdrop-blur-md">
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-2 px-3 sm:h-28 sm:gap-4 sm:px-6 text-primary">
+    <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/10 bg-primary/95 text-primary-foreground backdrop-blur-md">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-2 px-3 sm:h-28 sm:gap-4 sm:px-6 text-primary-foreground">
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <img src={logoAsset.url} alt="MyBlessings" className="h-10 w-10 sm:h-12 sm:w-12 rounded-md bg-white object-contain p-0.5 text-right" />
           <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
@@ -97,8 +97,8 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-primary font-semibold underline underline-offset-4" }}
+              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
+              activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
             >
               {item.label}
             </Link>
@@ -106,8 +106,8 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-primary font-semibold underline underline-offset-4" }}
+              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
+              activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
             >
               Sponsor
             </Link>
@@ -151,7 +151,7 @@ export function SiteHeader() {
         <div className="flex shrink-0 items-center gap-2">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10 hover:text-primary" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="lg:hidden text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent" aria-label="Open menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
