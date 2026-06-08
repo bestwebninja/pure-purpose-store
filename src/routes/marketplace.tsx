@@ -39,7 +39,7 @@ function MarketplacePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Marketplace</h1>
-      <p className="mt-1 text-sm text-muted-foreground">Every blessing matters. Pick one to support.</p>
+      <p className="mt-1 text-sm text-muted-foreground text-slate-300">Every blessing matters. Pick one to support.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       {feed && feed.campaigns.length === 0 ? (
         <p className="mt-10 text-sm text-muted-foreground">No active blessings yet — check back soon.</p>
