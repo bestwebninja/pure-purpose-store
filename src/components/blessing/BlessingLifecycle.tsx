@@ -39,7 +39,7 @@ export function BlessingLifecycle({
   compact?: boolean;
 }) {
   return <Card className="p-4 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between text-blue-600">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Blessing Lifecycle</h2>
         <Badge variant="secondary">live</Badge>
       </div>
