@@ -115,7 +115,7 @@ export function SiteHeader() {
           {isAdmin && (
             <DropdownMenu>
               <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90">
-                <ShieldCheck className="h-4 w-4 border-blue-400" />
+                <ShieldCheck className="h-4 w-4" />
                 Admin
                 <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>

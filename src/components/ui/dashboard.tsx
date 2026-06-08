@@ -45,7 +45,7 @@ export function DashboardSection({
               <h2 className="text-display text-xl font-semibold text-foreground">{title}</h2>
             )}
             {description && (
-              <p className="mt-1 text-sm text-muted-foreground text-black">{description}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{description}</p>
             )}
           </div>
           {actions && <div className="shrink-0">{actions}</div>}

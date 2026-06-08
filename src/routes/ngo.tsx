@@ -22,11 +22,11 @@ function NgoLanding() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
       <div className="text-center">
-        <h1 className="text-display text-4xl font-semibold sm:text-5xl text-foreground text-slate-200">Bring your Sincerest Empathy to MyBlessings</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+        <h1 className="text-display text-4xl font-semibold sm:text-5xl text-primary-foreground">Bring your Sincerest Empathy to MyBlessings</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-primary-foreground/80">
           Verified nonprofits link up their specific programs on helping others and we channel and monitor the funds our platform receives via our kind sponsors who fund our blessings with transparency, real-time donor updates with direct blessings.
         </p>
-        <Button asChild size="lg" className="mt-8 bg-blue-700">
+        <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft">
           <Link to="/ngo/onboarding">Start your NGO Application</Link>
         </Button>
       </div>
@@ -37,9 +37,9 @@ function NgoLanding() {
           { icon: Sparkles, title: "Free to join", body: "No setup or platform fees. We win when you do." },
         ].map((f) => (
           <Card key={f.title} className="p-6">
-            <f.icon className="h-6 w-6 text-primary" />
-            <h3 className="mt-3 font-semibold text-blue-800">{f.title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground text-black">{f.body}</p>
+            <f.icon className="h-6 w-6 text-accent" />
+            <h3 className="mt-3 font-semibold text-card-foreground">{f.title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
           </Card>
         ))}
       </div>
