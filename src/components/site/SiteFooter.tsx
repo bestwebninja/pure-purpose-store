@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import sunflowerField from "@/assets/sunflower-field.jpg";
-import logoAsset from "@/assets/myblessings-logo-2026.png.asset.json";
 
 export function SiteFooter() {
   return (
@@ -17,8 +16,6 @@ export function SiteFooter() {
         {/* Brand */}
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <img src={logoAsset.url} alt="MyBlessings" className="h-20 w-20 object-contain bg-transparent" />
-
             <span className="text-display text-lg font-semibold">
               MyBlessings
             </span>
