@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import sunflowerField from "@/assets/sunflower-field.jpg";
-import logoAsset from "@/assets/myblessings-logo.png.asset.json";
+import logoAsset from "@/assets/myblessings-logo-2026.png.asset.json";
 
 export function SiteFooter() {
   return (
