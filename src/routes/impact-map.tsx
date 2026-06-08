@@ -41,7 +41,7 @@ function ImpactMapPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Impact Map</h1>
-      <p className="mt-1 text-sm text-muted-foreground text-slate-300">Where blessings are landing, by region.</p>
+      <p className="mt-1 text-sm text-muted-foreground text-black">Where blessings are landing, by region.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       <Card className="mt-8 p-6">
         {data && data.regions.length === 0 ? (
