@@ -88,7 +88,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 text-foreground backdrop-blur-md">
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-2 px-3 sm:h-28 sm:gap-4 sm:px-6 text-primary">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <img src={logoAsset.url} alt="MyBlessings" className="h-10 w-10 sm:h-12 sm:w-12 rounded-md bg-white object-contain p-0.5" />
+          <img src={logoAsset.url} alt="MyBlessings" className="h-10 w-10 sm:h-12 sm:w-12 rounded-md bg-white object-contain p-0.5 text-right" />
           <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
         </Link>
         
