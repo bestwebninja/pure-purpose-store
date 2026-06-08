@@ -77,7 +77,7 @@ function MyBlessings() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-semibold">{c.title}</h3>
-                  {c.description && <p className="mt-1 text-sm text-muted-foreground text-slate-300">{c.description}</p>}
+                  {c.description && <p className="mt-1 text-sm text-muted-foreground text-black">{c.description}</p>}
                   <p className="mt-2 text-xs text-muted-foreground">
                     {[c.region, c.country].filter(Boolean).join(", ") || "Location not set"}
                   </p>

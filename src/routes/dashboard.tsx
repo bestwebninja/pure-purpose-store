@@ -35,7 +35,7 @@ function DashboardPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Your Dashboard</h1>
-          <p className="mt-1 text-sm text-muted-foreground text-slate-300">Live blessing activity, updated in real time.</p>
+          <p className="mt-1 text-sm text-muted-foreground text-black">Live blessing activity, updated in real time.</p>
         </div>
         <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Marketplace</Link></Button>
       </div>
