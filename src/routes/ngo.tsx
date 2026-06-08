@@ -38,7 +38,7 @@ function NgoLanding() {
         ].map((f) => (
           <Card key={f.title} className="p-6">
             <f.icon className="h-6 w-6 text-primary" />
-            <h3 className="mt-3 font-semibold">{f.title}</h3>
+            <h3 className="mt-3 font-semibold text-blue-800">{f.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground text-black">{f.body}</p>
           </Card>
         ))}
