@@ -376,7 +376,7 @@ function GodView() {
       </section>
 
       <Tabs defaultValue="ai" className="mt-6">
-        <TabsList className="h-9 items-center text-muted-foreground flex w-full flex-wrap justify-start gap-1 rounded-lg bg-muted/50 p-1 bg-blue-300">
+        <TabsList className="h-9 items-center text-muted-foreground flex w-full flex-wrap justify-start gap-1 rounded-lg bg-muted/50 p-1">
           <TabsTrigger value="map">Global Map</TabsTrigger>
           <TabsTrigger value="sponsors">Sponsors</TabsTrigger>
           <TabsTrigger value="funding">Funding Flow</TabsTrigger>
