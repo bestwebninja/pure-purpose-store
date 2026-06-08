@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { InspirationQuote } from "@/components/site/InspirationQuote";
@@ -32,6 +33,9 @@ export const Route = createFileRoute("/request-help")({
 
 const inputCls =
   "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent";
+
+const selectTriggerCls =
+  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground data-[placeholder]:text-primary-foreground/60 focus:ring-accent";
 
 const HELP_TYPES: { value: string; label: string }[] = [
   { value: "accommodation", label: "Accommodation" },
@@ -235,17 +239,16 @@ function RequestHelp() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-[120px_1fr_1fr]">
               <div className="space-y-2">
                 <Label htmlFor="salutation">Title</Label>
-                <select
-                  id="salutation"
-                  value={form.salutation}
-                  onChange={(e) => setForm({ ...form, salutation: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-                >
-                  <option value="" className="text-foreground">—</option>
-                  {SALUTATIONS.map((s) => (
-                    <option key={s} value={s} className="text-foreground">{s}</option>
-                  ))}
-                </select>
+                <Select value={form.salutation} onValueChange={(v) => setForm({ ...form, salutation: v })}>
+                  <SelectTrigger id="salutation" className={selectTriggerCls}>
+                    <SelectValue placeholder="—" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SALUTATIONS.map((s) => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="firstName">First name *</Label>
@@ -297,18 +300,16 @@ function RequestHelp() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Category *</Label>
-              <select
-                id="category"
-                required
-                value={form.category_id}
-                onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-                className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-              >
-                <option value="" className="text-foreground">Select a category</option>
-                {flatCategories.map((c) => (
-                  <option key={c.id} value={c.id} className="text-foreground">{c.label}</option>
-                ))}
-              </select>
+              <Select value={form.category_id} onValueChange={(v) => setForm({ ...form, category_id: v })}>
+                <SelectTrigger id="category" className={selectTriggerCls}>
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {flatCategories.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>{c.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Describe your situation</Label>
@@ -327,17 +328,19 @@ function RequestHelp() {
               {needs.map((n, i) => (
                 <div key={i} className="space-y-2">
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-[160px_1fr]">
-                    <select
-                      aria-label={`Help need ${i + 1} type`}
+                    <Select
                       value={n.type}
-                      onChange={(e) => updateNeed(i, { type: e.target.value, food_kind: e.target.value === "food" ? n.food_kind : undefined })}
-                      className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+                      onValueChange={(v) => updateNeed(i, { type: v, food_kind: v === "food" ? n.food_kind : undefined })}
                     >
-                      <option value="" className="text-foreground">Type…</option>
-                      {HELP_TYPES.map((t) => (
-                        <option key={t.value} value={t.value} className="text-foreground">{t.label}</option>
-                      ))}
-                    </select>
+                      <SelectTrigger aria-label={`Help need ${i + 1} type`} className={selectTriggerCls}>
+                        <SelectValue placeholder="Type…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {HELP_TYPES.map((t) => (
+                          <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Input
                       className={inputCls}
                       maxLength={200}
@@ -347,17 +350,16 @@ function RequestHelp() {
                     />
                   </div>
                   {n.type === "food" && (
-                    <select
-                      aria-label={`Food kind for need ${i + 1}`}
-                      value={n.food_kind ?? ""}
-                      onChange={(e) => updateNeed(i, { food_kind: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-sm text-primary-foreground focus-visible:border-accent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-                    >
-                      <option value="" className="text-foreground">Choose food kind…</option>
-                      {FOOD_KINDS.map((f) => (
-                        <option key={f.value} value={f.value} className="text-foreground">{f.label}</option>
-                      ))}
-                    </select>
+                    <Select value={n.food_kind ?? ""} onValueChange={(v) => updateNeed(i, { food_kind: v })}>
+                      <SelectTrigger aria-label={`Food kind for need ${i + 1}`} className={selectTriggerCls}>
+                        <SelectValue placeholder="Choose food kind…" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {FOOD_KINDS.map((f) => (
+                          <SelectItem key={f.value} value={f.value}>{f.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   )}
                 </div>
               ))}
