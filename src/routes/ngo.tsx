@@ -26,7 +26,7 @@ function NgoLanding() {
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
           Verified nonprofits link up their specific programs on helping others and we channel and monitor the funds our platform receives via our kind sponsors who fund our blessings with transparency, real-time donor updates with direct blessings.
         </p>
-        <Button asChild size="lg" className="mt-8">
+        <Button asChild size="lg" className="mt-8 bg-blue-700">
           <Link to="/ngo/onboarding">Start your NGO Application</Link>
         </Button>
       </div>
