@@ -86,9 +86,9 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/15 bg-primary/85 text-primary-foreground backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 bg-slate-200 text-primary">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-2 px-3 sm:h-28 sm:gap-4 sm:px-6 bg-slate-200 text-primary">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <img src={logoAsset.url} alt="MyBlessings" className="h-14 w-14 sm:h-16 sm:w-16 object-contain" />
+          <img src={logoAsset.url} alt="MyBlessings" className="h-20 w-20 sm:h-24 sm:w-24 object-contain" />
           <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
         </Link>
         
