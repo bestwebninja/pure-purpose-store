@@ -80,7 +80,7 @@ function TransparencyPage() {
           </div>
           <div>
             <h2 className="text-xl font-medium">100% Direct Path Routing</h2>
-            <p className="mt-1 text-sm text-muted-foreground text-primary-foreground leading-relaxed">
+            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Disbursements pass directly to verified healthcare providers, schools, vendor systems, or merchant accounts to settle basic life needs with no intermediary processing cuts.
             </p>
           </div>
@@ -92,7 +92,7 @@ function TransparencyPage() {
           </div>
           <div>
             <h2 className="text-xl font-medium">Verified by Partner NGOs</h2>
-            <p className="mt-1 text-sm text-muted-foreground text-primary-foreground leading-relaxed">
+            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Recipients register specific aid request tickets which are evaluated alongside local community leaders to keep accountability airtight.
             </p>
           </div>
