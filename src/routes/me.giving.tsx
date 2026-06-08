@@ -92,7 +92,7 @@ function MyGiving() {
                   <span>{new Date(d.created_at).toLocaleDateString()}</span>
                   {d.is_anonymous && <Badge variant="outline">Anonymous</Badge>}
                 </div>
-                {d.message && <p className="mt-1 text-sm text-muted-foreground italic">"{d.message}"</p>}
+                {d.message && <p className="mt-1 text-sm text-muted-foreground text-slate-300 italic">"{d.message}"</p>}
               </div>
               <p className="shrink-0 text-display text-lg font-semibold">{formatMoney(Number(d.amount), d.currency)}</p>
             </div>
