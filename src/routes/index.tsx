@@ -62,7 +62,7 @@ function Hero() {
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" /> AUTONOMOUS HUMANITARIAN INFRASTRUCTURE AND STABILIZATION OPERATING SYSTEM
           </span>
-          <h1 className="text-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl text-white">
+          <h1 className="text-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl text-primary-foreground">
             Give with purpose.
             <br />
             <span className="italic text-accent">Receive blessings.</span>
@@ -248,7 +248,7 @@ function CTA() {
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1.5fr_1fr] md:items-center">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-accent">Take a minute</p>
-          <h2 className="text-display mt-3 text-4xl font-bold leading-[1.05] md:text-6xl text-white">
+          <h2 className="text-display mt-3 text-4xl font-bold leading-[1.05] md:text-6xl text-primary-foreground">
             One blessing<br/>can change a life.
           </h2>
           <p className="mt-5 max-w-xl text-primary-foreground/75">

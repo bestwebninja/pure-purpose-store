@@ -394,7 +394,7 @@ function GodView() {
           <Card className="p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding Priority Queue</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Funding Priority Queue</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   Heuristic composite from urgency, stability, delivery confidence, sponsor alignment, and economic impact.
                   {lastRecompute ? (
@@ -469,7 +469,7 @@ function GodView() {
 
         <TabsContent value="map" className="mt-4">
           <Card className="p-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Global Map</h2>
             <p className="mt-2 text-sm text-muted-foreground text-primary-foreground">
               Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 — counts shown above
               already reflect live data scoped by country.
@@ -479,7 +479,7 @@ function GodView() {
 
         <TabsContent value="sponsors" className="mt-4">
           <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor pipeline</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Sponsor pipeline</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Total" value={counts.sponsors} tone="info" />
               <StatTile label="Pending verification" value={counts.sponsorsPending} tone={counts.sponsorsPending ? "warn" : "ok"} />
@@ -490,7 +490,7 @@ function GodView() {
 
         <TabsContent value="funding" className="mt-4">
           <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding flow</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Funding flow</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
               <StatTile label="Sponsorships placed" value={counts.sponsorships} tone="info" />
@@ -502,7 +502,7 @@ function GodView() {
         <TabsContent value="fulfillment" className="mt-4">
           <Card className="p-0">
             <div className="flex items-center justify-between p-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Recent fulfillment events</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Recent fulfillment events</h2>
               <Badge variant="outline">{events.length}</Badge>
             </div>
             <Table>
@@ -534,7 +534,7 @@ function GodView() {
 
         <TabsContent value="suppliers" className="mt-4">
           <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Suppliers / providers</h2>
             <p className="text-sm text-muted-foreground text-primary-foreground">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
               ship with the routing engine in Phase 4.
@@ -544,7 +544,7 @@ function GodView() {
 
         <TabsContent value="ngo" className="mt-4">
           <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">NGO trust</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">NGO trust</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Applications" value={counts.ngos} tone="info" />
               <StatTile label="Pending review" value={counts.ngosPending} tone={counts.ngosPending ? "warn" : "ok"} />
@@ -557,7 +557,7 @@ function GodView() {
           <Card className="p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">AI Decisions Feed</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">AI Decisions Feed</h2>
                 <p className="mt-1 text-xs text-muted-foreground">Live stream of routing matches and fulfillment events.</p>
               </div>
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
@@ -616,7 +616,7 @@ function GodView() {
 
         <TabsContent value="treasury" className="mt-4">
           <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Treasury</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Treasury</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Lifetime donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
               <StatTile label="Sponsorships" value={counts.sponsorships} tone="info" />
@@ -629,7 +629,7 @@ function GodView() {
           <Card className="p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports — Funding Flywheel</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Sponsor Reports — Funding Flywheel</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   Drafts await Operator approval at L0–L2. Reports auto-send at L3 (Autonomous).
                 </p>
@@ -698,7 +698,7 @@ function GodView() {
           <Card className="p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Autonomy levers</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Autonomy levers</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   0 Manual · 1 Suggest · 2 Assisted · 3 Autonomous. Changes apply instantly.
                 </p>
