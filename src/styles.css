@@ -228,6 +228,64 @@
   section[class*="bg-gradient-hero"] h3 {
     color: oklch(1 0 0) !important;
   }
+
+  /*
+   * GLOBAL WHITE-TEXT-ON-DARK RULE
+   * Any container painted with our dark navy surfaces (bg-primary,
+   * bg-gradient-hero, bg-gradient-primary, the dark hex used by
+   * explore-blessings / admin shell) forces white text for all descendants —
+   * including muted/slate tokens that would otherwise be hard to read.
+   */
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"],
+    header,
+    footer
+  ) :where(p, span, li, dt, dd, a, label, small, strong, em, blockquote, figcaption) {
+    color: oklch(1 0 0);
+  }
+
+  /* Neutralize gray/slate utilities when nested on dark surfaces */
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"]
+  ) .text-muted-foreground,
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"]
+  ) [class*="text-slate-"],
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"]
+  ) [class*="text-gray-"],
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"]
+  ) [class*="text-zinc-"],
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    [class*="bg-[#06102e]"],
+    [class*="bg-[#081C50]"]
+  ) [class*="text-neutral-"] {
+    color: oklch(1 0 0 / 0.85) !important;
+  }
 }
 
 @utility text-display {
