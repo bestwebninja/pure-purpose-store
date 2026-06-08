@@ -230,7 +230,7 @@ function CorporateSignup() {
         <button
           onClick={handleSubmit}
           disabled={submitting || submitted}
-          className="w-full rounded-md bg-accent py-3 font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-60 bg-blue-900"
+          className="w-full rounded-md bg-accent py-3 font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-60 bg-blue-900 text-slate-300"
         >
           {submitted ? "Submitted ✓" : submitting ? "Submitting…" : "Submit Corporate Application"}
         </button>
