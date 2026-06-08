@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
 import sunflowerField from "@/assets/sunflower-field.jpg";
+import logoAsset from "@/assets/myblessings-logo.png.asset.json";
 
 export function SiteFooter() {
   return (
@@ -17,9 +17,7 @@ export function SiteFooter() {
         {/* Brand */}
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary shadow-soft">
-              <Heart className="h-4 w-4 text-primary-foreground" fill="currentColor" />
-            </span>
+            <img src={logoAsset.url} alt="MyBlessings" className="h-9 w-9 object-contain" />
 
             <span className="text-display text-lg font-semibold">
               MyBlessings
