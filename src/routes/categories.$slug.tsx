@@ -52,7 +52,7 @@ function CategoryPage() {
   
   return (
     <div className="mx-auto max-w-7xl px-6 py-12 text-primary-foreground">
-      <Link to="/categories" className="inline-flex items-center text-sm text-muted-foreground text-primary-foreground hover:text-foreground">
+      <Link to="/categories" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="mr-1 h-4 w-4" /> All categories
       </Link>
       <h1 className="text-display mt-4 text-4xl font-semibold">{category!.name}</h1>

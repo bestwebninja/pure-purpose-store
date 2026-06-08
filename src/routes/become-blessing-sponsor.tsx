@@ -94,7 +94,8 @@ function BecomeSponsor() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl bg-primary px-4 py-8 text-primary-foreground sm:px-6 sm:py-16">
+    <div className="min-h-screen bg-primary text-primary-foreground">
+      <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Become a Blessing Sponsor</h1>
       <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
       <Card className="mt-8 border-primary-foreground/20 bg-primary p-4 text-primary-foreground sm:p-6">
@@ -174,6 +175,7 @@ function BecomeSponsor() {
           </Button>
         </form>
       </Card>
+      </div>
     </div>
   );
 }

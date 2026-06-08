@@ -34,7 +34,7 @@ export function CampaignCard({
             </span>
           </div>
           <h3 className="text-display line-clamp-2 text-xl font-semibold leading-snug">{campaign.title}</h3>
-          {campaign.short_description && <p className="line-clamp-2 text-sm text-muted-foreground text-primary-foreground">{campaign.short_description}</p>}
+          {campaign.short_description && <p className="line-clamp-2 text-sm text-muted-foreground">{campaign.short_description}</p>}
           <div className="space-y-2">
             <Progress value={pct} className="h-2" />
             <div className="flex items-baseline justify-between text-sm">
