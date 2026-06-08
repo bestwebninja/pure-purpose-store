@@ -3,7 +3,7 @@ import { ChevronDown, ShieldCheck, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GiveBlessingButton } from "@/components/site/GiveBlessingButton";
-import logoAsset from "@/assets/myblessings-logo-v3.png.asset.json";
+import logoAsset from "@/assets/myblessings-logo-v4.png.asset.json";
 import {
   DropdownMenu,
   DropdownMenuContent,
