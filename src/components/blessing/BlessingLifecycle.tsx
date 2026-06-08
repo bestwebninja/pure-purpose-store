@@ -38,9 +38,9 @@ export function BlessingLifecycle({
   counts: LifecycleCounts;
   compact?: boolean;
 }) {
-  return <Card className="p-4 sm:p-6">
-      <div className="mb-4 flex items-center justify-between text-blue-600">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Blessing Lifecycle</h2>
+  return <Card className="p-4 sm:p-6 text-[#06102e] [&_*]:!text-[#06102e]">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-sm font-semibold uppercase tracking-wide">Blessing Lifecycle</h2>
         <Badge variant="secondary">live</Badge>
       </div>
       <ol className={`grid gap-2 sm:gap-3 ${compact ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-6" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-6"}`}>
@@ -50,11 +50,11 @@ export function BlessingLifecycle({
         Icon
       }, i) => <li key={key} className="relative">
             <div className="rounded-lg border border-border/60 bg-card p-3 transition-shadow hover:shadow-card sm:p-4">
-              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide text-muted-foreground sm:gap-2 sm:text-xs">
+              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wide sm:gap-2 sm:text-xs">
                 <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span className="truncate">{i + 1}. {label}</span>
               </div>
-              <div className="mt-1 text-xl font-semibold text-foreground sm:mt-2 sm:text-2xl">{counts[key]}</div>
+              <div className="mt-1 text-xl font-semibold sm:mt-2 sm:text-2xl">{counts[key]}</div>
             </div>
           </li>)}
       </ol>
