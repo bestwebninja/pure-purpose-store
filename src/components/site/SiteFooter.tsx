@@ -17,7 +17,7 @@ export function SiteFooter() {
         {/* Brand */}
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <img src={logoAsset.url} alt="MyBlessings" className="h-9 w-9 object-contain" />
+            <img src={logoAsset.url} alt="MyBlessings" className="h-20 w-20 object-contain bg-transparent" />
 
             <span className="text-display text-lg font-semibold">
               MyBlessings
