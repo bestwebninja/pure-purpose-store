@@ -20,6 +20,10 @@ const FormSchema = z.object({
   country: z.enum(["US", "IL"], { message: "Country must be United States or Israel" }),
   geography: z.string().min(2, "Geography of impact is required"),
   causes: z.array(z.string()).min(1, "Select at least one cause"),
+  address_street: z.string().min(2, "Street address is required").max(255),
+  address_city: z.string().min(1, "City is required").max(120),
+  address_region: z.string().min(1, "State / region is required").max(120),
+  address_postal_code: z.string().min(3, "Postal code is required").max(20).regex(/^[0-9A-Za-z\- ]+$/, "Postal code can include digits, letters, spaces and hyphens"),
 });
 
 const NTEE_CATEGORIES = [
@@ -84,7 +88,7 @@ function NgoOnboardingPage() {
     <div className="mx-auto max-w-3xl px-6 py-12">
       <header className="mb-12">
         <h1 className="text-display text-4xl font-semibold text-foreground">Nonprofit Intake & Verification</h1>
-        <p className="mt-2 text-muted-foreground">Please complete all sections for vetting and registration.</p>
+        <p className="mt-2 text-foreground/80">Please complete all sections for vetting and registration.</p>
         
         <nav className="mt-6 flex flex-wrap gap-2">
           <Button variant="secondary" size="sm" onClick={() => scrollTo("section-identity")}>1. Identity</Button>
@@ -192,6 +196,50 @@ function NgoOnboardingPage() {
               <div className="space-y-2">
                 <Label htmlFor="geography">Geography of Impact</Label>
                 <Input id="geography" {...form.register("geography")} placeholder="e.g. US — California, Israel — Tel Aviv" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="address_street">Street Address</Label>
+              <Input
+                id="address_street"
+                {...form.register("address_street")}
+                placeholder="123 Main Street, Suite 400"
+                autoComplete="street-address"
+                inputMode="text"
+              />
+              {form.formState.errors.address_street && (
+                <p className="text-xs text-destructive">{form.formState.errors.address_street.message}</p>
+              )}
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-2">
+                <Label htmlFor="address_city">City</Label>
+                <Input
+                  id="address_city"
+                  {...form.register("address_city")}
+                  placeholder="City"
+                  autoComplete="address-level2"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="address_region">State / Region</Label>
+                <Input
+                  id="address_region"
+                  {...form.register("address_region")}
+                  placeholder="State or region"
+                  autoComplete="address-level1"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="address_postal_code">Postal Code</Label>
+                <Input
+                  id="address_postal_code"
+                  {...form.register("address_postal_code")}
+                  placeholder="e.g. 94103"
+                  autoComplete="postal-code"
+                  inputMode="numeric"
+                  pattern="[0-9A-Za-z\- ]*"
+                />
               </div>
             </div>
           </div>
