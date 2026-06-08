@@ -97,7 +97,7 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-serif text-lg font-medium text-primary/80 transition-colors hover:text-primary"
+              className="font-serif text-lg font-medium whitespace-nowrap text-primary/80 transition-colors hover:text-primary"
               activeProps={{ className: "text-primary font-semibold underline underline-offset-4" }}
             >
               {item.label}
@@ -106,7 +106,7 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-serif text-lg font-medium text-primary/80 transition-colors hover:text-primary"
+              className="font-serif text-lg font-medium whitespace-nowrap text-primary/80 transition-colors hover:text-primary"
               activeProps={{ className: "text-primary font-semibold underline underline-offset-4" }}
             >
               Sponsor
@@ -242,14 +242,14 @@ export function SiteHeader() {
           </Sheet>
           
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex text-primary hover:bg-accent hover:text-accent-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap xl:inline-flex text-primary hover:bg-accent hover:text-accent-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
           
           {userId ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-primary/80 outline-none transition hover:bg-primary/10 hover:text-primary sm:inline-flex">
+              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md bg-accent px-3 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90 sm:inline-flex">
                 <Avatar className="h-7 w-7">
                   {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
                   <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
