@@ -97,7 +97,7 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg"
+              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg text-blue-600"
               activeProps={{ className: "text-primary-foreground" }}
             >
               {item.label}
@@ -106,7 +106,7 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg"
+              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg text-blue-600"
               activeProps={{ className: "text-primary-foreground" }}
             >
               Sponsor
