@@ -84,7 +84,7 @@ export function SiteHeader() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/15 bg-primary/85 text-primary-foreground backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary shadow-soft">
@@ -98,8 +98,8 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-medium text-muted-foreground transition-colors hover:text-foreground font-serif text-lg"
-              activeProps={{ className: "text-foreground" }}
+              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg"
+              activeProps={{ className: "text-primary-foreground" }}
             >
               {item.label}
             </Link>
@@ -107,8 +107,8 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-medium text-muted-foreground transition-colors hover:text-foreground font-serif text-lg"
-              activeProps={{ className: "text-foreground" }}
+              className="font-medium text-primary-foreground/75 transition-colors hover:text-primary-foreground font-serif text-lg"
+              activeProps={{ className: "text-primary-foreground" }}
             >
               Sponsor
             </Link>
@@ -243,14 +243,14 @@ export function SiteHeader() {
           </Sheet>
           
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex hover:bg-accent hover:text-accent-foreground text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm xl:inline-flex text-primary-foreground hover:bg-accent hover:text-accent-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
           
           {userId ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-muted-foreground outline-none transition hover:bg-muted hover:text-foreground sm:inline-flex">
+              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md px-2 text-sm font-medium text-primary-foreground/80 outline-none transition hover:bg-primary-foreground/10 hover:text-primary-foreground sm:inline-flex">
                 <Avatar className="h-7 w-7">
                   {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
                   <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
@@ -275,7 +275,7 @@ export function SiteHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex hover:bg-accent hover:text-accent-foreground text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm sm:inline-flex text-primary-foreground hover:bg-accent hover:text-accent-foreground">
               <Link to="/login">Login</Link>
             </Button>
           )}
