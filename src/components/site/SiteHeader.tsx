@@ -1,8 +1,9 @@
 ﻿import { Link, useNavigate } from "@tanstack/react-router";
-import { Heart, ChevronDown, ShieldCheck, Menu } from "lucide-react";
+import { ChevronDown, ShieldCheck, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { GiveBlessingButton } from "@/components/site/GiveBlessingButton";
+import logoAsset from "@/assets/myblessings-logo.png.asset.json";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -87,9 +88,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/15 bg-primary/85 text-primary-foreground backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-primary shadow-soft">
-            <Heart className="h-4 w-4 text-primary-foreground" fill="currentColor" />
-          </span>
+          <img src={logoAsset.url} alt="MyBlessings" className="h-9 w-9 object-contain" />
           <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
         </Link>
         
