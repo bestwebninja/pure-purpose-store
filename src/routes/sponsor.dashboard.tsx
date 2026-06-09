@@ -78,7 +78,7 @@ function SponsorDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-display text-3xl font-semibold text-primary-foreground">Sponsor Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Welcome back, {sponsor.organization_name || sponsor.sponsor_role}.</p>
+          <p className="text-sm text-muted-foreground text-black">Welcome back, {sponsor.organization_name || sponsor.sponsor_role}.</p>
         </div>
         <Badge variant={sponsor.verification_status === "VERIFIED" ? "default" : "secondary"}>
           {sponsor.verification_status}
@@ -100,7 +100,7 @@ function SponsorDashboard() {
           <h2 className="text-sm font-semibold text-muted-foreground">Help Interests</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {sponsor.help_interests.length === 0 ? (
-              <span className="text-sm text-muted-foreground">None selected</span>
+              <span className="text-sm text-muted-foreground text-black">None selected</span>
             ) : (
               sponsor.help_interests.map((h) => <Badge key={h} variant="outline">{h}</Badge>)
             )}

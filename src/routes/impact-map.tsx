@@ -45,7 +45,7 @@ function ImpactMapPage() {
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       <Card className="mt-8 p-6">
         {data && data.regions.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No regional impact data yet.</p>
+          <p className="text-sm text-muted-foreground text-black">No regional impact data yet.</p>
         ) : (
           <ul className="space-y-3">
             {data?.regions.map((r) => (

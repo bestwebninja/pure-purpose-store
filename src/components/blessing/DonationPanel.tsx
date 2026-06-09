@@ -76,7 +76,7 @@ export function DonationPanel({
           <span className="text-display text-2xl font-semibold">
             {formatMoney(campaign.raised_amount, campaign.currency)}
           </span>
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground text-black">
             of {formatMoney(campaign.goal_amount, campaign.currency)}
           </span>
         </div>

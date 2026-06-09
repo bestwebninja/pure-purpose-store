@@ -60,7 +60,7 @@ function CategoryPage() {
       <div className="mt-10">
         {live.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border/80 bg-muted/30 p-12 text-center">
-            <p className="text-sm text-muted-foreground">No active blessings in this category yet.</p>
+            <p className="text-sm text-muted-foreground text-black">No active blessings in this category yet.</p>
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
