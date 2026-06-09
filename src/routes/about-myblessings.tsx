@@ -114,7 +114,7 @@ function AboutMyBlessings() {
             <br /><br />
             ✅ Sponsor Intelligence Layer
             <br />
-            Businesses and philanthropists don't just donate—they receive visibility into where support is needed most and how their contributions create measurable outcomes.
+            Businesses and philanthropists don't just donate, they receive visibility into where support is needed most and how their contributions create measurable outcomes.
             <br /><br />
             ✅ USA + Israel Data Sovereignty
             <br />
@@ -122,7 +122,7 @@ function AboutMyBlessings() {
             <br /><br />
             ✅ Multi-Channel Engagement
             <br />
-            Web, email, WhatsApp, SMS, and future Telegram integration ensure NGOs, sponsors, and communities stay connected in real time.
+            Web, email, WhatsApp, SMS, and future Telegram 24/7 MyBlessing bot integration ensure NGOs, sponsors, and communities stay connected in real time.
           </p>
         </div>
       </section>
