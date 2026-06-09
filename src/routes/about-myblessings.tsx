@@ -20,7 +20,7 @@ export const Route = createFileRoute("/about-myblessings")({
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-display text-2xl uppercase tracking-wide text-accent font-light text-slate-300">{title}</div>
+      <div className="text-display text-2xl uppercase tracking-wide text-accent font-light">{title}</div>
       <div className="mt-3 space-y-3 text-base leading-relaxed text-primary-foreground/90">{children}</div>
     </div>
   );
@@ -132,10 +132,10 @@ function AboutMyBlessings() {
           <Button asChild size="lg" className="w-full max-w-xs bg-accent text-accent-foreground hover:bg-accent/90">
             <Link to="/give-a-blessing"><HandHeart className="mr-2 h-4 w-4" /> Give a Blessing 🙏</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full max-w-xs border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 bg-blue-800">
+          <Button asChild size="lg" variant="outline" className="w-full max-w-xs border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20">
             <Link to="/request-help"><Compass className="mr-2 h-4 w-4" /> BlessME</Link>
           </Button>
-          <Button asChild size="lg" variant="outline" className="w-full max-w-xs border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 bg-blue-800">
+          <Button asChild size="lg" variant="outline" className="w-full max-w-xs border-primary-foreground/40 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20">
             <Link to="/ngo"><Globe className="mr-2 h-4 w-4" /> Become a Partner </Link>
           </Button>
         </div>

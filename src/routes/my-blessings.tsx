@@ -53,7 +53,7 @@ function MyBlessings() {
     <div className="mx-auto max-w-4xl px-6 py-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display text-3xl font-semibold text-foreground text-slate-300">My Blessings</h1>
+          <h1 className="text-display text-3xl font-semibold text-foreground">My Blessings</h1>
           <p className="text-sm text-muted-foreground text-black">Your help requests and their status.</p>
         </div>
         <Button asChild>
