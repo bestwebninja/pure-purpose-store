@@ -319,6 +319,15 @@
   box-shadow: var(--shadow-blessing-glow);
 }
 
+@utility surface-card {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+}
+
 @utility font-blessing {
   font-family: var(--font-blessing);
 }
