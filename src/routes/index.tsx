@@ -166,7 +166,7 @@ function ImpactStrip() {
             <div className="text-display text-3xl text-primary md:text-4xl">
               {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
+            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">{s.label}</div>
           </div>
         ))}
       </div>
@@ -231,7 +231,7 @@ function Testimony() {
           <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-primary text-primary-foreground">A</div>
           <div>
             <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
-            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient · Healthcare</div>
+            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">Recipient · Healthcare</div>
           </div>
         </div>
       </div>
