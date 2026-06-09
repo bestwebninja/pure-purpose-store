@@ -266,7 +266,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="h-14 rounded-md border-primary-foreground/40 bg-transparent text-base font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            className="h-14 rounded-md border-primary-foreground/40 text-base font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground bg-blue-600"
           >
             <Link to="/become-blessing-sponsor">Become a sponsor</Link>
           </Button>
