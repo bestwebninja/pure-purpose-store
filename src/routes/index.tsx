@@ -68,9 +68,7 @@ function Hero() {
             <span className="italic text-accent">Receive blessings.</span>
           </h1>
           <p className="max-w-xl text-lg leading-relaxed text-primary-foreground/80">
-            MyBlessings is a transparent giving platform where every dollar is tracked,
-            every story is verified, and every recipient is honored. Built on accountability,
-            and AI algorithms.
+            MyBlessings is an AI-powered Blessing Intelligence Platform serving the United States and Israel, connecting people in need with verified NGOs, sponsors, volunteers, businesses, and communities through measurable acts of giving, while using nonprofit verification, sponsor matching, geographic intelligence, and AI-driven allocation to transform compassion into coordinated, real-world impact.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button
