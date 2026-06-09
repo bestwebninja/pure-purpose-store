@@ -1,7 +1,8 @@
-﻿import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, ShieldCheck, Sparkles } from "lucide-react";
+import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 
 export const Route = createFileRoute("/ngo")({
   head: () => ({
@@ -20,10 +21,10 @@ function NgoLanding() {
   const hasChild = matches.some((m) => m.routeId !== "/ngo" && m.routeId.startsWith("/ngo"));
   if (hasChild) return <Outlet />;
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
+    <SurfaceLayout>
       <div className="text-center">
-        <h1 className="text-display text-4xl font-semibold sm:text-5xl text-primary-foreground">Bring your Sincerest Empathy to MyBlessings</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-primary-foreground/80">
+        <h1 className="text-display text-4xl font-semibold sm:text-5xl text-foreground">Bring your Sincerest Empathy to MyBlessings</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
           Verified nonprofits link up their specific programs on helping others and we channel and monitor the funds our platform receives via our kind sponsors who fund our blessings with transparency, real-time donor updates with direct blessings.
         </p>
         <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90 shadow-soft">
@@ -36,14 +37,13 @@ function NgoLanding() {
           { icon: Heart, title: "Direct giving", body: "Donors connect with your cause and see exactly how funds are used." },
           { icon: Sparkles, title: "Free to join", body: "No setup or platform fees. We win when you do." },
         ].map((f) => (
-          <Card key={f.title} className="p-6">
+          <Card key={f.title} className="surface-card">
             <f.icon className="h-6 w-6 text-accent" />
             <h3 className="mt-3 font-semibold text-card-foreground">{f.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
           </Card>
         ))}
       </div>
-    </div>
+    </SurfaceLayout>
   );
 }
-

@@ -7,6 +7,7 @@ import { BlessingLifecycle } from "@/components/blessing/BlessingLifecycle";
 import { BlessingPaymentForm } from "@/components/blessing/BlessingPaymentForm";
 import { getLifecycleCounts, type LifecycleCounts } from "@/lib/gateway";
 import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
+import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -31,11 +32,11 @@ function DashboardPage() {
   if (useChildMatches().length > 0) return <Outlet />;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+    <SurfaceLayout>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-display text-2xl font-semibold sm:text-3xl">Your Dashboard</h1>
-          <p className="mt-1 text-sm text-muted-foreground text-black">Live blessing activity, updated in real time.</p>
+          <h1 className="text-display text-2xl font-semibold text-foreground sm:text-3xl">Your Dashboard</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Live blessing activity, updated in real time.</p>
         </div>
         <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Campaigns</Link></Button>
       </div>
@@ -43,7 +44,7 @@ function DashboardPage() {
         {counts && <BlessingLifecycle counts={counts} />}
         <div className="grid gap-6 md:grid-cols-2">
           <BlessingPaymentForm />
-          <Card className="p-6">
+          <Card className="surface-card">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Quick links</h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li><Link to="/marketplace" className="underline">Campaigns</Link></li>
@@ -54,7 +55,7 @@ function DashboardPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </SurfaceLayout>
   );
 }
 

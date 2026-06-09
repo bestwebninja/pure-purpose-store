@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 
 const FormSchema = z.object({
   name: z.string().min(2, "Legal name is required"),
@@ -85,10 +86,11 @@ function NgoOnboardingPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12">
+    <SurfaceLayout>
+      <div className="mx-auto max-w-3xl text-foreground">
       <header className="mb-12">
         <h1 className="text-display text-4xl font-semibold text-foreground">Nonprofit Intake & Verification</h1>
-        <p className="mt-2 text-foreground/80">Please complete all sections for vetting and registration.</p>
+        <p className="mt-2 text-muted-foreground">Please complete all sections for vetting and registration.</p>
         
         <nav className="mt-6 flex flex-wrap gap-2">
           <Button variant="secondary" size="sm" onClick={() => scrollTo("section-identity")}>1. Identity</Button>
@@ -97,10 +99,10 @@ function NgoOnboardingPage() {
         </nav>
       </header>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-16">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10 text-foreground">
         {/* Identity Section */}
-        <section id="section-identity" className="scroll-mt-24 space-y-6">
-          <div className="border-b pb-2">
+        <section id="section-identity" className="surface-card scroll-mt-24 space-y-6">
+          <div className="border-b border-border pb-2">
             <h2 className="text-xl font-bold">1. Legal Identity</h2>
           </div>
           
@@ -146,8 +148,8 @@ function NgoOnboardingPage() {
         </section>
 
         {/* Mission Section */}
-        <section id="section-mission" className="scroll-mt-24 space-y-6">
-          <div className="border-b pb-2">
+        <section id="section-mission" className="surface-card scroll-mt-24 space-y-6">
+          <div className="border-b border-border pb-2">
             <h2 className="text-xl font-bold">2. Help Interests</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -168,8 +170,8 @@ function NgoOnboardingPage() {
         </section>
 
         {/* Contact/Impact Section */}
-        <section id="section-impact" className="scroll-mt-24 space-y-6">
-          <div className="border-b pb-2">
+        <section id="section-impact" className="surface-card scroll-mt-24 space-y-6">
+          <div className="border-b border-border pb-2">
             <h2 className="text-xl font-bold">3. Contact & Impact</h2>
           </div>
           <div className="space-y-4">
@@ -249,7 +251,8 @@ function NgoOnboardingPage() {
           {isSubmitting ? "Processing Application..." : "Submit"}
         </Button>
       </form>
-    </div>
+      </div>
+    </SurfaceLayout>
   );
 }
 
