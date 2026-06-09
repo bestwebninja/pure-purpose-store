@@ -20,7 +20,7 @@ const NAV = [
   { to: "/explore-blessings", label: "Blessings" },
   { to: "/request-help", label: "BlessME" },
   { to: "/my-blessings", label: "My Blessings" },
-  { to: "/marketplace", label: "Marketplace" },
+  { to: "/marketplace", label: "Campaigns" },
   { to: "/impact-map", label: "Impact Map" },
 ] as const;
 

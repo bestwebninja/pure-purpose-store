@@ -9,10 +9,10 @@ import { useLifecycleRealtime } from "@/hooks/useLifecycleRealtime";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "Marketplace — MyBlessings" },
-      { name: "description", content: "Browse active blessings and choose who to support." },
-      { property: "og:title", content: "Marketplace — MyBlessings" },
-      { property: "og:description", content: "Browse active blessings and choose who to support." },
+      { title: "Campaigns — MyBlessings" },
+      { name: "description", content: "Browse active campaigns and choose who to support." },
+      { property: "og:title", content: "Campaigns — MyBlessings" },
+      { property: "og:description", content: "Browse active campaigns and choose who to support." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/marketplace" },
     ],
     links: [{ rel: "canonical", href: "https://pure-purpose-store.lovable.app/marketplace" }],
@@ -38,7 +38,7 @@ function MarketplacePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
-      <h1 className="text-display text-2xl font-semibold sm:text-3xl text-primary-foreground">Marketplace</h1>
+      <h1 className="text-display text-2xl font-semibold sm:text-3xl text-primary-foreground">Campaigns</h1>
       <p className="mt-1 text-sm text-primary-foreground/75">Every blessing matters. Pick one to support.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       {feed && feed.campaigns.length === 0 ? (
