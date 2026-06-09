@@ -74,7 +74,7 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-md bg-accent px-8 text-base font-semibold text-primary shadow-glow hover:bg-accent/90"
+              className="h-12 rounded-md bg-accent px-8 text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-slate-300"
             >
               <Link to="/give-a-blessing">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a blessing
