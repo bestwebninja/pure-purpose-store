@@ -89,8 +89,42 @@ function AboutMyBlessings() {
 
         <div className="rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 p-8 text-center">
           <Sparkles className="mx-auto h-8 w-8 text-accent" />
-          <p className="mt-4 text-lg font-medium text-primary-foreground">
+          <p className="mt-4 text-lg font-medium text-primary-foreground text-left">
             If you have ever wanted to help someone but did not know how, you already belong here.
+            <br /><br /><br />
+            MyBlessings
+            <br /><br />
+            "Where compassion becomes infrastructure."
+            <br /><br />
+            MyBlessings is an AI-powered blessing exchange network operating across the United States and Israel, connecting people in need with NGOs, sponsors, volunteers, businesses, and communities through verified, measurable acts of giving.
+            <br /><br />
+            Unlike traditional donation platforms, MyBlessings is built as a Blessing Intelligence Platform—combining real-world requests, nonprofit verification, sponsor matching, geographic intelligence, and AI-driven allocation into a single ecosystem.
+            <br /><br />
+            What makes MyBlessings different?
+            <br /><br />
+            ✅ Verified Impact Network
+            <br />
+            Every NGO, sponsor, and request can be vetted, tracked, and measured through a structured onboarding and verification process.
+            <br /><br />
+            ✅ Petri Intelligence Engine
+            <br />
+            A proprietary matching system that analyzes location, urgency, category, availability, and community participation to surface the highest-impact opportunities.
+            <br /><br />
+            ✅ Blessing Marketplace
+            <br />
+            A live ecosystem where requests, sponsorship opportunities, volunteer needs, food assistance, accommodation support, and community projects can be discovered and fulfilled.
+            <br /><br />
+            ✅ Sponsor Intelligence Layer
+            <br />
+            Businesses and philanthropists don't just donate—they receive visibility into where support is needed most and how their contributions create measurable outcomes.
+            <br /><br />
+            ✅ USA + Israel Data Sovereignty
+            <br />
+            The platform is purpose-built for communities in the United States and Israel, allowing deeper regional intelligence, stronger verification, and more relevant matching.
+            <br /><br />
+            ✅ Multi-Channel Engagement
+            <br />
+            Web, email, WhatsApp, SMS, and future Telegram integration ensure NGOs, sponsors, and communities stay connected in real time.
           </p>
         </div>
       </section>
