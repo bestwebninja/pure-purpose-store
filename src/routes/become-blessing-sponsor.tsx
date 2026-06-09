@@ -170,7 +170,7 @@ function BecomeSponsor() {
             <FormTextarea surface="dark" id="verif" rows={3} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
           </FormField>
 
-          <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
+          <Button type="submit" className="w-full bg-primary-glow bg-blue-700" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit"}
           </Button>
         </form>
