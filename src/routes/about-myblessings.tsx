@@ -20,7 +20,7 @@ export const Route = createFileRoute("/about-myblessings")({
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-display text-2xl font-semibold uppercase tracking-wide text-accent">{title}</div>
+      <div className="text-display text-2xl uppercase tracking-wide text-accent font-light text-slate-300">{title}</div>
       <div className="mt-3 space-y-3 text-base leading-relaxed text-primary-foreground/90">{children}</div>
     </div>
   );
