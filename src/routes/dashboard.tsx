@@ -37,7 +37,7 @@ function DashboardPage() {
           <h1 className="text-display text-2xl font-semibold sm:text-3xl">Your Dashboard</h1>
           <p className="mt-1 text-sm text-muted-foreground text-black">Live blessing activity, updated in real time.</p>
         </div>
-        <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Marketplace</Link></Button>
+        <Button asChild variant="outline" size="sm"><Link to="/marketplace">Browse Campaigns</Link></Button>
       </div>
       <div className="mt-8 space-y-6">
         {counts && <BlessingLifecycle counts={counts} />}
@@ -46,7 +46,7 @@ function DashboardPage() {
           <Card className="p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Quick links</h2>
             <ul className="mt-3 space-y-2 text-sm">
-              <li><Link to="/marketplace" className="underline">Marketplace</Link></li>
+              <li><Link to="/marketplace" className="underline">Campaigns</Link></li>
               <li><Link to="/impact-map" className="underline">Impact Map</Link></li>
               <li><Link to="/admin/command-center" className="underline">Command Center</Link></li>
               <li><Link to="/me/giving" className="underline">My giving history</Link></li>
