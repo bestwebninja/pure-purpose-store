@@ -258,7 +258,7 @@ function CTA() {
           <Button
             asChild
             size="lg"
-            className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90"
+            className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600"
           >
             <Link to="/give-a-blessing"><Heart className="mr-2 h-5 w-5" fill="currentColor" /> Give a blessing</Link>
           </Button>
