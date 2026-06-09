@@ -54,7 +54,7 @@ function MyBlessings() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-display text-3xl font-semibold text-foreground text-slate-300">My Blessings</h1>
-          <p className="text-sm text-muted-foreground">Your help requests and their status.</p>
+          <p className="text-sm text-muted-foreground text-black">Your help requests and their status.</p>
         </div>
         <Button asChild>
           <Link to="/request-help">New Request</Link>

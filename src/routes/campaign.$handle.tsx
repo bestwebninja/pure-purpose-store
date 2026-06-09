@@ -129,14 +129,14 @@ function CampaignPage() {
               </span>
             </div>
             {donations.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Be the first to give a blessing.</p>
+              <p className="text-sm text-muted-foreground text-black">Be the first to give a blessing.</p>
             ) : (
               <ul className="divide-y divide-border/60">
                 {donations.map((d) => (
                   <li key={d.id} className="flex items-start justify-between gap-4 py-3">
                     <div>
                       <p className="font-medium">{d.is_anonymous ? "Anonymous" : d.donor_name || "A kind giver"}</p>
-                      {d.message && <p className="text-sm text-muted-foreground">{`"${d.message}"`}</p>}
+                      {d.message && <p className="text-sm text-muted-foreground text-black">{`"${d.message}"`}</p>}
                     </div>
                     <div className="shrink-0 text-right">
                       <p className="font-semibold">{formatMoney(Number(d.amount), d.currency)}</p>

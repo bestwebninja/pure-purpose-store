@@ -230,7 +230,7 @@ function PetriGraphPage() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-display text-xl font-semibold sm:text-2xl">Petri Graph Inspector</h1>
-          <p className="text-sm text-muted-foreground">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
+          <p className="text-sm text-muted-foreground text-black">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{nodes.length} nodes</Badge>
