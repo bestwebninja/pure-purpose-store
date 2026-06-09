@@ -89,14 +89,12 @@ function AboutMyBlessings() {
 
         <div className="rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 p-8 text-center">
           <Sparkles className="mx-auto h-8 w-8 text-accent" />
-          <p className="mt-4 text-lg font-medium text-primary-foreground text-left">
+          <p className="mt-4 text-lg text-primary-foreground text-left font-serif font-extralight">
             If you have ever wanted to help someone but did not know how, you already belong here.
-            <br /><br /><br />
-            MyBlessings
+            <br />
+            MyBlessings.us, "Where compassion becomes infrastructure."
             <br /><br />
-            "Where compassion becomes infrastructure."
-            <br /><br />
-            MyBlessings is an AI-powered blessing exchange network operating across the United States and Israel, connecting people in need with NGOs, sponsors, volunteers, businesses, and communities through verified, measurable acts of giving.
+            MyBlessings.us is an AI-powered blessing exchange network operating across the United States and Israel, connecting people in need with NGOs, sponsors, volunteers, businesses, and communities through verified, measurable acts of giving.
             <br /><br />
             Unlike traditional donation platforms, MyBlessings is built as a Blessing Intelligence Platform—combining real-world requests, nonprofit verification, sponsor matching, geographic intelligence, and AI-driven allocation into a single ecosystem.
             <br /><br />
