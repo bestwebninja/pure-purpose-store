@@ -25,7 +25,7 @@ function DefaultErrorComponent({
     <div style={{ padding: 20, fontFamily: "sans-serif" }}>
       <h2>Something went wrong</h2>
 
-      <pre style={{ color: "red", whiteSpace: "pre-wrap" }}>
+      <pre className="text-destructive" style={{ whiteSpace: "pre-wrap" }}>
         {error?.message ?? "Unknown error"}
       </pre>
 
