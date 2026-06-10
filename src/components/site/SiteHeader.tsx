@@ -126,22 +126,22 @@ export function SiteHeader() {
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
-                  <Link to="/admin/ngo-dashboard">NGO Applications</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
-                  <Link to="/admin/sponsors">Sponsors</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
-                  <Link to="/admin/petri">Petri OS</Link>
+                  <Link to="/admin/god-view">God View</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/admin/match-control">Match Control</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
-                  <Link to="/admin/god-view">God View</Link>
+                  <Link to="/admin/ngo-dashboard">NGO Applications</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/dashboard/petri-graph">Petri Graph</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
+                  <Link to="/admin/petri">Petri OS</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
+                  <Link to="/admin/sponsors">Sponsors</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -201,22 +201,22 @@ export function SiteHeader() {
                       <Link to="/admin/command-center" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Command Center</Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link to="/admin/ngo-dashboard" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">NGO Applications</Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link to="/admin/sponsors" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Sponsors</Link>
-                    </SheetClose>
-                    <SheetClose asChild>
-                      <Link to="/admin/petri" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Petri OS</Link>
+                      <Link to="/admin/god-view" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">God View</Link>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link to="/admin/match-control" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Match Control</Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link to="/admin/god-view" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">God View</Link>
+                      <Link to="/admin/ngo-dashboard" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">NGO Applications</Link>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link to="/dashboard/petri-graph" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Petri Graph</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/petri" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Petri OS</Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/sponsors" className="rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted">Sponsors</Link>
                     </SheetClose>
                   </>
                 )}
