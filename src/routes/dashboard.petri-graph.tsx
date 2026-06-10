@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { PetriGraphView, type GraphEdge, type GraphNode } from "@/components/petri/PetriGraphView";
+import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 
 export const Route = createFileRoute("/dashboard/petri-graph")({
   head: () => ({
@@ -214,28 +215,32 @@ function PetriGraphPage() {
   }, [visibleTokens, visibleMatches, layer]);
 
   if (!authChecked) {
-    return <div className="mx-auto max-w-6xl p-8 text-muted-foreground">Loading…</div>;
+    return (
+      <SurfaceLayout>
+        <p className="text-muted-foreground">Loading…</p>
+      </SurfaceLayout>
+    );
   }
   if (!allowed) {
     return (
-      <div className="mx-auto max-w-6xl p-8">
-        <h1 className="text-display text-2xl font-semibold">Petri Graph Inspector</h1>
+      <SurfaceLayout>
+        <h1 className="text-display text-2xl font-semibold text-foreground">Petri Graph Inspector</h1>
         <p className="mt-2 text-muted-foreground">Admins only.</p>
-      </div>
+      </SurfaceLayout>
     );
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <SurfaceLayout>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-display text-xl font-semibold sm:text-2xl">Petri Graph Inspector</h1>
+          <h1 className="text-display text-xl font-semibold text-foreground sm:text-2xl">Petri Graph Inspector</h1>
           <p className="text-sm text-muted-foreground">Live view of intents and matches in the Petri Bloom intelligence layer.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Badge variant="outline">{nodes.length} nodes</Badge>
-          <Badge variant="outline">{edges.length} edges</Badge>
-          <Badge variant="outline">v3</Badge>
+          <Badge variant="outline" className="border-border bg-card text-foreground">{nodes.length} nodes</Badge>
+          <Badge variant="outline" className="border-border bg-card text-foreground">{edges.length} edges</Badge>
+          <Badge variant="outline" className="border-border bg-card text-foreground">v3</Badge>
           {drift?.warn && (
             <Badge variant="destructive">system drift {drift.pct > 0 ? "+" : ""}{drift.pct.toFixed(1)}%</Badge>
           )}
@@ -243,13 +248,13 @@ function PetriGraphPage() {
       </div>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-        <div className="-mx-4 flex gap-1 overflow-x-auto rounded-md border p-1 sm:mx-0 sm:overflow-visible">
+        <div className="-mx-4 flex gap-1 overflow-x-auto rounded-md border border-border bg-card p-1 sm:mx-0 sm:overflow-visible">
           {(["all", "layer1", "layer2", "layer3"] as LayerMode[]).map((m) => (
             <Button
               key={m}
               size="sm"
               variant={layer === m ? "default" : "ghost"}
-              className="shrink-0"
+              className="shrink-0 text-foreground"
               onClick={() => setLayer(m)}
             >
               {m === "all" ? "All Layers" : m === "layer1" ? "L1 · Signals" : m === "layer2" ? "L2 · Matching" : "L3 · Confirmed"}
@@ -257,7 +262,7 @@ function PetriGraphPage() {
           ))}
         </div>
         <div className="flex flex-1 items-center gap-2 sm:min-w-[200px]">
-          <span className="text-xs text-muted-foreground">Timeline</span>
+          <span className="text-xs font-medium text-foreground">Timeline</span>
           <input
             type="range"
             min={0}
@@ -266,12 +271,12 @@ function PetriGraphPage() {
             onChange={(e) => setTimelinePct(Number(e.target.value))}
             className="w-full"
           />
-          <span className="w-10 text-right text-xs tabular-nums text-muted-foreground">{timelinePct}%</span>
+          <span className="w-12 text-right text-xs font-medium tabular-nums text-foreground">{timelinePct}%</span>
         </div>
       </div>
 
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
-        <Card className="p-3 sm:p-4">
+        <Card className="surface-card p-3 sm:p-4">
            {!graphLoaded ? (
              <p className="p-8 text-center text-sm text-muted-foreground">
                Loading Petri graph…
@@ -294,7 +299,7 @@ function PetriGraphPage() {
           )}
         </Card>
 
-        <Card className="p-4">
+        <Card className="surface-card p-4">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
           {!selectedNode && !selectedEdge && (
             <p className="mt-3 text-sm text-muted-foreground">Click a node or edge to inspect.</p>
@@ -330,7 +335,7 @@ function PetriGraphPage() {
           })()}
         </Card>
       </div>
-    </div>
+    </SurfaceLayout>
   );
 }
 
