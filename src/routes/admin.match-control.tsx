@@ -2,9 +2,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DashboardSection } from "@/components/ui/dashboard";
+import { DashboardCard } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import {
   listMatchesForControl,
@@ -110,7 +109,7 @@ function AdminMatchControl() {
   if (error) {
     return (
       <AdminShell eyebrow="Admin · Matches" title="Match Control">
-        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+        <DashboardCard><p className="text-sm text-destructive">{error}</p></DashboardCard>
       </AdminShell>
     );
   }
@@ -125,7 +124,7 @@ function AdminMatchControl() {
         {matches === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
         {matches?.length === 0 && <p className="text-sm text-primary-foreground/70">No matches yet.</p>}
         {matches?.map((m) => (
-          <Card key={m.id} className="p-4 sm:p-5">
+          <DashboardCard key={m.id}>
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
@@ -175,7 +174,7 @@ function AdminMatchControl() {
                 ))}
               </div>
             )}
-          </Card>
+          </DashboardCard>
         ))}
       </div>
     </AdminShell>
