@@ -43,22 +43,26 @@ function ImpactMapPage() {
       <h1 className="text-display text-2xl font-semibold sm:text-3xl text-primary-foreground">Impact Map</h1>
       <p className="mt-1 text-sm text-primary-foreground/75">Where blessings are landing, by region.</p>
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
-      <Card className="mt-8 p-6">
+      <Card className="mt-8 p-6 border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground">
         {data && data.regions.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-black">No regional impact data yet.</p>
+          <div className="flex flex-col items-center gap-2 py-10 text-center">
+            <MapPin className="h-8 w-8 text-primary-foreground/40" />
+            <p className="text-sm text-primary-foreground/70">No regional impact data yet for the United States or Israel.</p>
+            <p className="text-xs text-primary-foreground/50">Once blessings land, they will appear here.</p>
+          </div>
         ) : (
           <ul className="space-y-3">
             {data?.regions.map((r) => (
               <li key={r.location}>
                 <div className="flex items-center justify-between text-sm">
                   <span className="inline-flex items-center gap-2 font-medium">
-                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    <MapPin className="h-4 w-4 text-primary-foreground/60" />
                     {r.location}
                   </span>
-                  <span className="text-muted-foreground">{fmt(r.raised)} · {r.donors} blessings · {r.count} campaigns</span>
+                  <span className="text-primary-foreground/70">{fmt(r.raised)} · {r.donors} blessings · {r.count} campaigns</span>
                 </div>
-                <div className="mt-1 h-2 overflow-hidden rounded-full bg-muted">
-                  <div className="h-full rounded-full bg-primary" style={{ width: `${Math.round((r.raised / max) * 100)}%` }} />
+                <div className="mt-1 h-2 overflow-hidden rounded-full bg-primary-foreground/10">
+                  <div className="h-full rounded-full bg-accent" style={{ width: `${Math.round((r.raised / max) * 100)}%` }} />
                 </div>
               </li>
             ))}

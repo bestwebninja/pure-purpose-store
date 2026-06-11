@@ -2,9 +2,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DashboardSection } from "@/components/ui/dashboard";
+import { DashboardCard } from "@/components/ui/dashboard";
 import { toast } from "sonner";
 import { listSponsors, updateSponsorStatus } from "@/lib/gateway";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
@@ -59,7 +58,7 @@ function AdminSponsors() {
   if (error) {
     return (
       <AdminShell eyebrow="Admin · Sponsors" title="Sponsor Verification">
-        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+        <DashboardCard><p className="text-sm text-destructive">{error}</p></DashboardCard>
       </AdminShell>
     );
   }
@@ -74,7 +73,7 @@ function AdminSponsors() {
         {sponsors === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
         {sponsors?.length === 0 && <p className="text-sm text-primary-foreground/70">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
-          <Card key={s.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5">
+          <DashboardCard key={s.id} className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <h3 className="font-semibold break-words">{s.organization_name || s.sponsor_role}</h3>
@@ -92,7 +91,7 @@ function AdminSponsors() {
               <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "VERIFIED")} disabled={s.verification_status === "VERIFIED"}>Verify</Button>
               <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "REJECTED")} disabled={s.verification_status === "REJECTED"}>Reject</Button>
             </div>
-          </Card>
+          </DashboardCard>
         ))}
       </div>
     </AdminShell>
