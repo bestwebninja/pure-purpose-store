@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { FormField, FormInput, FormSelect, FormGrid } from "@/components/ui/form-control";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 type SupplierType =
   | "hotel"
@@ -47,109 +51,64 @@ export function AddAccommodationSupplierPanel() {
 
   return (
     <div className="w-full rounded-xl border p-4 bg-card shadow-card">
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className="text-xl font-semibold mb-4 text-foreground">
         Add Accommodation Supplier Node
       </h2>
 
-      <div className="grid grid-cols-2 gap-3">
-        <input
-          placeholder="Supplier Name"
-          className="border p-2 rounded"
-          value={form.name}
-          onChange={(e) => updateField("name", e.target.value)}
-        />
-
-        <select
-          className="border p-2 rounded"
-          value={form.type}
-          onChange={(e) => updateField("type", e.target.value)}
-        >
-          <option value="hotel">Hotel</option>
-          <option value="guesthouse">Guesthouse</option>
-          <option value="hostel">Hostel</option>
-          <option value="airbnb_host">Airbnb Host</option>
-          <option value="private_landlord">Private Landlord</option>
-        </select>
-
-        <input
-          placeholder="Country"
-          className="border p-2 rounded"
-          value={form.country}
-          onChange={(e) => updateField("country", e.target.value)}
-        />
-
-        <input
-          placeholder="City"
-          className="border p-2 rounded"
-          value={form.city}
-          onChange={(e) => updateField("city", e.target.value)}
-        />
-
-        <input
-          placeholder="ZIP Code"
-          className="border p-2 rounded"
-          value={form.zip}
-          onChange={(e) => updateField("zip", e.target.value)}
-        />
-
-        <input
-          type="number"
-          placeholder="Total Rooms"
-          className="border p-2 rounded"
-          value={form.total_rooms}
-          onChange={(e) =>
-            updateField("total_rooms", Number(e.target.value))
-          }
-        />
-
-        <input
-          type="number"
-          placeholder="Available Rooms"
-          className="border p-2 rounded"
-          value={form.available_rooms}
-          onChange={(e) =>
-            updateField("available_rooms", Number(e.target.value))
-          }
-        />
-
-        <input
-          type="number"
-          placeholder="Base Nightly Rate (USD)"
-          className="border p-2 rounded"
-          value={form.base_nightly_rate_usd}
-          onChange={(e) =>
-            updateField("base_nightly_rate_usd", Number(e.target.value))
-          }
-        />
-      </div>
+      <FormGrid>
+        <FormField label="Supplier Name" htmlFor="acc-name">
+          <FormInput id="acc-name" value={form.name} onChange={(e) => updateField("name", e.target.value)} />
+        </FormField>
+        <FormField label="Type" htmlFor="acc-type">
+          <FormSelect id="acc-type" value={form.type} onChange={(e) => updateField("type", e.target.value)}>
+            <option value="hotel">Hotel</option>
+            <option value="guesthouse">Guesthouse</option>
+            <option value="hostel">Hostel</option>
+            <option value="airbnb_host">Airbnb Host</option>
+            <option value="private_landlord">Private Landlord</option>
+          </FormSelect>
+        </FormField>
+        <FormField label="Country" htmlFor="acc-country">
+          <FormInput id="acc-country" value={form.country} onChange={(e) => updateField("country", e.target.value)} />
+        </FormField>
+        <FormField label="City" htmlFor="acc-city">
+          <FormInput id="acc-city" value={form.city} onChange={(e) => updateField("city", e.target.value)} />
+        </FormField>
+        <FormField label="ZIP Code" htmlFor="acc-zip">
+          <FormInput id="acc-zip" value={form.zip} onChange={(e) => updateField("zip", e.target.value)} />
+        </FormField>
+        <FormField label="Total Rooms" htmlFor="acc-total">
+          <FormInput id="acc-total" type="number" value={form.total_rooms} onChange={(e) => updateField("total_rooms", Number(e.target.value))} />
+        </FormField>
+        <FormField label="Available Rooms" htmlFor="acc-avail">
+          <FormInput id="acc-avail" type="number" value={form.available_rooms} onChange={(e) => updateField("available_rooms", Number(e.target.value))} />
+        </FormField>
+        <FormField label="Base Nightly Rate (USD)" htmlFor="acc-rate">
+          <FormInput id="acc-rate" type="number" value={form.base_nightly_rate_usd} onChange={(e) => updateField("base_nightly_rate_usd", Number(e.target.value))} />
+        </FormField>
+      </FormGrid>
 
       <div className="flex gap-4 mt-4">
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
+        <Label className="flex items-center gap-2 text-foreground">
+          <Checkbox
             checked={form.vegan_meal_available}
-            onChange={(e) =>
-              updateField("vegan_meal_available", e.target.checked)
-            }
+            onCheckedChange={(v) => updateField("vegan_meal_available", v === true)}
           />
           Vegan Meals
-        </label>
-
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
+        </Label>
+        <Label className="flex items-center gap-2 text-foreground">
+          <Checkbox
             checked={form.vegetarian_meal_available}
-            onChange={(e) =>
-              updateField("vegetarian_meal_available", e.target.checked)
-            }
+            onCheckedChange={(v) => updateField("vegetarian_meal_available", v === true)}
           />
           Vegetarian Meals
-        </label>
+        </Label>
       </div>
 
-      <button
+      <Button
         onClick={handleSubmit}
-        className="mt-5 px-4 py-2 rounded bg-primary text-primary-foreground"
+        variant="blessing"
+        className="mt-5"
         disabled={status === "saving"}
       >
         {status === "saving"
@@ -157,7 +116,7 @@ export function AddAccommodationSupplierPanel() {
           : status === "saved"
           ? "Supplier Connected ✓"
           : "Connect Accommodation Supplier"}
-      </button>
+      </Button>
     </div>
   );
 }

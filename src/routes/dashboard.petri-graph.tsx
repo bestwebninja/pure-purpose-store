@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
 import { supabase } from "@/integrations/supabase/client";
 import { PetriGraphView, type GraphEdge, type GraphNode } from "@/components/petri/PetriGraphView";
 import { SurfaceLayout } from "@/components/site/SurfaceLayout";
@@ -263,12 +264,12 @@ function PetriGraphPage() {
         </div>
         <div className="flex flex-1 items-center gap-2 sm:min-w-[200px]">
           <span className="text-xs font-medium text-foreground">Timeline</span>
-          <input
-            type="range"
+          <Slider
             min={0}
             max={100}
-            value={timelinePct}
-            onChange={(e) => setTimelinePct(Number(e.target.value))}
+            step={1}
+            value={[timelinePct]}
+            onValueChange={(v) => setTimelinePct(v[0] ?? 0)}
             className="w-full"
           />
           <span className="w-12 text-right text-xs font-medium tabular-nums text-foreground">{timelinePct}%</span>

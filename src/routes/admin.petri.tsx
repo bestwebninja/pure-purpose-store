@@ -5,6 +5,7 @@ import { useServerFn } from '@tanstack/react-start';
 import { recomputePetriScores, seedDemoData, clearDemoData, getDemoSeedStatus } from '@/lib/gateway';
 import { toast } from 'sonner';
 import { AdminShell } from '@/components/admin/AdminShell';
+import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute('/admin/petri')({
   beforeLoad: () => requireAdminBeforeLoad(),
@@ -79,13 +80,14 @@ function PetriAdminPage() {
       title="🧠 Petri OS Control Center"
       description="Gateway OS: Active · Petri Mesh: Running"
     >
-      <button
+      <Button
         onClick={handleRecompute}
         disabled={busy}
-        className="w-full sm:w-auto rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
+        variant="blessing"
+        className="w-full sm:w-auto"
       >
         {busy ? 'Recomputing…' : 'Recompute Petri Scores'}
-      </button>
+      </Button>
       {lastResult && (
         <p className="mt-3 text-xs sm:text-sm text-primary-foreground/60">
           Last run: scanned {lastResult.scanned} · written {lastResult.written} · skipped {lastResult.skipped} · {lastResult.duration_ms}ms
@@ -99,27 +101,15 @@ function PetriAdminPage() {
           and impact reports. All rows are tagged is_demo=true and can be cleared safely.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            onClick={handleSeed}
-            disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
-          >
+          <Button onClick={handleSeed} disabled={seedBusy !== null} variant="outline" size="sm">
             {seedBusy === 'seed' ? 'Seeding…' : 'Seed Demo Data'}
-          </button>
-          <button
-            onClick={handleClear}
-            disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
-          >
+          </Button>
+          <Button onClick={handleClear} disabled={seedBusy !== null} variant="destructive" size="sm">
             {seedBusy === 'clear' ? 'Clearing…' : 'Clear Demo Data'}
-          </button>
-          <button
-            onClick={refreshCounts}
-            disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
-          >
+          </Button>
+          <Button onClick={refreshCounts} disabled={seedBusy !== null} variant="outline" size="sm">
             Refresh Status
-          </button>
+          </Button>
         </div>
         {counts && (
           <div className="mt-4 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3 sm:text-sm">

@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 
 type Supplier = {
   id: string;
@@ -48,12 +49,7 @@ export function VerificationDashboard() {
         Live Supplier Verification Engine
       </h1>
 
-      <button
-        onClick={load}
-        className="mb-4 w-full sm:w-auto px-4 py-2 bg-accent text-foreground rounded text-sm"
-      >
-        Refresh
-      </button>
+      <Button onClick={load} variant="blessing" size="sm" className="mb-4 w-full sm:w-auto">Refresh</Button>
 
       {loading ? (
         <p>Loading...</p>

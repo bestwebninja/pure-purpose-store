@@ -104,18 +104,16 @@ function BecomeSponsor() {
             <Label className="text-primary-foreground/85">Your role</Label>
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {ROLES.map((r) => (
-                <button
+                <Button
                   type="button"
                   key={r}
+                  variant={form.sponsor_role === r ? "blessing" : "outline"}
+                  size="sm"
                   onClick={() => setForm({ ...form, sponsor_role: r })}
-                  className={`min-h-11 rounded-md border px-3 py-2 text-sm transition ${
-                    form.sponsor_role === r
-                      ? "border-accent bg-accent font-semibold text-accent-foreground shadow-soft"
-                      : "border-border hover:border-accent/60"
-                  }`}
+                  className="min-h-11 w-full"
                 >
                   {r}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -170,7 +168,7 @@ function BecomeSponsor() {
             <FormTextarea surface="dark" id="verif" rows={3} placeholder="Links to your organisation, references, credentials, etc." value={form.verification_notes} onChange={(e) => setForm({ ...form, verification_notes: e.target.value })} />
           </FormField>
 
-          <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
+          <Button type="submit" variant="blessing" size="lg" className="w-full" disabled={submitting}>
             {submitting ? "Submitting…" : "Submit"}
           </Button>
         </form>
