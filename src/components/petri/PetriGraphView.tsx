@@ -122,7 +122,7 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
             const s = e.source as GraphNode;
             const t = e.target as GraphNode;
             if (typeof s !== "object" || typeof t !== "object") return null;
-            const stroke = e.status === "confirmed" ? "#16a34a" : "#eab308";
+            const stroke = e.status === "confirmed" ? "var(--success)" : "var(--warning)";
             const w = Math.max(1, Math.min(8, e.score / 50));
             return (
               <line
@@ -146,7 +146,7 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
             );
           })}
           {simNodes.map((n) => {
-            const fill = n.kind === "request" ? "#2563eb" : "#f5c518";
+            const fill = n.kind === "request" ? "var(--primary)" : "var(--accent)";
             return (
               <g
                 key={n.id}
@@ -154,7 +154,7 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
                 onClick={() => onNodeSelect?.(n)}
                 style={{ cursor: "pointer" }}
               >
-                <circle r={10} fill={fill} stroke="#0a1f6b" strokeWidth={1.5} />
+                <circle r={10} fill={fill} stroke="var(--primary)" strokeWidth={1.5} />
                 <text x={14} y={4} fontSize={11} fill="currentColor" className="text-foreground">
                   {n.label.slice(0, 24)}
                 </text>
@@ -172,10 +172,10 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
         </div>
       )}
       <div className="mt-3 flex flex-wrap gap-4 text-xs text-muted-foreground">
-        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "#2563eb" }} /> Help Request</span>
-        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "#f5c518" }} /> Sponsor Intent</span>
-        <span><span className="inline-block h-1 w-6" style={{ background: "#16a34a" }} /> auto_match</span>
-        <span><span className="inline-block h-1 w-6" style={{ background: "#eab308" }} /> pending_review</span>
+        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "var(--primary)" }} /> Help Request</span>
+        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "var(--accent)" }} /> Sponsor Intent</span>
+        <span><span className="inline-block h-1 w-6" style={{ background: "var(--success)" }} /> auto_match</span>
+        <span><span className="inline-block h-1 w-6" style={{ background: "var(--warning)" }} /> pending_review</span>
         <span>Scroll to zoom · drag to pan</span>
       </div>
     </div>
