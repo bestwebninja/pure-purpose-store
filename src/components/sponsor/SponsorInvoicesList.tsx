@@ -74,7 +74,7 @@ export function SponsorInvoicesList() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-display text-lg font-semibold">Tax Receipts & Invoices</h2>
-          <p className="text-sm text-muted-foreground text-black">
+          <p className="text-sm text-muted-foreground">
             Each contribution is split into a 93.5% tax-deductible donation and a 6.5% platform fee.
           </p>
         </div>
