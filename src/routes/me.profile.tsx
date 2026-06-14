@@ -172,7 +172,7 @@ function ProfilePage() {
               )}
             </Button>
             <p className="text-xs text-muted-foreground">Upload our drop a link to your public profile .</p>
-            <p className="text-sm text-muted-foreground text-black">
+            <p className="text-sm text-muted-foreground">
               Smiling is a must ;-) {"{"} Please upload a Smiling Happy Photo {"}"}.
             </p>
           </div>
@@ -193,7 +193,7 @@ function ProfilePage() {
           <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
           <div className="mt-8 space-y-2 border-t pt-6">
             <Label className="text-sm font-semibold">Social Accounts</Label>
-            <p className="text-sm text-muted-foreground text-black">Connected Social Accounts after you sign up.  </p>
+            <p className="text-sm text-muted-foreground">Connected Social Accounts after you sign up.  </p>
           </div>
         </form>
       </Card>
