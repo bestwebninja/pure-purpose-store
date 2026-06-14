@@ -89,7 +89,7 @@ function AboutMyBlessings() {
 
         <div className="rounded-lg border border-primary-foreground/15 bg-primary-foreground/5 p-8 text-center">
           <Sparkles className="mx-auto h-8 w-8 text-accent" />
-          <p className="mt-4 text-lg text-primary-foreground text-left font-serif font-extralight">
+          <p className="mt-4 text-lg text-primary-foreground text-left font-display font-extralight">
             If you have ever wanted to help someone but did not know how, you already belong here.
             <br />
             MyBlessings.us, "Where compassion becomes infrastructure."

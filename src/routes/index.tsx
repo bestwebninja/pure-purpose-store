@@ -59,7 +59,7 @@ function Hero() {
       />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 md:grid-cols-[1.1fr_1fr] md:py-32">
         <div className="space-y-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent text-slate-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" /> MYBLESSINGS, TURNING COMPASSION INTO INFRASTRUCTURE™
           </span>
           <h1 className="text-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl text-primary-foreground">
@@ -74,7 +74,8 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-md bg-accent px-8 text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-slate-300"
+              variant="blessing"
+              className="h-12 rounded-md px-8 text-base font-semibold"
             >
               <Link to="/give-a-blessing">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a blessing
@@ -166,7 +167,7 @@ function ImpactStrip() {
             <div className="text-display text-3xl text-primary md:text-4xl">
               {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">{s.label}</div>
+            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
           </div>
         ))}
       </div>
@@ -231,7 +232,7 @@ function Testimony() {
           <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-primary text-primary-foreground">A</div>
           <div>
             <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
-            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">Recipient · Healthcare</div>
+            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient · Healthcare</div>
           </div>
         </div>
       </div>
@@ -258,7 +259,8 @@ function CTA() {
           <Button
             asChild
             size="lg"
-            className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-slate-300"
+            variant="blessing"
+            className="h-14 rounded-md text-base font-semibold"
           >
             <Link to="/give-a-blessing"><Heart className="mr-2 h-5 w-5" fill="currentColor" /> Give a blessing</Link>
           </Button>
@@ -266,7 +268,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="h-14 rounded-md border-primary-foreground/40 text-base font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground bg-blue-600"
+            className="h-14 rounded-md border-primary-foreground/40 bg-transparent text-base font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
           >
             <Link to="/become-blessing-sponsor">Become a sponsor</Link>
           </Button>

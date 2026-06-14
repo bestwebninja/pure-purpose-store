@@ -97,7 +97,7 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
+              className="font-display text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
               activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
             >
               {item.label}
@@ -106,7 +106,7 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
+              className="font-display text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
               activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
             >
               Sponsor
