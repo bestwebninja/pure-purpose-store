@@ -293,6 +293,65 @@
   ) [class*="text-neutral-"] {
     color: oklch(1 0 0 / 0.85) !important;
   }
+
+  /*
+   * LIGHT-SURFACE RESCUE
+   * When a light-surface container (Card, Popover, Sheet, Dialog, white
+   * panels) is nested inside one of the dark shells above, the global
+   * white-text rule would render its text invisible on white. Restore the
+   * normal foreground inside those surfaces so cards stay readable.
+   */
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    .bg-shell-navy,
+    [class*="bg-[#081C50]"],
+    header,
+    footer
+  ) :where(
+    .bg-card,
+    .bg-background,
+    .bg-popover,
+    .bg-muted,
+    .bg-white,
+    .bg-secondary,
+    .surface-card,
+    [data-surface="light"]
+  ),
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    .bg-shell-navy,
+    [class*="bg-[#081C50]"],
+    header,
+    footer
+  ) :where(
+    .bg-card,
+    .bg-background,
+    .bg-popover,
+    .bg-muted,
+    .bg-white,
+    .bg-secondary,
+    .surface-card,
+    [data-surface="light"]
+  ) :where(p, span, li, dt, dd, a, label, small, strong, em, blockquote, figcaption, h1, h2, h3, h4, h5, h6, div) {
+    color: var(--foreground);
+  }
+
+  /* Re-enable muted / slate utilities inside rescued light surfaces */
+  :where(
+    .bg-primary,
+    .bg-gradient-hero,
+    .bg-gradient-primary,
+    .bg-shell-navy,
+    [class*="bg-[#081C50]"]
+  )
+    :where(.bg-card, .bg-background, .bg-popover, .bg-muted, .bg-white, .bg-secondary, .surface-card, [data-surface="light"])
+    .text-muted-foreground {
+    color: var(--muted-foreground) !important;
+  }
 }
 
 @utility text-display {
