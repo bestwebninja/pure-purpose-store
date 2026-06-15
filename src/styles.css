@@ -63,6 +63,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  --color-shell-navy: var(--shell-navy);
+  --color-accent-sky: var(--accent-sky);
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
 }
