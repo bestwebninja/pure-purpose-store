@@ -38,7 +38,7 @@ function MarketplacePage() {
   useLifecycleRealtime(refresh);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#06102e] text-primary-foreground">
+    <div className="relative min-h-screen overflow-hidden bg-shell-navy text-primary-foreground">
       <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl" />
       <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">

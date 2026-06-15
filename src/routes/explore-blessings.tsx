@@ -14,6 +14,15 @@ import {
   Home,
   Star,
 } from "lucide-react";
+
+/**
+ * Sky accent — single source of truth.
+ * Mirrors --accent-sky in src/styles.css. Kept as a hex string here because
+ * downstream consumers concatenate alpha suffixes (e.g. `${ACCENT_SKY}55`),
+ * which only works with a hex literal.
+ */
+const ACCENT_SKY = "#38bdf8";
+
 type Category = {
   slug: string;
   name: string;
@@ -26,15 +35,15 @@ type Category = {
 };
 
 const CATEGORIES: Category[] = [
-  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility, color: "#38bdf8" },
-  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: RadioTower, color: "#38bdf8" },
-  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart, color: "#38bdf8" },
-  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HandHeart, color: "#38bdf8" },
-  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users, color: "#38bdf8" },
-  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike, color: "#38bdf8" },
-  { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane, color: "#38bdf8" },
-  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Ambulance, color: "#38bdf8" },
-  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Disaster displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, color: "#38bdf8", wide: true },
+  { slug: "accessibility-support", name: "Accessibility Support", description: "Ensure equal access with crutches, transport, and rental equipment.", tags: ["Crutches", "Med-Transport", "Mobility Scooter"], Icon: Accessibility, color: ACCENT_SKY },
+  { slug: "connectivity-support", name: "Connectivity Support", description: "Ensure digital access with internet vouchers, data bundles, and essential devices.", tags: ["Data Bundles", "eSIMs", "Internet Vouchers"], Icon: RadioTower, color: ACCENT_SKY },
+  { slug: "food-essentials", name: "Food & Essentials Vouchers", description: "Grocery Gift Cards, Meal Vouchers, Pharmacy Vouchers.", tags: ["Grocery Gift Cards", "Meal Vouchers", "Pharmacy"], Icon: ShoppingCart, color: ACCENT_SKY },
+  { slug: "non-medical-recovery", name: "Non-Medical Recovery Support", description: "Transition Housing, Meal Support, Non-Emergency Transport.", tags: ["Transition Housing", "Meal Support", "Non-Em"], Icon: HandHeart, color: ACCENT_SKY },
+  { slug: "family-support", name: "Family Support", description: "Baby supplies and Emergency Childcare, School Meal Sponsorship.", tags: ["Baby Supplies", "Emergency Childcare", "School"], Icon: Users, color: ACCENT_SKY },
+  { slug: "mobility-support", name: "Mobility Support", description: "Ensure digital access, fuel Cards and Mobility Passes.", tags: ["Bicycles", "Fuel Cards", "Mobility Passes"], Icon: Bike, color: ACCENT_SKY },
+  { slug: "emergency-travel", name: "Emergency Travel", description: "Airport Transfers, Plane/Bus Tickets, Family Reunification.", tags: ["Airport Transfers", "Plane/Bus Tickets", "Family"], Icon: Plane, color: ACCENT_SKY },
+  { slug: "stranded-traveler", name: "Stranded Traveler Assistance", description: "Border Crossing Support, Missed Flight Help, Lost Passport Help.", tags: ["Border Crossing Support", "Missed Flight Help", "Lost Passport"], Icon: Ambulance, color: ACCENT_SKY },
+  { slug: "temporary-accommodation", name: "Temporary Accommodation", description: "Disaster displacement, Emergency Shelter, Family Relocation.", tags: ["Disaster Displacement", "Emergency Shelter", "Family Reloc"], Icon: Home, color: ACCENT_SKY, wide: true },
   {
     slug: "veteran-stabilization",
     name: "Veteran Stabilization",
@@ -51,7 +60,7 @@ const CATEGORIES: Category[] = [
       "navigating benefits systems",
     ],
     Icon: Star,
-    color: "#38bdf8",
+    color: ACCENT_SKY,
     featured: true,
     wide: true,
   },
@@ -116,7 +125,7 @@ function ExploreBlessings() {
   ];
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
+    <div className="relative min-h-screen overflow-hidden bg-shell-navy">
       <div aria-hidden className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl" />
 
