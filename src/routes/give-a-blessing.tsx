@@ -45,6 +45,9 @@ const STEPS = ["Sponsor a good cause.... ", "Blessing Type", "Location", "Budget
 const inputCls =
   "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent";
 
+// CTA style locked to the header "Give a Blessing" button: light blue + white.
+const ctaCls = "";
+
 function GiveABlessing() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -240,7 +243,7 @@ function GiveABlessing() {
                 <span>Connect your social accounts will be an option next</span>
               </label>
               <div className="flex justify-end">
-                <Button onClick={() => setStep(1)}
+                <Button variant="blessing" onClick={() => setStep(1)}
                   disabled={!form.firstName || !form.surname || !form.email}>Next</Button>
               </div>
             </>
@@ -274,7 +277,7 @@ function GiveABlessing() {
               </div>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(0)}>Back</Button>
-                <Button onClick={() => setStep(2)} disabled={form.selectedCategoryIds.length === 0}>Next</Button>
+                <Button variant="blessing" onClick={() => setStep(2)} disabled={form.selectedCategoryIds.length === 0}>Next</Button>
               </div>
             </>
           )}
@@ -307,7 +310,7 @@ function GiveABlessing() {
               </div>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(1)}>Back</Button>
-                <Button onClick={() => setStep(3)} disabled={!form.zip.trim()}>Next</Button>
+                <Button variant="blessing" onClick={() => setStep(3)} disabled={!form.zip.trim()}>Next</Button>
               </div>
             </>
           )}
@@ -343,7 +346,7 @@ function GiveABlessing() {
               </div>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(2)}>Back</Button>
-                <Button onClick={() => setStep(4)} disabled={form.totalBudget < 1}>Next</Button>
+                <Button variant="blessing" onClick={() => setStep(4)} disabled={form.totalBudget < 1}>Next</Button>
               </div>
             </>
           )}
@@ -365,8 +368,13 @@ function GiveABlessing() {
               </p>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(3)}>Back</Button>
+<<<<<<< HEAD
                 <Button onClick={onSubmit} disabled={submitting}>
                   {submitting ? "Saving…" : "Submit & Continue to Checkout"}
+=======
+                <Button variant="blessing" onClick={onSubmit} disabled={submitting}>
+                  {submitting ? "Savingâ€¦" : "Submit & Continue to Checkout"}
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
                 </Button>
               </div>
             </>

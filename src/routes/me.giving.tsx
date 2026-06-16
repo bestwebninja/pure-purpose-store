@@ -55,18 +55,30 @@ function MyGiving() {
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-6 py-12">
       <header>
+<<<<<<< HEAD
         <h1 className="text-display text-3xl font-semibold text-foreground">My Giving</h1>
+=======
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">My Giving</h1>
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         <p className="text-sm text-muted-foreground">Every blessing you've sent through MyBlessings.</p>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card className="p-6">
           <p className="text-sm text-muted-foreground">Total given</p>
+<<<<<<< HEAD
           <p className="mt-1 text-display text-3xl font-semibold text-foreground">{formatMoney(data.totalAmount)}</p>
         </Card>
         <Card className="p-6">
           <p className="text-sm text-muted-foreground">Blessings</p>
           <p className="mt-1 text-display text-3xl font-semibold text-foreground">{data.count}</p>
+=======
+          <p className="mt-1 text-display text-3xl font-semibold text-primary-foreground">{formatMoney(data.totalAmount)}</p>
+        </Card>
+        <Card className="p-6">
+          <p className="text-sm text-muted-foreground">Blessings</p>
+          <p className="mt-1 text-display text-3xl font-semibold text-primary-foreground">{data.count}</p>
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         </Card>
       </div>
 

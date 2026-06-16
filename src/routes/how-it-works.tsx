@@ -54,6 +54,7 @@ function HowItWorks() {
     <div className="surface-page mx-auto max-w-5xl px-6 py-20 text-foreground">
       {/* HEADER */}
       <header className="text-center">
+<<<<<<< HEAD
         <h1 className="text-display text-5xl font-semibold md:text-6xl">
           How You Give a Blessing
         </h1>
@@ -61,6 +62,11 @@ function HowItWorks() {
         <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
           We’ve built a simple three-step system to turn generosity into real
           impact.
+=======
+        <h1 className="text-display text-5xl font-semibold text-foreground md:text-6xl">MyBlessings, How you BLESS..</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          We've have built the platform with Love, in giving, to its essentials in just three easy steps, between you and a meaningful blessing.
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         </p>
       </header>
 
@@ -72,6 +78,7 @@ function HowItWorks() {
               <span className="grid h-10 w-10 place-items-center rounded-full bg-muted text-foreground">
                 <s.icon className="h-5 w-5" />
               </span>
+<<<<<<< HEAD
 
               <span className="text-sm font-medium text-muted-foreground">
                 Step {i + 1}
@@ -82,10 +89,16 @@ function HowItWorks() {
               {s.title}
             </h3>
 
+=======
+              <span className="text-sm font-medium text-muted-foreground">Step {i + 1}</span>
+            </div>
+            <h3 className="text-display mt-4 text-xl font-semibold">{s.title}</h3>
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
             <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
           </div>
         ))}
       </div>
+<<<<<<< HEAD
 
       {/* CTA BLOCK */}
       <div className="surface-card mt-16 rounded-3xl p-10 text-center">
@@ -98,6 +111,14 @@ function HowItWorks() {
         <p className="mx-auto mt-2 max-w-2xl text-muted-foreground">
           Payments are processed securely. Every blessing is tracked and
           verified in real time.
+=======
+      <div className="mt-16 rounded-3xl bg-gradient-warm p-10 text-center">
+        <ShieldCheck className="mx-auto h-8 w-8 text-primary" />
+        <h2 className="text-display mt-4 text-2xl font-semibold">Built for trust</h2>
+        <p className="mx-auto mt-2 max-w-2xl text-muted-foreground">
+          Payments are processed by Shopify. Campaign progress updates live from our backend. You
+          can always see where your blessing went.
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         </p>
 
         <Button

@@ -151,7 +151,7 @@ function ProfilePage() {
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="space-y-2">
-            <input
+            <Input
               ref={fileRef}
               type="file"
               accept="image/*"

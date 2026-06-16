@@ -16,7 +16,11 @@ interface AdminShellProps {
  */
 export function AdminShell({ eyebrow = "Admin", title, description, actions, children }: AdminShellProps) {
   return (
+<<<<<<< HEAD
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
+=======
+    <div className="relative min-h-screen overflow-hidden bg-shell-navy">
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl"

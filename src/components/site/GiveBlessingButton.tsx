@@ -8,7 +8,8 @@ export function GiveBlessingButton({ className = "", size = "default" }: Props) 
     <Button
       asChild
       size={size}
-      className={`font-blessing text-base sm:text-xl px-3 sm:px-5 whitespace-nowrap rounded-md bg-accent text-accent-foreground shadow-soft hover:bg-accent/90 ${className}`}
+      variant="blessing"
+      className={`text-base sm:text-xl px-3 sm:px-5 whitespace-nowrap rounded-md ${className}`}
     >
       <Link to="/give-a-blessing">
         <span className="hidden sm:inline">Give a Blessing {"\u{1F64F}"}</span>

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 import { AdminShell } from "@/components/admin/AdminShell";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/admin/command-center/petri")({
   beforeLoad: () => requireAdminBeforeLoad(),
@@ -30,9 +31,9 @@ function PetriDashboard() {
         <div>
           <h2 className="text-xl font-semibold">Admin Controls</h2>
           <div className="mt-2 flex flex-wrap gap-2">
-            <button className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10">Recompute Petri Scores</button>
-            <button className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10">Run System Audit</button>
-            <button className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10">Sync Sponsor Network</button>
+            <Button variant="outline" size="sm">Recompute Petri Scores</Button>
+            <Button variant="outline" size="sm">Run System Audit</Button>
+            <Button variant="outline" size="sm">Sync Sponsor Network</Button>
           </div>
         </div>
       </section>

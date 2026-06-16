@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { Button } from "@/components/ui/button";
 import { submitCorporateApplication } from "@/lib/gateway";
 import { toast } from "sonner";
 import {
@@ -227,13 +228,19 @@ function CorporateSignup() {
           </FormField>
         </FormPanel>
 
-        <button
+        <Button
           onClick={handleSubmit}
           disabled={submitting || submitted}
+<<<<<<< HEAD
           className="w-full rounded-md bg-accent py-3 font-semibold text-accent-foreground shadow-soft hover:bg-accent/90 disabled:"
+=======
+          variant="blessing"
+          size="lg"
+          className="w-full"
+>>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         >
           {submitted ? "Submitted ✓" : submitting ? "Submitting…" : "Submit Corporate Application"}
-        </button>
+        </Button>
       </div>
     </div>
   );
