@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Shield, Eye, CheckCircle2, Heart } from "lucide-react";
 
@@ -13,7 +13,7 @@ const getGatewayRpc = async () => {
 export const Route = createFileRoute("/transparency")({
   head: () => ({
     meta: [
-      { title: "Transparency Ledger — MyBlessings" },
+      { title: "Transparency Ledger � MyBlessings" },
       { name: "description", content: "Review real-time giving analytics, distribution paths, and platform tracking metrics transparently." },
     ],
   }),
@@ -40,7 +40,7 @@ function TransparencyPage() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12 text-primary-foreground">
+    <div className="mx-auto max-w-5xl px-6 py-12 text-foreground">
       <header className="max-w-3xl space-y-4">
         <h1 className="text-display text-4xl font-semibold md:text-5xl">
           Transparency Ledger
@@ -54,7 +54,7 @@ function TransparencyPage() {
       <div className="mt-12 grid gap-4 sm:grid-cols-3">
         <div className="rounded-2xl border border-border/60 bg-card p-6">
           <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Distributed</p>
-          <p className="text-display mt-2 text-3xl font-semibold text-accent">
+          <p className="text-display mt-2 text-3xl font-semibold text-foreground">
             {loading ? "..." : `$${data?.totalRaised?.toLocaleString() ?? "0"}`}
           </p>
         </div>
@@ -75,24 +75,24 @@ function TransparencyPage() {
       {/* Value statement segments */}
       <section className="mt-16 space-y-8">
         <div className="flex gap-4 items-start">
-          <div className="p-2 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 shrink-0">
-            <Eye className="h-5 w-5 text-accent" />
+          <div className="p-2 rounded-xl bg-card border border-border shrink-0">
+            <Eye className="h-5 w-5 text-foreground" />
           </div>
           <div>
             <h2 className="text-xl font-medium">100% Direct Path Routing</h2>
-            <p className="mt-1 text-sm text-muted-foreground text-black leading-relaxed">
+            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Disbursements pass directly to verified healthcare providers, schools, vendor systems, or merchant accounts to settle basic life needs with no intermediary processing cuts.
             </p>
           </div>
         </div>
 
         <div className="flex gap-4 items-start">
-          <div className="p-2 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 shrink-0">
-            <Shield className="h-5 w-5 text-accent" />
+          <div className="p-2 rounded-xl bg-card border border-border shrink-0">
+            <Shield className="h-5 w-5 text-foreground" />
           </div>
           <div>
             <h2 className="text-xl font-medium">Verified by Partner NGOs</h2>
-            <p className="mt-1 text-sm text-muted-foreground text-black leading-relaxed">
+            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Recipients register specific aid request tickets which are evaluated alongside local community leaders to keep accountability airtight.
             </p>
           </div>

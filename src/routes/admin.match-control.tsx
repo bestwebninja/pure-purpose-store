@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,7 @@ type Event = {
 
 export const Route = createFileRoute("/admin/match-control")({
   beforeLoad: () => requireAdminBeforeLoad(),
-  head: () => ({ meta: [{ title: "Match Control — MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Match Control � MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminMatchControl,
 });
 
@@ -109,23 +109,23 @@ function AdminMatchControl() {
 
   if (error) {
     return (
-      <AdminShell eyebrow="Admin · Matches" title="Match Control">
-        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+      <AdminShell eyebrow="Admin � Matches" title="Match Control">
+        <div className="surface-card" className="p-6"><p className="text-sm text-destructive">{error}</p></div>
       </AdminShell>
     );
   }
 
   return (
     <AdminShell
-      eyebrow="Admin · Matches"
+      eyebrow="Admin � Matches"
       title="Match Control"
       description="Approve, reject, or manually execute Petri Bloom matches. Executions route through the fulfillment router."
     >
       <div className="space-y-3">
-        {matches === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
-        {matches?.length === 0 && <p className="text-sm text-primary-foreground/70">No matches yet.</p>}
+        {matches === null && <p className="text-sm text-muted-foreground">Loading�</p>}
+        {matches?.length === 0 && <p className="text-sm text-muted-foreground">No matches yet.</p>}
         {matches?.map((m) => (
-          <Card key={m.id} className="p-4 sm:p-5">
+          <div className="surface-card" key={m.id} className="p-4 sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
@@ -138,11 +138,11 @@ function AdminMatchControl() {
                   </Badge>
                   {m.category && <Badge variant="outline">{m.category}</Badge>}
                 </div>
-                <p className="mt-2 text-sm text-primary-foreground/70 break-words">
-                  score {m.score} · confidence {(m.confidence_score * 100).toFixed(0)}%
-                  {m.provider && <> · provider <span className="font-medium text-foreground">{m.provider}</span></>}
-                  {m.cost > 0 && <> · cost {m.cost.toFixed(2)} {m.currency}</>}
-                  {m.last_executed_at && <> · last run {new Date(m.last_executed_at).toLocaleString()}</>}
+                <p className="mt-2 text-sm text-muted-foreground break-words">
+                  score {m.score} � confidence {(m.confidence_score * 100).toFixed(0)}%
+                  {m.provider && <> � provider <span className="font-medium text-foreground">{m.provider}</span></>}
+                  {m.cost > 0 && <> � cost {m.cost.toFixed(2)} {m.currency}</>}
+                  {m.last_executed_at && <> � last run {new Date(m.last_executed_at).toLocaleString()}</>}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 sm:shrink-0">
@@ -155,7 +155,7 @@ function AdminMatchControl() {
                 <Button size="sm" variant="destructive" className="flex-1 sm:flex-none" onClick={() => handle(m.id, "reject")} disabled={!!busy || m.status === "rejected"}>
                   Reject
                 </Button>
-                <Button size="sm" variant="ghost" className="flex-1 text-primary-foreground sm:flex-none" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
+                <Button size="sm" variant="ghost" className="flex-1 text-foreground sm:flex-none" onClick={() => toggleEvents(m.id)} disabled={!!busy}>
                   {events[m.id] ? "Hide" : "Events"}
                 </Button>
               </div>
@@ -167,15 +167,15 @@ function AdminMatchControl() {
                 {events[m.id].map((e) => (
                   <div key={e.id} className="flex flex-wrap items-center justify-between gap-2 py-1 text-xs">
                     <span>{new Date(e.created_at).toLocaleString()}</span>
-                    <span className="font-medium">{e.provider ?? "—"}</span>
-                    <span>{e.status ?? "—"}</span>
+                    <span className="font-medium">{e.provider ?? "�"}</span>
+                    <span>{e.status ?? "�"}</span>
                     <span>{Number(e.cost ?? 0).toFixed(2)} {e.currency ?? ""}</span>
                     <span className="italic text-muted-foreground">{e.notes}</span>
                   </div>
                 ))}
               </div>
             )}
-          </Card>
+          </div>
         ))}
       </div>
     </AdminShell>

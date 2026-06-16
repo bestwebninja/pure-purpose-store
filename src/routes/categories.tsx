@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { type CategoriesResponse } from "../utils/api";
 
 // BYPASS VITE SCANNER: We dynamically join an array of string fragments.
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/categories")({
   },
   head: () => ({
     meta: [
-      { title: "Categories — MyBlessings · Support with Purpose" },
+      { title: "Categories � MyBlessings � Support with Purpose" },
       { name: "description", content: "Browse giving opportunities by category. Find real causes and verify where your help goes." },
     ],
   }),
@@ -59,7 +59,7 @@ function CategoriesPage() {
               )}
             </div>
             <div className="mt-6 text-xs uppercase tracking-wider text-accent font-medium group-hover:underline">
-              View Blessings →
+              View Blessings ?
             </div>
           </Link>
         ))}

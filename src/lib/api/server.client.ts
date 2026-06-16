@@ -1,4 +1,4 @@
-﻿// CLIENT SAFE API WRAPPER LAYER
+// CLIENT SAFE API WRAPPER LAYER
 // This file prevents direct server imports from UI
 
 export function serverError() {

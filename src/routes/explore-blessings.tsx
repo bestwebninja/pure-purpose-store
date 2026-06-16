@@ -122,20 +122,21 @@ function ExploreBlessings() {
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">Categories</p>
-          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-primary-foreground md:text-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">Categories</p>
+          <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-foreground md:text-5xl">
             Our Blessings
           </h1>
-          <p className="mt-2 max-w-2xl text-sm text-primary-foreground/70">
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             We meet real needs. Which categories are you passionate about giving a blessing in?
           </p>
         </header>
 
         <div className="relative">
-          <div
+          <img
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-center bg-no-repeat bg-contain opacity-30"
-            style={{ backgroundImage: `url(${blessingsTreeBg})` }}
+            src={blessingsTreeBg}
+            alt=""
+            className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-30"
           />
           <div className="relative grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {CATEGORIES.map((cat) => (
@@ -145,17 +146,17 @@ function ExploreBlessings() {
         </div>
 
         <section className="mt-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">BLESSINGS </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">BLESSINGS </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-2xl border border-accent/30 bg-primary-foreground/5 p-6 text-center shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl"
+                className="surface-card rounded-2xl p-6 text-center"
               >
-                <div className="text-display text-3xl text-primary-foreground md:text-4xl">
-                  {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-primary-foreground/10 align-middle" /> : "—")}
+                <div className="text-display text-3xl text-foreground md:text-4xl">
+                  {m.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
                 </div>
-                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-accent">{m.label}</div>
+                <div className="mt-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">{m.label}</div>
               </div>
             ))}
           </div>
@@ -171,43 +172,24 @@ function CategoryCard({ category }: { category: Category }) {
 
   return (
     <article
-      className={`group relative flex flex-col rounded-2xl border bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-xl transition-all hover:-translate-y-0.5 ${span}`}
-      style={{
-        borderColor: `${color}55`,
-        boxShadow: `0 0 50px -20px ${color}99, inset 0 0 20px -10px ${color}40`,
-      }}
+      className={`group relative flex flex-col surface-card rounded-2xl p-6 transition-all hover:-translate-y-0.5 ${span}`}
     >
       <div className="flex items-start gap-4">
-        <div
-          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border"
-          style={{
-            borderColor: `${color}66`,
-            backgroundColor: `${color}10`,
-            boxShadow: `0 0 24px -6px ${color}80, inset 0 0 16px -8px ${color}80`,
-          }}
-        >
-          <Icon
-            className="h-9 w-9"
-            style={{ color, strokeWidth: 1.5 }}
-          />
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-border bg-muted shadow-soft">
+          <Icon className="h-9 w-9 text-foreground" />
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="text-display text-xl leading-tight text-primary-foreground">{name}</h2>
-          <p className="mt-1.5 text-sm leading-snug text-primary-foreground/65">{description}</p>
+          <h2 className="text-display text-xl leading-tight text-foreground">{name}</h2>
+          <p className="mt-1.5 text-sm leading-snug text-muted-foreground">{description}</p>
         </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-1.5">
-        <span className="text-xs text-primary-foreground/50">{featured ? "New:" : "Preview:"}</span>
+        <span className="text-xs text-muted-foreground">{featured ? "New:" : "Preview:"}</span>
         {tags.map((t) => (
           <span
             key={t}
-            className="rounded-full border px-2.5 py-0.5 text-xs"
-            style={{
-              borderColor: `${color}55`,
-              backgroundColor: `${color}12`,
-              color: `${color}`,
-            }}
+            className="rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs text-foreground"
           >
             {t}
           </span>
@@ -218,7 +200,7 @@ function CategoryCard({ category }: { category: Category }) {
         <Button
           asChild
           variant="outline"
-          className="w-full rounded-xl border-primary-foreground/20 bg-primary-foreground/5 text-sm text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+          className="w-full rounded-xl text-sm"
           style={{ borderColor: `${color}40` }}
         >
           <Link to="/give-a-blessing">Explore &amp; Support</Link>

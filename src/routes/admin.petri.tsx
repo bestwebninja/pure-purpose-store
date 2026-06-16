@@ -82,19 +82,19 @@ function PetriAdminPage() {
       <button
         onClick={handleRecompute}
         disabled={busy}
-        className="w-full sm:w-auto rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
+        className="w-full rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground hover:bg-muted disabled: sm:w-auto"
       >
         {busy ? 'Recomputing…' : 'Recompute Petri Scores'}
       </button>
       {lastResult && (
-        <p className="mt-3 text-xs sm:text-sm text-primary-foreground/60">
+        <p className="mt-3 text-xs text-muted-foreground sm:text-sm">
           Last run: scanned {lastResult.scanned} · written {lastResult.written} · skipped {lastResult.skipped} · {lastResult.duration_ms}ms
         </p>
       )}
 
-      <div className="mt-10 border-t border-primary-foreground/15 pt-6">
-        <h2 className="text-lg sm:text-xl font-semibold">Demo Data Seeder</h2>
-        <p className="mt-1 text-xs sm:text-sm text-primary-foreground/60">
+      <div className="mt-10 border-t border-border/15 pt-6">
+        <h2 className="text-lg font-semibold sm:text-xl">Demo Data Seeder</h2>
+        <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
           Populates sponsors, NGOs, campaigns, cases, Petri tokens/matches, donations, fulfillment events,
           and impact reports. All rows are tagged is_demo=true and can be cleared safely.
         </p>
@@ -102,21 +102,21 @@ function PetriAdminPage() {
           <button
             onClick={handleSeed}
             disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
+            className="rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground hover:bg-muted disabled:"
           >
             {seedBusy === 'seed' ? 'Seeding…' : 'Seed Demo Data'}
           </button>
           <button
             onClick={handleClear}
             disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
+            className="rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground hover:bg-muted disabled:"
           >
             {seedBusy === 'clear' ? 'Clearing…' : 'Clear Demo Data'}
           </button>
           <button
             onClick={refreshCounts}
             disabled={seedBusy !== null}
-            className="rounded-md border border-accent/40 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground hover:bg-primary-foreground/10 disabled:opacity-60"
+            className="rounded-md border border-border bg-card px-4 py-2 text-sm text-foreground hover:bg-muted disabled:"
           >
             Refresh Status
           </button>
@@ -124,9 +124,9 @@ function PetriAdminPage() {
         {counts && (
           <div className="mt-4 grid grid-cols-2 gap-2 text-xs sm:grid-cols-3 sm:text-sm">
             {Object.entries(counts).map(([k, v]) => (
-              <div key={k} className="rounded-2xl border border-accent/30 bg-primary-foreground/5 px-3 py-2 shadow-[0_0_40px_-15px_rgba(56,189,248,0.4)] backdrop-blur-xl">
-                <div className="text-primary-foreground/60">{k}</div>
-                <div className="font-semibold">{v}</div>
+              <div key={k} className="surface-card rounded-2xl px-3 py-2">
+                <div className="text-muted-foreground">{k}</div>
+                <div className="font-semibold text-foreground">{v}</div>
               </div>
             ))}
           </div>

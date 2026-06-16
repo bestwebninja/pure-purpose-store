@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ChevronDown, ShieldCheck, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -85,10 +85,10 @@ export function SiteHeader() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-primary-foreground/10 bg-primary/95 text-primary-foreground backdrop-blur-md">
+  <header className="sticky top-0 z-40 w-full border-b border-border/60 bg-background/95 text-foreground backdrop-blur-md">
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-2 px-3 sm:h-28 sm:gap-4 sm:px-6 text-primary-foreground">
         <Link to="/" className="flex shrink-0 items-center gap-2">
-          <img src={logoAsset.url} alt="MyBlessings" className="h-10 w-10 sm:h-12 sm:w-12 rounded-md bg-white object-contain p-0.5 text-right" />
+          <img src={logoAsset.url} alt="MyBlessings" className="h-10 w-10 sm:h-12 sm:w-12 rounded-md bg-card object-contain p-0.5 text-right" />
           <span className="text-display text-base font-semibold tracking-tight sm:text-lg">MyBlessings</span>
         </Link>
         
@@ -97,8 +97,8 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
-              activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
+              className="font-serif text-lg font-medium whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground font-semibold underline underline-offset-4" }}
             >
               {item.label}
             </Link>
@@ -106,23 +106,27 @@ export function SiteHeader() {
           {isSponsor && (
             <Link
               to="/sponsor/dashboard"
-              className="font-serif text-lg font-medium whitespace-nowrap text-primary-foreground/80 transition-colors hover:text-accent"
-              activeProps={{ className: "text-accent font-semibold underline underline-offset-4" }}
+              className="font-serif text-lg font-medium whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground font-semibold underline underline-offset-4" }}
             >
               Sponsor
             </Link>
           )}
           {isAdmin && (
             <DropdownMenu>
-              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md bg-accent px-3 py-1.5 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90">
+              <DropdownMenuTrigger className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-3 py-1.5 text-sm font-semibold text-foreground shadow-soft outline-none transition hover:bg-muted">
                 <ShieldCheck className="h-4 w-4" />
                 Admin
-                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+                <ChevronDown className="h-3.5 w-3.5 " />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-52">
                 <DropdownMenuLabel>Admin tools</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
+                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
+                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
@@ -152,10 +156,12 @@ export function SiteHeader() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="lg:hidden text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent" aria-label="Open menu">
+                              <Button variant="ghost" size="icon" className="lg:hidden text-foreground hover:bg-muted hover:text-foreground" aria-label="Open menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto">
+                          <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto bg-background text-foreground">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
@@ -243,6 +249,7 @@ export function SiteHeader() {
           
           {!isSponsor && (
             <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap xl:inline-flex text-primary hover:bg-accent hover:text-accent-foreground">
+                          <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap text-foreground xl:inline-flex hover:bg-muted hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
@@ -250,14 +257,16 @@ export function SiteHeader() {
           {userId ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md bg-accent px-3 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90 sm:inline-flex">
+                              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-sm font-semibold text-foreground shadow-soft outline-none transition hover:bg-muted sm:inline-flex">
                 <Avatar className="h-7 w-7">
                   {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
                   <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
                 </Avatar>
                 <span className="hidden md:inline">Account</span>
-                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
+                <ChevronDown className="h-3.5 w-3.5 " />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                              <DropdownMenuContent align="end" className="w-48 bg-background text-foreground">
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/me/giving">My Giving</Link>
                 </DropdownMenuItem>

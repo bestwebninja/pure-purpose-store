@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { VerificationDashboard } from "@/components/admin/VerificationDashboard";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 import { AdminShell } from "@/components/admin/AdminShell";

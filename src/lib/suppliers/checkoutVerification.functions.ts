@@ -1,4 +1,4 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { verifyFulfillmentBeforeCheckout } from "@/backend/suppliers/checkoutVerification.server";

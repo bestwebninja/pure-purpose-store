@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -58,10 +58,10 @@ const NTEE_CATEGORIES = [
 const CAUSES = ["Elderly Care", "Children", "Education", "Clean Water", "Emergency Relief", "Medical", "Animals", "Environment"];
 
 const inputCls =
-  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent";
+  "border-border bg-card text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring";
 
 const selectTriggerCls =
-  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground data-[placeholder]:text-primary-foreground/60 focus:ring-accent";
+  "border-border bg-card text-foreground data-[placeholder]:text-muted-foreground focus:ring-ring";
 
 export const Route = createFileRoute("/ngo/onboarding")({
   component: NgoOnboardingPage,
@@ -92,11 +92,11 @@ function NgoOnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground [&_label]:text-primary-foreground">
+    <div className="min-h-screen bg-background text-foreground [&_label]:text-foreground">
       <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-16">
       <header className="mb-8">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Nonprofit Intake &amp; Verification 🙏</h1>
-        <p className="mt-2 text-primary-foreground/80">Please complete all sections for vetting and registration.</p>
+        <h1 className="text-display text-3xl font-semibold text-foreground">Nonprofit Intake &amp; Verification ??</h1>
+        <p className="mt-2 text-muted-foreground">Please complete all sections for vetting and registration.</p>
 
         <nav className="mt-6 flex flex-wrap gap-2">
           <Button variant="secondary" size="sm" onClick={() => scrollTo("section-identity")}>1. Identity</Button>
@@ -105,11 +105,11 @@ function NgoOnboardingPage() {
         </nav>
       </header>
 
-      <Card className="mt-4 space-y-5 border-primary-foreground/20 p-4 text-primary-foreground bg-primary/50 backdrop-blur-sm sm:p-6">
+      <Card className="mt-4 space-y-5 p-4 text-foreground backdrop-blur-sm sm:p-6">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
         {/* Identity Section */}
         <section id="section-identity" className="scroll-mt-24 space-y-6">
-          <div className="border-b border-primary-foreground/20 pb-2">
+          <div className="border-b border-border/20 pb-2">
             <h2 className="text-xl font-bold">1. Legal Identity</h2>
           </div>
           
@@ -157,7 +157,7 @@ function NgoOnboardingPage() {
 
         {/* Mission Section */}
         <section id="section-mission" className="scroll-mt-24 space-y-6">
-          <div className="border-b border-primary-foreground/20 pb-2">
+          <div className="border-b border-border/20 pb-2">
             <h2 className="text-xl font-bold">2. Help Interests</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -165,7 +165,7 @@ function NgoOnboardingPage() {
               <div key={cause} className="flex items-center space-x-3">
                 <Checkbox
                   id={cause}
-                  className="h-11 w-11 rounded-md border-2 border-primary-foreground/40 data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
+                  className="h-11 w-11 rounded-md border-2 border-border data-[state=checked]:bg-accent data-[state=checked]:text-foreground"
                   onCheckedChange={(checked) => {
                     const current = form.getValues("causes");
                     form.setValue("causes", checked ? [...current, cause] : current.filter(c => c !== cause));
@@ -179,7 +179,7 @@ function NgoOnboardingPage() {
 
         {/* Contact/Impact Section */}
         <section id="section-impact" className="scroll-mt-24 space-y-6">
-          <div className="border-b border-primary-foreground/20 pb-2">
+          <div className="border-b border-border/20 pb-2">
             <h2 className="text-xl font-bold">3. Contact & Impact</h2>
           </div>
           <div className="space-y-4">
@@ -205,7 +205,7 @@ function NgoOnboardingPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="geography">Geography of Impact</Label>
-                <Input id="geography" className={inputCls} {...form.register("geography")} placeholder="e.g. US — California, Israel — Tel Aviv" />
+                <Input id="geography" className={inputCls} {...form.register("geography")} placeholder="e.g. US � California, Israel � Tel Aviv" />
               </div>
             </div>
             <div className="space-y-2">

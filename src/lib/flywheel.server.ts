@@ -1,15 +1,15 @@
-Ôªø/**
- * Phase 7 ‚Äî Autonomous Funding Flywheel
+/**
+ * Phase 7 ó Autonomous Funding Flywheel
  *
  * Compiles proof-of-impact for a sponsor's completed funding package, then
  * automatically generates the suggested funding package for next month.
  *
  * Autonomy gating:
- *   L3 (Autonomous) ‚Üí status='sent', auto-emails report + checkout link
- *   L0‚ÄìL2          ‚Üí status='draft' / 'pending_review', awaits Operator
+ *   L3 (Autonomous) ? status='sent', auto-emails report + checkout link
+ *   L0ñL2          ? status='draft' / 'pending_review', awaits Operator
  *                     approval inside the God View before being sent.
  *
- * Server-only ‚Äî must NOT be imported from client code.
+ * Server-only ó must NOT be imported from client code.
  */
 
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -58,7 +58,7 @@ export type FlywheelOutcome = {
 /**
  * Run the flywheel for a single sponsor + completed package.
  *
- * Idempotent ‚Äî second call with the same package_signature updates the
+ * Idempotent ó second call with the same package_signature updates the
  * existing row (re-aggregates artifacts and refreshes the next package),
  * but never downgrades a `sent` report.
  */
@@ -276,11 +276,11 @@ function composeSummary(args: {
 }): string {
   const t = args.artifacts.totals;
   const lines = [
-    `Funding cycle complete ‚Äî ${args.currency} ${args.packageTotal.toFixed(2)} deployed.`,
+    `Funding cycle complete ó ${args.currency} ${args.packageTotal.toFixed(2)} deployed.`,
     "",
-    `‚Äù¬¢ ${t.delivered_count} verified delivery event${t.delivered_count === 1 ? "" : "s"}`,
-    `‚Äù¬¢ ${t.photo_count} approved proof-of-impact photo${t.photo_count === 1 ? "" : "s"}`,
-    `‚Äù¬¢ ${args.artifacts.receipts.length} receipt${args.artifacts.receipts.length === 1 ? "" : "s"} totaling ${args.currency} ${t.receipt_total.toFixed(2)}`,
+    `î¢ ${t.delivered_count} verified delivery event${t.delivered_count === 1 ? "" : "s"}`,
+    `î¢ ${t.photo_count} approved proof-of-impact photo${t.photo_count === 1 ? "" : "s"}`,
+    `î¢ ${args.artifacts.receipts.length} receipt${args.artifacts.receipts.length === 1 ? "" : "s"} totaling ${args.currency} ${t.receipt_total.toFixed(2)}`,
     "",
     "A new Funding Package for next month has been generated based on your ESG goals,",
     "industry priorities, geography focus, and the latest PETRI scorecards.",

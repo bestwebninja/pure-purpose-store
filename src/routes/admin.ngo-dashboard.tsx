@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/admin/ngo-dashboard")({
   beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({
     meta: [
-      { title: "NGO Admin Dashboard — MyBlessings" },
+      { title: "NGO Admin Dashboard � MyBlessings" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -96,11 +96,11 @@ function AdminDashboard() {
 
   if (error) {
     return (
-      <AdminShell eyebrow="Admin · NGOs" title="NGO Applications">
-        <Card className="p-6">
+      <AdminShell eyebrow="Admin � NGOs" title="NGO Applications">
+        <div className="surface-card p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-primary-foreground/70">You must be signed in as an admin to view this page.</p>
-        </Card>
+          <p className="mt-2 text-sm text-muted-foreground">You must be signed in as an admin to view this page.</p>
+        </div>
       </AdminShell>
     );
   }
@@ -108,11 +108,11 @@ function AdminDashboard() {
   if (selectedApp) {
     return (
       <AdminShell
-        eyebrow="Admin · NGOs"
+        eyebrow="Admin � NGOs"
         title={`Verification Audit: ${selectedApp.name}`}
         actions={
-          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="text-primary-foreground hover:text-accent">
-            ← Back
+          <Button variant="ghost" onClick={() => setSelectedApp(null)} className="text-foreground hover:text-foreground">
+            ? Back
           </Button>
         }
       >
@@ -121,7 +121,7 @@ function AdminDashboard() {
             {/* Mobile: card list */}
             <div className="space-y-3 md:hidden">
               {vettingMatrix.map((m, i) => (
-                <Card
+                <div className="surface-card"
                   key={`m-${i}`}
                   className={`p-4 ${
                     m.status === "FAIL" ? "border-destructive/40 bg-destructive/10" :
@@ -130,17 +130,17 @@ function AdminDashboard() {
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-sm font-semibold text-primary-foreground break-words">{m.point}</h4>
+                    <h4 className="text-sm font-semibold text-foreground break-words">{m.point}</h4>
                     <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                       {m.status}
                     </Badge>
                   </div>
-                  <dl className="mt-3 space-y-1.5 text-xs text-primary-foreground/80">
-                    <div><dt className="inline font-medium text-primary-foreground/60">User input: </dt><dd className="inline break-words">{m.userInput}</dd></div>
-                    <div><dt className="inline font-medium text-primary-foreground/60">ProPublica: </dt><dd className="inline break-words">{m.proData}</dd></div>
-                    <div><dt className="inline font-medium text-primary-foreground/60">Action: </dt><dd className="inline break-words">{m.action}</dd></div>
+                  <dl className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                    <div><dt className="inline font-medium text-muted-foreground">User input: </dt><dd className="inline break-words text-foreground">{m.userInput}</dd></div>
+                    <div><dt className="inline font-medium text-muted-foreground">ProPublica: </dt><dd className="inline break-words text-foreground">{m.proData}</dd></div>
+                    <div><dt className="inline font-medium text-muted-foreground">Action: </dt><dd className="inline break-words text-foreground">{m.action}</dd></div>
                   </dl>
-                </Card>
+                </div>
               ))}
             </div>
             {/* Tablet/desktop: full table */}
@@ -162,15 +162,15 @@ function AdminDashboard() {
                     m.status === "FLAG" ? "bg-accent/15" : 
                     "bg-success/10"
                   }>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-primary-foreground">{m.point}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.userInput}</td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70 break-words">{m.proData}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-medium text-foreground">{m.point}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground break-words">{m.userInput}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground break-words">{m.proData}</td>
                     <td className="px-3 py-3 sm:px-6 sm:py-4">
                       <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
                         {m.status}
                       </Badge>
                     </td>
-                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-primary-foreground/70">{m.action}</td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-sm text-muted-foreground">{m.action}</td>
                   </tr>
                 ))}
               </tbody>
@@ -185,28 +185,28 @@ function AdminDashboard() {
   }
 
   return (
-    <AdminShell eyebrow="Admin · NGOs" title="NGO Applications" description="Live admin view — updates in realtime.">
+    <AdminShell eyebrow="Admin � NGOs" title="NGO Applications" description="Live admin view � updates in realtime.">
       <div className="space-y-3">
-        {apps === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
-        {apps?.length === 0 && <p className="text-sm text-primary-foreground/70">No applications yet.</p>}
+        {apps === null && <p className="text-sm text-muted-foreground">Loading�</p>}
+        {apps?.length === 0 && <p className="text-sm text-muted-foreground">No applications yet.</p>}
         {apps?.map((a) => (
-          <Card key={a.id} className="flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" onClick={() => handleSelectApp(a)}>
+          <div className="surface-card flex cursor-pointer flex-col gap-4 p-4 transition-colors hover:border-accent/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:p-5" key={a.id} onClick={() => handleSelectApp(a)}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex items-center gap-3">
-                <h3 className="font-semibold break-words">{a.name}</h3>
+                <h3 className="font-semibold break-words text-foreground">{a.name}</h3>
                 <Badge variant={a.status === "ACTIVE" ? "default" : a.status === "REJECTED" ? "destructive" : "secondary"}>
                   {a.status}
                 </Badge>
               </div>
-              <p className="text-sm text-primary-foreground/70 break-words">{a.email} · {a.country} · {a.geography}</p>
+              <p className="text-sm text-muted-foreground break-words">{a.email} � {a.country} � {a.geography}</p>
               <p className="mt-1 text-xs text-muted-foreground break-words">Causes: {a.causes.join(", ")}</p>
-              <p className="mt-1 text-xs">Trust: <span className="font-medium">{a.trust_score}</span> · {a.intelligence_status}</p>
+              <p className="mt-1 text-xs text-muted-foreground">Trust: <span className="font-medium text-foreground">{a.trust_score}</span> � {a.intelligence_status}</p>
             </div>
             <div className="flex flex-wrap gap-2 sm:shrink-0" onClick={(e) => e.stopPropagation()}>
               <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "ACTIVE")} disabled={a.status === "ACTIVE"}>Approve</Button>
               <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handleStatus(a.id, "REJECTED")} disabled={a.status === "REJECTED"}>Reject</Button>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </AdminShell>

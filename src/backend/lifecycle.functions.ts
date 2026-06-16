@@ -1,4 +1,4 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { isAllowedLocation, getAllowedCountries } from "@/lib/data-sovereignty";
 

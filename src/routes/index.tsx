@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, ShieldCheck, ArrowRight, Globe2, Eye, HandHeart, Quote } from "lucide-react";
@@ -15,13 +15,13 @@ const getGatewayRpc = async () => {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Home — MyBlessings · Give With Purpose" },
-      { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes — transparently." },
-      { property: "og:title", content: "MyBlessings — Give With Purpose" },
-      { property: "og:description", content: "Support real people and real causes — transparently." },
+      { title: "Home � MyBlessings � Give With Purpose" },
+      { name: "description", content: "When humanity shows up for one another, blessings happen. Support real people and real causes � transparently." },
+      { property: "og:title", content: "MyBlessings � Give With Purpose" },
+      { property: "og:description", content: "Support real people and real causes � transparently." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/" },
       { property: "og:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
-      { property: "og:image:alt", content: "MyBlessings — give with purpose" },
+      { property: "og:image:alt", content: "MyBlessings � give with purpose" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: `https://pure-purpose-store.lovable.app${heroImage}` },
@@ -47,34 +47,29 @@ function Index() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
+    <section className="relative overflow-hidden bg-gradient-hero text-foreground">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
+        className="hero-grid-overlay pointer-events-none absolute inset-0 opacity-[0.07]"
       />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 md:grid-cols-[1.1fr_1fr] md:py-32">
         <div className="space-y-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-primary-foreground/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent text-slate-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" /> MYBLESSINGS, TURNING COMPASSION INTO INFRASTRUCTURE™
+          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" /> MYBLESSINGS, TURNING COMPASSION INTO INFRASTRUCTURE�
           </span>
-          <h1 className="text-display text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl text-primary-foreground">
+          <h1 className="text-display text-5xl font-bold leading-[1.02] tracking-tight text-foreground md:text-7xl">
             Give with purpose.
             <br />
             <span className="italic text-accent">Receive blessings.</span>
           </h1>
-          <p className="max-w-xl text-lg leading-relaxed text-primary-foreground/80">
+          <p className="max-w-xl text-lg leading-relaxed text-muted-foreground">
             MyBlessings is an AI-powered Blessing Intelligence Platform serving the United States and Israel, connecting people in need with verified NGOs, sponsors, volunteers, businesses, and communities through measurable acts of giving, while using nonprofit verification, sponsor matching, geographic intelligence, and AI-driven allocation to transform compassion into coordinated, real-world impact.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-md bg-accent px-8 text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-slate-300"
+              className="h-12 rounded-md px-8 text-base font-semibold shadow-glow"
             >
               <Link to="/give-a-blessing">
                 <Heart className="mr-2 h-4 w-4" fill="currentColor" /> Give a blessing
@@ -84,18 +79,18 @@ function Hero() {
               asChild
               size="lg"
               variant="ghost"
-              className="h-12 rounded-md px-4 text-base font-medium text-primary-foreground/80 hover:bg-transparent hover:text-primary-foreground"
+              className="h-12 rounded-md px-4 text-base font-medium text-muted-foreground hover:bg-transparent hover:text-foreground"
             >
               <Link to="/how-it-works">
                 How it works <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-primary-foreground/60">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4 text-xs uppercase tracking-[0.15em] text-muted-foreground">
             <span className="inline-flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-accent" /> 100% transparent ledger</span>
-            <span className="text-primary-foreground/30">·</span>
+            <span className="text-muted-foreground">�</span>
             <span>Secure Shopify checkout</span>
-            <span className="text-primary-foreground/30">·</span>
+            <span className="text-muted-foreground">�</span>
             <span>Verified recipients</span>
           </div>
         </div>
@@ -111,7 +106,7 @@ function Hero() {
               height={900}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/90 to-transparent p-6">
-              <p className="text-display text-lg italic text-primary-foreground">
+              <p className="text-display text-lg italic text-foreground">
                 "Charity is the best deposit account."
               </p>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-accent">OUR FOUNDING PRINCIPLE</p>
@@ -164,9 +159,9 @@ function ImpactStrip() {
         {stats.map((s) => (
           <div key={s.label} className="bg-card px-6 py-8">
             <div className="text-display text-3xl text-primary md:text-4xl">
-              {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "—")}
+              {s.value ?? (loading ? <span className="inline-block h-8 w-20 animate-pulse rounded bg-muted align-middle" /> : "�")}
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">{s.label}</div>
+            <div className="mt-2 text-xs uppercase tracking-[0.15em] text-muted-foreground">{s.label}</div>
           </div>
         ))}
       </div>
@@ -198,7 +193,7 @@ function Trust() {
     },
   ];
   return (
-    <section className="bg-primary py-24 text-primary-foreground">
+    <section className="bg-primary py-24 text-foreground">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-14 max-w-2xl">
           <p className="text-xs uppercase tracking-[0.2em] text-accent">Our standard</p>
@@ -209,7 +204,7 @@ function Trust() {
             <div key={it.title} className="bg-primary p-8 transition-colors hover:bg-primary-glow/40">
               <it.icon className="h-7 w-7 text-accent" />
               <h3 className="text-display mt-6 text-xl">{it.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-primary-foreground/70">{it.body}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{it.body}</p>
             </div>
           ))}
         </div>
@@ -228,10 +223,10 @@ function Testimony() {
           MyBlessings made it feel less like charity and more like community."
         </p>
         <div className="mt-8 flex items-center gap-3 text-sm">
-          <div className="h-10 w-10 rounded-full text-center text-base font-semibold leading-10 bg-primary text-primary-foreground">A</div>
+          <div className="h-10 w-10 rounded-full bg-primary text-center text-base font-semibold leading-10 text-foreground">A</div>
           <div>
             <div className="font-semibold text-primary uppercase">FOR ALL GIVERS AND RECIPIENTS</div>
-            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground text-blue-800">Recipient · Healthcare</div>
+            <div className="text-xs uppercase tracking-[0.15em] text-muted-foreground">Recipient � Healthcare</div>
           </div>
         </div>
       </div>
@@ -241,7 +236,7 @@ function Testimony() {
 
 function CTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero py-24 text-primary-foreground">
+    <section className="relative overflow-hidden bg-gradient-hero py-24 text-foreground">
       <div className="absolute -bottom-40 left-1/2 h-96 w-[60rem] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl" aria-hidden />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[1.5fr_1fr] md:items-center">
         <div>
@@ -258,7 +253,7 @@ function CTA() {
           <Button
             asChild
             size="lg"
-            className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-slate-300"
+            className="h-14 rounded-md bg-accent text-base font-semibold text-primary shadow-glow hover:bg-accent/90 bg-blue-600 text-muted-foreground"
           >
             <Link to="/give-a-blessing"><Heart className="mr-2 h-5 w-5" fill="currentColor" /> Give a blessing</Link>
           </Button>

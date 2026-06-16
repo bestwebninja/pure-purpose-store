@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ type Donation = {
 };
 
 export const Route = createFileRoute("/me/giving")({
-  head: () => ({ meta: [{ title: "My Giving — MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "My Giving � MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: MyGiving,
 });
 
@@ -49,24 +49,24 @@ function MyGiving() {
     return () => { cancelled = true; };
   }, [navigate]);
 
-  if (loading) return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading�</div>;
   if (!data) return null;
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-6 py-12">
       <header>
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">My Giving</h1>
-        <p className="text-sm text-muted-foreground text-black">Every blessing you've sent through MyBlessings.</p>
+        <h1 className="text-display text-3xl font-semibold text-foreground">My Giving</h1>
+        <p className="text-sm text-muted-foreground">Every blessing you've sent through MyBlessings.</p>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card className="p-6">
-          <p className="text-sm text-muted-foreground text-black">Total given</p>
-          <p className="mt-1 text-display text-3xl font-semibold text-primary-foreground">{formatMoney(data.totalAmount)}</p>
+          <p className="text-sm text-muted-foreground">Total given</p>
+          <p className="mt-1 text-display text-3xl font-semibold text-foreground">{formatMoney(data.totalAmount)}</p>
         </Card>
         <Card className="p-6">
-          <p className="text-sm text-muted-foreground text-black">Blessings</p>
-          <p className="mt-1 text-display text-3xl font-semibold text-primary-foreground">{data.count}</p>
+          <p className="text-sm text-muted-foreground">Blessings</p>
+          <p className="mt-1 text-display text-3xl font-semibold text-foreground">{data.count}</p>
         </Card>
       </div>
 
@@ -92,7 +92,7 @@ function MyGiving() {
                   <span>{new Date(d.created_at).toLocaleDateString()}</span>
                   {d.is_anonymous && <Badge variant="outline">Anonymous</Badge>}
                 </div>
-                {d.message && <p className="mt-1 text-sm text-muted-foreground text-black italic">"{d.message}"</p>}
+                {d.message && <p className="mt-1 text-sm text-muted-foreground italic">"{d.message}"</p>}
               </div>
               <p className="shrink-0 text-display text-lg font-semibold">{formatMoney(Number(d.amount), d.currency)}</p>
             </div>

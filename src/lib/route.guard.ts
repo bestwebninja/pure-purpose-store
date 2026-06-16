@@ -1,4 +1,4 @@
-﻿import { ROUTE_REGISTRY } from './routes.registry';
+import { ROUTE_REGISTRY } from './routes.registry';
 
 /**
  * ROUTE IMMUNITY LAYER

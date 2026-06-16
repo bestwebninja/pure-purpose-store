@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 type Supplier = {
@@ -62,7 +62,7 @@ export function VerificationDashboard() {
           Failed to load suppliers: {error}
         </div>
       ) : suppliers.length === 0 ? (
-        <p className="text-sm opacity-70">No suppliers found.</p>
+        <p className="text-sm ">No suppliers found.</p>
       ) : (
         <div className="space-y-3">
           {suppliers.map((s) => (
@@ -79,7 +79,7 @@ export function VerificationDashboard() {
                 Status: {s.status} | Verification: {s.verification_status}
               </div>
 
-              <div className="text-xs opacity-60 break-words">
+              <div className="text-xs  break-words">
                 Last verified: {s.last_verified_at || "never"} | Source:{" "}
                 {s.verification_source || "none"}
               </div>

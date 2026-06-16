@@ -16,7 +16,7 @@ interface AdminShellProps {
  */
 export function AdminShell({ eyebrow = "Admin", title, description, actions, children }: AdminShellProps) {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#06102e]">
+    <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[900px] -translate-x-1/2 rounded-full bg-secondary/20 blur-3xl"
@@ -29,18 +29,18 @@ export function AdminShell({ eyebrow = "Admin", title, description, actions, chi
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <header className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">{eyebrow}</p>
-            <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-primary-foreground md:text-5xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">{eyebrow}</p>
+            <h1 className="mt-3 text-display text-4xl font-normal tracking-tight text-foreground md:text-5xl">
               {title}
             </h1>
             {description && (
-              <p className="mt-2 max-w-2xl text-sm text-primary-foreground/70">{description}</p>
+              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{description}</p>
             )}
           </div>
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </header>
 
-        <div className="relative text-primary-foreground">{children}</div>
+        <div className="relative text-foreground">{children}</div>
       </div>
     </div>
   );

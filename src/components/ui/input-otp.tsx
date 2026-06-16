@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { Minus } from "lucide-react";
 
@@ -11,7 +11,7 @@ const InputOTP = React.forwardRef<
   <OTPInput
     ref={ref}
     containerClassName={cn(
-      "flex items-center gap-2 has-[:disabled]:opacity-50",
+      "flex items-center gap-2 has-[:disabled]:",
       containerClassName,
     )}
     className={cn("disabled:cursor-not-allowed", className)}

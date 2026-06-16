@@ -1,12 +1,12 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
  * Dual invoicing split:
- *   93.5% → tax-deductible donation portion (issued to the cause / NGO)
- *   6.5%  → MyBlessings platform software fee (non-deductible)
+ *   93.5% ? tax-deductible donation portion (issued to the cause / NGO)
+ *   6.5%  ? MyBlessings platform software fee (non-deductible)
  */
 const DONATION_PCT = 0.935;
 const PLATFORM_PCT = 0.065;
@@ -65,7 +65,7 @@ export const generateInvoiceForDonation = createServerFn({ method: "POST" })
       throw new Error("Forbidden: donation does not belong to caller");
     }
 
-    // Existing invoice → return it
+    // Existing invoice ? return it
     const { data: existing } = await supabaseAdmin
       .from("invoices")
       .select("*")

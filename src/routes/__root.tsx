@@ -1,4 +1,4 @@
-﻿import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -17,7 +17,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
             Go home
           </Link>
@@ -32,16 +32,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "MyBlessings — Give With Purpose" },
+      { title: "MyBlessings � Give With Purpose" },
       { name: "description", content: "MyBlessings is a giving platform where every donation becomes a blessing for someone in need. Start a campaign or support a cause today." },
       { name: "author", content: "MyBlessings" },
-      { property: "og:title", content: "MyBlessings — Give With Purpose" },
+      { property: "og:title", content: "MyBlessings � Give With Purpose" },
       { property: "og:description", content: "MyBlessings is a giving platform where every donation becomes a blessing for someone in need. Start a campaign or support a cause today." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "MyBlessings" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "MyBlessings — Give With Purpose" },
+      { name: "twitter:title", content: "MyBlessings � Give With Purpose" },
       { name: "twitter:description", content: "MyBlessings is a giving platform where every donation becomes a blessing for someone in need. Start a campaign or support a cause today." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2fe7578f-77b2-404e-a914-f1dca43a1197/id-preview-7ee31c5f--737fd275-ad78-47b5-b4fa-52015a1c3375.lovable.app-1777994720837.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2fe7578f-77b2-404e-a914-f1dca43a1197/id-preview-7ee31c5f--737fd275-ad78-47b5-b4fa-52015a1c3375.lovable.app-1777994720837.png" },
@@ -75,7 +75,7 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -89,7 +89,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <div className="flex min-h-screen flex-col bg-primary text-primary-foreground">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader />
       <main className="flex-1">
         <Outlet />

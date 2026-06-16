@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -24,7 +24,7 @@ type Sponsor = {
 
 export const Route = createFileRoute("/admin/sponsors")({
   beforeLoad: () => requireAdminBeforeLoad(),
-  head: () => ({ meta: [{ title: "Sponsor Verification — MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Sponsor Verification � MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: AdminSponsors,
 });
 
@@ -58,31 +58,31 @@ function AdminSponsors() {
 
   if (error) {
     return (
-      <AdminShell eyebrow="Admin · Sponsors" title="Sponsor Verification">
-        <Card className="p-6"><p className="text-sm text-destructive">{error}</p></Card>
+      <AdminShell eyebrow="Admin � Sponsors" title="Sponsor Verification">
+        <div className="surface-card p-6"><p className="text-sm text-destructive">{error}</p></div>
       </AdminShell>
     );
   }
 
   return (
     <AdminShell
-      eyebrow="Admin · Sponsors"
+      eyebrow="Admin � Sponsors"
       title="Sponsor Verification"
       description="Review and verify Blessing Sponsor applications."
     >
       <div className="space-y-3">
-        {sponsors === null && <p className="text-sm text-primary-foreground/70">Loading…</p>}
-        {sponsors?.length === 0 && <p className="text-sm text-primary-foreground/70">No sponsor applications yet.</p>}
+        {sponsors === null && <p className="text-sm text-muted-foreground">Loading�</p>}
+        {sponsors?.length === 0 && <p className="text-sm text-muted-foreground">No sponsor applications yet.</p>}
         {sponsors?.map((s) => (
-          <Card key={s.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5">
+          <div className="surface-card flex flex-col gap-4 p-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:p-5" key={s.id}>
             <div className="min-w-0 flex-1 basis-full sm:basis-auto">
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <h3 className="font-semibold break-words">{s.organization_name || s.sponsor_role}</h3>
+                <h3 className="font-semibold break-words text-foreground">{s.organization_name || s.sponsor_role}</h3>
                 <Badge variant={s.verification_status === "VERIFIED" ? "default" : s.verification_status === "REJECTED" ? "destructive" : "secondary"}>
                   {s.verification_status}
                 </Badge>
               </div>
-              <p className="text-sm text-primary-foreground/70 break-words">{s.sponsor_role} · {[s.city, s.country].filter(Boolean).join(", ") || "—"}</p>
+              <p className="text-sm text-muted-foreground break-words">{s.sponsor_role} � {[s.city, s.country].filter(Boolean).join(", ") || "�"}</p>
               {s.help_interests?.length > 0 && (
                 <p className="mt-1 text-xs text-muted-foreground break-words">Interests: {s.help_interests.join(", ")}</p>
               )}
@@ -92,7 +92,7 @@ function AdminSponsors() {
               <Button size="sm" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "VERIFIED")} disabled={s.verification_status === "VERIFIED"}>Verify</Button>
               <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handle(s.id, "REJECTED")} disabled={s.verification_status === "REJECTED"}>Reject</Button>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </AdminShell>

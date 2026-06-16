@@ -216,7 +216,7 @@
   :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h4,
   :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h5,
   :where(.bg-primary, .bg-gradient-primary, .bg-gradient-hero, header, footer) h6 {
-    color: oklch(1 0 0);
+    color: var(--foreground);
   }
 
   /* FORCE FIX FOR HERO SECTIONS WITH OVERLAYS (LIKE /request-help) */
@@ -226,7 +226,7 @@
   section[class*="bg-gradient-hero"] h1,
   section[class*="bg-gradient-hero"] h2,
   section[class*="bg-gradient-hero"] h3 {
-    color: oklch(1 0 0) !important;
+    color: var(--foreground) !important;
   }
 
   /*
@@ -245,7 +245,7 @@
     header,
     footer
   ) :where(p, span, li, dt, dd, a, label, small, strong, em, blockquote, figcaption) {
-    color: oklch(1 0 0);
+    color: var(--foreground);
   }
 
   /* Neutralize gray/slate utilities when nested on dark surfaces */
@@ -262,20 +262,6 @@
     .bg-gradient-primary,
     [class*="bg-[#06102e]"],
     [class*="bg-[#081C50]"]
-  ) [class*="text-slate-"],
-  :where(
-    .bg-primary,
-    .bg-gradient-hero,
-    .bg-gradient-primary,
-    [class*="bg-[#06102e]"],
-    [class*="bg-[#081C50]"]
-  ) [class*="text-gray-"],
-  :where(
-    .bg-primary,
-    .bg-gradient-hero,
-    .bg-gradient-primary,
-    [class*="bg-[#06102e]"],
-    [class*="bg-[#081C50]"]
   ) [class*="text-zinc-"],
   :where(
     .bg-primary,
@@ -284,8 +270,23 @@
     [class*="bg-[#06102e]"],
     [class*="bg-[#081C50]"]
   ) [class*="text-neutral-"] {
-    color: oklch(1 0 0 / 0.85) !important;
+    color: var(--foreground) !important;
   }
+}
+
+.site-footer-sunflower {
+  background-image: linear-gradient(rgba(8, 28, 80, 0.55), rgba(8, 28, 80, 0.7));
+  background-size: cover;
+  background-position: center;
+}
+
+.site-footer-safe-padding {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1.5rem);
+}
+
+.hero-grid-overlay {
+  background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.07) 1px, transparent 0);
+  background-size: 28px 28px;
 }
 
 @utility text-display {
@@ -330,4 +331,33 @@
 
 @utility font-blessing {
   font-family: var(--font-blessing);
+}
+/* ===== SURFACE CARD TEXT FIX (CRITICAL) ===== */
+
+.bg-card,
+.surface-card,
+[class*="bg-card"] {
+  color: var(--foreground) !important;
+}
+
+/* Prevent global white text rule from breaking cards */
+.bg-card p,
+.bg-card span,
+.bg-card li,
+.bg-card a,
+.bg-card small,
+.bg-card strong,
+.surface-card p,
+.surface-card span,
+.surface-card li,
+.surface-card a,
+.surface-card small,
+.surface-card strong {
+  color: var(--foreground) !important;
+}
+
+/* Muted text inside cards */
+.bg-card .text-muted-foreground,
+.surface-card .text-muted-foreground {
+  color: var(--muted-foreground) !important;
 }

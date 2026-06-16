@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ type Case = {
 };
 
 export const Route = createFileRoute("/my-blessings")({
-  head: () => ({ meta: [{ title: "My Blessings — MyBlessings" }] }),
+  head: () => ({ meta: [{ title: "My Blessings � MyBlessings" }] }),
   component: MyBlessings,
 });
 
@@ -54,7 +54,7 @@ function MyBlessings() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-display text-3xl font-semibold text-foreground">My Blessings</h1>
-          <p className="text-sm text-muted-foreground text-black">Your help requests and their status.</p>
+          <p className="text-sm text-muted-foreground">Your help requests and their status.</p>
         </div>
         <Button asChild>
           <Link to="/request-help">New Request</Link>
@@ -62,7 +62,7 @@ function MyBlessings() {
       </div>
 
       {loading ? (
-        <p className="mt-10 text-muted-foreground">Loading…</p>
+        <p className="mt-10 text-muted-foreground">Loading�</p>
       ) : cases.length === 0 ? (
         <Card className="mt-10 p-8 text-center">
           <p className="text-muted-foreground">You haven't submitted any requests yet.</p>
@@ -77,7 +77,7 @@ function MyBlessings() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="font-semibold">{c.title}</h3>
-                  {c.description && <p className="mt-1 text-sm text-muted-foreground text-black">{c.description}</p>}
+                  {c.description && <p className="mt-1 text-sm text-muted-foreground">{c.description}</p>}
                   <p className="mt-2 text-xs text-muted-foreground">
                     {[c.region, c.country].filter(Boolean).join(", ") || "Location not set"}
                   </p>

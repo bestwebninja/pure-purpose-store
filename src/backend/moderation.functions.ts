@@ -1,10 +1,10 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 /**
- * Phase 2 — Image Trust Layer.
+ * Phase 2 � Image Trust Layer.
  *
  * Every user-submitted image goes through this gate before it can be linked
  * to a profile, sponsor record, case, or blessing. The model is asked to

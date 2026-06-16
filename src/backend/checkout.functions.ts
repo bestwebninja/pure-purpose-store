@@ -1,4 +1,4 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
@@ -142,7 +142,7 @@ export const createFundingPackageCheckout = createServerFn({ method: "POST" })
     const amountCents = Math.round(data.amount * 100);
     if (amountCents !== pkg.total_cents) {
       throw new Error(
-        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} — received ${data.amount.toFixed(2)}.`,
+        `Funding package requires exact payment of ${(pkg.total_cents / 100).toFixed(2)} ${pkg.currency} � received ${data.amount.toFixed(2)}.`,
       );
     }
 

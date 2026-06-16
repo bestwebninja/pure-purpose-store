@@ -1,4 +1,4 @@
-Ôªøimport { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -22,9 +22,9 @@ type CategoryNode = {
 export const Route = createFileRoute("/give-a-blessing")({
   head: () => ({
     meta: [
-      { title: "Configure a Blessing ‚Äî MyBlessings" },
+      { title: "Configure a Blessing ó MyBlessings" },
       { name: "description", content: "Sponsor someone in need. Configure your blessing in a minute." },
-      { property: "og:title", content: "Configure a Blessing ‚Äî MyBlessings" },
+      { property: "og:title", content: "Configure a Blessing ó MyBlessings" },
       { property: "og:description", content: "Sponsor someone in need. Configure your blessing in a minute." },
       { property: "og:url", content: "https://pure-purpose-store.lovable.app/give-a-blessing" },
     ],
@@ -91,7 +91,7 @@ function GiveABlessing() {
     () =>
       tree.flatMap((root) => [
         { id: root.id, label: root.name, isRoot: true },
-        ...root.children.map((c) => ({ id: c.id, label: `${root.name} ‚Ä∫ ${c.name}`, isRoot: false })),
+        ...root.children.map((c) => ({ id: c.id, label: `${root.name} õ ${c.name}`, isRoot: false })),
       ]),
     [tree],
   );
@@ -167,14 +167,14 @@ function GiveABlessing() {
       // Single source of truth for the in-flight blessing intent.
       // Stored in sessionStorage (temporary session only) so the existing
       // Shopify checkout flow at /give can read one canonical object.
-      // No DB writes here ‚Äî Shopify confirmation is what creates persistent records.
+      // No DB writes here ó Shopify confirmation is what creates persistent records.
       const intent = {
         ...form,
         allocation,
         createdAt: new Date().toISOString(),
       };
       window.sessionStorage.setItem("myblessings.blessingIntent", JSON.stringify(intent));
-      // Non-blocking Petri Bloom signal ‚Äî never blocks Shopify checkout.
+      // Non-blocking Petri Bloom signal ó never blocks Shopify checkout.
       try {
         void fetch("/api/public/petri-bloom", {
           method: "POST",
@@ -197,7 +197,7 @@ function GiveABlessing() {
   return (
     <div className="min-h-screen bg-primary text-primary-foreground [&_label]:text-primary-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
-        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Give a Blessing üôè</h1>
+        <h1 className="text-display text-3xl font-semibold text-primary-foreground">Give a Blessing ??</h1>
         <p className="mt-2 text-primary-foreground/80">
           Step {step + 1} of {STEPS.length} &nbsp; &#123; {STEPS[step]} &#125;
         </p>
@@ -230,7 +230,7 @@ function GiveABlessing() {
               <div className="space-y-2">
                 <Label>Profile image URL (optional)</Label>
                 <Input className={inputCls} value={form.profileImage} maxLength={500}
-                  placeholder="https://‚Ä¶"
+                  placeholder="https://Ö"
                   onChange={(e) => setForm({ ...form, profileImage: e.target.value })} />
                 <p className="text-xs text-primary-foreground/60">Upload our drop a link to your public profile .</p>
               </div>
@@ -251,7 +251,7 @@ function GiveABlessing() {
               <div className="space-y-2">
                 <Label>Pick up to 3 blessing types</Label>
                 {flatCats.length === 0 ? (
-                  <p className="text-sm text-primary-foreground/70">Loading categories‚Ä¶</p>
+                  <p className="text-sm text-primary-foreground/70">Loading categoriesÖ</p>
                 ) : (
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {flatCats.map((c) => (
@@ -357,7 +357,7 @@ function GiveABlessing() {
                 <div><dt className="text-primary-foreground/70">Location</dt><dd>{[form.city, form.state, form.zip, form.countries].filter(Boolean).join(", ")}</dd></div>
                 <div><dt className="text-primary-foreground/70">Total budget</dt><dd>${form.totalBudget}</dd></div>
                 <div><dt className="text-primary-foreground/70">Split</dt>
-                  <dd>Accom ${allocation.accommodation} ¬∑ Food ${allocation.food} ¬∑ Transport ${allocation.transport}</dd>
+                  <dd>Accom ${allocation.accommodation} ∑ Food ${allocation.food} ∑ Transport ${allocation.transport}</dd>
                 </div>
               </dl>
               <p className="text-xs text-primary-foreground/60">
@@ -366,7 +366,7 @@ function GiveABlessing() {
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(3)}>Back</Button>
                 <Button onClick={onSubmit} disabled={submitting}>
-                  {submitting ? "Saving‚Ä¶" : "Submit & Continue to Checkout"}
+                  {submitting ? "SavingÖ" : "Submit & Continue to Checkout"}
                 </Button>
               </div>
             </>

@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { requireAdminBeforeLoad } from "@/lib/auth/requireAdmin";
 import { AdminShell } from "@/components/admin/AdminShell";
 
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/admin/command-center/petri")({
 
 function PetriDashboard() {
   return (
-    <AdminShell eyebrow="Admin · Petri" title="🧠 Petri OS Control Center">
+    <AdminShell eyebrow="Admin � Petri" title="?? Petri OS Control Center">
       <section className="space-y-6">
         <div>
           <h2 className="text-xl font-semibold">System Health</h2>

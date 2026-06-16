@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -20,7 +20,7 @@ const HELP_OPTIONS = ["Housing", "Food", "Medical", "Education", "Employment", "
 export const Route = createFileRoute("/become-blessing-sponsor")({
   head: () => ({
     meta: [
-      { title: "Become a Blessing Sponsor — MyBlessings" },
+      { title: "Become a Blessing Sponsor � MyBlessings" },
       { name: "description", content: "Sign up as a Blessing Sponsor to help connect those in need with support." },
     ],
   }),
@@ -94,14 +94,14 @@ function BecomeSponsor() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
       <h1 className="text-display text-2xl font-semibold sm:text-3xl">Become a Blessing Sponsor</h1>
-      <p className="mt-2 text-sm text-primary-foreground/80">Tell us about yourself and how you serve your community.</p>
-      <Card className="mt-8 border-primary-foreground/20 bg-primary p-4 text-primary-foreground sm:p-6">
+      <p className="mt-2 text-sm text-muted-foreground">Tell us about yourself and how you serve your community.</p>
+      <Card className="mt-8 p-4 text-foreground sm:p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label className="text-primary-foreground/85">Your role</Label>
+            <Label className="text-foreground">Your role</Label>
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {ROLES.map((r) => (
                 <button
@@ -155,7 +155,7 @@ function BecomeSponsor() {
           </FormField>
 
           <div className="space-y-2">
-            <Label className="text-primary-foreground/85">Help interests</Label>
+            <Label className="text-foreground">Help interests</Label>
             <div className="mt-1 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {HELP_OPTIONS.map((opt) => (
                 <label key={opt} className="flex min-h-11 items-center gap-2 text-sm">
@@ -171,7 +171,7 @@ function BecomeSponsor() {
           </FormField>
 
           <Button type="submit" className="w-full bg-primary-glow" disabled={submitting}>
-            {submitting ? "Submitting…" : "Submit"}
+            {submitting ? "Submitting�" : "Submit"}
           </Button>
         </form>
       </Card>

@@ -1,4 +1,4 @@
-﻿export const ROUTE_REGISTRY = {
+export const ROUTE_REGISTRY = {
   public: [
     '/',
     '/login',

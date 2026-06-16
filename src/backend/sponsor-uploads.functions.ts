@@ -1,4 +1,4 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -50,7 +50,7 @@ export const updateSponsorAssets = createServerFn({ method: "POST" })
     }
 
     if (data.doc) {
-      // Private bucket — store the path; sign on demand.
+      // Private bucket � store the path; sign on demand.
       update.doc_url = data.doc.path;
       const { data: signed } = await supabaseAdmin.storage
         .from(data.doc.bucket)

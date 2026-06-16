@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/admin/god-view")({
   beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({
     meta: [
-      { title: "God View — MyBlessings Operator" },
+      { title: "God View � MyBlessings Operator" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -114,11 +114,11 @@ function StatTile({ label, value, hint, tone }: { label: string; value: string |
     info: "ring-primary/30",
   }[tone ?? "info"];
   return (
-    <Card className={`p-4 ring-1 ${ring}`}>
+    <div className="surface-card" className={`p-4 ring-1 ${ring}`}>
       <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</div>
       <div className="mt-1 text-2xl font-semibold tabular-nums">{value}</div>
       {hint ? <div className="mt-1 text-xs text-muted-foreground">{hint}</div> : null}
-    </Card>
+    </div>
   );
 }
 
@@ -309,17 +309,17 @@ function GodView() {
 
   if (!authReady) {
     return (
-      <AdminShell eyebrow="Admin · God View" title="God View">
-        <p className="text-sm text-primary-foreground/70">Loading…</p>
+      <AdminShell eyebrow="Admin � God View" title="God View">
+        <p className="text-sm text-muted-foreground">Loading�</p>
       </AdminShell>
     );
   }
   if (!isAdmin) {
     return (
-      <AdminShell eyebrow="Admin · God View" title="God View">
-        <Card className="p-6">
+      <AdminShell eyebrow="Admin � God View" title="God View">
+        <div className="surface-card" className="p-6">
           <p className="text-sm">This console is restricted to operators with the admin role.</p>
-        </Card>
+        </div>
       </AdminShell>
     );
   }
@@ -341,7 +341,7 @@ function GodView() {
       const res = (await recompute({ data: {} })) as RecomputeRunSummary & { ok: boolean };
       setLastRecompute(res);
       toast.success("Recompute complete", {
-        description: `${res.scanned} scanned · ${res.written} written · ${res.duration_ms}ms`,
+        description: `${res.scanned} scanned � ${res.written} written � ${res.duration_ms}ms`,
       });
       await loadAll();
     } catch (e) {
@@ -353,15 +353,15 @@ function GodView() {
 
   return (
     <AdminShell
-      eyebrow="Operator Console — Live"
+      eyebrow="Operator Console � Live"
       title="God View"
       actions={
         <>
           <Button size="sm" variant="outline" onClick={loadAll} disabled={loading}>
-            {loading ? "Refreshing…" : "Refresh"}
+            {loading ? "Refreshing�" : "Refresh"}
           </Button>
           <Button size="sm" onClick={handleForceRecompute} disabled={recomputing}>
-            {recomputing ? "Recomputing…" : "Force Recompute"}
+            {recomputing ? "Recomputing�" : "Force Recompute"}
           </Button>
         </>
       }
@@ -391,10 +391,10 @@ function GodView() {
         </TabsList>
 
         <TabsContent value="priority" className="mt-4">
-          <Card className="p-0">
+          <div className="surface-card" className="p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Funding Priority Queue</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding Priority Queue</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   Heuristic composite from urgency, stability, delivery confidence, sponsor alignment, and economic impact.
                   {lastRecompute ? (
@@ -404,7 +404,7 @@ function GodView() {
               </div>
               <div className="flex flex-wrap items-center gap-2 text-xs">
                 <Badge className="bg-success/15 text-success hover:bg-success/15 dark:text-success">
-                  Matching autonomy L{matchingAutonomy} · {AUTONOMY_LABELS[matchingAutonomy]}
+                  Matching autonomy L{matchingAutonomy} � {AUTONOMY_LABELS[matchingAutonomy]}
                 </Badge>
                 <Badge variant="outline">{queueAutoCount} auto-fund</Badge>
                 <Badge variant="outline">{queueAwaiting} awaiting approval</Badge>
@@ -427,7 +427,7 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {scorecards.length === 0 ? (
-                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet — hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={9} className="text-center text-sm text-muted-foreground">No scorecards yet � hit "Force Recompute" to run the brain loop.</TableCell></TableRow>
                   ) : scorecards.map((s, i) => {
                     const decisionTone =
                       s.autonomy_decision === "auto" ? "bg-success/15 text-success dark:text-success"
@@ -452,7 +452,12 @@ function GodView() {
                         <TableCell className="text-right">
                           <span className="inline-flex items-center gap-2">
                             <span className="h-1.5 w-16 overflow-hidden rounded bg-muted">
-                              <span className="block h-full bg-primary" style={{ width: `${Math.min(100, s.composite_score)}%` }} />
+                              <span
+                                className={
+                                  `block h-full bg-primary ` +
+                                  (s.composite_score >= 80 ? "w-16" : s.composite_score >= 60 ? "w-12" : s.composite_score >= 40 ? "w-8" : "w-4")
+                                }
+                              />
                             </span>
                             <span className="tabular-nums text-sm font-semibold">{Math.round(s.composite_score)}</span>
                           </span>
@@ -464,45 +469,45 @@ function GodView() {
                 </TableBody>
               </Table>
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="map" className="mt-4">
-          <Card className="p-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Global Map</h2>
+          <div className="surface-card" className="p-6">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 — counts shown above
+              Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 � counts shown above
               already reflect live data scoped by country.
             </p>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="sponsors" className="mt-4">
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Sponsor pipeline</h2>
+          <div className="surface-card" className="p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor pipeline</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Total" value={counts.sponsors} tone="info" />
               <StatTile label="Pending verification" value={counts.sponsorsPending} tone={counts.sponsorsPending ? "warn" : "ok"} />
               <StatTile label="Active sponsorships" value={counts.sponsorships} tone="info" />
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="funding" className="mt-4">
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Funding flow</h2>
+          <div className="surface-card" className="p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding flow</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
               <StatTile label="Sponsorships placed" value={counts.sponsorships} tone="info" />
               <StatTile label="Cases needing funding" value={counts.casesOpen} tone={counts.casesOpen ? "warn" : "ok"} />
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="fulfillment" className="mt-4">
-          <Card className="p-0">
+          <div className="surface-card" className="p-0">
             <div className="flex items-center justify-between p-4">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Recent fulfillment events</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Recent fulfillment events</h2>
               <Badge variant="outline">{events.length}</Badge>
             </div>
             <Table>
@@ -522,42 +527,42 @@ function GodView() {
                   <TableRow key={e.id}>
                     <TableCell className="text-xs text-muted-foreground">{timeAgo(e.created_at)}</TableCell>
                     <TableCell className="font-mono text-xs">{e.event_type}</TableCell>
-                    <TableCell className="text-xs">{e.provider ?? "—"}</TableCell>
-                    <TableCell><Badge variant="outline">{e.status ?? "—"}</Badge></TableCell>
+                    <TableCell className="text-xs">{e.provider ?? "�"}</TableCell>
+                    <TableCell><Badge variant="outline">{e.status ?? "�"}</Badge></TableCell>
                     <TableCell className="text-right tabular-nums">{fmtMoney(e.cost ?? 0, e.currency ?? "USD")}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="suppliers" className="mt-4">
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Suppliers / providers</h2>
-            <p className="text-sm text-muted-foreground text-black">
+          <div className="surface-card" className="p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
+            <p className="text-sm text-muted-foreground">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
               ship with the routing engine in Phase 4.
             </p>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="ngo" className="mt-4">
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">NGO trust</h2>
+          <div className="surface-card" className="p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">NGO trust</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Applications" value={counts.ngos} tone="info" />
               <StatTile label="Pending review" value={counts.ngosPending} tone={counts.ngosPending ? "warn" : "ok"} />
               <StatTile label="Onboarded NGOs" value={counts.ngos - counts.ngosPending} tone="ok" />
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="ai" className="mt-4">
-          <Card className="p-0">
+          <div className="surface-card" className="p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">AI Decisions Feed</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">AI Decisions Feed</h2>
                 <p className="mt-1 text-xs text-muted-foreground">Live stream of routing matches and fulfillment events.</p>
               </div>
               <div className="flex items-center gap-3 text-xs text-muted-foreground">
@@ -579,26 +584,26 @@ function GodView() {
                 </TableHeader>
                 <TableBody>
                   {feed.length === 0 ? (
-                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground">Waiting for routing engine activity…</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={6} className="text-center text-sm text-muted-foreground">Waiting for routing engine activity�</TableCell></TableRow>
                   ) : feed.map((row) => (
                     <TableRow key={`${row.kind}-${row.id}`}>
                       <TableCell className="whitespace-nowrap text-xs text-muted-foreground">{timeAgo(row.created_at)}</TableCell>
                       <TableCell>
                         {row.kind === "match"
-                          ? <Badge className="bg-primary/10 text-primary hover:bg-primary/15">match · {row.match_generation}</Badge>
+                          ? <Badge className="bg-primary/10 text-primary hover:bg-primary/15">match � {row.match_generation}</Badge>
                           : <Badge variant="outline">event</Badge>}
                       </TableCell>
                       <TableCell className="font-mono text-xs">
                         {row.kind === "match"
-                          ? <>cat:{row.category ?? "—"} · provider:{row.provider ?? "—"}</>
-                          : <>{row.event_type} · {row.notes ?? "—"}</>}
+                          ? <>cat:{row.category ?? "�"} � provider:{row.provider ?? "�"}</>
+                          : <>{row.event_type} � {row.notes ?? "�"}</>}
                       </TableCell>
                       <TableCell className="text-xs tabular-nums">
-                        {row.kind === "match" ? `${Math.round(Number(row.confidence_score) * 100)}%` : "—"}
+                        {row.kind === "match" ? `${Math.round(Number(row.confidence_score) * 100)}%` : "�"}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline">
-                          {row.kind === "match" ? `${row.status} / ${row.execution_status}` : (row.status ?? "—")}
+                          {row.kind === "match" ? `${row.status} / ${row.execution_status}` : (row.status ?? "�")}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right tabular-nums">
@@ -611,31 +616,31 @@ function GodView() {
                 </TableBody>
               </Table>
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="treasury" className="mt-4">
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Treasury</h2>
+          <div className="surface-card" className="p-4">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Treasury</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Lifetime donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
               <StatTile label="Sponsorships" value={counts.sponsorships} tone="info" />
               <StatTile label="Cases funded" value={counts.cases - counts.casesOpen} tone="ok" />
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="reports" className="mt-4">
-          <Card className="p-0">
+          <div className="surface-card" className="p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Sponsor Reports — Funding Flywheel</h2>
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports � Funding Flywheel</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  Drafts await Operator approval at L0–L2. Reports auto-send at L3 (Autonomous).
+                  Drafts await Operator approval at L0�L2. Reports auto-send at L3 (Autonomous).
                 </p>
               </div>
               <Button size="sm" variant="outline" onClick={loadReports} disabled={reportsLoading}>
-                {reportsLoading ? "Refreshing…" : "Refresh"}
+                {reportsLoading ? "Refreshing�" : "Refresh"}
               </Button>
             </div>
             <div className="max-h-[640px] overflow-auto">
@@ -664,12 +669,12 @@ function GodView() {
                     return (
                       <TableRow key={r.id}>
                         <TableCell>
-                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}…</div>
-                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}…</div>
+                          <div className="font-mono text-xs">{r.sponsor_user_id.slice(0, 8)}�</div>
+                          <div className="text-[10px] uppercase tracking-wider text-muted-foreground">pkg {r.package_signature.slice(0, 10)}�</div>
                         </TableCell>
                         <TableCell className="text-right tabular-nums text-xs">{fmtMoney(r.package_total, r.currency)}</TableCell>
                         <TableCell className="text-right tabular-nums text-xs">{fmtMoney(Number(r.next_package?.total ?? 0), r.currency)}</TableCell>
-                        <TableCell className="text-xs">L{r.autonomy_level} · {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
+                        <TableCell className="text-xs">L{r.autonomy_level} � {AUTONOMY_LABELS[r.autonomy_level] ?? "?"}</TableCell>
                         <TableCell><Badge className={tone}>{r.status}</Badge></TableCell>
                         <TableCell className="text-xs text-muted-foreground">
                           {r.sent_at ? `sent ${timeAgo(r.sent_at)}` : `drafted ${timeAgo(r.created_at)}`}
@@ -679,10 +684,10 @@ function GodView() {
                             <span className="text-xs text-success dark:text-success">Auto-sent</span>
                           ) : canApprove ? (
                             <Button size="sm" variant="outline" disabled={approvingId === r.id} onClick={() => handleApproveReport(r.id)}>
-                              {approvingId === r.id ? "Sending…" : "Approve & send"}
+                              {approvingId === r.id ? "Sending�" : "Approve & send"}
                             </Button>
                           ) : (
-                            <span className="text-xs text-muted-foreground">—</span>
+                            <span className="text-xs text-muted-foreground">�</span>
                           )}
                         </TableCell>
                       </TableRow>
@@ -691,16 +696,16 @@ function GodView() {
                 </TableBody>
               </Table>
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="autonomy" className="mt-4">
-          <Card className="p-0">
+          <div className="surface-card" className="p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Autonomy levers</h2>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  0 Manual · 1 Suggest · 2 Assisted · 3 Autonomous. Changes apply instantly.
+                  0 Manual � 1 Suggest � 2 Assisted � 3 Autonomous. Changes apply instantly.
                 </p>
               </div>
               <Badge variant="outline">{modules.length} modules</Badge>
@@ -713,7 +718,7 @@ function GodView() {
                   <div>
                     <div className="font-mono text-sm">{m.module_key}</div>
                     <div className="text-xs text-muted-foreground">
-                      {m.country_code ? `Country: ${m.country_code}` : "All countries"} · updated {timeAgo(m.updated_at)}
+                      {m.country_code ? `Country: ${m.country_code}` : "All countries"} � updated {timeAgo(m.updated_at)}
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -734,14 +739,14 @@ function GodView() {
                       className="max-w-xs"
                     />
                     <Badge variant="outline" className="min-w-[110px] justify-center">
-                      L{m.autonomy_level} · {AUTONOMY_LABELS[m.autonomy_level]}
+                      L{m.autonomy_level} � {AUTONOMY_LABELS[m.autonomy_level]}
                     </Badge>
                   </div>
                   <div />
                 </div>
               ))}
             </div>
-          </Card>
+          </div>
         </TabsContent>
       </Tabs>
     </AdminShell>

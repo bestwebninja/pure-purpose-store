@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ type Sponsor = {
 };
 
 export const Route = createFileRoute("/sponsor/dashboard")({
-  head: () => ({ meta: [{ title: "Sponsor Dashboard — MyBlessings" }] }),
+  head: () => ({ meta: [{ title: "Sponsor Dashboard � MyBlessings" }] }),
   component: SponsorDashboard,
 });
 
@@ -56,7 +56,7 @@ function SponsorDashboard() {
   }, [navigate]);
 
   if (loading) {
-    return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading…</div>;
+    return <div className="mx-auto max-w-4xl px-6 py-16 text-muted-foreground">Loading�</div>;
   }
 
   if (!sponsor) {
@@ -77,8 +77,8 @@ function SponsorDashboard() {
     <div className="mx-auto max-w-5xl space-y-6 px-6 py-12">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-display text-3xl font-semibold text-primary-foreground">Sponsor Dashboard</h1>
-          <p className="text-sm text-muted-foreground text-black">Welcome back, {sponsor.organization_name || sponsor.sponsor_role}.</p>
+          <h1 className="text-display text-3xl font-semibold text-foreground">Sponsor Dashboard</h1>
+          <p className="text-sm text-muted-foreground">Welcome back, {sponsor.organization_name || sponsor.sponsor_role}.</p>
         </div>
         <Badge variant={sponsor.verification_status === "VERIFIED" ? "default" : "secondary"}>
           {sponsor.verification_status}
@@ -86,26 +86,26 @@ function SponsorDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Card className="p-6">
+        <div className="surface-card" className="p-6">
           <h2 className="text-sm font-semibold text-muted-foreground">Profile</h2>
           <dl className="mt-3 space-y-2 text-sm">
             <div><dt className="inline text-muted-foreground">Role: </dt><dd className="inline font-medium">{sponsor.sponsor_role}</dd></div>
-            <div><dt className="inline text-muted-foreground">Organisation: </dt><dd className="inline font-medium">{sponsor.organization_name || "—"}</dd></div>
-            <div><dt className="inline text-muted-foreground">Location: </dt><dd className="inline font-medium">{location || "—"}</dd></div>
-            <div><dt className="inline text-muted-foreground">Zip: </dt><dd className="inline font-medium">{sponsor.zip || "—"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Organisation: </dt><dd className="inline font-medium">{sponsor.organization_name || "�"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Location: </dt><dd className="inline font-medium">{location || "�"}</dd></div>
+            <div><dt className="inline text-muted-foreground">Zip: </dt><dd className="inline font-medium">{sponsor.zip || "�"}</dd></div>
           </dl>
-        </Card>
+        </div>
 
-        <Card className="p-6">
+        <div className="surface-card" className="p-6">
           <h2 className="text-sm font-semibold text-muted-foreground">Help Interests</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {sponsor.help_interests.length === 0 ? (
-              <span className="text-sm text-muted-foreground text-black">None selected</span>
+              <span className="text-sm text-muted-foreground">None selected</span>
             ) : (
               sponsor.help_interests.map((h) => <Badge key={h} variant="outline">{h}</Badge>)
             )}
           </div>
-        </Card>
+        </div>
       </div>
 
       <SponsorUploadWidget

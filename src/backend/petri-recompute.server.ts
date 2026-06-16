@@ -1,4 +1,4 @@
-ï»¿import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export type RecomputeResult = {
   ok: boolean;
@@ -100,13 +100,13 @@ function economicImpact(c: CaseRow | null): number {
   if (!c) return 20;
   const amount = Number(c.target_amount ?? 0);
   if (amount <= 0) return 15;
-  // Log-scaled so $100 â‰ˆ 25, $1k â‰ˆ 45, $10k â‰ˆ 65, $100k â‰ˆ 85, $1M â‰ˆ 100.
+  // Log-scaled so $100 ˜ 25, $1k ˜ 45, $10k ˜ 65, $100k ˜ 85, $1M ˜ 100.
   const v = (Math.log10(amount) - 1) * 20 + 25;
   return clamp(v);
 }
 
 function decisionFor(composite: number, autonomy: number): "auto" | "queue" | "manual" {
-  // 0 Manual Â· 1 Suggest Â· 2 Assisted Â· 3 Autonomous
+  // 0 Manual · 1 Suggest · 2 Assisted · 3 Autonomous
   if (autonomy <= 0) return "manual";
   if (autonomy === 1) return composite >= 80 ? "queue" : "manual";
   if (autonomy === 2) return composite >= 75 ? "auto" : composite >= 55 ? "queue" : "manual";
@@ -182,7 +182,7 @@ export async function recomputePetriScoresCore(opts: { limit: number; trigger: s
     const alignment = sponsorAlignment(matches);
     const impact = economicImpact(c);
 
-    // Composite: weighted, normalised to 0â€“100.
+    // Composite: weighted, normalised to 0–100.
     const composite = clamp(
       urgency * 0.30 +
         delivery * 0.22 +

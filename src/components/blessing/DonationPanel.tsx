@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,7 +31,7 @@ export function DonationPanel({
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Exact-amount funding only — sponsors fund the full blessing package.
+  // Exact-amount funding only � sponsors fund the full blessing package.
   const exactAmount = campaign.goal_amount;
 
   const pct = Math.min(
@@ -76,7 +76,7 @@ export function DonationPanel({
           <span className="text-display text-2xl font-semibold">
             {formatMoney(campaign.raised_amount, campaign.currency)}
           </span>
-          <span className="text-sm text-muted-foreground text-black">
+          <span className="text-sm text-muted-foreground">
             of {formatMoney(campaign.goal_amount, campaign.currency)}
           </span>
         </div>
@@ -93,7 +93,7 @@ export function DonationPanel({
           {formatMoney(exactAmount, campaign.currency)}
         </p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Partial donations are not accepted — sponsor the full blessing.
+          Partial donations are not accepted � sponsor the full blessing.
         </p>
       </div>
 
@@ -123,7 +123,7 @@ export function DonationPanel({
           <Textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Thinking of you…"
+            placeholder="Thinking of you�"
             rows={3}
           />
         </div>
@@ -139,7 +139,7 @@ export function DonationPanel({
         Fund this Blessing for {formatMoney(exactAmount, campaign.currency)}
       </Button>
       <p className="text-center text-xs text-muted-foreground">
-        Secure checkout powered by Shopify Ã‚· 100% transparent
+        Secure checkout powered by Shopify Â� 100% transparent
       </p>
     </Card>
   );

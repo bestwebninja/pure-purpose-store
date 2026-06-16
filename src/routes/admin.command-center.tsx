@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
@@ -15,7 +15,7 @@ import { AdminShell } from "@/components/admin/AdminShell";
 export const Route = createFileRoute("/admin/command-center")({
   beforeLoad: () => requireAdminBeforeLoad(),
   head: () => ({
-    meta: [{ title: "Command Center — MyBlessings Admin" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Command Center � MyBlessings Admin" }, { name: "robots", content: "noindex" }],
   }),
   component: CommandCenter,
 });
@@ -65,33 +65,33 @@ function CommandCenter() {
 
   if (error) {
     return (
-      <AdminShell eyebrow="Admin · Ops" title="Command Center">
-        <Card className="p-6">
+      <AdminShell eyebrow="Admin � Ops" title="Command Center">
+        <div className="surface-card p-6">
           <p className="text-sm text-destructive">{error}</p>
-          <p className="mt-2 text-sm text-primary-foreground/70">Sign in as an admin to view ops data.</p>
-        </Card>
+          <p className="mt-2 text-sm text-muted-foreground">Sign in as an admin to view ops data.</p>
+        </div>
       </AdminShell>
     );
   }
 
   return (
     <AdminShell
-      eyebrow="Admin · Ops"
+      eyebrow="Admin � Ops"
       title="Command Center"
-      description={`Live ops view${snap?.generatedAt ? ` · updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}`}
+      description={`Live ops view${snap?.generatedAt ? ` � updated ${new Date(snap.generatedAt).toLocaleTimeString()}` : ""}`}
       actions={
         <Button size="sm" variant="outline" onClick={refresh} disabled={loading}>
-          {loading ? "Refreshing…" : "Refresh"}
+          {loading ? "Refreshing�" : "Refresh"}
         </Button>
       }
     >
       {!snap ? (
-        <p className="text-sm text-primary-foreground/70">Loading live ops data…</p>
+        <p className="text-sm text-muted-foreground">Loading live ops data�</p>
       ) : (
         <>
           {snap.errors && Object.values(snap.errors).some(Boolean) && (
-            <div className="mb-6 rounded-md border border-accent/40 bg-accent/15 p-3 text-sm text-accent">
-              <p className="font-semibold">Some queries failed — data below is partial:</p>
+            <div className="mb-6 rounded-md border border-accent/40 bg-accent/15 p-3 text-sm text-foreground">
+              <p className="font-semibold">Some queries failed � data below is partial:</p>
               <ul className="mt-1 list-disc pl-5 text-xs">
                 {Object.entries(snap.errors)
                   .filter(([, v]) => Boolean(v))
@@ -109,8 +109,8 @@ function CommandCenter() {
             </div>
           )}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Donations</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Donations</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat
                   label="Total raised"
@@ -118,10 +118,10 @@ function CommandCenter() {
                 />
                 <Stat label="Count" value={snap.donations?.count ?? 0} />
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Campaigns</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Campaigns</h2>
               <div className="mt-4 flex items-baseline gap-3">
                 <Stat label="Total" value={snap.campaigns?.total ?? 0} />
               </div>
@@ -133,10 +133,10 @@ function CommandCenter() {
                     </Badge>
                   ))}
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">NGO Applications</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">NGO Applications</h2>
               <div className="mt-4 flex items-baseline gap-3">
                 <Stat label="Total" value={snap.ngo?.total ?? 0} />
               </div>
@@ -151,10 +151,10 @@ function CommandCenter() {
                     </Badge>
                   ))}
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Pipeline</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Pipeline</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat label="Webhook events" value={snap.pipeline?.webhookEventsSeen ?? 0} />
                 <Stat label="Donations recorded" value={snap.pipeline?.donationsRecorded ?? 0} />
@@ -164,10 +164,10 @@ function CommandCenter() {
                   Shopify webhook secret: {snap.pipeline?.shopifyWebhookSecretConfigured ? "configured" : "missing"}
                 </Badge>
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Ledger Integrity</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Ledger Integrity</h2>
               <div className="mt-4 grid grid-cols-2 gap-4">
                 <Stat label="Entries" value={snap.ledger?.entries ?? 0} />
                 <Stat label="Donations posted" value={snap.ledger?.donationsPosted ?? 0} />
@@ -179,60 +179,60 @@ function CommandCenter() {
                     : `Unbalanced: ${snap.ledger?.unbalancedCount ?? 0}`}
                 </Badge>
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Health</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Health</h2>
               <div className="mt-4 space-y-2 text-sm">
-                <a href="/api/public/health" target="_blank" rel="noreferrer" className="block underline text-primary">
+                <a href="/api/public/health" target="_blank" rel="noreferrer" className="block underline text-foreground">
                   /api/public/health
                 </a>
                 <a
                   href="/api/public/go-live-report"
                   target="_blank"
                   rel="noreferrer"
-                  className="block underline text-primary"
+                  className="block underline text-foreground"
                 >
                   /api/public/go-live-report
                 </a>
               </div>
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6 lg:col-span-2">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Recent donations</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6 lg:col-span-2">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent donations</h2>
               {!snap.recent?.donations || snap.recent.donations.length === 0 ? (
-                <p className="mt-3 text-sm text-primary-foreground/70">No donations yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground">No donations yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.donations.map((d: any) => (
                     <li key={d.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
                       <span className="break-words">{d.donor_name ?? "Anonymous"}</span>
                       <span className="text-xs text-muted-foreground">
-                        ${Number(d.amount).toFixed(2)} {d.currency} · {new Date(d.created_at).toLocaleString()}
+                        ${Number(d.amount).toFixed(2)} {d.currency} � {new Date(d.created_at).toLocaleString()}
                       </span>
                     </li>
                   ))}
                 </ul>
               )}
-            </Card>
+            </div>
 
-            <Card className="border-border/60 bg-card p-4 sm:p-6">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/70">Recent webhooks</h2>
+            <div className="surface-card border-border/60 bg-card p-4 sm:p-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Recent webhooks</h2>
               {!snap.recent?.webhooks || snap.recent.webhooks.length === 0 ? (
-                <p className="mt-3 text-sm text-primary-foreground/70">No webhook events yet.</p>
+                <p className="mt-3 text-sm text-muted-foreground">No webhook events yet.</p>
               ) : (
                 <ul className="mt-3 divide-y divide-border/60 text-sm">
                   {snap.recent.webhooks.map((w: any) => (
                     <li key={w.event_id} className="py-2">
                       <div className="font-medium text-primary-foreground">{w.topic ?? "(no topic)"}</div>
                       <div className="text-xs text-muted-foreground">
-                        {w.source} · {new Date(w.processed_at).toLocaleString()}
+                        {w.source} � {new Date(w.processed_at).toLocaleString()}
                       </div>
                     </li>
                   ))}
                 </ul>
               )}
-            </Card>
+            </div>
           </div>
         </>
       )}

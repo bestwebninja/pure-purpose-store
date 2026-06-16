@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet, useChildMatches } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Card } from "@/components/ui/card";
@@ -12,7 +12,7 @@ import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — MyBlessings" },
+      { title: "Dashboard � MyBlessings" },
       { name: "description", content: "Your live view of the blessing lifecycle." },
     ],
   }),
@@ -44,15 +44,15 @@ function DashboardPage() {
         {counts && <BlessingLifecycle counts={counts} />}
         <div className="grid gap-6 md:grid-cols-2">
           <BlessingPaymentForm />
-          <Card className="surface-card">
+          <div className="surface-card">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Quick links</h2>
-            <ul className="mt-3 space-y-2 text-sm">
+            <ul className="mt-3 space-y-2 text-sm text-foreground">
               <li><Link to="/marketplace" className="underline">Campaigns</Link></li>
               <li><Link to="/impact-map" className="underline">Impact Map</Link></li>
               <li><Link to="/admin/command-center" className="underline">Command Center</Link></li>
               <li><Link to="/me/giving" className="underline">My giving history</Link></li>
             </ul>
-          </Card>
+          </div>
         </div>
       </div>
     </SurfaceLayout>

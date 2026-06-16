@@ -23,7 +23,7 @@ function NgoLanding() {
   return (
     <SurfaceLayout>
       <div className="text-center">
-        <h1 className="text-display text-4xl font-semibold sm:text-5xl text-foreground">Bring your Sincerest Empathy to MyBlessings</h1>
+        <h1 className="text-display text-4xl font-semibold text-foreground sm:text-5xl">Bring your Sincerest Empathy to MyBlessings</h1>
         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
           Verified nonprofits link up their specific programs on helping others and we channel and monitor the funds our platform receives via our kind sponsors who fund our blessings with transparency, real-time donor updates with direct blessings.
         </p>
@@ -38,8 +38,8 @@ function NgoLanding() {
           { icon: Sparkles, title: "Free to join", body: "No setup or platform fees. We win when you do." },
         ].map((f) => (
           <Card key={f.title} className="surface-card">
-            <f.icon className="h-6 w-6 text-accent" />
-            <h3 className="mt-3 font-semibold text-card-foreground">{f.title}</h3>
+            <f.icon className="h-6 w-6 text-foreground" />
+            <h3 className="mt-3 font-semibold text-foreground">{f.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
           </Card>
         ))}

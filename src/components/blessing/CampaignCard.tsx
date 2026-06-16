@@ -1,4 +1,4 @@
-﻿import { Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Users, MapPin } from "lucide-react";

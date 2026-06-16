@@ -1,4 +1,4 @@
-Ôªøimport { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const QUOTES: { text: string; author: string }[] = [
   { text: "No one has ever become poor by giving.", author: "Anne Frank" },
@@ -49,12 +49,12 @@ export function InspirationQuote({
           <p
             className="font-blessing text-primary-foreground text-4xl leading-snug md:text-6xl"
           >
-            ‚Äú{q.text}‚Äù
+            ì{q.text}î
           </p>
           <p
             className="font-blessing text-primary-foreground/80 mt-3 text-lg md:text-xl"
           >
-            ‚Äî {q.author}
+            ó {q.author}
           </p>
         </div>
       );

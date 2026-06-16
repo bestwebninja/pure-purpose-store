@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, MapPin, Users, Heart } from "lucide-react";
 import { type Campaign, type Donation } from "../utils/api"; 
 import { DonationPanel } from "../components/blessing/DonationPanel";
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/campaign/$handle")({
     return {
       meta: c
         ? [
-            { title: `${c.title} — MyBlessings` },
+            { title: `${c.title} � MyBlessings` },
             { name: "description", content: c.short_description ?? c.title },
             { property: "og:title", content: c.title },
             { property: "og:description", content: c.short_description ?? "Give a blessing on MyBlessings." },
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/campaign/$handle")({
             { property: "og:url", content: url },
             ...(c.image_url ? [{ property: "og:image", content: c.image_url }] : []),
           ]
-        : [{ title: "Blessing — MyBlessings" }],
+        : [{ title: "Blessing � MyBlessings" }],
       links: c ? [{ rel: "canonical", href: url }] : [],
       scripts: c
         ? [
@@ -60,7 +60,7 @@ export const Route = createFileRoute("/campaign/$handle")({
     <div className="mx-auto max-w-3xl px-6 py-24 text-center">
       <h1 className="text-display text-4xl font-semibold">Blessing not found</h1>
       <p className="mt-2 text-muted-foreground text-muted-foreground">It may have ended or been moved.</p>
-      <Link to="/" className="mt-6 inline-block text-primary hover:underline">← Browse blessings</Link>
+      <Link to="/" className="mt-6 inline-block text-primary hover:underline">? Browse blessings</Link>
     </div>
   ),
   component: CampaignPage,
@@ -111,7 +111,7 @@ function CampaignPage() {
               )}
               {campaign.beneficiary_name && <span>For {campaign.beneficiary_name}</span>}
             </div>
-            <h1 className="text-display text-3xl font-semibold text-primary-foreground leading-tight md:text-5xl">{campaign.title}</h1>
+            <h1 className="text-display text-3xl font-semibold text-foreground leading-tight md:text-5xl">{campaign.title}</h1>
             {campaign.short_description && (
               <p className="text-lg text-muted-foreground">{campaign.short_description}</p>
             )}
@@ -129,14 +129,14 @@ function CampaignPage() {
               </span>
             </div>
             {donations.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-black">Be the first to give a blessing.</p>
+              <p className="text-sm text-muted-foreground">Be the first to give a blessing.</p>
             ) : (
               <ul className="divide-y divide-border/60">
                 {donations.map((d) => (
                   <li key={d.id} className="flex items-start justify-between gap-4 py-3">
                     <div>
                       <p className="font-medium">{d.is_anonymous ? "Anonymous" : d.donor_name || "A kind giver"}</p>
-                      {d.message && <p className="text-sm text-muted-foreground text-black">{`"${d.message}"`}</p>}
+                      {d.message && <p className="text-sm text-muted-foreground">{`"${d.message}"`}</p>}
                     </div>
                     <div className="shrink-0 text-right">
                       <p className="font-semibold">{formatMoney(Number(d.amount), d.currency)}</p>

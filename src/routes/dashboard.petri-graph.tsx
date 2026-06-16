@@ -1,4 +1,4 @@
-ï»¿import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,7 @@ import { SurfaceLayout } from "@/components/site/SurfaceLayout";
 export const Route = createFileRoute("/dashboard/petri-graph")({
   head: () => ({
     meta: [
-      { title: "Petri Graph Inspector â€” MyBlessings" },
+      { title: "Petri Graph Inspector — MyBlessings" },
       { name: "description", content: "Real-time view of Petri Bloom intents and matches." },
     ],
   }),
@@ -182,11 +182,11 @@ function PetriGraphPage() {
       const kind: "request" | "intent" = p.source_type === "request" ? "request" : "intent";
       const id = t.source_id ?? t.id;
       if (!nodeMap.has(id)) {
-        const loc = [p.location?.city, p.location?.country].filter(Boolean).join(", ") || "â€”";
+        const loc = [p.location?.city, p.location?.country].filter(Boolean).join(", ") || "—";
         nodeMap.set(id, {
           id,
           kind,
-          label: `${kind === "request" ? "Req" : "Spo"} Â· ${loc}`,
+          label: `${kind === "request" ? "Req" : "Spo"} · ${loc}`,
           data: { token: t, payload: p },
         });
       }
@@ -197,10 +197,10 @@ function PetriGraphPage() {
       if (!m.help_request_id || !m.sponsor_id) continue;
       // Synthesize endpoints if not seen yet
       if (!nodeMap.has(m.help_request_id)) {
-        nodeMap.set(m.help_request_id, { id: m.help_request_id, kind: "request", label: "Req Â· ?", data: {} });
+        nodeMap.set(m.help_request_id, { id: m.help_request_id, kind: "request", label: "Req · ?", data: {} });
       }
       if (!nodeMap.has(m.sponsor_id)) {
-        nodeMap.set(m.sponsor_id, { id: m.sponsor_id, kind: "intent", label: "Spo Â· ?", data: {} });
+        nodeMap.set(m.sponsor_id, { id: m.sponsor_id, kind: "intent", label: "Spo · ?", data: {} });
       }
       es.push({
         id: m.id,
@@ -217,7 +217,7 @@ function PetriGraphPage() {
   if (!authChecked) {
     return (
       <SurfaceLayout>
-        <p className="text-muted-foreground">Loadingâ€¦</p>
+        <p className="text-muted-foreground">Loading…</p>
       </SurfaceLayout>
     );
   }
@@ -257,7 +257,7 @@ function PetriGraphPage() {
               className="shrink-0 text-foreground"
               onClick={() => setLayer(m)}
             >
-              {m === "all" ? "All Layers" : m === "layer1" ? "L1 Â· Signals" : m === "layer2" ? "L2 Â· Matching" : "L3 Â· Confirmed"}
+              {m === "all" ? "All Layers" : m === "layer1" ? "L1 · Signals" : m === "layer2" ? "L2 · Matching" : "L3 · Confirmed"}
             </Button>
           ))}
         </div>
@@ -276,10 +276,10 @@ function PetriGraphPage() {
       </div>
 
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
-        <Card className="surface-card p-3 sm:p-4">
+        <div className="surface-card" className="surface-card p-3 sm:p-4">
            {!graphLoaded ? (
              <p className="p-8 text-center text-sm text-muted-foreground">
-               Loading Petri graphâ€¦
+               Loading Petri graph…
              </p>
            ) : graphError ? (
              <div className="m-4 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive">
@@ -297,9 +297,9 @@ function PetriGraphPage() {
               onEdgeSelect={(e) => { setSelectedEdge(e); setSelectedNode(null); }}
             />
           )}
-        </Card>
+        </div>
 
-        <Card className="surface-card p-4">
+        <div className="surface-card" className="surface-card p-4">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
           {!selectedNode && !selectedEdge && (
             <p className="mt-3 text-sm text-muted-foreground">Click a node or edge to inspect.</p>
@@ -333,7 +333,7 @@ function PetriGraphPage() {
               </div>
             );
           })()}
-        </Card>
+        </div>
       </div>
     </SurfaceLayout>
   );

@@ -1,11 +1,11 @@
-﻿import { createServerFn } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { recomputePetriScoresCore, type RecomputeResult } from "@/backend/petri-recompute.server";
 
 /**
  * Admin-only entry point for the PETRI Brain Recompute Loop.
- * Heuristic, auditable scoring — no LLM calls in the hot path.
+ * Heuristic, auditable scoring � no LLM calls in the hot path.
  */
 export const recomputePetriScores = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

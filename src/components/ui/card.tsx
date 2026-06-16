@@ -1,4 +1,4 @@
-﻿import * as React from "react";
+import * as React from "react";
 
 // FIXED: Routed class merging utility away from the server entry point 
 // and into your client-safe utility configuration layer.

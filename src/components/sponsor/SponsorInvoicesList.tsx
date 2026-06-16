@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +25,7 @@ function formatCurrency(amount: number, currency: string) {
 
 function downloadInvoice(inv: Invoice) {
   const lines = [
-    `MyBlessings — Tax Receipt & Platform Invoice`,
+    `MyBlessings � Tax Receipt & Platform Invoice`,
     `Invoice #: ${inv.invoice_number}`,
     `Issued:    ${new Date(inv.issued_at).toLocaleDateString()}`,
     `Currency:  ${inv.currency}`,
@@ -74,19 +74,19 @@ export function SponsorInvoicesList() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="text-display text-lg font-semibold">Tax Receipts & Invoices</h2>
-          <p className="text-sm text-muted-foreground text-black">
+          <p className="text-sm text-muted-foreground">
             Each contribution is split into a 93.5% tax-deductible donation and a 6.5% platform fee.
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={refresh} disabled={loading} className="shrink-0">
-          {loading ? "Refreshing…" : "Refresh"}
+          {loading ? "Refreshing�" : "Refresh"}
         </Button>
       </div>
 
       {error ? (
         <p className="mt-4 text-sm text-destructive">{error}</p>
       ) : loading ? (
-        <p className="mt-4 text-sm text-muted-foreground">Loading invoices…</p>
+        <p className="mt-4 text-sm text-muted-foreground">Loading invoices�</p>
       ) : invoices.length === 0 ? (
         <p className="mt-4 text-sm text-muted-foreground">No invoices yet. They'll appear here as your contributions settle.</p>
       ) : (

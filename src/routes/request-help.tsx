@@ -32,10 +32,10 @@ export const Route = createFileRoute("/request-help")({
 });
 
 const inputCls =
-  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/60 focus-visible:border-accent focus-visible:ring-accent";
+  "border-border bg-card text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring";
 
 const selectTriggerCls =
-  "border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground data-[placeholder]:text-primary-foreground/60 focus:ring-accent";
+  "border-border bg-card text-foreground data-[placeholder]:text-muted-foreground focus:ring-ring";
 
 const HELP_TYPES: { value: string; label: string }[] = [
   { value: "accommodation", label: "Accommodation" },
@@ -227,14 +227,14 @@ function RequestHelp() {
   };
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground [&_label]:text-primary-foreground">
+    <div className="min-h-screen bg-background text-foreground [&_label]:text-foreground">
       <div className="mx-auto w-full max-w-2xl px-4 py-8 sm:px-6 sm:py-16">
-         <h1 className="text-display text-3xl font-semibold text-primary-foreground">BlessME 🙏</h1>
-        <p className="mt-2 text-primary-foreground/80">
+         <h1 className="text-display text-3xl font-semibold text-foreground">BlessME 🙏</h1>
+        <p className="mt-2 text-muted-foreground">
           Sign up as a recipient or tell us about someone you think needs to be Blessed. Sponsors funds will be automatically matched to your request and once accepted the process of buying the services or products for you or the needy soul will be automatically processed.  Thank you for playing your part in this world of endless Blessings.
         </p>
 
-        <Card className="mt-8 space-y-5 border-primary-foreground/20 p-4 text-primary-foreground bg-primary/50 backdrop-blur-sm sm:p-6">
+        <Card className="mt-8 space-y-5 p-4 text-foreground backdrop-blur-sm sm:p-6">
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-[120px_1fr_1fr]">
               <div className="space-y-2">
@@ -286,7 +286,7 @@ function RequestHelp() {
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
                   placeholder="At least 6 characters" />
-                <p className="text-xs text-primary-foreground/60">
+                <p className="text-xs text-muted-foreground">
                   We'll create a recipient account so you can track your blessing.
                 </p>
               </div>
@@ -320,7 +320,7 @@ function RequestHelp() {
             <div className="space-y-3">
               <div>
                 <Label>What kind of help do you need?</Label>
-                <p className="text-xs text-primary-foreground/60">
+                <p className="text-xs text-muted-foreground">
                   Add up to 5 specific needs. Pick a type and briefly describe it.
                   Food must be vegan, pure-veg, raw-organic, or a fruit &amp; veg basket.
                 </p>

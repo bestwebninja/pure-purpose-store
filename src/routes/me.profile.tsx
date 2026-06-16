@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ async function fileToBase64(file: File): Promise<string> {
 }
 
 export const Route = createFileRoute("/me/profile")({
-  head: () => ({ meta: [{ title: "My Profile — MyBlessings" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "My Profile � MyBlessings" }, { name: "robots", content: "noindex" }] }),
   component: ProfilePage,
 });
 
@@ -94,7 +94,7 @@ function ProfilePage() {
     }
     setUploading(true);
     try {
-      // Phase 2 — Image Trust Layer: profile photos must show a smiling human.
+      // Phase 2 � Image Trust Layer: profile photos must show a smiling human.
       const b64 = await fileToBase64(file);
       const verdict = await moderate({
         data: {
@@ -139,7 +139,7 @@ function ProfilePage() {
     .join("")
     .toUpperCase();
 
-  if (loading) return <div className="mx-auto max-w-2xl px-6 py-16 text-muted-foreground">Loading…</div>;
+  if (loading) return <div className="mx-auto max-w-2xl px-6 py-16 text-muted-foreground">Loading�</div>;
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
@@ -156,6 +156,8 @@ function ProfilePage() {
               type="file"
               accept="image/*"
               className="hidden"
+              aria-label="Upload profile photo"
+              title="Upload profile photo"
               onChange={onPickFile}
             />
             <Button
@@ -166,13 +168,13 @@ function ProfilePage() {
               disabled={uploading}
             >
               {uploading ? (
-                <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Uploading…</>
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Uploading�</>
               ) : (
                 <><Camera className="mr-2 h-4 w-4" />{avatarUrl ? "Change photo" : "Upload photo"}</>
               )}
             </Button>
             <p className="text-xs text-muted-foreground">Upload our drop a link to your public profile .</p>
-            <p className="text-sm text-muted-foreground text-black">
+            <p className="text-sm text-muted-foreground">
               Smiling is a must ;-) {"{"} Please upload a Smiling Happy Photo {"}"}.
             </p>
           </div>
@@ -190,10 +192,10 @@ function ProfilePage() {
             <Label htmlFor="ph">Phone</Label>
             <Input id="ph" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
-          <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save"}</Button>
+          <Button type="submit" disabled={saving}>{saving ? "Saving�" : "Save"}</Button>
           <div className="mt-8 space-y-2 border-t pt-6">
             <Label className="text-sm font-semibold">Social Accounts</Label>
-            <p className="text-sm text-muted-foreground text-black">Connected Social Accounts after you sign up.  </p>
+            <p className="text-sm text-muted-foreground">Connected Social Accounts after you sign up.  </p>
           </div>
         </form>
       </Card>

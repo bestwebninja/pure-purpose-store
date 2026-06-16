@@ -1,10 +1,10 @@
-﻿import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 /**
  * STUB: BlessingPaymentForm. Real checkout flows through Shopify via the
- * DonationPanel on the campaign route. Exact-amount funding only —
+ * DonationPanel on the campaign route. Exact-amount funding only �
  * partial / custom donations are not permitted.
  */
 export function BlessingPaymentForm({
@@ -24,7 +24,7 @@ export function BlessingPaymentForm({
   }).format(amount);
   return <Card className="p-6">
       <h3 className="text-display text-lg font-semibold">Give a Blessing</h3>
-      <p className="mt-1 text-sm text-muted-foreground text-black">
+      <p className="mt-1 text-sm text-muted-foreground">
         {campaignHandle ? `Supporting ${campaignHandle}` : "Fund the full blessing package."}
       </p>
       <div className="mt-4 rounded-lg border border-primary/30 bg-primary/5 p-4 text-center">

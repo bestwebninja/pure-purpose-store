@@ -1,4 +1,4 @@
-﻿import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Login — MyBlessings" },
+      { title: "Login � MyBlessings" },
       {
         name: "description",
         content: "Sign in to your MyBlessings dashboard to manage your giving.",
@@ -135,7 +135,7 @@ function Login() {
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center px-6 py-24">
-      <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-soft">
+      <span className="grid h-12 w-12 place-items-center rounded-full bg-gradient-primary text-foreground shadow-soft">
         <Heart className="h-5 w-5" fill="currentColor" />
       </span>
 
@@ -228,7 +228,7 @@ function Login() {
             disabled={loading}
           >
             {loading
-              ? "Please wait…"
+              ? "Please wait�"
               : mode === "signin"
               ? "Sign in"
               : "Sign up"}
@@ -252,7 +252,7 @@ function Login() {
         href="/become-blessing-sponsor"
         className="mt-6 text-sm font-medium text-primary hover:underline"
       >
-        Become a Blessing Sponsor →
+        Become a Blessing Sponsor ?
       </a>
     </div>
   );

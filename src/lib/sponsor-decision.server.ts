@@ -1,5 +1,5 @@
-ï»¿/**
- * SponsorDecisionAI â€” server-only logic.
+/**
+ * SponsorDecisionAI — server-only logic.
  *
  * Pulls the sponsor's preferences and history, gathers an unassigned candidate
  * pool from `petri_matches` and active `campaigns`, then asks Lovable AI to
@@ -30,7 +30,7 @@ export type SponsorRecommendation = {
   category: string | null;
   amount: number | null;
   currency: string;
-  score: number; // 0â€“100, AI confidence
+  score: number; // 0–100, AI confidence
   reasoning: string; // 1-sentence "AI Reasoning"
 };
 
@@ -138,7 +138,7 @@ async function loadCandidates(): Promise<Candidate[]> {
     out.push({
       id: m.id,
       source: "petri_match",
-      title: m.category ? `Match Â· ${m.category}` : `Match ${m.id.slice(0, 8)}`,
+      title: m.category ? `Match · ${m.category}` : `Match ${m.id.slice(0, 8)}`,
       category: m.category ?? null,
       amount: typeof m.cost === "string" ? Number(m.cost) : (m.cost ?? null),
       currency: m.currency ?? "USD",
@@ -163,7 +163,7 @@ async function loadCandidates(): Promise<Candidate[]> {
       category: c.category_slug ?? null,
       amount: remaining || Number(c.goal_amount ?? 0) || null,
       currency: c.currency ?? "USD",
-      summary: `${c.short_description ?? ""} Â· location=${c.location ?? "n/a"} Â· raised=${c.raised_amount}/${c.goal_amount}`.slice(0, 280),
+      summary: `${c.short_description ?? ""} · location=${c.location ?? "n/a"} · raised=${c.raised_amount}/${c.goal_amount}`.slice(0, 280),
     });
   }
 
@@ -344,7 +344,7 @@ export type FundingPackageItem = {
   country: string | null;
   composite_score: number;
   autonomy_decision: string;
-  /** Cents â€” exact integer allocation. */
+  /** Cents — exact integer allocation. */
   amount_cents: number;
   /** Decimal display amount (= amount_cents / 100). */
   amount: number;
@@ -378,7 +378,7 @@ export async function buildFundingPackage(userId: string): Promise<FundingPackag
 
   const candidates = await loadScorecardCandidates();
   if (candidates.length === 0) {
-    throw new Error("No active scorecards available â€” run Recompute first.");
+    throw new Error("No active scorecards available — run Recompute first.");
   }
 
   // Score each candidate against the funding profile.
@@ -621,7 +621,7 @@ export async function verifyFundingPackage(
   const a = Buffer.from(expected, "hex");
   const b = Buffer.from(submitted.signature, "hex");
   if (a.length !== b.length || !timingSafeEqual(a, b)) {
-    throw new Error("Funding package signature invalid â€” package was tampered with.");
+    throw new Error("Funding package signature invalid — package was tampered with.");
   }
 }
 

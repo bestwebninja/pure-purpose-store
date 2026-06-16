@@ -1,4 +1,4 @@
-ï»¿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { createHmac, timingSafeEqual } from "crypto";
 import { createClient } from "@supabase/supabase-js";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
@@ -6,14 +6,14 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 /**
  * PETRI BLOOM ARCHITECTURE (v3)
  *
- * Layer 1 â€” Data Ingestion (Raw Signals)
+ * Layer 1 — Data Ingestion (Raw Signals)
  *   requests, intents, location, budget, category_ids
  *
- * Layer 2 â€” Matching Intelligence (Petri Bloom Core)
+ * Layer 2 — Matching Intelligence (Petri Bloom Core)
  *   weighted similarity scoring, feedback-decayed multipliers,
  *   confidence_score, status: auto_match | pending_review | none
  *
- * Layer 3 â€” Real-world Execution (Impact Layer)
+ * Layer 3 — Real-world Execution (Impact Layer)
  *   confirmed matches, human review outcomes, real-world activation
  *
  * This system converts human intent into structured impact flows.
@@ -35,7 +35,7 @@ type Payload = {
   } | null;
 };
 
-const MAX_BODY_BYTES = 8 * 1024;        // 8KB cap â€” defends against payload spam
+const MAX_BODY_BYTES = 8 * 1024;        // 8KB cap — defends against payload spam
 const MAX_CATEGORY_IDS = 16;            // bounds engine + storage cost per call
 
 /**
@@ -93,7 +93,7 @@ function scoreCategory(a: string[] = [], b: string[] = []): number {
   if (!a.length || !b.length) return 0;
   const setB = new Set(b);
   if (a.some((c) => setB.has(c))) return 100;
-  // "related" heuristic placeholder â€” overlap any prefix (e.g. parent)
+  // "related" heuristic placeholder — overlap any prefix (e.g. parent)
   if (a.some((c) => b.some((d) => d.startsWith(c.slice(0, 8))))) return 60;
   return 0;
 }
@@ -190,14 +190,14 @@ export const Route = createFileRoute("/api/public/petri-bloom")({
             status === "auto_match"
               ? "Strong overall similarity across location, category, and budget."
               : status === "pending_review"
-                ? "Partial match â€” flagged for human review."
+                ? "Partial match — flagged for human review."
                 : "Insufficient signal overlap to qualify as a match.",
         };
         const message =
           status === "auto_match"
             ? "Strong match found."
             : status === "pending_review"
-              ? "Possible match â€” needs review."
+              ? "Possible match — needs review."
               : "No qualifying match yet.";
 
         // Non-blocking persistence; ignore errors so the engine never breaks callers.
