@@ -123,10 +123,6 @@ export function SiteHeader() {
                 <DropdownMenuLabel>Admin tools</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
-                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
-                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
-                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
-                                  <DropdownMenuItem asChild className="focus:bg-muted focus:text-foreground data-[highlighted]:bg-muted data-[highlighted]:text-foreground">
                   <Link to="/admin/command-center">Command Center</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
@@ -153,7 +149,7 @@ export function SiteHeader() {
         </nav>
         
         <div className="flex shrink-0 items-center gap-2">
-          <Sheet>
+
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="lg:hidden text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent" aria-label="Open menu">
                               <Button variant="ghost" size="icon" className="lg:hidden text-foreground hover:bg-muted hover:text-foreground" aria-label="Open menu">
