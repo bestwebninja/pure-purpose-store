@@ -242,16 +242,14 @@ export function SiteHeader() {
           </Sheet>
           
           {!isSponsor && (
-            <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap xl:inline-flex text-primary hover:bg-accent hover:text-accent-foreground">
-                          <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap text-foreground xl:inline-flex hover:bg-muted hover:text-foreground">
+            <Button asChild variant="ghost" size="sm" className="hidden text-sm whitespace-nowrap text-foreground xl:inline-flex hover:bg-muted hover:text-foreground">
               <Link to="/become-blessing-sponsor">Become a Sponsor</Link>
             </Button>
           )}
           
           {userId ? (
             <DropdownMenu>
-              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md bg-accent px-3 text-sm font-semibold text-accent-foreground shadow-soft outline-none transition hover:bg-accent/90 sm:inline-flex">
-                              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-sm font-semibold text-foreground shadow-soft outline-none transition hover:bg-muted sm:inline-flex">
+              <DropdownMenuTrigger className="hidden h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-sm font-semibold text-foreground shadow-soft outline-none transition hover:bg-muted sm:inline-flex">
                 <Avatar className="h-7 w-7">
                   {avatarUrl ? <AvatarImage src={avatarUrl} alt={displayName ?? "Account"} /> : null}
                   <AvatarFallback className="text-[11px]">{initials}</AvatarFallback>
@@ -259,8 +257,7 @@ export function SiteHeader() {
                 <span className="hidden md:inline">Account</span>
                 <ChevronDown className="h-3.5 w-3.5 " />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                              <DropdownMenuContent align="end" className="w-48 bg-background text-foreground">
+              <DropdownMenuContent align="end" className="w-48 bg-background text-foreground">
                 <DropdownMenuItem asChild className="focus:bg-accent focus:text-accent-foreground data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground">
                   <Link to="/me/giving">My Giving</Link>
                 </DropdownMenuItem>
