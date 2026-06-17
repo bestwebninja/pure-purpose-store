@@ -86,7 +86,7 @@ function SponsorDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="surface-card" className="p-6">
+        <div className="surface-card p-6">
           <h2 className="text-sm font-semibold text-muted-foreground">Profile</h2>
           <dl className="mt-3 space-y-2 text-sm">
             <div><dt className="inline text-muted-foreground">Role: </dt><dd className="inline font-medium">{sponsor.sponsor_role}</dd></div>
@@ -96,7 +96,7 @@ function SponsorDashboard() {
           </dl>
         </div>
 
-        <div className="surface-card" className="p-6">
+        <div className="surface-card p-6">
           <h2 className="text-sm font-semibold text-muted-foreground">Help Interests</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {sponsor.help_interests.length === 0 ? (
