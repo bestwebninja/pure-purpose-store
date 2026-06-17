@@ -124,7 +124,7 @@ function AdminMatchControl() {
         {matches === null && <p className="text-sm text-muted-foreground">Loading�</p>}
         {matches?.length === 0 && <p className="text-sm text-muted-foreground">No matches yet.</p>}
         {matches?.map((m) => (
-          <div className="surface-card" key={m.id} className="p-4 sm:p-5">
+          <div key={m.id} className="surface-card p-4 sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">

@@ -121,14 +121,13 @@ function AdminDashboard() {
             {/* Mobile: card list */}
             <div className="space-y-3 md:hidden">
               {vettingMatrix.map((m, i) => (
-                <div className="surface-card"
+                <div
                   key={`m-${i}`}
-                  className={`p-4 ${
+                 className={`surface-card p-4 ${
                     m.status === "FAIL" ? "border-destructive/40 bg-destructive/10" :
                     m.status === "FLAG" ? "border-accent/40 bg-accent/15" :
                     "border-success/30 bg-success/10"
-                  }`}
-                >
+                  }`}>
                   <div className="flex items-start justify-between gap-2">
                     <h4 className="text-sm font-semibold text-foreground break-words">{m.point}</h4>
                     <Badge variant={m.status === "PASS" ? "default" : m.status === "FAIL" ? "destructive" : "secondary"}>
