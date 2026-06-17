@@ -149,15 +149,13 @@ export function SiteHeader() {
         </nav>
         
         <div className="flex shrink-0 items-center gap-2">
-
+          <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden text-primary-foreground hover:bg-primary-foreground/10 hover:text-accent" aria-label="Open menu">
-                              <Button variant="ghost" size="icon" className="lg:hidden text-foreground hover:bg-muted hover:text-foreground" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="lg:hidden text-foreground hover:bg-muted hover:text-foreground" aria-label="Open menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto">
-                          <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto bg-background text-foreground">
+            <SheetContent side="right" className="w-[min(20rem,90vw)] overflow-y-auto bg-background text-foreground">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
