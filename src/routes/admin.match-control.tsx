@@ -109,7 +109,7 @@ function AdminMatchControl() {
   if (error) {
     return (
       <AdminShell eyebrow="Admin � Matches" title="Match Control">
-        <div className="surface-card" className="p-6"><p className="text-sm text-destructive">{error}</p></div>
+        <div className="surface-card p-6"><p className="text-sm text-destructive">{error}</p></div>
       </AdminShell>
     );
   }

@@ -277,7 +277,7 @@ function PetriGraphPage() {
       </div>
 
       <div className="mt-6 grid gap-4 sm:gap-6 lg:grid-cols-[1fr_320px]">
-        <div className="surface-card" className="surface-card p-3 sm:p-4">
+        <div className="surface-card surface-card p-3 sm:p-4">
            {!graphLoaded ? (
              <p className="p-8 text-center text-sm text-muted-foreground">
                Loading Petri graph…
@@ -300,7 +300,7 @@ function PetriGraphPage() {
           )}
         </div>
 
-        <div className="surface-card" className="surface-card p-4">
+        <div className="surface-card surface-card p-4">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Inspector</h2>
           {!selectedNode && !selectedEdge && (
             <p className="mt-3 text-sm text-muted-foreground">Click a node or edge to inspect.</p>

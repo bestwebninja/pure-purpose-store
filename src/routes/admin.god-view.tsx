@@ -114,7 +114,7 @@ function StatTile({ label, value, hint, tone }: { label: string; value: string |
     info: "ring-primary/30",
   }[tone ?? "info"];
   return (
-    <div className="surface-card" className={`p-4 ring-1 ${ring}`}>
+    <div className={`surface-card p-4 ring-1 ${ring}`}>
       <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</div>
       <div className="mt-1 text-2xl font-semibold tabular-nums">{value}</div>
       {hint ? <div className="mt-1 text-xs text-muted-foreground">{hint}</div> : null}
@@ -317,7 +317,7 @@ function GodView() {
   if (!isAdmin) {
     return (
       <AdminShell eyebrow="Admin � God View" title="God View">
-        <div className="surface-card" className="p-6">
+        <div className="surface-card p-6">
           <p className="text-sm">This console is restricted to operators with the admin role.</p>
         </div>
       </AdminShell>
@@ -391,7 +391,7 @@ function GodView() {
         </TabsList>
 
         <TabsContent value="priority" className="mt-4">
-          <div className="surface-card" className="p-0">
+          <div className="surface-card p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding Priority Queue</h2>
@@ -473,7 +473,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="map" className="mt-4">
-          <div className="surface-card" className="p-6">
+          <div className="surface-card p-6">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Global Map</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Geographic distribution of cases, sponsors, and providers. Map renderer comes online in Phase 4 � counts shown above
@@ -483,7 +483,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="sponsors" className="mt-4">
-          <div className="surface-card" className="p-4">
+          <div className="surface-card p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor pipeline</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Total" value={counts.sponsors} tone="info" />
@@ -494,7 +494,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="funding" className="mt-4">
-          <div className="surface-card" className="p-4">
+          <div className="surface-card p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Funding flow</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
@@ -505,7 +505,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="fulfillment" className="mt-4">
-          <div className="surface-card" className="p-0">
+          <div className="surface-card p-0">
             <div className="flex items-center justify-between p-4">
               <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Recent fulfillment events</h2>
               <Badge variant="outline">{events.length}</Badge>
@@ -538,7 +538,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="suppliers" className="mt-4">
-          <div className="surface-card" className="p-4">
+          <div className="surface-card p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
             <p className="text-sm text-muted-foreground">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
@@ -548,7 +548,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="ngo" className="mt-4">
-          <div className="surface-card" className="p-4">
+          <div className="surface-card p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">NGO trust</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Applications" value={counts.ngos} tone="info" />
@@ -559,7 +559,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="ai" className="mt-4">
-          <div className="surface-card" className="p-0">
+          <div className="surface-card p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">AI Decisions Feed</h2>
@@ -620,7 +620,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="treasury" className="mt-4">
-          <div className="surface-card" className="p-4">
+          <div className="surface-card p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Treasury</h2>
             <div className="grid gap-3 sm:grid-cols-3">
               <StatTile label="Lifetime donations" value={fmtMoney(counts.donationsTotal)} tone="ok" />
@@ -631,7 +631,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="reports" className="mt-4">
-          <div className="surface-card" className="p-0">
+          <div className="surface-card p-0">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Sponsor Reports � Funding Flywheel</h2>
@@ -700,7 +700,7 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="autonomy" className="mt-4">
-          <div className="surface-card" className="p-0">
+          <div className="surface-card p-0">
             <div className="flex items-center justify-between border-b p-4">
               <div>
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Autonomy levers</h2>
