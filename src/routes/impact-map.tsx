@@ -45,15 +45,7 @@ function ImpactMapPage() {
       {counts && <div className="mt-8"><BlessingLifecycle counts={counts} compact /></div>}
       <Card className="mt-8 p-6 border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground">
         {data && data.regions.length === 0 ? (
-<<<<<<< HEAD
           <p className="text-sm text-muted-foreground">No regional impact data yet.</p>
-=======
-          <div className="flex flex-col items-center gap-2 py-10 text-center">
-            <MapPin className="h-8 w-8 text-primary-foreground/40" />
-            <p className="text-sm text-primary-foreground/70">No regional impact data yet for the United States or Israel.</p>
-            <p className="text-xs text-primary-foreground/50">Once blessings land, they will appear here.</p>
-          </div>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         ) : (
           <ul className="space-y-3">
             {data?.regions.map((r) => (
@@ -63,11 +55,7 @@ function ImpactMapPage() {
                     <MapPin className="h-4 w-4 text-primary-foreground/60" />
                     {r.location}
                   </span>
-<<<<<<< HEAD
                   <span className="text-muted-foreground">{fmt(r.raised)} � {r.donors} blessings � {r.count} campaigns</span>
-=======
-                  <span className="text-primary-foreground/70">{fmt(r.raised)} · {r.donors} blessings · {r.count} campaigns</span>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
                 </div>
                 <div className="mt-1 h-2 overflow-hidden rounded-full bg-primary-foreground/10">
                   <div className="h-full rounded-full bg-accent" style={{ width: `${Math.round((r.raised / max) * 100)}%` }} />

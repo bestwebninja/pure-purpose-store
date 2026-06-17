@@ -368,13 +368,8 @@ function GiveABlessing() {
               </p>
               <div className="flex justify-between">
                 <Button variant="ghost" onClick={() => setStep(3)}>Back</Button>
-<<<<<<< HEAD
                 <Button onClick={onSubmit} disabled={submitting}>
                   {submitting ? "Saving…" : "Submit & Continue to Checkout"}
-=======
-                <Button variant="blessing" onClick={onSubmit} disabled={submitting}>
-                  {submitting ? "Savingâ€¦" : "Submit & Continue to Checkout"}
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
                 </Button>
               </div>
             </>

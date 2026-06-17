@@ -108,13 +108,8 @@ function AdminMatchControl() {
 
   if (error) {
     return (
-<<<<<<< HEAD
       <AdminShell eyebrow="Admin � Matches" title="Match Control">
         <div className="surface-card" className="p-6"><p className="text-sm text-destructive">{error}</p></div>
-=======
-      <AdminShell eyebrow="Admin · Matches" title="Match Control">
-        <DashboardCard><p className="text-sm text-destructive">{error}</p></DashboardCard>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
       </AdminShell>
     );
   }
@@ -129,11 +124,7 @@ function AdminMatchControl() {
         {matches === null && <p className="text-sm text-muted-foreground">Loading�</p>}
         {matches?.length === 0 && <p className="text-sm text-muted-foreground">No matches yet.</p>}
         {matches?.map((m) => (
-<<<<<<< HEAD
           <div className="surface-card" key={m.id} className="p-4 sm:p-5">
-=======
-          <DashboardCard key={m.id}>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
             <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
@@ -183,11 +174,7 @@ function AdminMatchControl() {
                 ))}
               </div>
             )}
-<<<<<<< HEAD
           </div>
-=======
-          </DashboardCard>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
         ))}
       </div>
     </AdminShell>
