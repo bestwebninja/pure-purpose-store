@@ -172,19 +172,11 @@ export function PetriGraphView({ nodes, edges, onNodeSelect, onEdgeSelect, width
         </div>
       )}
       <div className="mt-3 flex flex-wrap gap-4 text-xs text-muted-foreground">
-<<<<<<< HEAD
         <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "#2563eb" }} /> Help Request</span>
         <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "#f5c518" }} /> Sponsor Intent</span>
         <span><span className="inline-block h-1 w-6" style={{ background: "#16a34a" }} /> auto_match</span>
         <span><span className="inline-block h-1 w-6" style={{ background: "#eab308" }} /> pending_review</span>
         <span>Scroll to zoom · drag to pan</span>
-=======
-        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "var(--primary)" }} /> Help Request</span>
-        <span><span className="inline-block h-3 w-3 rounded-full" style={{ background: "var(--accent)" }} /> Sponsor Intent</span>
-        <span><span className="inline-block h-1 w-6" style={{ background: "var(--success)" }} /> auto_match</span>
-        <span><span className="inline-block h-1 w-6" style={{ background: "var(--warning)" }} /> pending_review</span>
-        <span>Scroll to zoom Â· drag to pan</span>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
       </div>
     </div>
   );

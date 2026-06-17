@@ -269,23 +269,6 @@
     .bg-gradient-primary,
     .bg-shell-navy,
     [class*="bg-[#081C50]"]
-<<<<<<< HEAD
-=======
-  ) [class*="text-slate-"],
-  :where(
-    .bg-primary,
-    .bg-gradient-hero,
-    .bg-gradient-primary,
-    .bg-shell-navy,
-    [class*="bg-[#081C50]"]
-  ) [class*="text-gray-"],
-  :where(
-    .bg-primary,
-    .bg-gradient-hero,
-    .bg-gradient-primary,
-    .bg-shell-navy,
-    [class*="bg-[#081C50]"]
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
   ) [class*="text-zinc-"],
   :where(
     .bg-primary,

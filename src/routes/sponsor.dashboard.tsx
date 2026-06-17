@@ -77,11 +77,7 @@ function SponsorDashboard() {
     <div className="mx-auto max-w-5xl space-y-6 px-6 py-12">
       <div className="flex items-center justify-between">
         <div>
-<<<<<<< HEAD
           <h1 className="text-display text-3xl font-semibold text-foreground">Sponsor Dashboard</h1>
-=======
-          <h1 className="text-display text-3xl font-semibold text-primary-foreground">Sponsor Dashboard</h1>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
           <p className="text-sm text-muted-foreground">Welcome back, {sponsor.organization_name || sponsor.sponsor_role}.</p>
         </div>
         <Badge variant={sponsor.verification_status === "VERIFIED" ? "default" : "secondary"}>

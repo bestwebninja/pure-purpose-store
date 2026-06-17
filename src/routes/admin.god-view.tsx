@@ -538,13 +538,8 @@ function GodView() {
         </TabsContent>
 
         <TabsContent value="suppliers" className="mt-4">
-<<<<<<< HEAD
           <div className="surface-card" className="p-4">
             <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suppliers / providers</h2>
-=======
-          <Card className="p-4">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground/70">Suppliers / providers</h2>
->>>>>>> 0fda86d7ee521118278c9b3c1a384b9a6a990537
             <p className="text-sm text-muted-foreground">
               {counts.providers} active provider{counts.providers === 1 ? "" : "s"} on file. Detailed supplier scorecards
               ship with the routing engine in Phase 4.
